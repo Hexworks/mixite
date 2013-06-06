@@ -46,7 +46,7 @@ class HexagonImpl implements Hexagon {
 			return this;
 		}
 
-		public Builder leftOffset(int leftOffset) {
+		public Builder maxLeftOffset(int leftOffset) {
 			this.leftOffset = leftOffset;
 			return this;
 		}
