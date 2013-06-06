@@ -28,11 +28,11 @@ public class Main {
 		Shell shell = new Shell(display);
 
 		// params for grid
-		final int width = 1600;
+		final int width = 1280;
 		final int height = 900;
-		int gridWidth = 50;
-		int gridHeight = 30;
-		int radius = 18;
+		int gridWidth = 25;
+		int gridHeight = 15;
+		int radius = 25;
 
 		shell.setSize(width, height);
 		final Canvas canvas = new Canvas(shell, SWT.NONE);

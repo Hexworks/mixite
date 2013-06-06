@@ -6,10 +6,11 @@ class HexagonImpl implements Hexagon {
 	private final double radius;
 	private final double centerX;
 	private final double centerY;
+	/**
+	 * The height of a {@link Hexagon} is the distance between its two flat sides.
+	 */
 	private final double height;
 	private final int leftOffset;
-	@SuppressWarnings("unused")
-	private final double width;
 	private final double side;
 	private int gridX;
 	private int gridY;
@@ -62,7 +63,6 @@ class HexagonImpl implements Hexagon {
 		this.gridX = builder.gridX;
 		this.gridY = builder.gridY;
 		this.leftOffset = builder.leftOffset;
-		this.width = calculateWidth(radius);
 		this.height = calculateHeight(radius);
 		this.side = calculateSide(radius);
 		if (HexagonOrientation.FLAT.equals(orientation)) {
@@ -82,10 +82,11 @@ class HexagonImpl implements Hexagon {
 		return Math.sqrt(3) * radius;
 	}
 
-	private double calculateWidth(double radius) {
-		return radius * 2;
-	}
-
+	/**
+	 * Since the
+	 * 
+	 * @return
+	 */
 	private double calculateOffset() {
 		double ret;
 		if (HexagonOrientation.POINTY.equals(orientation)) {

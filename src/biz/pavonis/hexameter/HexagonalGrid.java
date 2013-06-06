@@ -17,6 +17,9 @@ import biz.pavonis.hexameter.exception.HexagonNotFoundException;
  * range</li>
  * <li>getting a {@link Hexagon} by a pixel coordinate</li>
  * </ul>
+ * This {@link HexagonalGrid} uses an axial (trapezoidal) coordinate system for easier
+ * computation. This means that apart from the X axis a diagonal axis is used instead of
+ * the vertical Y axis.
  */
 public interface HexagonalGrid {
 
