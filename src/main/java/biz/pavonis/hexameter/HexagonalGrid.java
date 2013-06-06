@@ -1,6 +1,7 @@
 package biz.pavonis.hexameter;
 
-import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import biz.pavonis.hexameter.exception.HexagonNotFoundException;
 
@@ -17,25 +18,28 @@ import biz.pavonis.hexameter.exception.HexagonNotFoundException;
  * range</li>
  * <li>getting a {@link Hexagon} by a pixel coordinate</li>
  * </ul>
+ * This {@link HexagonalGrid} uses an axial (trapezoidal) coordinate system for easier
+ * computation. This means that apart from the X axis a diagonal axis is used instead of
+ * the vertical Y axis.
  */
 public interface HexagonalGrid {
 
 	/**
 	 * Returns all {@link Hexagon}s contained in this grid.
 	 * 
-	 * @return 2d {@link List} of {@link Hexagon}s.
+	 * @return hexagons
 	 */
-	List<List<Hexagon>> getHexagons();
+	Map<String, Hexagon> getHexagons();
 
 	/**
 	 * Fetches a {@link Hexagon} by its grid coordinate. If no {@link Hexagon} found at the given location it throws a
 	 * {@link HexagonNotFoundException}.
 	 * 
-	 * @param x grid x coordinate
-	 * @param y grid y coordinate
+	 * @param gridX grid x coordinate
+	 * @param gridZ grid z coordinate
 	 * @return {@link Hexagon}
 	 */
-	Hexagon getByGridCoordinate(int x, int y);
+	Hexagon getByGridCoordinate(int gridX, int gridZ);
 
 	/**
 	 * Returns all neighbors of a {@link Hexagon}.
@@ -43,7 +47,7 @@ public interface HexagonalGrid {
 	 * @param hexagon {@link Hexagon}
 	 * @return the {@link Hexagon}'s neighbors
 	 */
-	List<Hexagon> getNeighborsOf(Hexagon hexagon);
+	Set<Hexagon> getNeighborsOf(Hexagon hexagon);
 
 	/**
 	 * Calculates the distance (in hexagons) between two {@link Hexagon} objects on the grid.
@@ -61,7 +65,7 @@ public interface HexagonalGrid {
 	 * @param distance
 	 * @return {@link Hexagon}s within distance (inclusive)
 	 */
-	List<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance);
+	Set<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance);
 
 	/**
 	 * Returns a {@link Hexagon} by a pixel coordinate. Throws {@link HexagonNotFoundException} if there were no
@@ -73,5 +77,10 @@ public interface HexagonalGrid {
 	 * @param y pixel y coordinate
 	 * @return {@link Hexagon}
 	 */
-	Hexagon getByPixelCoordinate(int x, int y);
+	Hexagon getByPixelCoordinate(double x, double y);
+
+	/**
+	 * Clears all satellite data attached to the {@link Hexagon}s in this grid.
+	 */
+	void clearSatelliteData();
 }

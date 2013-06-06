@@ -15,8 +15,9 @@ import biz.pavonis.hexameter.exception.HexagonalGridCreationException;
 public class HexagonalGridBuilder {
 	private int gridWidth;
 	private int gridHeight;
-	private HexagonOrientation orientation = HexagonOrientation.POINTY;
 	private double radius;
+	private HexagonOrientation orientation = HexagonOrientation.POINTY_TOP;
+	private HexagonGridLayout gridLayout = HexagonGridLayout.RECTANGULAR;
 
 	/**
 	 * Mandatory parameter. Sets the number of {@link Hexagon}s in the horizontal direction.
@@ -64,6 +65,18 @@ public class HexagonalGridBuilder {
 	}
 
 	/**
+	 * Sets the {@link HexagonGridLayout} which will be used when creating the {@link HexagonalGrid}.
+	 * If it is not set <pre>RECTANGULAR</pre> will be assumed.
+	 * 
+	 * @param gridLayout
+	 * @return this {@link HexagonalGridBuilder}.
+	 */
+	public HexagonalGridBuilder setGridLayout(HexagonGridLayout gridLayout) {
+		this.gridLayout = gridLayout;
+		return this;
+	}
+
+	/**
 	 * Builds a {@link HexagonalGrid} using the parameters supplied.
 	 * Throws {@link HexagonalGridCreationException} if not all mandatory parameters
 	 * are filled.
@@ -78,12 +91,21 @@ public class HexagonalGridBuilder {
 	private void checkParameters() {
 		if (gridWidth <= 0) {
 			throw new HexagonalGridCreationException("Grid width must be greater than 0.");
-		} else if (gridHeight <= 0) {
+		}
+		if (gridHeight <= 0) {
 			throw new HexagonalGridCreationException("Grid height must be greater than 0.");
-		} else if (orientation == null) {
-			throw new HexagonalGridCreationException("Orientation must not be null.");
-		} else if (radius <= 0) {
+		}
+		if (orientation == null) {
+			throw new HexagonalGridCreationException("Orientation must be set.");
+		}
+		if (radius <= 0) {
 			throw new HexagonalGridCreationException("Radius must be greater than 0.");
+		}
+		if (gridLayout == null) {
+			throw new HexagonalGridCreationException("Grid layout must be set.");
+		}
+		if (!gridLayout.checkParameters(gridHeight, gridWidth)) {
+			throw new HexagonalGridCreationException("Width: " + gridWidth + " and height: " + gridHeight + " is not valid for: " + gridLayout.name() + " layout.");
 		}
 	}
 
@@ -101,6 +123,17 @@ public class HexagonalGridBuilder {
 
 	HexagonOrientation getOrientation() {
 		return orientation;
+	}
+
+	GridLayoutStrategy getGridLayoutStrategy() {
+		return gridLayout.getGridLayoutStrategy();
+	}
+
+	SharedHexagonData getSharedHexagonData() {
+		if (orientation == null || radius == 0) {
+			throw new IllegalStateException("orientation or radius is not yet initialized");
+		}
+		return new SharedHexagonData(orientation, radius);
 	}
 
 }
