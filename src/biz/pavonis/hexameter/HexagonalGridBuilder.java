@@ -17,6 +17,7 @@ public class HexagonalGridBuilder {
 	private int gridHeight;
 	private HexagonOrientation orientation = HexagonOrientation.POINTY;
 	private double radius;
+	private GridLayout gridLayout = GridLayout.RECTANGULAR;
 
 	/**
 	 * Mandatory parameter. Sets the number of {@link Hexagon}s in the horizontal direction.
@@ -64,6 +65,18 @@ public class HexagonalGridBuilder {
 	}
 
 	/**
+	 * Sets the {@link GridLayout} which will be used when creating the {@link HexagonalGrid}.
+	 * If it is not set <pre>RECTANGULAR</pre> will be assumed.
+	 * 
+	 * @param gridLayout
+	 * @return this {@link HexagonalGridBuilder}.
+	 */
+	public HexagonalGridBuilder setGridLayout(GridLayout gridLayout) {
+		this.gridLayout = gridLayout;
+		return this;
+	}
+
+	/**
 	 * Builds a {@link HexagonalGrid} using the parameters supplied.
 	 * Throws {@link HexagonalGridCreationException} if not all mandatory parameters
 	 * are filled.
@@ -81,9 +94,11 @@ public class HexagonalGridBuilder {
 		} else if (gridHeight <= 0) {
 			throw new HexagonalGridCreationException("Grid height must be greater than 0.");
 		} else if (orientation == null) {
-			throw new HexagonalGridCreationException("Orientation must not be null.");
+			throw new HexagonalGridCreationException("Orientation must be set.");
 		} else if (radius <= 0) {
 			throw new HexagonalGridCreationException("Radius must be greater than 0.");
+		} else if (gridLayout == null) {
+			throw new HexagonalGridCreationException("Grid layout must be set.");
 		}
 	}
 
@@ -101,6 +116,10 @@ public class HexagonalGridBuilder {
 
 	HexagonOrientation getOrientation() {
 		return orientation;
+	}
+
+	GridLayout getGridLayout() {
+		return gridLayout;
 	}
 
 }
