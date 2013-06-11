@@ -1,4 +1,4 @@
-package biz.pavonis.hexameter.testapp;
+package biz.pavonis.hexameter.example;
 
 import java.util.List;
 

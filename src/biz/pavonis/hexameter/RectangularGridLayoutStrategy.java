@@ -6,6 +6,10 @@ import java.util.List;
 
 import biz.pavonis.hexameter.HexagonImpl.Builder;
 
+/**
+ * This strategy is responsible for generating a {@link HexagonalGrid} which has a rectangular
+ * shape.
+ */
 class RectangularGridLayoutStrategy implements GridLayoutStrategy {
 
 	private int gridHeight;

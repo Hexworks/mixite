@@ -2,6 +2,7 @@ package biz.pavonis.hexameter;
 
 import java.util.List;
 
+
 interface GridLayoutStrategy {
 
 	/**
