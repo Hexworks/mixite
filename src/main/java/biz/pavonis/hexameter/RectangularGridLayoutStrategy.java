@@ -17,9 +17,9 @@ class RectangularGridLayoutStrategy implements GridLayoutStrategy {
 	@Override
 	public List<List<Hexagon>> createHexagons(HexagonalGridBuilder builder) {
 		gridHeight = builder.getGridHeight();
-		ArrayList<List<Hexagon>> hexagons = new ArrayList<>(gridHeight);
+		ArrayList<List<Hexagon>> hexagons = new ArrayList<List<Hexagon>>(gridHeight);
 		for (int y = 0; y < builder.getGridHeight(); y++) {
-			List<Hexagon> innerList = new ArrayList<>(builder.getGridWidth());
+			List<Hexagon> innerList = new ArrayList<Hexagon>(builder.getGridWidth());
 			for (int x = 0; x < builder.getGridWidth(); x++) {
 				Builder hexBuilder = new HexagonImpl.Builder().orientation(builder.getOrientation())
 						.radius(builder.getRadius()).gridX(x + calculateCurrentOffset(y)).gridY(y)
