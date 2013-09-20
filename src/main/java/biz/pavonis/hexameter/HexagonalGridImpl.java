@@ -20,6 +20,7 @@ class HexagonalGridImpl implements HexagonalGrid {
 	private static final int NEIGHBOR_Z_INDEX = 1;
 	private GridLayoutStrategy gridLayoutStrategy;
 	private SharedHexagonData sharedHexagonData;
+	// TODO: this should be refactored to allow other storage solutions (like a database)
 	private Map<String, Hexagon> hexagons;
 	@SuppressWarnings("unused")
 	private Logger logger;
