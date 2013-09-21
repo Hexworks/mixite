@@ -1,6 +1,7 @@
 package biz.pavonis.hexameter;
 
 import static biz.pavonis.hexameter.HexagonalGridImpl.createKeyFromCoordinate;
+import static java.lang.Math.floor;
 import static java.lang.Math.max;
 import static java.lang.Math.round;
 
@@ -14,18 +15,16 @@ import java.util.Map;
 class HexagonalGridLayoutStrategy implements GridLayoutStrategy {
 
 	public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
-		int gridSize = builder.getGridHeight();
+		double gridSize = builder.getGridHeight();
 		Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();
-		int mid = (int) Math.floor(gridSize / 2);
-		int startX = (int) round(gridSize / 4) + 1;
-		int midStartX = startX - mid;
-		// TODO: this whole mess is not OK but I'm too tired now. Fix it later.
+		int startX = HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? (int) floor(gridSize / 2d) : (int) round(gridSize / 4d);
+		int hexRadius = (int) floor(gridSize / 2d);
+		int minX = startX - hexRadius;
 		for (int y = 0; y < gridSize; y++) {
-			int distanceFromMid = Math.abs(mid - y);
-			int currStartX = max(midStartX, startX);
-			for (int x = currStartX; x < currStartX + gridSize - distanceFromMid; x++) {
-				int gridX = HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? x + mid / 2 : x;
-				int gridZ = HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? y - mid / 2 : y;
+			int distanceFromMid = Math.abs(hexRadius - y);
+			for (int x = max(startX, minX); x <= max(startX, minX) + hexRadius + hexRadius - distanceFromMid; x++) {
+				int gridX = x;
+				int gridZ = HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? y - (int) floor(gridSize / 4d) : y;
 				Hexagon hexagon = new HexagonImpl(builder.getSharedHexagonData(), gridX, gridZ);
 				hexagons.put(createKeyFromCoordinate(gridX, gridZ), hexagon);
 			}

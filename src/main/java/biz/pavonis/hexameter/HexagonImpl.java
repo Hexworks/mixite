@@ -23,7 +23,6 @@ class HexagonImpl implements Hexagon {
 		double radius = sharedHexagonData.getRadius();
 		this.gridX = gridX;
 		this.gridZ = gridZ;
-		// TODO: this is ugly. I'll figure out something...
 		if (HexagonOrientation.FLAT_TOP.equals(sharedHexagonData.getOrientation())) {
 			centerX = gridX * width + radius;
 			centerY = gridZ * height + gridX * height / 2 + height / 2;

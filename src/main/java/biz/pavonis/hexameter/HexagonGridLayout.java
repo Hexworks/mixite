@@ -19,7 +19,11 @@ public enum HexagonGridLayout {
 	/**
 	 * A triangular layout must have equal width and height.
 	 */
-	TRIANGULAR(new TriangularGridLayoutStrategy());
+	TRIANGULAR(new TriangularGridLayoutStrategy()),
+	/**
+	 * A rhombus layout has no special rules.
+	 */
+	RHOMBUS(new RhombusGridLayoutStrategy());
 
 	private GridLayoutStrategy gridLayoutStrategy;
 
