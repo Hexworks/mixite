@@ -1,9 +1,9 @@
-package biz.pavonis.hexameter;
+package biz.pavonis.hexameter.api;
 
 /**
  * Represents a point.
  */
-public class Point {
+public final class Point {
 	public double x;
 	public double y;
 
@@ -20,7 +20,7 @@ public class Point {
 	 * @param p1
 	 * @return distance
 	 */
-	public static double distance(Point p0, Point p1) {
+	public final static double distance(Point p0, Point p1) {
 		return Math.sqrt((p0.x - p1.x) * (p0.x - p1.x) + (p0.y - p1.y) * (p0.y - p1.y));
 	}
 }

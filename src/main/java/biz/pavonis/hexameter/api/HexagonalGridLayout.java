@@ -1,12 +1,19 @@
-package biz.pavonis.hexameter;
+package biz.pavonis.hexameter.api;
+
+import biz.pavonis.hexameter.internal.impl.layoutstrategy.CustomGridLayoutStrategy;
+import biz.pavonis.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy;
+import biz.pavonis.hexameter.internal.impl.layoutstrategy.HexagonalGridLayoutStrategy;
+import biz.pavonis.hexameter.internal.impl.layoutstrategy.RectangularGridLayoutStrategy;
+import biz.pavonis.hexameter.internal.impl.layoutstrategy.RhombusGridLayoutStrategy;
+import biz.pavonis.hexameter.internal.impl.layoutstrategy.TriangularGridLayoutStrategy;
 
 /**
  * This enum represents the possible shapes a {@link HexagonalGrid} can have.
- * The name {@link HexagonGridLayout} might seem inconsistent with the other names
+ * The name {@link HexagonalGridLayout} might seem inconsistent with the other names
  * in this package but since the name GridLayout is so common (in SWT for example)
  * using this name seemed appropriate.
  */
-public enum HexagonGridLayout {
+public enum HexagonalGridLayout {
 	/**
 	 * A rectangular layout has no special rules.
 	 */
@@ -23,15 +30,22 @@ public enum HexagonGridLayout {
 	/**
 	 * A rhombus layout has no special rules.
 	 */
-	RHOMBUS(new RhombusGridLayoutStrategy());
+	RHOMBUS(new RhombusGridLayoutStrategy()),
+
+	/**
+	 * Represents a custom grid layout strategy. It will
+	 * add {@link Hexagon}s to the grid based on the coordinates
+	 * set by the user.
+	 */
+	CUSTOM(new CustomGridLayoutStrategy());
 
 	private GridLayoutStrategy gridLayoutStrategy;
 
-	private HexagonGridLayout(GridLayoutStrategy gridLayoutStrategy) {
+	private HexagonalGridLayout(GridLayoutStrategy gridLayoutStrategy) {
 		this.gridLayoutStrategy = gridLayoutStrategy;
 	}
 
-	GridLayoutStrategy getGridLayoutStrategy() {
+	public GridLayoutStrategy getGridLayoutStrategy() {
 		return gridLayoutStrategy;
 	}
 

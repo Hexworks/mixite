@@ -1,4 +1,4 @@
-package biz.pavonis.hexameter;
+package biz.pavonis.hexameter.api;
 
 /**
  * Enum representing the possible orientations of a {@link Hexagon}. The names
@@ -21,7 +21,7 @@ public enum HexagonOrientation {
 	 * 
 	 * @return offset
 	 */
-	float getCoordinateOffset() {
+	public float getCoordinateOffset() {
 		return coordinateOffset;
 	}
 

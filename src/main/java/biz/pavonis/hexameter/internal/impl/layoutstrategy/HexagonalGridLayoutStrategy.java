@@ -1,6 +1,6 @@
-package biz.pavonis.hexameter;
+package biz.pavonis.hexameter.internal.impl.layoutstrategy;
 
-import static biz.pavonis.hexameter.HexagonalGridImpl.createKeyFromCoordinate;
+import static biz.pavonis.hexameter.api.CoordinateConverter.createKeyFromCoordinate;
 import static java.lang.Math.floor;
 import static java.lang.Math.max;
 import static java.lang.Math.round;
@@ -8,13 +8,19 @@ import static java.lang.Math.round;
 import java.util.HashMap;
 import java.util.Map;
 
+import biz.pavonis.hexameter.api.Hexagon;
+import biz.pavonis.hexameter.api.HexagonOrientation;
+import biz.pavonis.hexameter.api.HexagonalGrid;
+import biz.pavonis.hexameter.api.HexagonalGridBuilder;
+import biz.pavonis.hexameter.internal.impl.HexagonImpl;
+
 /**
  * This strategy is responsible for generating a {@link HexagonalGrid} which has a hexagonal
  * shape.
  */
-class HexagonalGridLayoutStrategy implements GridLayoutStrategy {
+public final class HexagonalGridLayoutStrategy extends AbstractGridLayoutStrategy {
 
-	public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
+	public final Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
 		double gridSize = builder.getGridHeight();
 		Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();
 		int startX = HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? (int) floor(gridSize / 2d) : (int) round(gridSize / 4d);
@@ -30,10 +36,11 @@ class HexagonalGridLayoutStrategy implements GridLayoutStrategy {
 			}
 			startX--;
 		}
+		addCustomHexagons(builder, hexagons);
 		return hexagons;
 	}
 
-	public boolean checkParameters(int gridHeight, int gridWidth) {
+	public final boolean checkParameters(int gridHeight, int gridWidth) {
 		return gridHeight == gridWidth && gridHeight % 2 == 1;
 	}
 

@@ -1,23 +1,31 @@
-package biz.pavonis.hexameter;
+package biz.pavonis.hexameter.internal.impl;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
+import java.util.concurrent.atomic.AtomicReference;
+
+import biz.pavonis.hexameter.api.Hexagon;
+import biz.pavonis.hexameter.api.HexagonOrientation;
+import biz.pavonis.hexameter.api.Point;
+import biz.pavonis.hexameter.internal.SharedHexagonData;
+
 /**
  * Default implementation of the {@link Hexagon} interface.
- * This object takes up 56 bytes of memory.
  */
-class HexagonImpl implements Hexagon {
+public final class HexagonImpl implements Hexagon {
 
+	private static final long serialVersionUID = -2332801841039523145L;
 	private final SharedHexagonData sharedHexagonData;
 	private final double centerX;
 	private final double centerY;
-	private int gridX;
-	private int gridZ;
-	private Object satelliteData;
+	private final int gridX;
+	private final int gridZ;
+	private AtomicReference<Object> satelliteData;
 
-	HexagonImpl(SharedHexagonData sharedHexagonData, int gridX, int gridZ) {
+	public HexagonImpl(SharedHexagonData sharedHexagonData, int gridX, int gridZ) {
 		this.sharedHexagonData = sharedHexagonData;
+		this.satelliteData = new AtomicReference<Object>();
 		double height = sharedHexagonData.getHeight();
 		double width = sharedHexagonData.getWidth();
 		double radius = sharedHexagonData.getRadius();
@@ -32,16 +40,7 @@ class HexagonImpl implements Hexagon {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	public <T> T getSatelliteData() {
-		return (T) satelliteData;
-	}
-
-	public <T> void setSatelliteData(T satelliteData) {
-		this.satelliteData = satelliteData;
-	}
-
-	public Point[] getPoints() {
+	public final Point[] getPoints() {
 		Point[] points = new Point[6];
 		for (int i = 0; i < 6; i++) {
 			double angle = 2 * Math.PI / 6 * (i + sharedHexagonData.getOrientation().getCoordinateOffset());
@@ -52,23 +51,32 @@ class HexagonImpl implements Hexagon {
 		return points;
 	}
 
-	public int getGridX() {
+	@SuppressWarnings("unchecked")
+	public final <T> T getSatelliteData() {
+		return (T) satelliteData.get();
+	}
+
+	public final <T> void setSatelliteData(T satelliteData) {
+		this.satelliteData.set(satelliteData);
+	}
+
+	public final int getGridX() {
 		return gridX;
 	}
 
-	public int getGridY() {
+	public final int getGridY() {
 		return -(gridX + gridZ);
 	}
 
-	public int getGridZ() {
+	public final int getGridZ() {
 		return gridZ;
 	}
 
-	public double getCenterX() {
+	public final double getCenterX() {
 		return centerX;
 	}
 
-	public double getCenterY() {
+	public final double getCenterY() {
 		return centerY;
 	}
 

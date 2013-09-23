@@ -6,13 +6,17 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import biz.pavonis.hexameter.exception.HexagonalGridCreationException;
+import biz.pavonis.hexameter.api.HexagonalGridLayout;
+import biz.pavonis.hexameter.api.HexagonOrientation;
+import biz.pavonis.hexameter.api.HexagonalGridBuilder;
+import biz.pavonis.hexameter.api.exception.HexagonalGridCreationException;
+import biz.pavonis.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy;
 
 public class HexagonGridBuilderTest {
 
 	private static final int GRID_HEIGHT = 9;
-	private static final HexagonGridLayout GRID_LAYOUT = HexagonGridLayout.RECTANGULAR;
-	private static final GridLayoutStrategy GRID_LAYOUT_STRATEGY = HexagonGridLayout.RECTANGULAR.getGridLayoutStrategy();
+	private static final HexagonalGridLayout GRID_LAYOUT = HexagonalGridLayout.RECTANGULAR;
+	private static final GridLayoutStrategy GRID_LAYOUT_STRATEGY = HexagonalGridLayout.RECTANGULAR.getGridLayoutStrategy();
 	private static final int GRID_WIDTH = 9;
 	private static final HexagonOrientation ORIENTATION = HexagonOrientation.FLAT_TOP;
 	private static final double RADIUS = 30;
@@ -78,7 +82,7 @@ public class HexagonGridBuilderTest {
 
 	@Test(expected = HexagonalGridCreationException.class)
 	public void testFailedWhenBadLayout() {
-		target.setGridLayout(HexagonGridLayout.TRIANGULAR);
+		target.setGridLayout(HexagonalGridLayout.TRIANGULAR);
 		target.setGridHeight(4);
 		target.build();
 	}

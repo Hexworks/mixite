@@ -4,25 +4,28 @@ import static junit.framework.Assert.assertNotNull;
 
 import org.junit.Test;
 
+import biz.pavonis.hexameter.api.HexagonalGridLayout;
+
+
 public class HexagonalGridLayoutTest {
 
-	private HexagonGridLayout target;
+	private HexagonalGridLayout target;
 
 	@Test
 	public void testHexagonalStrategy() {
-		target = HexagonGridLayout.HEXAGONAL;
+		target = HexagonalGridLayout.HEXAGONAL;
 		assertNotNull(target.getGridLayoutStrategy());
 	}
 
 	@Test
 	public void testTriangularStrategy() {
-		target = HexagonGridLayout.TRIANGULAR;
+		target = HexagonalGridLayout.TRIANGULAR;
 		assertNotNull(target.getGridLayoutStrategy());
 	}
 
 	@Test
 	public void testRStrategy() {
-		target = HexagonGridLayout.RECTANGULAR;
+		target = HexagonalGridLayout.RECTANGULAR;
 		assertNotNull(target.getGridLayoutStrategy());
 	}
 

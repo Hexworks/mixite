@@ -1,12 +1,15 @@
-package biz.pavonis.hexameter;
+package biz.pavonis.hexameter.internal;
 
 import static java.lang.Math.sqrt;
+import biz.pavonis.hexameter.api.Hexagon;
+import biz.pavonis.hexameter.api.HexagonOrientation;
+import biz.pavonis.hexameter.api.HexagonalGrid;
 
 /**
  * Immutable class which holds the shared data between the {@link Hexagon}s of a {@link HexagonalGrid}.
  * This is just for optimization of memory usage.
  */
-public class SharedHexagonData {
+public final class SharedHexagonData {
 
 	private final HexagonOrientation orientation;
 	private final double radius;
@@ -20,27 +23,27 @@ public class SharedHexagonData {
 		this.width = HexagonOrientation.FLAT_TOP.equals(orientation) ? calculateWidth(radius) : calculateHeight(radius);
 	}
 
-	private double calculateHeight(double radius) {
+	private final double calculateHeight(double radius) {
 		return sqrt(3) * radius;
 	}
 
-	private double calculateWidth(double radius) {
+	private final double calculateWidth(double radius) {
 		return radius * 3 / 2;
 	}
 
-	public HexagonOrientation getOrientation() {
+	public final HexagonOrientation getOrientation() {
 		return orientation;
 	}
 
-	public double getRadius() {
+	public final double getRadius() {
 		return radius;
 	}
 
-	public double getHeight() {
+	public final double getHeight() {
 		return height;
 	}
 
-	public double getWidth() {
+	public final double getWidth() {
 		return width;
 	}
 }

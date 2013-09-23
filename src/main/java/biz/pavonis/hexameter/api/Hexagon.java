@@ -1,4 +1,6 @@
-package biz.pavonis.hexameter;
+package biz.pavonis.hexameter.api;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -6,7 +8,7 @@ package biz.pavonis.hexameter;
  * </p>
  * <em>Please note</em> that all coordinates are relative to the {@link HexagonalGrid} containing this {@link Hexagon}.
  */
-public interface Hexagon {
+public interface Hexagon extends Serializable {
 
 	/**
 	 * Returns an array containing the {@link Point}s of this {@link Hexagon}.
@@ -24,6 +26,8 @@ public interface Hexagon {
 
 	/**
 	 * Returns this {@link Hexagon}'s <b>y</b> coordinate on the {@link HexagonalGrid}.
+	 * The Y coordinate is not present in the axial model but it is in the cube model.
+	 * This method is just for convenience.
 	 * 
 	 * @return y coordinate on the grid
 	 */
@@ -58,7 +62,7 @@ public interface Hexagon {
 	<T> void setSatelliteData(T data);
 
 	/**
-	 * Returns the previously set satellite data from this hexagon.
+	 * Returns the previously set satellite data from this {@link Hexagon}.
 	 * 
 	 * @return
 	 */

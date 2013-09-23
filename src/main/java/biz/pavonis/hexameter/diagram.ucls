@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <interface id="1" language="java" name="biz.pavonis.hexameter.api.Hexagon" project="hexameter" 
+    file="/hexameter/src/main/java/biz/pavonis/hexameter/api/Hexagon.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1018" y="395"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <enumeration id="2" language="java" name="biz.pavonis.hexameter.api.HexagonalGridLayout" project="hexameter" 
+    file="/hexameter/src/main/java/biz/pavonis/hexameter/api/HexagonalGridLayout.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="157" y="-22"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <interface id="3" language="java" name="biz.pavonis.hexameter.api.HexagonalGrid" project="hexameter" 
+    file="/hexameter/src/main/java/biz/pavonis/hexameter/api/HexagonalGrid.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="755" y="404"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="4" language="java" name="biz.pavonis.hexameter.internal.impl.layoutstrategy.RectangularGridLayoutStrategy" 
+    project="hexameter" 
+    file="/hexameter/src/main/java/biz/pavonis/hexameter/internal/impl/layoutstrategy/RectangularGridLayoutStrategy.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="166" y="394"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="biz.pavonis.hexameter.internal.SharedHexagonData" project="hexameter" 
+    file="/hexameter/src/main/java/biz/pavonis/hexameter/internal/SharedHexagonData.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1247" y="257"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="biz.pavonis.hexameter.internal.impl.HexagonalGridImpl" project="hexameter" 
+    file="/hexameter/src/main/java/biz/pavonis/hexameter/internal/impl/HexagonalGridImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="864" y="-57"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="7" language="java" name="biz.pavonis.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy" 
+    project="hexameter" 
+    file="/hexameter/src/main/java/biz/pavonis/hexameter/internal/impl/layoutstrategy/GridLayoutStrategy.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="608" y="218"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="8" language="java" name="biz.pavonis.hexameter.internal.impl.layoutstrategy.HexagonalGridLayoutStrategy" 
+    project="hexameter" 
+    file="/hexameter/src/main/java/biz/pavonis/hexameter/internal/impl/layoutstrategy/HexagonalGridLayoutStrategy.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="167" y="141"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="biz.pavonis.hexameter.internal.impl.layoutstrategy.TriangularGridLayoutStrategy" 
+    project="hexameter" 
+    file="/hexameter/src/main/java/biz/pavonis/hexameter/internal/impl/layoutstrategy/TriangularGridLayoutStrategy.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="166" y="268"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="biz.pavonis.hexameter.api.HexagonalGridBuilder" project="hexameter" 
+    file="/hexameter/src/main/java/biz/pavonis/hexameter/api/HexagonalGridBuilder.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="515" y="-48"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="biz.pavonis.hexameter.internal.impl.HexagonImpl" project="hexameter" 
+    file="/hexameter/src/main/java/biz/pavonis/hexameter/internal/impl/HexagonImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1165" y="-74"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="12" language="java" name="biz.pavonis.hexameter.api.HexagonOrientation" project="hexameter" 
+    file="/hexameter/src/main/java/biz/pavonis/hexameter/api/HexagonOrientation.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="482" y="403"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <association id="13">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="14" name="gridLayout">        
+        <position height="18" width="59" x="289" y="-55"/>      
+      </attribute>      
+      <multiplicity id="15" minimum="0" maximum="1">        
+        <position height="16" width="23" x="310" y="-33"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="16">    
+    <bendpoint x="380" y="209"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <realization id="17">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="18">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <association id="19">    
+    <bendpoint x="554" y="283"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="20" name="orientation">        
+        <position height="18" width="58" x="553" y="282"/>      
+      </attribute>      
+      <multiplicity id="21" minimum="0" maximum="1">        
+        <position height="16" width="23" x="532" y="273"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="22">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="23" name="hexagons">        
+        <position height="18" width="56" x="957" y="189"/>      
+      </attribute>      
+      <multiplicity id="24" minimum="0" maximum="2147483647">        
+        <position height="16" width="21" x="925" y="193"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="25">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <association id="26">    
+    <bendpoint x="1007" y="176"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="27" name="sharedHexagonData">        
+        <position height="18" width="107" x="983" y="120"/>      
+      </attribute>      
+      <multiplicity id="28" minimum="0" maximum="1">        
+        <position height="16" width="23" x="957" y="124"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="29">    
+    <bendpoint x="358" y="144"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="30" name="gridLayoutStrategy">        
+        <position height="18" width="100" x="327" y="149"/>      
+      </attribute>      
+      <multiplicity id="31" minimum="0" maximum="1">        
+        <position height="16" width="23" x="363" y="134"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="32">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="33" name="gridLayoutStrategy">        
+        <position height="18" width="100" x="676" y="134"/>      
+      </attribute>      
+      <multiplicity id="34" minimum="0" maximum="1">        
+        <position height="16" width="23" x="653" y="136"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="35">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="36" name="sharedHexagonData">        
+        <position height="18" width="107" x="1213" y="88"/>      
+      </attribute>      
+      <multiplicity id="37" minimum="0" maximum="1">        
+        <position height="16" width="23" x="1181" y="90"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="38">    
+    <bendpoint x="372" y="254"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <association id="39">    
+    <bendpoint x="394" y="242"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="40" name="orientation">        
+        <position height="18" width="58" x="415" y="269"/>      
+      </attribute>      
+      <multiplicity id="41" minimum="0" maximum="1">        
+        <position height="16" width="23" x="394" y="270"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

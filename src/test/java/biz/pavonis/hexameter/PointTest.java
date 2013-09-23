@@ -1,10 +1,13 @@
 package biz.pavonis.hexameter;
 
-import static biz.pavonis.hexameter.Point.distance;
+import static biz.pavonis.hexameter.api.Point.distance;
 import static java.lang.Math.sqrt;
 import static junit.framework.Assert.assertEquals;
 
 import org.junit.Test;
+
+import biz.pavonis.hexameter.api.Point;
+
 
 public class PointTest {
 
