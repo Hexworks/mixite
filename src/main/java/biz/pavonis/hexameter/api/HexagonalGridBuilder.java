@@ -38,7 +38,7 @@ public final class HexagonalGridBuilder {
 	 * @param gridWidth
 	 * @return this {@link HexagonalGridBuilder}
 	 */
-	public final HexagonalGridBuilder setGridWidth(int gridWidth) {
+	public HexagonalGridBuilder setGridWidth(int gridWidth) {
 		this.gridWidth = gridWidth;
 		return this;
 	}
@@ -49,7 +49,7 @@ public final class HexagonalGridBuilder {
 	 * @param gridHeight
 	 * @return this {@link HexagonalGridBuilder}
 	 */
-	public final HexagonalGridBuilder setGridHeight(int gridHeight) {
+	public HexagonalGridBuilder setGridHeight(int gridHeight) {
 		this.gridHeight = gridHeight;
 		return this;
 	}
@@ -61,7 +61,7 @@ public final class HexagonalGridBuilder {
 	 * @param orientation
 	 * @return this {@link HexagonalGridBuilder}
 	 */
-	public final HexagonalGridBuilder setOrientation(HexagonOrientation orientation) {
+	public HexagonalGridBuilder setOrientation(HexagonOrientation orientation) {
 		this.orientation = orientation;
 		return this;
 	}
@@ -72,7 +72,7 @@ public final class HexagonalGridBuilder {
 	 * @param radius in pixels
 	 * @return this {@link HexagonalGridBuilder}
 	 */
-	public final HexagonalGridBuilder setRadius(double radius) {
+	public HexagonalGridBuilder setRadius(double radius) {
 		this.radius = radius;
 		return this;
 	}
@@ -84,7 +84,7 @@ public final class HexagonalGridBuilder {
 	 * @param gridLayout
 	 * @return this {@link HexagonalGridBuilder}.
 	 */
-	public final HexagonalGridBuilder setGridLayout(HexagonalGridLayout gridLayout) {
+	public HexagonalGridBuilder setGridLayout(HexagonalGridLayout gridLayout) {
 		this.gridLayout = gridLayout;
 		return this;
 	}
@@ -96,8 +96,8 @@ public final class HexagonalGridBuilder {
 	 * @param gridZ
 	 * @return this {@link HexagonalGridBuilder}.
 	 */
-	public final HexagonalGridBuilder addCustomCoordinate(int gridX, int gridZ) {
-		customCoordinates.add(new AxialCoordinate(gridX, gridZ));
+	public HexagonalGridBuilder addCustomAxialCoordinate(AxialCoordinate axialCoordinate) {
+		customCoordinates.add(axialCoordinate);
 		return this;
 	}
 
@@ -121,7 +121,7 @@ public final class HexagonalGridBuilder {
 	 * @param customStorage
 	 * @return this {@link HexagonalGridBuilder}.
 	 */
-	public final HexagonalGridBuilder setCustomStorage(Map<String, Hexagon> customStorage) {
+	public HexagonalGridBuilder setCustomStorage(Map<String, Hexagon> customStorage) {
 		this.customStorage = customStorage;
 		return this;
 	}
@@ -134,7 +134,7 @@ public final class HexagonalGridBuilder {
 	 * 
 	 * @return {@link HexagonalGrid}
 	 */
-	public final HexagonalGrid build() {
+	public HexagonalGrid build() {
 		checkParameters();
 		return new HexagonalGridImpl(this);
 	}
@@ -145,11 +145,11 @@ public final class HexagonalGridBuilder {
 	 * @param hexagonalGrid
 	 * @return calculator
 	 */
-	public final HexagonalGridCalculator buildCalculatorFor(HexagonalGrid hexagonalGrid) {
+	public HexagonalGridCalculator buildCalculatorFor(HexagonalGrid hexagonalGrid) {
 		return new HexagonalGridCalculatorImpl(hexagonalGrid);
 	}
 
-	private final void checkParameters() {
+	private void checkParameters() {
 		if (gridWidth <= 0) {
 			throw new HexagonalGridCreationException("Grid width must be greater than 0.");
 		}
@@ -170,23 +170,23 @@ public final class HexagonalGridBuilder {
 		}
 	}
 
-	public final double getRadius() {
+	public double getRadius() {
 		return radius;
 	}
 
-	public final int getGridWidth() {
+	public int getGridWidth() {
 		return gridWidth;
 	}
 
-	public final int getGridHeight() {
+	public int getGridHeight() {
 		return gridHeight;
 	}
 
-	public final HexagonOrientation getOrientation() {
+	public HexagonOrientation getOrientation() {
 		return orientation;
 	}
 
-	public final GridLayoutStrategy getGridLayoutStrategy() {
+	public GridLayoutStrategy getGridLayoutStrategy() {
 		return gridLayout.getGridLayoutStrategy();
 	}
 
@@ -198,7 +198,7 @@ public final class HexagonalGridBuilder {
 		return customStorage;
 	}
 
-	public final SharedHexagonData getSharedHexagonData() {
+	public SharedHexagonData getSharedHexagonData() {
 		if (orientation == null || radius == 0) {
 			throw new IllegalStateException("orientation or radius is not yet initialized");
 		}

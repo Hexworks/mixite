@@ -13,9 +13,9 @@ import biz.pavonis.hexameter.internal.SharedHexagonData;
 /**
  * Default implementation of the {@link Hexagon} interface.
  */
-public final class HexagonImpl implements Hexagon {
+public class HexagonImpl implements Hexagon {
 
-	private static final long serialVersionUID = -2332801841039523145L;
+	private static final long serialVersionUID = -6658255569921274603L;
 	private final SharedHexagonData sharedHexagonData;
 	private final double centerX;
 	private final double centerY;

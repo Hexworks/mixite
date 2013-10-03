@@ -11,7 +11,7 @@ import biz.pavonis.hexameter.internal.impl.HexagonImpl;
 
 public final class RhombusGridLayoutStrategy extends AbstractGridLayoutStrategy {
 
-	public final Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
+	public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
 		Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();
 		for (int y = 0; y < builder.getGridHeight(); y++) {
 			for (int x = 0; x < builder.getGridWidth(); x++) {
@@ -23,7 +23,7 @@ public final class RhombusGridLayoutStrategy extends AbstractGridLayoutStrategy 
 		return hexagons;
 	}
 
-	public final boolean checkParameters(int gridHeight, int gridWidth) {
+	public boolean checkParameters(int gridHeight, int gridWidth) {
 		return true;
 	}
 

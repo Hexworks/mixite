@@ -25,10 +25,10 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 	private static final int NEIGHBOR_X_INDEX = 0;
 	private static final int NEIGHBOR_Z_INDEX = 1;
 
-	private Logger logger;
-	private GridLayoutStrategy gridLayoutStrategy;
-	private SharedHexagonData sharedHexagonData;
-	private Map<String, Hexagon> hexagonStorage;
+	private final Logger logger;
+	private final GridLayoutStrategy gridLayoutStrategy;
+	private final SharedHexagonData sharedHexagonData;
+	private final Map<String, Hexagon> hexagonStorage;
 
 	public HexagonalGridImpl(HexagonalGridBuilder builder) {
 		sharedHexagonData = builder.getSharedHexagonData();
@@ -42,7 +42,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 		hexagonStorage.putAll(gridLayoutStrategy.createHexagons(builder));
 	}
 
-	public final Map<String, Hexagon> getHexagons() {
+	public Map<String, Hexagon> getHexagons() {
 		return hexagonStorage;
 	}
 
@@ -74,33 +74,31 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 	}
 
 	public Hexagon addHexagon(int gridX, int gridZ) {
-		String key = createKeyFromCoordinate(gridX, gridZ);
 		Hexagon newHex = new HexagonImpl(sharedHexagonData, gridX, gridZ);
-		hexagonStorage.put(key, newHex);
+		hexagonStorage.put(createKeyFromCoordinate(gridX, gridZ), newHex);
 		return newHex;
 	}
 
 	public Hexagon removeHexagon(int gridX, int gridZ) {
-		String key = createKeyFromCoordinate(gridX, gridZ);
-		return hexagonStorage.remove(key);
+		return hexagonStorage.remove(createKeyFromCoordinate(gridX, gridZ));
 	}
 
-	public final boolean containsCoordinate(int gridX, int gridZ) {
+	public boolean containsCoordinate(int gridX, int gridZ) {
 		return hexagonStorage.containsKey(createKeyFromCoordinate(gridX, gridZ));
 	}
 
-	public final Hexagon getByGridCoordinate(int gridX, int gridZ) {
+	public Hexagon getByGridCoordinate(int gridX, int gridZ) {
 		checkCoordinate(gridX, gridZ);
 		return hexagonStorage.get(createKeyFromCoordinate(gridX, gridZ));
 	}
 
-	private final void checkCoordinate(int gridX, int gridZ) {
+	private void checkCoordinate(int gridX, int gridZ) {
 		if (!hexagonStorage.containsKey(createKeyFromCoordinate(gridX, gridZ))) {
 			throw new HexagonNotFoundException("Coordinates are off the grid.");
 		}
 	}
 
-	public final Hexagon getByPixelCoordinate(double x, double y) {
+	public Hexagon getByPixelCoordinate(double x, double y) {
 		int estimatedGridX = (int) (x / sharedHexagonData.getWidth());
 		int estimatedGridZ = (int) (y / sharedHexagonData.getHeight());
 		estimatedGridX = convertOffsetCoordinatesToAxialX(estimatedGridX, estimatedGridZ, sharedHexagonData.getOrientation());
@@ -115,7 +113,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 		}
 	}
 
-	public final Set<Hexagon> getNeighborsOf(Hexagon hexagon) {
+	public Set<Hexagon> getNeighborsOf(Hexagon hexagon) {
 		Set<Hexagon> neighbors = new HashSet<Hexagon>();
 		for (int[] neighbor : NEIGHBORS) {
 			Hexagon retHex = null;
@@ -133,11 +131,11 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 		return neighbors;
 	}
 
-	private final boolean hexagonsAreAtTheSamePosition(Hexagon hex0, Hexagon hex1) {
+	private boolean hexagonsAreAtTheSamePosition(Hexagon hex0, Hexagon hex1) {
 		return hex0.getCenterX() == hex1.getCenterX() && hex0.getCenterY() == hex1.getCenterY();
 	}
 
-	private final Hexagon refineHexagonByPixel(Hexagon hexagon, double x, double y) {
+	private Hexagon refineHexagonByPixel(Hexagon hexagon, double x, double y) {
 		Hexagon refined = hexagon;
 		Point clickedPoint = new Point(x, y);
 		double smallestDistance = Point.distance(clickedPoint, new Point(refined.getCenterX(), refined.getCenterY()));
@@ -151,7 +149,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 		return refined;
 	}
 
-	public final void clearSatelliteData() {
+	public void clearSatelliteData() {
 		for (String key : hexagonStorage.keySet()) {
 			hexagonStorage.get(key).setSatelliteData(null);
 		}

@@ -3,10 +3,10 @@ package biz.pavonis.hexameter.api;
 /**
  * Represents an axial coorinate pair.
  */
-public class AxialCoordinate {
+public final class AxialCoordinate {
 
-	private int gridX;
-	private int gridZ;
+	private final int gridX;
+	private final int gridZ;
 
 	public AxialCoordinate(int gridX, int gridZ) {
 		super();
@@ -18,16 +18,8 @@ public class AxialCoordinate {
 		return gridX;
 	}
 
-	public void setGridX(int gridX) {
-		this.gridX = gridX;
-	}
-
 	public int getGridZ() {
 		return gridZ;
-	}
-
-	public void setGridZ(int gridZ) {
-		this.gridZ = gridZ;
 	}
 
 }

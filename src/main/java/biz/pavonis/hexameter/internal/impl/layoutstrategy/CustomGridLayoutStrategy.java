@@ -13,13 +13,13 @@ import biz.pavonis.hexameter.api.HexagonalGridBuilder;
  */
 public final class CustomGridLayoutStrategy extends AbstractGridLayoutStrategy {
 
-	public final Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
+	public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
 		Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();
 		addCustomHexagons(builder, hexagons);
 		return hexagons;
 	}
 
-	public final boolean checkParameters(int gridHeight, int gridWidth) {
+	public boolean checkParameters(int gridHeight, int gridWidth) {
 		return true;
 	}
 }

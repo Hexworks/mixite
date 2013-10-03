@@ -1,14 +1,15 @@
-package biz.pavonis.hexameter;
+package biz.pavonis.hexameter.api;
 
 import static biz.pavonis.hexameter.api.Point.distance;
 import static java.lang.Math.sqrt;
 import static junit.framework.Assert.assertEquals;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-import biz.pavonis.hexameter.api.Point;
+import biz.pavonis.hexameter.categories.UnitTests;
 
-
+@Category(UnitTests.class)
 public class PointTest {
 
 	@Test

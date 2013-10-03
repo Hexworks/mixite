@@ -20,7 +20,7 @@ import biz.pavonis.hexameter.internal.impl.HexagonImpl;
  */
 public final class HexagonalGridLayoutStrategy extends AbstractGridLayoutStrategy {
 
-	public final Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
+	public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
 		double gridSize = builder.getGridHeight();
 		Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();
 		int startX = HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? (int) floor(gridSize / 2d) : (int) round(gridSize / 4d);
@@ -40,7 +40,7 @@ public final class HexagonalGridLayoutStrategy extends AbstractGridLayoutStrateg
 		return hexagons;
 	}
 
-	public final boolean checkParameters(int gridHeight, int gridWidth) {
+	public boolean checkParameters(int gridHeight, int gridWidth) {
 		return gridHeight == gridWidth && gridHeight % 2 == 1;
 	}
 

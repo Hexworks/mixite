@@ -11,7 +11,7 @@ import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonalGrid;
 import biz.pavonis.hexameter.api.HexagonalGridCalculator;
 
-public class HexagonalGridCalculatorImpl implements HexagonalGridCalculator {
+public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculator {
 
 	private final HexagonalGrid hexagonalGrid;
 
@@ -19,14 +19,14 @@ public class HexagonalGridCalculatorImpl implements HexagonalGridCalculator {
 		this.hexagonalGrid = hexagonalGrid;
 	}
 
-	public final int calculateDistanceBetween(Hexagon hex0, Hexagon hex1) {
+	public int calculateDistanceBetween(Hexagon hex0, Hexagon hex1) {
 		double absX = abs(hex0.getGridX() - hex1.getGridX());
 		double absY = abs(hex0.getGridY() - hex1.getGridY());
 		double absZ = abs(hex0.getGridZ() - hex1.getGridZ());
 		return (int) max(max(absX, absY), absZ);
 	}
 
-	public final Set<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance) {
+	public Set<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance) {
 		// TODO: this is not optimal. Rewrite needed.
 		Set<Hexagon> ret = new HashSet<Hexagon>();
 		Set<Hexagon> currNeighbors = Collections.singleton(hexagon);

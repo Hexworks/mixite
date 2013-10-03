@@ -1,4 +1,4 @@
-package biz.pavonis.hexameter;
+package biz.pavonis.hexameter.internal;
 
 import static java.lang.Math.sqrt;
 import static junit.framework.Assert.assertEquals;

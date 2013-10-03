@@ -1,17 +1,23 @@
-package biz.pavonis.hexameter;
+package biz.pavonis.hexameter.api;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-import biz.pavonis.hexameter.api.HexagonalGridLayout;
-import biz.pavonis.hexameter.api.HexagonOrientation;
-import biz.pavonis.hexameter.api.HexagonalGridBuilder;
 import biz.pavonis.hexameter.api.exception.HexagonalGridCreationException;
+import biz.pavonis.hexameter.categories.UnitTests;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy;
 
+@Category(UnitTests.class)
 public class HexagonGridBuilderTest {
 
 	private static final int GRID_HEIGHT = 9;
@@ -26,7 +32,7 @@ public class HexagonGridBuilderTest {
 	@Before
 	public void setUp() {
 		target = new HexagonalGridBuilder();
-		target.setGridHeight(GRID_HEIGHT).setGridLayout(GRID_LAYOUT).setGridWidth(GRID_WIDTH).setOrientation(ORIENTATION).setRadius(RADIUS).build();
+		target.setGridHeight(GRID_HEIGHT).setGridLayout(GRID_LAYOUT).setGridWidth(GRID_WIDTH).setOrientation(ORIENTATION).setRadius(RADIUS);
 	}
 
 	@Test
@@ -85,6 +91,40 @@ public class HexagonGridBuilderTest {
 		target.setGridLayout(HexagonalGridLayout.TRIANGULAR);
 		target.setGridHeight(4);
 		target.build();
+	}
+
+	@Test
+	public void testAddCustomCoordinate() {
+		int gridX = 1;
+		int gridZ = 2;
+		int size = target.getCustomCoordinates().size();
+		target.addCustomAxialCoordinate(new AxialCoordinate(gridX, gridZ));
+		assertTrue(target.getCustomCoordinates().size() == size + 1);
+	}
+
+	@Test
+	public void testSetCustomStorage() {
+		Map<String, Hexagon> customStorage = new HashMap<String, Hexagon>();
+		target.setCustomStorage(customStorage);
+		assertEquals(customStorage, target.getCustomStorage());
+	}
+
+	@Test
+	public void testBuildCalculatorFor() {
+		HexagonalGridCalculator calc = target.buildCalculatorFor(null);
+		Assert.assertNotNull(calc);
+		assertTrue(calc instanceof HexagonalGridCalculator);
+	}
+
+	@Test
+	public void testGetOrientation() {
+		assertEquals(ORIENTATION, target.getOrientation());
+	}
+
+	@Test
+	public void testBuild() {
+		HexagonalGrid grid = target.build();
+		assertNotNull(grid);
 	}
 
 }

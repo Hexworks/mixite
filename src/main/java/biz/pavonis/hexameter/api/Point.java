@@ -4,8 +4,8 @@ package biz.pavonis.hexameter.api;
  * Represents a point.
  */
 public final class Point {
-	public double x;
-	public double y;
+	public final double x;
+	public final double y;
 
 	public Point(double x, double y) {
 		super();

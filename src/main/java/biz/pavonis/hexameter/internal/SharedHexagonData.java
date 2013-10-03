@@ -23,27 +23,27 @@ public final class SharedHexagonData {
 		this.width = HexagonOrientation.FLAT_TOP.equals(orientation) ? calculateWidth(radius) : calculateHeight(radius);
 	}
 
-	private final double calculateHeight(double radius) {
+	private double calculateHeight(double radius) {
 		return sqrt(3) * radius;
 	}
 
-	private final double calculateWidth(double radius) {
+	private double calculateWidth(double radius) {
 		return radius * 3 / 2;
 	}
 
-	public final HexagonOrientation getOrientation() {
+	public HexagonOrientation getOrientation() {
 		return orientation;
 	}
 
-	public final double getRadius() {
+	public double getRadius() {
 		return radius;
 	}
 
-	public final double getHeight() {
+	public double getHeight() {
 		return height;
 	}
 
-	public final double getWidth() {
+	public double getWidth() {
 		return width;
 	}
 }

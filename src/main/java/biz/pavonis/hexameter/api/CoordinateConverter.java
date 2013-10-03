@@ -4,16 +4,32 @@ package biz.pavonis.hexameter.api;
  * Utility class for converting coordinated from the offset system to
  * the axial one (the library uses the latter).
  */
-public class CoordinateConverter {
+public final class CoordinateConverter {
 
 	private CoordinateConverter() {
 	}
 
-	public static final int convertOffsetCoordinatesToAxialX(int x, int y, HexagonOrientation orientation) {
+	/**
+	 * Calculates the axial X coordinate based on an offset coordinate pair.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param orientation
+	 * @return
+	 */
+	public static int convertOffsetCoordinatesToAxialX(int x, int y, HexagonOrientation orientation) {
 		return HexagonOrientation.FLAT_TOP.equals(orientation) ? x : x - (int) Math.floor(y / 2);
 	}
 
-	public static final int convertOffsetCoordinatesToAxialZ(int x, int y, HexagonOrientation orientation) {
+	/**
+	 * Calculates the axial Z coordinate based on an offset coordinate pair.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param orientation
+	 * @return
+	 */
+	public static int convertOffsetCoordinatesToAxialZ(int x, int y, HexagonOrientation orientation) {
 		return HexagonOrientation.FLAT_TOP.equals(orientation) ? y - (int) Math.floor(x / 2) : y;
 	}
 
@@ -24,7 +40,7 @@ public class CoordinateConverter {
 	 * @param gridZ
 	 * @return key based on coordinate
 	 */
-	public static final String createKeyFromCoordinate(int gridX, int gridZ) {
+	public static String createKeyFromCoordinate(int gridX, int gridZ) {
 		return gridX + "," + gridZ;
 	}
 
@@ -34,7 +50,7 @@ public class CoordinateConverter {
 	 * @param key
 	 * @return {@link AxialCoordinate}
 	 */
-	public static final AxialCoordinate createCoordinateFromKey(String key) {
+	public static AxialCoordinate createCoordinateFromKey(String key) {
 		return new AxialCoordinate(Integer.valueOf(key.split(",")[0]), Integer.valueOf(key.split(",")[1]));
 	}
 }
