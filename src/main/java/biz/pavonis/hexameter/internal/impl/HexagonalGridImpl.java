@@ -46,7 +46,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 		return hexagonStorage;
 	}
 
-	public Map<String, Hexagon> getHexagonGridByAxialRange(int gridXFrom, int gridXTo, int gridZFrom, int gridZTo) {
+	public Map<String, Hexagon> getHexagonsByAxialRange(int gridXFrom, int gridXTo, int gridZFrom, int gridZTo) {
 		Map<String, Hexagon> range = new HashMap<String, Hexagon>();
 		for (int gridZ = gridZFrom; gridZ <= gridZTo; gridZ++) {
 			for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {
@@ -59,7 +59,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 		return range;
 	}
 
-	public Map<String, Hexagon> getHexagonGridByOffsetRange(int gridXFrom, int gridXTo, int gridYFrom, int gridYTo) {
+	public Map<String, Hexagon> getHexagonsByOffsetRange(int gridXFrom, int gridXTo, int gridYFrom, int gridYTo) {
 		Map<String, Hexagon> range = new HashMap<String, Hexagon>();
 		for (int gridY = gridYFrom; gridY <= gridYTo; gridY++) {
 			for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {

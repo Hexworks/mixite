@@ -25,6 +25,11 @@ public class CoordinateConverterTest {
 	private static final int EXPECTED_AXIAL_Z_WITH_POINTY = 4;
 	private static final int EXPECTED_AXIAL_Z_WITH_FLAT = 3;
 
+	@Test(expected = UnsupportedOperationException.class)
+	public void testCoordinateConverter() {
+		new CoordinateConverter();
+	}
+
 	@Test
 	public void testConvertOffsetCoordinatesToAxialXWithPointy() {
 		int result = convertOffsetCoordinatesToAxialX(TEST_X, TEST_Y, HexagonOrientation.POINTY_TOP);

@@ -40,7 +40,7 @@ public interface HexagonalGrid {
 	 * @param gridZTo to z inclusive
 	 * @return {@link Hexagon}s in the given range.
 	 */
-	Map<String, Hexagon> getHexagonGridByAxialRange(int gridXFrom, int gridXTo, int gridZfrom, int gridZTo);
+	Map<String, Hexagon> getHexagonsByAxialRange(int gridXFrom, int gridXTo, int gridZfrom, int gridZTo);
 
 	/**
 	 * Returns all {@link Hexagon}s contained in the given offset coordinate range.
@@ -51,7 +51,7 @@ public interface HexagonalGrid {
 	 * @param gridYTo to z inclusive
 	 * @return {@link Hexagon}s in the given range.
 	 */
-	Map<String, Hexagon> getHexagonGridByOffsetRange(int gridXFrom, int gridXTo, int gridYfrom, int gridYTo);
+	Map<String, Hexagon> getHexagonsByOffsetRange(int gridXFrom, int gridXTo, int gridYfrom, int gridYTo);
 
 	/**
 	 * Adds a new {@link Hexagon} at the given coordinates.

@@ -9,8 +9,15 @@ import biz.pavonis.hexameter.internal.impl.layoutstrategy.HexagonalGridLayoutStr
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.RectangularGridLayoutStrategy;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.RhombusGridLayoutStrategy;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.TriangularGridLayoutStrategy;
+import biz.pavonis.hexameter.testutils.EnumTest;
+import biz.pavonis.hexameter.testutils.TestUtils;
 
-public class HexagonalGridLayoutTest {
+public class HexagonalGridLayoutTest extends EnumTest {
+
+	@Test
+	public void testEnum() {
+		TestUtils.superficialEnumCodeCoverage(HexagonalGridLayout.class);
+	}
 
 	@Test
 	public void testGetGridLayoutStrategyCustom() {

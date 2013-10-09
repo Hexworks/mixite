@@ -7,15 +7,11 @@ import org.junit.After;
 import org.junit.Test;
 
 import biz.pavonis.hexameter.api.HexagonOrientation;
-import biz.pavonis.hexameter.internal.SharedHexagonData;
-
 
 public class SharedHexagonDataTest {
 
 	private static final HexagonOrientation ORIENTATION = HexagonOrientation.FLAT_TOP;
 	private static final double RADIUS = 30;
-	private static final int X = 4;
-	private static final int Y = 8;
 	SharedHexagonData target;
 
 	@After

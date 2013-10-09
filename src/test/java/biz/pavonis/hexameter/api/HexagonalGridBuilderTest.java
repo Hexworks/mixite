@@ -18,7 +18,7 @@ import biz.pavonis.hexameter.categories.UnitTests;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy;
 
 @Category(UnitTests.class)
-public class HexagonGridBuilderTest {
+public class HexagonalGridBuilderTest {
 
 	private static final int GRID_HEIGHT = 9;
 	private static final HexagonalGridLayout GRID_LAYOUT = HexagonalGridLayout.RECTANGULAR;
