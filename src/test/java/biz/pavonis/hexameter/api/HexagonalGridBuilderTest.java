@@ -57,18 +57,6 @@ public class HexagonalGridBuilderTest {
 	}
 
 	@Test(expected = HexagonalGridCreationException.class)
-	public void testFailedWhenNoWidth() {
-		target.setGridWidth(0);
-		target.build();
-	}
-
-	@Test(expected = HexagonalGridCreationException.class)
-	public void testFailedWhenNoHeight() {
-		target.setGridHeight(0);
-		target.build();
-	}
-
-	@Test(expected = HexagonalGridCreationException.class)
 	public void testFailedWhenNoOrientation() {
 		target.setOrientation(null);
 		target.build();

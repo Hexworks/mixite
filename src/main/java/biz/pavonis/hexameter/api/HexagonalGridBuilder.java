@@ -92,8 +92,7 @@ public final class HexagonalGridBuilder {
 	/**
 	 * Adds a custom coordinate to the {@link HexagonalGrid} which will be produced.
 	 * 
-	 * @param gridX
-	 * @param gridZ
+	 * @param axialCoordinate
 	 * @return this {@link HexagonalGridBuilder}.
 	 */
 	public HexagonalGridBuilder addCustomAxialCoordinate(AxialCoordinate axialCoordinate) {
@@ -150,12 +149,6 @@ public final class HexagonalGridBuilder {
 	}
 
 	private void checkParameters() {
-		if (gridWidth <= 0) {
-			throw new HexagonalGridCreationException("Grid width must be greater than 0.");
-		}
-		if (gridHeight <= 0) {
-			throw new HexagonalGridCreationException("Grid height must be greater than 0.");
-		}
 		if (orientation == null) {
 			throw new HexagonalGridCreationException("Orientation must be set.");
 		}

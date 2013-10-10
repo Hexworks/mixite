@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
 
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonalGrid;
@@ -25,19 +24,17 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 	private static final int NEIGHBOR_X_INDEX = 0;
 	private static final int NEIGHBOR_Z_INDEX = 1;
 
-	private final Logger logger;
 	private final GridLayoutStrategy gridLayoutStrategy;
 	private final SharedHexagonData sharedHexagonData;
 	private final Map<String, Hexagon> hexagonStorage;
 
 	public HexagonalGridImpl(HexagonalGridBuilder builder) {
 		sharedHexagonData = builder.getSharedHexagonData();
-		logger = Logger.getLogger(getClass().getName());
 		gridLayoutStrategy = builder.getGridLayoutStrategy();
 		if (builder.getCustomStorage() != null) {
 			hexagonStorage = builder.getCustomStorage();
 		} else {
-			hexagonStorage = new ConcurrentHashMap<String, Hexagon>();
+			hexagonStorage = new ConcurrentHashMap<String, Hexagon>(); // TODO: to factory method
 		}
 		hexagonStorage.putAll(gridLayoutStrategy.createHexagons(builder));
 	}
@@ -51,9 +48,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 		for (int gridZ = gridZFrom; gridZ <= gridZTo; gridZ++) {
 			for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {
 				String key = createKeyFromCoordinate(gridX, gridZ);
-				if (hexagonStorage.containsKey(key)) {
-					range.put(key, hexagonStorage.get(key));
-				}
+				range.put(key, getByGridCoordinate(gridX, gridZ));
 			}
 		}
 		return range;
@@ -63,11 +58,10 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 		Map<String, Hexagon> range = new HashMap<String, Hexagon>();
 		for (int gridY = gridYFrom; gridY <= gridYTo; gridY++) {
 			for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {
-				String key = createKeyFromCoordinate(convertOffsetCoordinatesToAxialX(gridX, gridY, sharedHexagonData.getOrientation()),
-						convertOffsetCoordinatesToAxialZ(gridX, gridY, sharedHexagonData.getOrientation()));
-				if (hexagonStorage.containsKey(key)) {
-					range.put(key, hexagonStorage.get(key));
-				}
+				int axialX = convertOffsetCoordinatesToAxialX(gridX, gridY, sharedHexagonData.getOrientation());
+				int axialZ = convertOffsetCoordinatesToAxialZ(gridX, gridY, sharedHexagonData.getOrientation());
+				String key = createKeyFromCoordinate(axialX, axialZ);
+				range.put(key, getByGridCoordinate(axialX, axialZ));
 			}
 		}
 		return range;
@@ -80,6 +74,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 	}
 
 	public Hexagon removeHexagon(int gridX, int gridZ) {
+		checkCoordinate(gridX, gridZ);
 		return hexagonStorage.remove(createKeyFromCoordinate(gridX, gridZ));
 	}
 
@@ -93,7 +88,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 	}
 
 	private void checkCoordinate(int gridX, int gridZ) {
-		if (!hexagonStorage.containsKey(createKeyFromCoordinate(gridX, gridZ))) {
+		if (!containsCoordinate(gridX, gridZ)) {
 			throw new HexagonNotFoundException("Coordinates are off the grid.");
 		}
 	}
@@ -117,22 +112,18 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 		Set<Hexagon> neighbors = new HashSet<Hexagon>();
 		for (int[] neighbor : NEIGHBORS) {
 			Hexagon retHex = null;
-			try {
-				int neighborGridX = hexagon.getGridX() + neighbor[NEIGHBOR_X_INDEX];
-				int neighborGridZ = hexagon.getGridZ() + neighbor[NEIGHBOR_Z_INDEX];
-				if (containsCoordinate(neighborGridX, neighborGridZ)) {
-					retHex = getByGridCoordinate(neighborGridX, neighborGridZ);
-					neighbors.add(retHex);
-				}
-			} catch (HexagonNotFoundException e) {
-				logger.info("Neighbor was not found for: " + hexagon + ". It is off the grid.");
+			int neighborGridX = hexagon.getGridX() + neighbor[NEIGHBOR_X_INDEX];
+			int neighborGridZ = hexagon.getGridZ() + neighbor[NEIGHBOR_Z_INDEX];
+			if (containsCoordinate(neighborGridX, neighborGridZ)) {
+				retHex = getByGridCoordinate(neighborGridX, neighborGridZ);
+				neighbors.add(retHex);
 			}
 		}
 		return neighbors;
 	}
 
 	private boolean hexagonsAreAtTheSamePosition(Hexagon hex0, Hexagon hex1) {
-		return hex0.getCenterX() == hex1.getCenterX() && hex0.getCenterY() == hex1.getCenterY();
+		return hex0.getGridX() == hex1.getGridX() && hex0.getGridZ() == hex1.getGridZ();
 	}
 
 	private Hexagon refineHexagonByPixel(Hexagon hexagon, double x, double y) {

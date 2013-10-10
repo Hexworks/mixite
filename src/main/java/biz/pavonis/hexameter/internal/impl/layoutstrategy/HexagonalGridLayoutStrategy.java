@@ -1,6 +1,7 @@
 package biz.pavonis.hexameter.internal.impl.layoutstrategy;
 
 import static biz.pavonis.hexameter.api.CoordinateConverter.createKeyFromCoordinate;
+import static java.lang.Math.abs;
 import static java.lang.Math.floor;
 import static java.lang.Math.max;
 import static java.lang.Math.round;
@@ -41,7 +42,9 @@ public final class HexagonalGridLayoutStrategy extends AbstractGridLayoutStrateg
 	}
 
 	public boolean checkParameters(int gridHeight, int gridWidth) {
-		return gridHeight == gridWidth && gridHeight % 2 == 1;
+		boolean superResult = super.checkParameters(gridHeight, gridWidth);
+		boolean result = gridHeight == gridWidth && abs(gridHeight % 2) == 1;
+		return result && superResult;
 	}
 
 }

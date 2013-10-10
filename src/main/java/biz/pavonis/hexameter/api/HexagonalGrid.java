@@ -33,6 +33,8 @@ public interface HexagonalGrid {
 
 	/**
 	 * Returns all {@link Hexagon}s contained in the given axial coordinate range.
+	 * If the range contains coordinates which are not part of the grid it will throw a {@link HexagonNotFoundException}
+	 * .
 	 * 
 	 * @param gridXFrom from x inclusive
 	 * @param gridXTo to x inclusive
