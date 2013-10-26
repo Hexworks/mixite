@@ -31,6 +31,8 @@ public final class TriangularGridLayoutStrategy extends AbstractGridLayoutStrate
 	}
 
 	public boolean checkParameters(int gridHeight, int gridWidth) {
-		return gridHeight == gridWidth;
+		boolean superResult = super.checkParameters(gridHeight, gridWidth);
+		boolean result = gridHeight == gridWidth;
+		return superResult && result;
 	}
 }

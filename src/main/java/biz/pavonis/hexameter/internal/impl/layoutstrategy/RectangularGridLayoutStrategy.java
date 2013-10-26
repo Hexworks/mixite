@@ -33,6 +33,6 @@ public final class RectangularGridLayoutStrategy extends AbstractGridLayoutStrat
 	}
 
 	public boolean checkParameters(int gridHeight, int gridWidth) {
-		return true;
+		return super.checkParameters(gridHeight, gridWidth);
 	}
 }

@@ -9,7 +9,7 @@ import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonalGridBuilder;
 import biz.pavonis.hexameter.internal.impl.HexagonImpl;
 
-public final class RhombusGridLayoutStrategy extends AbstractGridLayoutStrategy {
+public final class TrapezoidGridLayoutStrategy extends AbstractGridLayoutStrategy {
 
 	public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
 		Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();

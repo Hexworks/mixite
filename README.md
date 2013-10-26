@@ -3,7 +3,8 @@
 Hexameter is a hexagonal grid library. The motivation behind it is to have
 an optimized, simple and usable library for drawing hexagonal grids without
 being tied to any GUI framework. So it works on Android, SWT, Swing, you
-name it!
+name it! It is **100% unit tested** so you don't have to worry about something
+going wrong.
 
 *I'm open to suggestions, feel free to comment or to send me a message.
 Pull reqeusts are also welcome!*
@@ -12,7 +13,7 @@ Pull reqeusts are also welcome!*
  - Hexagonal
  - Triangular
  - Rectangular
- - Rhombus
+ - Trapezoid
  - Custom
 
 ## Supported operations

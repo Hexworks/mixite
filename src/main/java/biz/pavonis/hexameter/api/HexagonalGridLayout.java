@@ -4,7 +4,7 @@ import biz.pavonis.hexameter.internal.impl.layoutstrategy.CustomGridLayoutStrate
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.HexagonalGridLayoutStrategy;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.RectangularGridLayoutStrategy;
-import biz.pavonis.hexameter.internal.impl.layoutstrategy.RhombusGridLayoutStrategy;
+import biz.pavonis.hexameter.internal.impl.layoutstrategy.TrapezoidGridLayoutStrategy;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.TriangularGridLayoutStrategy;
 
 /**
@@ -14,23 +14,27 @@ import biz.pavonis.hexameter.internal.impl.layoutstrategy.TriangularGridLayoutSt
  * using this name seemed appropriate.
  */
 public enum HexagonalGridLayout {
+
 	/**
 	 * A rectangular layout has no special rules.
 	 */
 	RECTANGULAR(new RectangularGridLayoutStrategy()),
+
 	/**
 	 * The hexagonal layout must have equal width and height and
 	 * it must be odd.
 	 */
 	HEXAGONAL(new HexagonalGridLayoutStrategy()),
+
 	/**
 	 * A triangular layout must have equal width and height.
 	 */
 	TRIANGULAR(new TriangularGridLayoutStrategy()),
+
 	/**
-	 * A rhombus layout has no special rules.
+	 * A trapezoid layout has no special rules.
 	 */
-	RHOMBUS(new RhombusGridLayoutStrategy()),
+	TRAPEZOID(new TrapezoidGridLayoutStrategy()),
 
 	/**
 	 * Represents a custom grid layout strategy. It will

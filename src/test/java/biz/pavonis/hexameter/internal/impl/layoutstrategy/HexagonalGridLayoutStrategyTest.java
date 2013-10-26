@@ -1,35 +1,153 @@
 package biz.pavonis.hexameter.internal.impl.layoutstrategy;
 
+import static biz.pavonis.hexameter.api.CoordinateConverter.createKeyFromCoordinate;
+import static biz.pavonis.hexameter.api.HexagonOrientation.FLAT_TOP;
+import static biz.pavonis.hexameter.internal.impl.layoutstrategy.GridLayouStrategyTestUtil.fetchDefaultBuilder;
 import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import biz.pavonis.hexameter.api.HexagonOrientation;
+import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonalGridBuilder;
 
 public class HexagonalGridLayoutStrategyTest {
 
-	private static final int RADIUS = 30;
-	private static final int GRID_WIDTH = 10;
-	private static final int GRID_HEIGHT = 10;
-	private static final HexagonOrientation ORIENTATION = HexagonOrientation.POINTY_TOP;
-
 	private HexagonalGridLayoutStrategy target;
-	@SuppressWarnings("unused")
 	private HexagonalGridBuilder builder;
 
 	@Before
 	public void setUp() throws Exception {
-		builder = new HexagonalGridBuilder().setGridHeight(GRID_HEIGHT).setGridWidth(GRID_WIDTH).setRadius(RADIUS).setOrientation(ORIENTATION);
+		builder = fetchDefaultBuilder();
 		target = new HexagonalGridLayoutStrategy();
 	}
 
 	@Test
-	public void testCreateHexagons() {
-		fail("Not yet implemented");
+	public void testCreateHexagonsWithPointy0() {
+		Map<String, Hexagon> hexagons = target.createHexagons(builder);
+		assertNotNull(hexagons.get(createKeyFromCoordinate(1, 0)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(2, 0)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(2, 1)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(1, 2)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(0, 2)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(0, 1)));
+
+		assertNull(hexagons.get(createKeyFromCoordinate(0, 0)));
+		assertNull(hexagons.get(createKeyFromCoordinate(1, -1)));
+		assertNull(hexagons.get(createKeyFromCoordinate(2, -1)));
+		assertNull(hexagons.get(createKeyFromCoordinate(3, -1)));
+		assertNull(hexagons.get(createKeyFromCoordinate(3, 0)));
+		assertNull(hexagons.get(createKeyFromCoordinate(3, 1)));
+		assertNull(hexagons.get(createKeyFromCoordinate(2, 2)));
+		assertNull(hexagons.get(createKeyFromCoordinate(1, 3)));
+		assertNull(hexagons.get(createKeyFromCoordinate(0, 3)));
+		assertNull(hexagons.get(createKeyFromCoordinate(-1, 3)));
+		assertNull(hexagons.get(createKeyFromCoordinate(-1, 2)));
+		assertNull(hexagons.get(createKeyFromCoordinate(-1, 1)));
+	}
+
+	@Test
+	public void testCreateHexagonsWithPointy1() {
+		builder.setGridHeight(5).setGridWidth(5);
+		Map<String, Hexagon> hexagons = target.createHexagons(builder);
+		assertNotNull(hexagons.get(createKeyFromCoordinate(1, 0)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(2, 0)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(3, 0)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(3, 1)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(3, 2)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(2, 3)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(1, 4)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(0, 4)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(-1, 4)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(-1, 3)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(-1, 2)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(0, 1)));
+
+		assertNull(hexagons.get(createKeyFromCoordinate(0, 0)));
+		assertNull(hexagons.get(createKeyFromCoordinate(1, -1)));
+		assertNull(hexagons.get(createKeyFromCoordinate(2, -1)));
+		assertNull(hexagons.get(createKeyFromCoordinate(3, -1)));
+		assertNull(hexagons.get(createKeyFromCoordinate(4, -1)));
+		assertNull(hexagons.get(createKeyFromCoordinate(4, 0)));
+		assertNull(hexagons.get(createKeyFromCoordinate(4, 1)));
+		assertNull(hexagons.get(createKeyFromCoordinate(4, 2)));
+		assertNull(hexagons.get(createKeyFromCoordinate(3, 3)));
+		assertNull(hexagons.get(createKeyFromCoordinate(2, 4)));
+		assertNull(hexagons.get(createKeyFromCoordinate(1, 5)));
+		assertNull(hexagons.get(createKeyFromCoordinate(0, 5)));
+		assertNull(hexagons.get(createKeyFromCoordinate(-1, 5)));
+		assertNull(hexagons.get(createKeyFromCoordinate(-2, 5)));
+		assertNull(hexagons.get(createKeyFromCoordinate(-2, 4)));
+		assertNull(hexagons.get(createKeyFromCoordinate(-2, 3)));
+		assertNull(hexagons.get(createKeyFromCoordinate(-2, 2)));
+		assertNull(hexagons.get(createKeyFromCoordinate(-1, 1)));
+	}
+
+	@Test
+	public void testCreateHexagonsWithFlat0() {
+		builder.setOrientation(FLAT_TOP);
+		Map<String, Hexagon> hexagons = target.createHexagons(builder);
+		assertNotNull(hexagons.get(createKeyFromCoordinate(1, 0)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(2, 0)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(2, 1)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(1, 2)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(0, 2)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(0, 1)));
+
+		assertNull(hexagons.get(createKeyFromCoordinate(0, 0)));
+		assertNull(hexagons.get(createKeyFromCoordinate(0, -1)));
+		assertNull(hexagons.get(createKeyFromCoordinate(2, -1)));
+		assertNull(hexagons.get(createKeyFromCoordinate(3, -1)));
+		assertNull(hexagons.get(createKeyFromCoordinate(3, 0)));
+		assertNull(hexagons.get(createKeyFromCoordinate(3, 1)));
+		assertNull(hexagons.get(createKeyFromCoordinate(2, 2)));
+		assertNull(hexagons.get(createKeyFromCoordinate(1, 3)));
+		assertNull(hexagons.get(createKeyFromCoordinate(0, 3)));
+		assertNull(hexagons.get(createKeyFromCoordinate(-1, 3)));
+		assertNull(hexagons.get(createKeyFromCoordinate(-1, 2)));
+		assertNull(hexagons.get(createKeyFromCoordinate(-1, 1)));
+	}
+
+	@Test
+	public void testCreateHexagonsWithFlat1() {
+		builder.setGridHeight(5).setGridWidth(5).setOrientation(FLAT_TOP);
+		Map<String, Hexagon> hexagons = target.createHexagons(builder);
+		assertNotNull(hexagons.get(createKeyFromCoordinate(2, -1)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(3, -1)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(4, -1)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(4, 0)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(4, 1)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(3, 2)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(2, 3)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(1, 3)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(0, 3)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(0, 2)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(0, 1)));
+		assertNotNull(hexagons.get(createKeyFromCoordinate(1, 0)));
+
+		assertNull(hexagons.get(createKeyFromCoordinate(0, 0)));
+		assertNull(hexagons.get(createKeyFromCoordinate(1, -1)));
+		assertNull(hexagons.get(createKeyFromCoordinate(2, -2)));
+		assertNull(hexagons.get(createKeyFromCoordinate(3, -2)));
+		assertNull(hexagons.get(createKeyFromCoordinate(4, -2)));
+		assertNull(hexagons.get(createKeyFromCoordinate(5, -2)));
+		assertNull(hexagons.get(createKeyFromCoordinate(5, -1)));
+		assertNull(hexagons.get(createKeyFromCoordinate(5, 0)));
+		assertNull(hexagons.get(createKeyFromCoordinate(5, 1)));
+		assertNull(hexagons.get(createKeyFromCoordinate(4, 2)));
+		assertNull(hexagons.get(createKeyFromCoordinate(3, 3)));
+		assertNull(hexagons.get(createKeyFromCoordinate(2, 4)));
+		assertNull(hexagons.get(createKeyFromCoordinate(1, 4)));
+		assertNull(hexagons.get(createKeyFromCoordinate(0, 4)));
+		assertNull(hexagons.get(createKeyFromCoordinate(-1, 4)));
+		assertNull(hexagons.get(createKeyFromCoordinate(-1, 3)));
+		assertNull(hexagons.get(createKeyFromCoordinate(-1, 2)));
+		assertNull(hexagons.get(createKeyFromCoordinate(-1, 1)));
 	}
 
 	@Test

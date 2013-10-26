@@ -7,7 +7,7 @@ import org.junit.Test;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.CustomGridLayoutStrategy;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.HexagonalGridLayoutStrategy;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.RectangularGridLayoutStrategy;
-import biz.pavonis.hexameter.internal.impl.layoutstrategy.RhombusGridLayoutStrategy;
+import biz.pavonis.hexameter.internal.impl.layoutstrategy.TrapezoidGridLayoutStrategy;
 import biz.pavonis.hexameter.internal.impl.layoutstrategy.TriangularGridLayoutStrategy;
 import biz.pavonis.hexameter.testutils.EnumTest;
 import biz.pavonis.hexameter.testutils.TestUtils;
@@ -36,7 +36,7 @@ public class HexagonalGridLayoutTest extends EnumTest {
 
 	@Test
 	public void testGetGridLayoutStrategyRhombus() {
-		assertTrue(HexagonalGridLayout.RHOMBUS.getGridLayoutStrategy() instanceof RhombusGridLayoutStrategy);
+		assertTrue(HexagonalGridLayout.TRAPEZOID.getGridLayoutStrategy() instanceof TrapezoidGridLayoutStrategy);
 	}
 
 	@Test
