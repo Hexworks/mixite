@@ -3,20 +3,17 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>biz.pavonis</groupId>
 	<artifactId>biz.pavonis.hexameter</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>hexameter</name>
-	<description>A hexagonal grid library</description>
+	<description>Hexameter is a hexagonal grid library. The motivation behind it is to have an optimized,
+	 simple and usable library for drawing hexagonal grids without being tied to any GUI framework.
+	</description>
+	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.8.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.9.5</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

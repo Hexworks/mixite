@@ -20,6 +20,6 @@ public final class CustomGridLayoutStrategy extends AbstractGridLayoutStrategy {
 	}
 
 	public boolean checkParameters(int gridHeight, int gridWidth) {
-		return true;
+		return super.checkParameters(gridHeight, gridWidth);
 	}
 }
