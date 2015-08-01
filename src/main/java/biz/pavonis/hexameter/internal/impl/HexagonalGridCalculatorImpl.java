@@ -27,16 +27,19 @@ public final class HexagonalGridCalculatorImpl implements
         return (int) max(max(absX, absY), absZ);
     }
 
-    public Set<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance) {
-        Set<Hexagon> ret = new HashSet<Hexagon>();
-        for (int x = -distance; x <= distance; x++) {
-            for (int y = max(-distance, -x - distance); y <= min(distance, -x
-                    + distance); y++) {
-                int z = -x - y;
-                ret.add(hexagonalGrid.getByGridCoordinate(hexagon.getGridX()
-                        + x, hexagon.getGridZ() + z));
-            }
-        }
-        return ret;
-    }
+    	public Set<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance) {
+		Set<Hexagon> ret = new HashSet<Hexagon>();
+		for (int x = -distance; x <= distance; x++) {
+			for (int y = max(-distance, -x - distance); y <= min(distance, -x + distance); y++) {
+				int z = -x - y;
+				int tmpX = hexagon.getGridX() + x;
+				int tmpZ = hexagon.getGridZ() + z;
+				if (hexagonalGrid.containsCoordinate(tmpX, tmpZ)) {
+					Hexagon hex = hexagonalGrid.getByGridCoordinate(tmpX, tmpZ);
+					ret.add(hex);
+				}
+			}
+		}
+		return ret;
+	}
 }
