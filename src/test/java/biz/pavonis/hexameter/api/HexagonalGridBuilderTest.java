@@ -92,7 +92,7 @@ public class HexagonalGridBuilderTest {
 
 	@Test
 	public void testSetCustomStorage() {
-		Map<String, Hexagon> customStorage = new HashMap<String, Hexagon>();
+		Map<String, Hexagon> customStorage = new HashMap<> ();
 		target.setCustomStorage(customStorage);
 		assertEquals(customStorage, target.getCustomStorage());
 	}

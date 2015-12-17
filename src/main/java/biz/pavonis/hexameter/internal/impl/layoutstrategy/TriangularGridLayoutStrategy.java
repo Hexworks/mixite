@@ -18,7 +18,7 @@ public final class TriangularGridLayoutStrategy extends AbstractGridLayoutStrate
 
 	public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
 		int gridSize = builder.getGridHeight();
-		Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();
+		Map<String, Hexagon> hexagons = new HashMap<> ();
 		for (int y = 0; y < gridSize; y++) {
 			int endX = gridSize - y;
 			for (int x = 0; x < endX; x++) {

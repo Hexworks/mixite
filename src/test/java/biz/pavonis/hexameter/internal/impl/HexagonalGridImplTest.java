@@ -41,7 +41,7 @@ public class HexagonalGridImplTest {
 
 	@Test
 	public void testHexagonalGridImplWithCustomStorage() {
-		Map<String, Hexagon> expected = new HashMap<String, Hexagon>();
+		Map<String, Hexagon> expected = new HashMap<> ();
 		builder.setCustomStorage(expected);
 		target = builder.build();
 		assertEquals(expected, target.getHexagons());
@@ -66,7 +66,7 @@ public class HexagonalGridImplTest {
 
 	@Test
 	public void testGetHexagonsByAxialRange() {
-		Set<Hexagon> expected = new HashSet<Hexagon>();
+		Set<Hexagon> expected = new HashSet<> ();
 
 		expected.add(target.getByGridCoordinate(2, 3));
 		expected.add(target.getByGridCoordinate(3, 3));
@@ -91,7 +91,7 @@ public class HexagonalGridImplTest {
 
 	@Test
 	public void testGetHexagonsByOffsetRange() {
-		Set<Hexagon> expected = new HashSet<Hexagon>();
+		Set<Hexagon> expected = new HashSet<> ();
 
 		expected.add(target.getByGridCoordinate(1, 3));
 		expected.add(target.getByGridCoordinate(2, 3));
@@ -184,7 +184,7 @@ public class HexagonalGridImplTest {
 	@Test
 	public void testGetNeighborsOfFromMiddle() {
 		Hexagon hex = target.getByGridCoordinate(3, 7);
-		Set<Hexagon> expected = new HashSet<Hexagon>();
+		Set<Hexagon> expected = new HashSet<> ();
 		expected.add(target.getByGridCoordinate(3, 6));
 		expected.add(target.getByGridCoordinate(4, 6));
 		expected.add(target.getByGridCoordinate(4, 7));
@@ -198,7 +198,7 @@ public class HexagonalGridImplTest {
 	@Test
 	public void testGetNeighborsOfFromEdge() {
 		Hexagon hex = target.getByGridCoordinate(5, 9);
-		Set<Hexagon> expected = new HashSet<Hexagon>();
+		Set<Hexagon> expected = new HashSet<> ();
 		expected.add(target.getByGridCoordinate(5, 8));
 		expected.add(target.getByGridCoordinate(4, 9));
 		Set<Hexagon> actual = target.getNeighborsOf(hex);

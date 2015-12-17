@@ -14,7 +14,7 @@ import biz.pavonis.hexameter.api.HexagonalGridBuilder;
 public final class CustomGridLayoutStrategy extends AbstractGridLayoutStrategy {
 
 	public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
-		Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();
+		Map<String, Hexagon> hexagons = new HashMap<> ();
 		addCustomHexagons(builder, hexagons);
 		return hexagons;
 	}

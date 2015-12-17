@@ -27,7 +27,7 @@ public class AbstractGridLayoutStrategyTest {
 		target = new AbstractGridLayoutStrategy() {
 
 			public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
-				return new HashMap<String, Hexagon>();
+				return new HashMap<> ();
 			}
 		};
 	}

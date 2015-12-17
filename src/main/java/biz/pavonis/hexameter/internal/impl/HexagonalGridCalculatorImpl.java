@@ -4,12 +4,21 @@ import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 
 import biz.pavonis.hexameter.api.Hexagon;
 import biz.pavonis.hexameter.api.HexagonalGrid;
 import biz.pavonis.hexameter.api.HexagonalGridCalculator;
+import biz.pavonis.hexameter.api.PathfindingAlgorithm;
 
 public final class HexagonalGridCalculatorImpl implements
         HexagonalGridCalculator {
@@ -28,7 +37,7 @@ public final class HexagonalGridCalculatorImpl implements
     }
 
     	public Set<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance) {
-		Set<Hexagon> ret = new HashSet<Hexagon>();
+		Set<Hexagon> ret = new HashSet<> ();
 		for (int x = -distance; x <= distance; x++) {
 			for (int y = max(-distance, -x - distance); y <= min(distance, -x + distance); y++) {
 				int z = -x - y;
@@ -42,8 +51,9 @@ public final class HexagonalGridCalculatorImpl implements
 		}
 		return ret;
 	}
-	
-	private class HexIntComparator implements Comparator<Hexagon> {
+
+	private class HexIntComparator implements Comparator<Hexagon>
+  {
 		@Override
 		public int compare(Hexagon o1, Hexagon o2) {
 			Integer prio1 = (Integer) o1.getSatelliteData();
@@ -70,7 +80,7 @@ public final class HexagonalGridCalculatorImpl implements
 		}
 
 		Hexagon current = end;
-		List<Hexagon> path = new LinkedList<Hexagon>();
+		List<Hexagon> path = new LinkedList<> ();
 		path.add(current);
 		while (!current.equals(start)) {
 			current = cameFrom.get(current);
@@ -81,12 +91,12 @@ public final class HexagonalGridCalculatorImpl implements
 	}
 
 	private Map<Hexagon, Hexagon> aStar(Hexagon start, Hexagon end) {
-		PriorityQueue<Hexagon> frontier = new PriorityQueue<Hexagon>(new HexIntComparator());
-		start.setSatelliteData(new Integer(0));
+		PriorityQueue<Hexagon> frontier = new PriorityQueue<> (11, new HexIntComparator ());
+		start.setSatelliteData(0);
 		frontier.add(start);
-		Map<Hexagon, Hexagon> cameFrom = new HashMap<Hexagon, Hexagon>();
+		Map<Hexagon, Hexagon> cameFrom = new HashMap<> ();
 		cameFrom.put(start, null);
-		Map<Hexagon, Integer> costSoFar = new HashMap<Hexagon, Integer>();
+		Map<Hexagon, Integer> costSoFar = new HashMap<> ();
 		costSoFar.put(start, 0);
 
 		while (!frontier.isEmpty()) {
@@ -100,7 +110,7 @@ public final class HexagonalGridCalculatorImpl implements
 				if ((!costSoFar.containsKey(next)) || newCost < costSoFar.get(next)) {
 					costSoFar.put(next, newCost);
 					int prio = calculateDistanceBetween(end, next);
-					next.setSatelliteData(new Integer(prio));
+					next.setSatelliteData(prio);
 					frontier.add(next);
 					cameFrom.put(next, current);
 				}
@@ -110,9 +120,9 @@ public final class HexagonalGridCalculatorImpl implements
 	}
 
 	private Map<Hexagon, Hexagon> breadthFirst(Hexagon start, Hexagon end) {
-		Queue<Hexagon> frontier = new LinkedList<Hexagon>();
+		Queue<Hexagon> frontier = new LinkedList<> ();
 		frontier.add(start);
-		Map<Hexagon, Hexagon> cameFrom = new HashMap<Hexagon, Hexagon>();
+		Map<Hexagon, Hexagon> cameFrom = new HashMap<> ();
 		cameFrom.put(start, null);
 
 		while (!frontier.isEmpty()) {
@@ -132,10 +142,10 @@ public final class HexagonalGridCalculatorImpl implements
 	}
 
 	private Map<Hexagon, Hexagon> greedyBestFirst(Hexagon start, Hexagon end) {
-		PriorityQueue<Hexagon> frontier = new PriorityQueue<Hexagon>(new HexIntComparator());
-		start.setSatelliteData(new Integer(0));
+		PriorityQueue<Hexagon> frontier = new PriorityQueue<> (11, new HexIntComparator ());
+		start.setSatelliteData(0);
 		frontier.add(start);
-		Map<Hexagon, Hexagon> cameFrom = new HashMap<Hexagon, Hexagon>();
+		Map<Hexagon, Hexagon> cameFrom = new HashMap<> ();
 		cameFrom.put(start, null);
 
 		while (!frontier.isEmpty()) {
@@ -147,7 +157,7 @@ public final class HexagonalGridCalculatorImpl implements
 			for (Hexagon next : neigbours) {
 				if (!cameFrom.containsKey(next)) {
 					int prio = calculateDistanceBetween(end, next);
-					next.setSatelliteData(new Integer(prio));
+					next.setSatelliteData(prio);
 					frontier.add(next);
 					cameFrom.put(next, current);
 				}

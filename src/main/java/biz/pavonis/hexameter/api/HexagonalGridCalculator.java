@@ -1,5 +1,6 @@
 package biz.pavonis.hexameter.api;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,7 +21,7 @@ public interface HexagonalGridCalculator {
 
 	/**
 	 * Calculates the distance (in hexagons) between two {@link Hexagon} objects on the grid.
-	 * 
+	 *
 	 * @param hex0
 	 * @param hex1
 	 * @return distance
@@ -29,16 +30,16 @@ public interface HexagonalGridCalculator {
 
 	/**
 	 * Returns all {@link Hexagon}s which are within distance (inclusive) from the {@link Hexagon}.
-	 * 
+	 *
 	 * @param hexagon {@link Hexagon}
 	 * @param distance
 	 * @return {@link Hexagon}s within distance (inclusive)
 	 */
 	Set<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance);
-	
+
 	/**
 	 * Returns the shortest path between start and end {@link Hexagon}.
-	 * 
+	 *
 	 * @param start
 	 *            the path starts here.
 	 * @param end

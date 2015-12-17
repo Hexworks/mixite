@@ -1,10 +1,11 @@
 package biz.pavonis.hexameter.internal.impl.layoutstrategy;
 
-import static biz.pavonis.hexameter.api.CoordinateConverter.createKeyFromCoordinate;
 import static java.lang.Math.abs;
 import static java.lang.Math.floor;
 import static java.lang.Math.max;
 import static java.lang.Math.round;
+
+import static biz.pavonis.hexameter.api.CoordinateConverter.createKeyFromCoordinate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +24,7 @@ public final class HexagonalGridLayoutStrategy extends AbstractGridLayoutStrateg
 
 	public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
 		double gridSize = builder.getGridHeight();
-		Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();
+		Map<String, Hexagon> hexagons = new HashMap<> ();
 		int startX = HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? (int) floor(gridSize / 2d) : (int) round(gridSize / 4d);
 		int hexRadius = (int) floor(gridSize / 2d);
 		int minX = startX - hexRadius;
