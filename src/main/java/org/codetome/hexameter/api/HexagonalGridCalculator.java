@@ -1,6 +1,5 @@
 package org.codetome.hexameter.api;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -36,17 +35,4 @@ public interface HexagonalGridCalculator {
 	 * @return {@link Hexagon}s within distance (inclusive)
 	 */
 	Set<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance);
-
-	/**
-	 * Returns the shortest path between start and end {@link Hexagon}.
-	 *
-	 * @param start
-	 *            the path starts here.
-	 * @param end
-	 *            the path ends here.
-	 * @param algorithm
-	 *            the algorithm to find the shortest path with.
-	 * @return all {@link Hexagon}s on the shortest path.
-	 */
-	List<Hexagon> calculatePath(Hexagon start, Hexagon end, PathfindingAlgorithm algorithm);
 }

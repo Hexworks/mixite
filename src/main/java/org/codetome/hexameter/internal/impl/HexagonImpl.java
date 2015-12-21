@@ -43,7 +43,7 @@ public class HexagonImpl implements Hexagon {
 
     @Override
     public String toString() {
-        return "Hex#{x=" + gridX + ", z=" + gridZ + "}";
+        return "HexagonImpl#{x=" + gridX + ", z=" + gridZ + "}";
     }
 
     @Override

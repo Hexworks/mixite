@@ -6,8 +6,10 @@ package org.codetome.hexameter.api;
  */
 public final class CoordinateConverter {
 
-	private CoordinateConverter() {
-	}
+
+    public CoordinateConverter() {
+        throw new UnsupportedOperationException("This utility class is not meant to be instantiated.");
+    }
 
 	/**
 	 * Calculates the axial X coordinate based on an offset coordinate pair.

@@ -6,8 +6,6 @@ import static org.codetome.hexameter.api.CoordinateConverter.convertOffsetCoordi
 import static org.codetome.hexameter.api.CoordinateConverter.createCoordinateFromKey;
 import static org.codetome.hexameter.api.CoordinateConverter.createKeyFromCoordinate;
 
-import org.codetome.hexameter.api.AxialCoordinate;
-import org.codetome.hexameter.api.HexagonOrientation;
 import org.junit.Test;
 
 public class CoordinateConverterTest {
@@ -22,6 +20,12 @@ public class CoordinateConverterTest {
 	private static final int EXPECTED_AXIAL_X_WITH_FLAT = 3;
 	private static final int EXPECTED_AXIAL_Z_WITH_POINTY = 4;
 	private static final int EXPECTED_AXIAL_Z_WITH_FLAT = 3;
+
+	@Test(expected=UnsupportedOperationException.class)
+	public void shouldThrowExceptionWhenInstantiated() {
+	    new CoordinateConverter();
+	}
+
 
 	@Test
 	public void shouldConvertOffsetCoordinatesToAxialXWithPointy() {

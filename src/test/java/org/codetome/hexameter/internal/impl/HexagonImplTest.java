@@ -7,7 +7,6 @@ import org.codetome.hexameter.api.Hexagon;
 import org.codetome.hexameter.api.HexagonOrientation;
 import org.codetome.hexameter.api.Point;
 import org.codetome.hexameter.internal.SharedHexagonData;
-import org.codetome.hexameter.internal.impl.HexagonImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,6 +33,11 @@ public class HexagonImplTest {
 	@Before
 	public void setUp() {
 		target = new HexagonImpl(TEST_POINTY_DATA, TEST_GRID_X, TEST_GRID_Z);
+	}
+
+	@Test
+	public void shouldReturnProperStringRepresentationOfHexagonWhenToStringCalled() {
+	    assertEquals("HexagonImpl#{x=" + TEST_GRID_X + ", z=" + TEST_GRID_Z + "}", target.toString());
 	}
 
 	@Test
