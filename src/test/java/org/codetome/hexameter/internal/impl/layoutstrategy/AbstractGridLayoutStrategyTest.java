@@ -3,17 +3,14 @@ package org.codetome.hexameter.internal.impl.layoutstrategy;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
-import static org.codetome.hexameter.api.CoordinateConverter.createKeyFromCoordinate;
+import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
 import static org.codetome.hexameter.internal.impl.layoutstrategy.GridLayouStrategyTestUtil.fetchDefaultBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.codetome.hexameter.api.AxialCoordinate;
 import org.codetome.hexameter.api.Hexagon;
 import org.codetome.hexameter.api.HexagonalGridBuilder;
-import org.codetome.hexameter.internal.impl.layoutstrategy.AbstractGridLayoutStrategy;
-import org.codetome.hexameter.internal.impl.layoutstrategy.RectangularGridLayoutStrategy;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,11 +39,11 @@ public class AbstractGridLayoutStrategyTest {
 
 	@Test
 	public void shouldProperlyCreateHexagonsWhenCreateHexagonsIsCalledWithCustomCoordinate() {
-		builder.addCustomAxialCoordinate(new AxialCoordinate(2, 3));
+		builder.addCustomAxialCoordinate(fromCoordinates(2, 3));
 		final Map<String, Hexagon> hexagons = target.createHexagons(builder);
 		target.addCustomHexagons(builder, hexagons);
 		assertTrue(hexagons.size() == 1);
-		final Hexagon hex = hexagons.get(createKeyFromCoordinate(2, 3));
+		final Hexagon hex = hexagons.get(fromCoordinates(2, 3).toKey());
 		assertNotNull(hex);
 	}
 
@@ -54,11 +51,11 @@ public class AbstractGridLayoutStrategyTest {
 	public void shouldThrowExceptionWhenCalledWithWrongParameters() {
 		target = new RectangularGridLayoutStrategy();
 		builder.setGridHeight(100).setGridWidth(100);
-		builder.addCustomAxialCoordinate(new AxialCoordinate(2, 3));
+		builder.addCustomAxialCoordinate(fromCoordinates(2, 3));
 		final Map<String, Hexagon> hexagons = target.createHexagons(builder);
 		target.addCustomHexagons(builder, hexagons);
 		assertTrue(hexagons.size() == 1);
-		final Hexagon hex = hexagons.get(createKeyFromCoordinate(2, 3));
+		final Hexagon hex = hexagons.get(fromCoordinates(2, 3).toKey());
 		assertNotNull(hex);
 	}
 

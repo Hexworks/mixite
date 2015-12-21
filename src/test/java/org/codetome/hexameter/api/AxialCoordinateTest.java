@@ -1,8 +1,9 @@
 package org.codetome.hexameter.api;
 
 import static junit.framework.Assert.assertEquals;
+import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
+import static org.codetome.hexameter.api.AxialCoordinate.fromKey;
 
-import org.codetome.hexameter.api.AxialCoordinate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ public class AxialCoordinateTest {
 
 	@Before
 	public void setUp() {
-		target = new AxialCoordinate(TEST_GRID_X, TEST_GRID_Z);
+		target = fromCoordinates(TEST_GRID_X, TEST_GRID_Z);
 	}
 
 	@Test
@@ -25,6 +26,23 @@ public class AxialCoordinateTest {
 	@Test
 	public void shouldReturnProperCoordinateWhenGetGridZIsCalled() {
 		assertEquals(TEST_GRID_Z, target.getGridZ());
+	}
+
+	@Test
+	public void shouldReturnProperKeyWhenToKeyIsCalled() {
+	    assertEquals(TEST_GRID_X + "," + TEST_GRID_Z, target.toKey());
+	}
+
+	@Test
+	public void shouldCreateProperAxialCoordinateWhenFromKeyIsCalled() {
+	    final AxialCoordinate result = fromKey(TEST_GRID_X + "," + TEST_GRID_Z);
+	    assertEquals(target.getGridX(), result.getGridX());
+	    assertEquals(target.getGridZ(), result.getGridZ());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void shouldFailToCreateCoordinateFromMalformedKey() {
+	    AxialCoordinate.fromKey(null);
 	}
 
 }

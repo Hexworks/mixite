@@ -4,12 +4,13 @@ import static java.lang.Math.abs;
 import static java.lang.Math.floor;
 import static java.lang.Math.max;
 import static java.lang.Math.round;
-import static org.codetome.hexameter.api.CoordinateConverter.createKeyFromCoordinate;
+import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
 import static org.codetome.hexameter.api.HexagonOrientation.FLAT_TOP;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import org.codetome.hexameter.api.AxialCoordinate;
 import org.codetome.hexameter.api.Hexagon;
 import org.codetome.hexameter.api.HexagonOrientation;
 import org.codetome.hexameter.api.HexagonalGrid;
@@ -34,8 +35,8 @@ public final class HexagonalGridLayoutStrategy extends AbstractGridLayoutStrateg
 			for (int x = max(startX, minX); x <= max(startX, minX) + hexRadius + hexRadius - distanceFromMid; x++) {
 				final int gridX = x;
 				final int gridZ = HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? y - (int) floor(gridSize / 4d) : y;
-				final Hexagon hexagon = new HexagonImpl(builder.getSharedHexagonData(), gridX, gridZ);
-				hexagons.put(createKeyFromCoordinate(gridX, gridZ), hexagon);
+				final AxialCoordinate coordinate = fromCoordinates(gridX, gridZ);
+                hexagons.put(coordinate.toKey(), new HexagonImpl(builder.getSharedHexagonData(), coordinate));
 			}
 			startX--;
 		}

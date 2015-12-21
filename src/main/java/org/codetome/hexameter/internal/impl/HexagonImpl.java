@@ -6,6 +6,7 @@ import static org.codetome.hexameter.api.HexagonOrientation.FLAT_TOP;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.codetome.hexameter.api.AxialCoordinate;
 import org.codetome.hexameter.api.Hexagon;
 import org.codetome.hexameter.api.Point;
 import org.codetome.hexameter.internal.SharedHexagonData;
@@ -19,31 +20,29 @@ public class HexagonImpl implements Hexagon {
     private final SharedHexagonData sharedHexagonData;
     private final double centerX;
     private final double centerY;
-    private final int gridX;
-    private final int gridZ;
+    private final AxialCoordinate coordinate;
     private final AtomicReference<Object> satelliteData;
 
-    public HexagonImpl(final SharedHexagonData sharedHexagonData, final int gridX, final int gridZ) {
+    public HexagonImpl(final SharedHexagonData sharedHexagonData, final AxialCoordinate coordinate) {
         this.sharedHexagonData = sharedHexagonData;
         this.satelliteData = new AtomicReference<> ();
         final double height = sharedHexagonData.getHeight();
         final double width = sharedHexagonData.getWidth();
         final double radius = sharedHexagonData.getRadius();
-        this.gridX = gridX;
-        this.gridZ = gridZ;
+        this.coordinate = coordinate;
         if (FLAT_TOP.equals(sharedHexagonData
                 .getOrientation())) {
-            centerX = gridX * width + radius;
-            centerY = gridZ * height + gridX * height / 2 + height / 2;
+            centerX = coordinate.getGridX() * width + radius;
+            centerY = coordinate.getGridZ() * height + coordinate.getGridX() * height / 2 + height / 2;
         } else {
-            centerX = gridX * width + gridZ * width / 2 + width / 2;
-            centerY = gridZ * height + radius;
+            centerX = coordinate.getGridX() * width + coordinate.getGridZ() * width / 2 + width / 2;
+            centerY = coordinate.getGridZ() * height + radius;
         }
     }
 
     @Override
     public String toString() {
-        return "HexagonImpl#{x=" + gridX + ", z=" + gridZ + "}";
+        return "HexagonImpl#{x=" + coordinate.getGridX() + ", z=" + coordinate.getGridZ() + "}";
     }
 
     @Override
@@ -75,17 +74,17 @@ public class HexagonImpl implements Hexagon {
 
     @Override
     public final int getGridX() {
-        return gridX;
+        return coordinate.getGridX();
     }
 
     @Override
     public final int getGridY() {
-        return -(gridX + gridZ);
+        return -(coordinate.getGridX() + coordinate.getGridZ());
     }
 
     @Override
     public final int getGridZ() {
-        return gridZ;
+        return coordinate.getGridZ();
     }
 
     @Override

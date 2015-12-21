@@ -3,10 +3,12 @@ package org.codetome.hexameter.internal.impl;
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import org.codetome.hexameter.api.AxialCoordinate;
 import org.codetome.hexameter.api.Hexagon;
 import org.codetome.hexameter.api.HexagonalGrid;
 import org.codetome.hexameter.api.HexagonalGridCalculator;
@@ -28,16 +30,17 @@ public final class HexagonalGridCalculatorImpl implements
         return (int) max(max(absX, absY), absZ);
     }
 
-    	@Override
-        public Set<Hexagon> calculateMovementRangeFrom(final Hexagon hexagon, final int distance) {
+    @Override
+    public Set<Hexagon> calculateMovementRangeFrom(final Hexagon hexagon, final int distance) {
 		final Set<Hexagon> ret = new HashSet<> ();
 		for (int x = -distance; x <= distance; x++) {
 			for (int y = max(-distance, -x - distance); y <= min(distance, -x + distance); y++) {
 				final int z = -x - y;
 				final int tmpX = hexagon.getGridX() + x;
 				final int tmpZ = hexagon.getGridZ() + z;
-				if (hexagonalGrid.containsCoordinate(tmpX, tmpZ)) {
-					final Hexagon hex = hexagonalGrid.getByGridCoordinate(tmpX, tmpZ);
+				final AxialCoordinate tempCoordinate = fromCoordinates(tmpX, tmpZ);
+				if (hexagonalGrid.containsAxialCoordinate(tempCoordinate)) {
+					final Hexagon hex = hexagonalGrid.getByAxialCoordinate(tempCoordinate);
 					ret.add(hex);
 				}
 			}

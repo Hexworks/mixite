@@ -1,10 +1,10 @@
 package org.codetome.hexameter.api;
 
 import static junit.framework.Assert.assertEquals;
+import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
+import static org.codetome.hexameter.api.AxialCoordinate.fromKey;
 import static org.codetome.hexameter.api.CoordinateConverter.convertOffsetCoordinatesToAxialX;
 import static org.codetome.hexameter.api.CoordinateConverter.convertOffsetCoordinatesToAxialZ;
-import static org.codetome.hexameter.api.CoordinateConverter.createCoordinateFromKey;
-import static org.codetome.hexameter.api.CoordinateConverter.createKeyFromCoordinate;
 
 import org.junit.Test;
 
@@ -53,12 +53,12 @@ public class CoordinateConverterTest {
 
 	@Test
 	public void shouldCreateKeyFromCoordinate() {
-		assertEquals(TEST_KEY, createKeyFromCoordinate(TEST_GRID_X, TEST_GRID_Z));
+		assertEquals(TEST_KEY, fromCoordinates(TEST_GRID_X, TEST_GRID_Z).toKey());
 	}
 
 	@Test
 	public void shouldCreateCoordinateFromKey() {
-		final AxialCoordinate c = createCoordinateFromKey(TEST_KEY);
+		final AxialCoordinate c = fromKey(TEST_KEY);
 		assertEquals(TEST_GRID_X, c.getGridX());
 		assertEquals(TEST_GRID_Z, c.getGridZ());
 	}

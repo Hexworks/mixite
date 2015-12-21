@@ -2,7 +2,9 @@ package org.codetome.hexameter.internal.impl;
 
 import static java.lang.Math.round;
 import static junit.framework.Assert.assertEquals;
+import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
 
+import org.codetome.hexameter.api.AxialCoordinate;
 import org.codetome.hexameter.api.Hexagon;
 import org.codetome.hexameter.api.HexagonOrientation;
 import org.codetome.hexameter.api.Point;
@@ -17,6 +19,7 @@ public class HexagonImplTest {
 	private static final SharedHexagonData TEST_FLAT_DATA = new SharedHexagonData(HexagonOrientation.FLAT_TOP, TEST_RADIUS);
 	private static final int TEST_GRID_X = 2;
 	private static final int TEST_GRID_Z = 3;
+	private static final AxialCoordinate TEST_COORDINATE = fromCoordinates(TEST_GRID_X, TEST_GRID_Z);
 	private static final int TEST_GRID_Y = -5;
 	private static final Object TEST_SATELLITE_DATA = new Object();
 	private static final int EXPECTED_POINTY_CENTER_X = 69;
@@ -32,7 +35,7 @@ public class HexagonImplTest {
 
 	@Before
 	public void setUp() {
-		target = new HexagonImpl(TEST_POINTY_DATA, TEST_GRID_X, TEST_GRID_Z);
+		target = new HexagonImpl(TEST_POINTY_DATA, TEST_COORDINATE);
 	}
 
 	@Test
@@ -50,7 +53,7 @@ public class HexagonImplTest {
 
 	@Test
 	public void shouldHaveProperPointsWhenFlat() {
-		target = new HexagonImpl(TEST_FLAT_DATA, TEST_GRID_X, TEST_GRID_Z);
+		target = new HexagonImpl(TEST_FLAT_DATA, TEST_COORDINATE);
 		for (int i = 0; i < 6; i++) {
 			assertEquals((int) EXPECTED_FLAT_POINTS[i].x, (int) round(target.getPoints()[i].x));
 			assertEquals((int) EXPECTED_FLAT_POINTS[i].y, (int) round(target.getPoints()[i].y));
@@ -85,7 +88,7 @@ public class HexagonImplTest {
 
 	@Test
 	public void shouldReturnProperCenterXCoordinateWhenGetCenterXIsCalledWithFlatHexagons() {
-		target = new HexagonImpl(TEST_FLAT_DATA, TEST_GRID_X, TEST_GRID_Z);
+		target = new HexagonImpl(TEST_FLAT_DATA, TEST_COORDINATE);
 		assertEquals(EXPECTED_FLAT_CENTER_X, round(target.getCenterX()));
 	}
 
@@ -96,7 +99,7 @@ public class HexagonImplTest {
 
 	@Test
 	public void shouldReturnProperCenterYCoordinateWhenGetCenterYIsCalledWithFlatHexagons() {
-		target = new HexagonImpl(TEST_FLAT_DATA, TEST_GRID_X, TEST_GRID_Z);
+		target = new HexagonImpl(TEST_FLAT_DATA, TEST_COORDINATE);
 		assertEquals(EXPECTED_FLAT_CENTER_Y, round(target.getCenterY()));
 	}
 

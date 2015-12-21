@@ -1,6 +1,7 @@
 package org.codetome.hexameter.internal.impl;
 
 import static junit.framework.Assert.assertEquals;
+import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,50 +28,50 @@ public class HexagonalGridCalculatorImplTest {
 
     @Test
     public void shouldProperlyCalculateDistanceBetweenTwoHexes() {
-        final Hexagon hex0 = grid.getByGridCoordinate(1, 1);
-        final Hexagon hex1 = grid.getByGridCoordinate(4, 5);
+        final Hexagon hex0 = grid.getByAxialCoordinate(fromCoordinates(1, 1));
+        final Hexagon hex1 = grid.getByAxialCoordinate(fromCoordinates(4, 5));
         assertEquals(7, target.calculateDistanceBetween(hex0, hex1));
     }
 
     @Test
     public void shouldProperlyCalculateMovementRangeFromHexWith1() {
-        final Hexagon hex = grid.getByGridCoordinate(3, 7);
+        final Hexagon hex = grid.getByAxialCoordinate(fromCoordinates(3, 7));
         final Set<Hexagon> expected = new HashSet<> ();
         expected.add(hex);
-        expected.add(grid.getByGridCoordinate(3, 6));
-        expected.add(grid.getByGridCoordinate(4, 6));
-        expected.add(grid.getByGridCoordinate(4, 7));
-        expected.add(grid.getByGridCoordinate(3, 8));
-        expected.add(grid.getByGridCoordinate(2, 8));
-        expected.add(grid.getByGridCoordinate(2, 7));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(3, 6)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(4, 6)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(4, 7)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(3, 8)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(2, 8)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(2, 7)));
         final Set<Hexagon> actual = target.calculateMovementRangeFrom(hex, 1);
         assertEquals(expected, actual);
     }
 
     @Test
     public void shouldProperlyCalculateMovementRangeFromHexWith2() {
-        final Hexagon hex = grid.getByGridCoordinate(3, 7);
+        final Hexagon hex = grid.getByAxialCoordinate(fromCoordinates(3, 7));
         final Set<Hexagon> expected = new HashSet<> ();
         expected.add(hex);
-        expected.add(grid.getByGridCoordinate(3, 6));
-        expected.add(grid.getByGridCoordinate(4, 6));
-        expected.add(grid.getByGridCoordinate(4, 7));
-        expected.add(grid.getByGridCoordinate(3, 8));
-        expected.add(grid.getByGridCoordinate(2, 8));
-        expected.add(grid.getByGridCoordinate(2, 7));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(3, 6)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(4, 6)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(4, 7)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(3, 8)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(2, 8)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(2, 7)));
 
-        expected.add(grid.getByGridCoordinate(3, 5));
-        expected.add(grid.getByGridCoordinate(4, 5));
-        expected.add(grid.getByGridCoordinate(5, 5));
-        expected.add(grid.getByGridCoordinate(2, 6));
-        expected.add(grid.getByGridCoordinate(5, 6));
-        expected.add(grid.getByGridCoordinate(1, 7));
-        expected.add(grid.getByGridCoordinate(5, 7));
-        expected.add(grid.getByGridCoordinate(1, 8));
-        expected.add(grid.getByGridCoordinate(4, 8));
-        expected.add(grid.getByGridCoordinate(1, 9));
-        expected.add(grid.getByGridCoordinate(3, 9));
-        expected.add(grid.getByGridCoordinate(2, 9));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(3, 5)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(4, 5)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(5, 5)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(2, 6)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(5, 6)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(1, 7)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(5, 7)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(1, 8)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(4, 8)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(1, 9)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(3, 9)));
+        expected.add(grid.getByAxialCoordinate(fromCoordinates(2, 9)));
 
         final Set<Hexagon> actual = target.calculateMovementRangeFrom(hex, 2);
         assertEquals(expected, actual);

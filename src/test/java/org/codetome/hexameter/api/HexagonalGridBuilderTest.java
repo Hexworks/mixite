@@ -3,6 +3,7 @@ package org.codetome.hexameter.api;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
+import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
 import static org.codetome.hexameter.api.HexagonalGridLayout.TRIANGULAR;
 
 import java.util.HashMap;
@@ -10,13 +11,6 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
-import org.codetome.hexameter.api.AxialCoordinate;
-import org.codetome.hexameter.api.Hexagon;
-import org.codetome.hexameter.api.HexagonOrientation;
-import org.codetome.hexameter.api.HexagonalGrid;
-import org.codetome.hexameter.api.HexagonalGridBuilder;
-import org.codetome.hexameter.api.HexagonalGridCalculator;
-import org.codetome.hexameter.api.HexagonalGridLayout;
 import org.codetome.hexameter.api.exception.HexagonalGridCreationException;
 import org.codetome.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy;
 import org.junit.Before;
@@ -90,7 +84,7 @@ public class HexagonalGridBuilderTest {
 		final int gridX = 1;
 		final int gridZ = 2;
 		final int size = target.getCustomCoordinates().size();
-		target.addCustomAxialCoordinate(new AxialCoordinate(gridX, gridZ));
+		target.addCustomAxialCoordinate(fromCoordinates(gridX, gridZ));
 		assertTrue(target.getCustomCoordinates().size() == size + 1);
 	}
 
