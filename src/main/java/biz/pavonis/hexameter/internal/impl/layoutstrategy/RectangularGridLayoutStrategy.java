@@ -19,7 +19,7 @@ import biz.pavonis.hexameter.internal.impl.HexagonImpl;
 public final class RectangularGridLayoutStrategy extends AbstractGridLayoutStrategy {
 
 	public Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder) {
-		Map<String, Hexagon> hexagons = new HashMap<String, Hexagon>();
+		Map<String, Hexagon> hexagons = new HashMap<> ();
 		for (int y = 0; y < builder.getGridHeight(); y++) {
 			for (int x = 0; x < builder.getGridWidth(); x++) {
 				int gridX = convertOffsetCoordinatesToAxialX(x, y, builder.getOrientation());

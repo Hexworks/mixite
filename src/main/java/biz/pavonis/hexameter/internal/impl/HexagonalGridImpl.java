@@ -35,7 +35,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         if (builder.getCustomStorage() != null) {
             hexagonStorage = builder.getCustomStorage();
         } else {
-            hexagonStorage = new ConcurrentHashMap<String, Hexagon>(); // TODO:
+            hexagonStorage = new ConcurrentHashMap<> (); // TODO:
                                                                        // to
                                                                        // factory
                                                                        // method
@@ -49,7 +49,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     public Map<String, Hexagon> getHexagonsByAxialRange(int gridXFrom,
             int gridXTo, int gridZFrom, int gridZTo) {
-        Map<String, Hexagon> range = new HashMap<String, Hexagon>();
+        Map<String, Hexagon> range = new HashMap<> ();
         for (int gridZ = gridZFrom; gridZ <= gridZTo; gridZ++) {
             for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {
                 String key = createKeyFromCoordinate(gridX, gridZ);
@@ -61,7 +61,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     public Map<String, Hexagon> getHexagonsByOffsetRange(int gridXFrom,
             int gridXTo, int gridYFrom, int gridYTo) {
-        Map<String, Hexagon> range = new HashMap<String, Hexagon>();
+        Map<String, Hexagon> range = new HashMap<> ();
         for (int gridY = gridYFrom; gridY <= gridYTo; gridY++) {
             for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {
                 int axialX = convertOffsetCoordinatesToAxialX(gridX, gridY,
@@ -124,7 +124,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     }
 
     public Set<Hexagon> getNeighborsOf(Hexagon hexagon) {
-        Set<Hexagon> neighbors = new HashSet<Hexagon>();
+        Set<Hexagon> neighbors = new HashSet<> ();
         for (int[] neighbor : NEIGHBORS) {
             Hexagon retHex = null;
             int neighborGridX = hexagon.getGridX() + neighbor[NEIGHBOR_X_INDEX];

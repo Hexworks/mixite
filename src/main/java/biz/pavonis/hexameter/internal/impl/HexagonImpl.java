@@ -25,7 +25,7 @@ public class HexagonImpl implements Hexagon {
 
     public HexagonImpl(SharedHexagonData sharedHexagonData, int gridX, int gridZ) {
         this.sharedHexagonData = sharedHexagonData;
-        this.satelliteData = new AtomicReference<Object>();
+        this.satelliteData = new AtomicReference<> ();
         double height = sharedHexagonData.getHeight();
         double width = sharedHexagonData.getWidth();
         double radius = sharedHexagonData.getRadius();

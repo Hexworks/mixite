@@ -28,13 +28,13 @@ public final class HexagonalGridBuilder {
 	private int gridHeight;
 	private double radius;
 	private Map<String, Hexagon> customStorage;
-	private List<AxialCoordinate> customCoordinates = new ArrayList<AxialCoordinate>();
+	private List<AxialCoordinate> customCoordinates = new ArrayList<> ();
 	private HexagonOrientation orientation = HexagonOrientation.POINTY_TOP;
 	private HexagonalGridLayout gridLayout = HexagonalGridLayout.RECTANGULAR;
 
 	/**
 	 * Mandatory parameter. Sets the number of {@link Hexagon}s in the horizontal direction.
-	 * 
+	 *
 	 * @param gridWidth
 	 * @return this {@link HexagonalGridBuilder}
 	 */
@@ -45,7 +45,7 @@ public final class HexagonalGridBuilder {
 
 	/**
 	 * Mandatory parameter. Sets the number of {@link Hexagon}s in the vertical direction.
-	 * 
+	 *
 	 * @param gridHeight
 	 * @return this {@link HexagonalGridBuilder}
 	 */
@@ -57,7 +57,7 @@ public final class HexagonalGridBuilder {
 	/**
 	 * Sets the {@link HexagonOrientation} used in the resulting {@link HexagonalGrid}.
 	 * If it is not set HexagonOrientation.POINTY will be used.
-	 * 
+	 *
 	 * @param orientation
 	 * @return this {@link HexagonalGridBuilder}
 	 */
@@ -68,7 +68,7 @@ public final class HexagonalGridBuilder {
 
 	/**
 	 * Sets the radius of the {@link Hexagon}s contained in the resulting {@link HexagonalGrid}.
-	 * 
+	 *
 	 * @param radius in pixels
 	 * @return this {@link HexagonalGridBuilder}
 	 */
@@ -80,7 +80,7 @@ public final class HexagonalGridBuilder {
 	/**
 	 * Sets the {@link HexagonalGridLayout} which will be used when creating the {@link HexagonalGrid}.
 	 * If it is not set <pre>RECTANGULAR</pre> will be assumed.
-	 * 
+	 *
 	 * @param gridLayout
 	 * @return this {@link HexagonalGridBuilder}.
 	 */
@@ -91,7 +91,7 @@ public final class HexagonalGridBuilder {
 
 	/**
 	 * Adds a custom coordinate to the {@link HexagonalGrid} which will be produced.
-	 * 
+	 *
 	 * @param axialCoordinate
 	 * @return this {@link HexagonalGridBuilder}.
 	 */
@@ -116,7 +116,7 @@ public final class HexagonalGridBuilder {
 	 * <li> {@link Map#keySet()}</li>
 	 * </ul>
 	 * Others are not necessary but highly recommended. Refer to the javadoc of {@link AbstractMap} if you need help.
-	 * 
+	 *
 	 * @param customStorage
 	 * @return this {@link HexagonalGridBuilder}.
 	 */
@@ -130,7 +130,7 @@ public final class HexagonalGridBuilder {
 	 * Throws {@link HexagonalGridCreationException} if not all mandatory parameters
 	 * are filled and/or they are not valid. In both cases you will be supplied with
 	 * a {@link HexagonalGridCreationException} detailing the cause of failure.
-	 * 
+	 *
 	 * @return {@link HexagonalGrid}
 	 */
 	public HexagonalGrid build() {
@@ -140,7 +140,7 @@ public final class HexagonalGridBuilder {
 
 	/**
 	 * Creates a {@link HexagonalGridCalculator} for your {@link HexagonalGrid}.
-	 * 
+	 *
 	 * @param hexagonalGrid
 	 * @return calculator
 	 */
