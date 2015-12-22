@@ -6,6 +6,7 @@ import static java.lang.Math.max;
 import static java.lang.Math.round;
 import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
 import static org.codetome.hexameter.api.HexagonOrientation.FLAT_TOP;
+import static org.codetome.hexameter.internal.impl.HexagonImpl.newHexagon;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,6 @@ import org.codetome.hexameter.api.Hexagon;
 import org.codetome.hexameter.api.HexagonOrientation;
 import org.codetome.hexameter.api.HexagonalGrid;
 import org.codetome.hexameter.api.HexagonalGridBuilder;
-import org.codetome.hexameter.internal.impl.HexagonImpl;
 
 /**
  * This strategy is responsible for generating a {@link HexagonalGrid} which has a hexagonal
@@ -36,7 +36,7 @@ public final class HexagonalGridLayoutStrategy extends AbstractGridLayoutStrateg
 				final int gridX = x;
 				final int gridZ = HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? y - (int) floor(gridSize / 4d) : y;
 				final AxialCoordinate coordinate = fromCoordinates(gridX, gridZ);
-                hexagons.put(coordinate.toKey(), new HexagonImpl(builder.getSharedHexagonData(), coordinate));
+                hexagons.put(coordinate.toKey(), newHexagon(builder.getSharedHexagonData(), coordinate));
 			}
 			startX--;
 		}

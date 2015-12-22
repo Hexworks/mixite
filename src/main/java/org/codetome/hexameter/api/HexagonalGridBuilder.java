@@ -1,5 +1,8 @@
 package org.codetome.hexameter.api;
 
+import static org.codetome.hexameter.api.HexagonOrientation.POINTY_TOP;
+import static org.codetome.hexameter.api.HexagonalGridLayout.RECTANGULAR;
+
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +31,9 @@ public final class HexagonalGridBuilder {
 	private int gridHeight;
 	private double radius;
 	private Map<String, Hexagon> customStorage;
-	private List<AxialCoordinate> customCoordinates = new ArrayList<> ();
-	private HexagonOrientation orientation = HexagonOrientation.POINTY_TOP;
-	private HexagonalGridLayout gridLayout = HexagonalGridLayout.RECTANGULAR;
+	private final List<AxialCoordinate> customCoordinates = new ArrayList<> ();
+	private HexagonOrientation orientation = POINTY_TOP;
+	private HexagonalGridLayout gridLayout = RECTANGULAR;
 
 	/**
 	 * Mandatory parameter. Sets the number of {@link Hexagon}s in the horizontal direction.
@@ -38,7 +41,7 @@ public final class HexagonalGridBuilder {
 	 * @param gridWidth
 	 * @return this {@link HexagonalGridBuilder}
 	 */
-	public HexagonalGridBuilder setGridWidth(int gridWidth) {
+	public HexagonalGridBuilder setGridWidth(final int gridWidth) {
 		this.gridWidth = gridWidth;
 		return this;
 	}
@@ -49,7 +52,7 @@ public final class HexagonalGridBuilder {
 	 * @param gridHeight
 	 * @return this {@link HexagonalGridBuilder}
 	 */
-	public HexagonalGridBuilder setGridHeight(int gridHeight) {
+	public HexagonalGridBuilder setGridHeight(final int gridHeight) {
 		this.gridHeight = gridHeight;
 		return this;
 	}
@@ -61,7 +64,7 @@ public final class HexagonalGridBuilder {
 	 * @param orientation
 	 * @return this {@link HexagonalGridBuilder}
 	 */
-	public HexagonalGridBuilder setOrientation(HexagonOrientation orientation) {
+	public HexagonalGridBuilder setOrientation(final HexagonOrientation orientation) {
 		this.orientation = orientation;
 		return this;
 	}
@@ -72,7 +75,7 @@ public final class HexagonalGridBuilder {
 	 * @param radius in pixels
 	 * @return this {@link HexagonalGridBuilder}
 	 */
-	public HexagonalGridBuilder setRadius(double radius) {
+	public HexagonalGridBuilder setRadius(final double radius) {
 		this.radius = radius;
 		return this;
 	}
@@ -84,7 +87,7 @@ public final class HexagonalGridBuilder {
 	 * @param gridLayout
 	 * @return this {@link HexagonalGridBuilder}.
 	 */
-	public HexagonalGridBuilder setGridLayout(HexagonalGridLayout gridLayout) {
+	public HexagonalGridBuilder setGridLayout(final HexagonalGridLayout gridLayout) {
 		this.gridLayout = gridLayout;
 		return this;
 	}
@@ -95,7 +98,7 @@ public final class HexagonalGridBuilder {
 	 * @param axialCoordinate
 	 * @return this {@link HexagonalGridBuilder}.
 	 */
-	public HexagonalGridBuilder addCustomAxialCoordinate(AxialCoordinate axialCoordinate) {
+	public HexagonalGridBuilder addCustomAxialCoordinate(final AxialCoordinate axialCoordinate) {
 		customCoordinates.add(axialCoordinate);
 		return this;
 	}
@@ -120,7 +123,7 @@ public final class HexagonalGridBuilder {
 	 * @param customStorage
 	 * @return this {@link HexagonalGridBuilder}.
 	 */
-	public HexagonalGridBuilder setCustomStorage(Map<String, Hexagon> customStorage) {
+	public HexagonalGridBuilder setCustomStorage(final Map<String, Hexagon> customStorage) {
 		this.customStorage = customStorage;
 		return this;
 	}
@@ -144,7 +147,7 @@ public final class HexagonalGridBuilder {
 	 * @param hexagonalGrid
 	 * @return calculator
 	 */
-	public HexagonalGridCalculator buildCalculatorFor(HexagonalGrid hexagonalGrid) {
+	public HexagonalGridCalculator buildCalculatorFor(final HexagonalGrid hexagonalGrid) {
 		return new HexagonalGridCalculatorImpl(hexagonalGrid);
 	}
 

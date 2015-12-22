@@ -3,6 +3,8 @@ package org.codetome.hexameter.internal.impl;
 import static java.lang.Math.round;
 import static junit.framework.Assert.assertEquals;
 import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
+import static org.codetome.hexameter.api.Point.fromPosition;
+import static org.codetome.hexameter.internal.impl.HexagonImpl.newHexagon;
 
 import org.codetome.hexameter.api.AxialCoordinate;
 import org.codetome.hexameter.api.Hexagon;
@@ -26,16 +28,16 @@ public class HexagonImplTest {
 	private static final int EXPECTED_FLAT_CENTER_X = 40;
 	private static final int EXPECTED_POINTY_CENTER_Y = 55;
 	private static final int EXPECTED_FLAT_CENTER_Y = 78;
-	private static final Point[] EXPECTED_FLAT_POINTS = new Point[] { new Point(50, 78), new Point(45, 87), new Point(35, 87), new Point(30, 78), new Point(35, 69),
-			new Point(45, 69) };
-	private static final Point[] EXPECTED_POINTY_POINTS = new Point[] { new Point(78, 60), new Point(69, 65), new Point(61, 60), new Point(61, 50), new Point(69, 45),
-			new Point(78, 50) };
+	private static final Point[] EXPECTED_FLAT_POINTS = new Point[] { fromPosition(50, 78), fromPosition(45, 87), fromPosition(35, 87), fromPosition(30, 78), fromPosition(35, 69),
+			fromPosition(45, 69) };
+	private static final Point[] EXPECTED_POINTY_POINTS = new Point[] { fromPosition(78, 60), fromPosition(69, 65), fromPosition(61, 60), fromPosition(61, 50), fromPosition(69, 45),
+			fromPosition(78, 50) };
 
 	private Hexagon target;
 
 	@Before
 	public void setUp() {
-		target = new HexagonImpl(TEST_POINTY_DATA, TEST_COORDINATE);
+		target = newHexagon(TEST_POINTY_DATA, TEST_COORDINATE);
 	}
 
 	@Test
@@ -46,17 +48,17 @@ public class HexagonImplTest {
 	@Test
 	public void shouldHaveProperPointsWhenPointy() {
 		for (int i = 0; i < 6; i++) {
-			assertEquals((int) EXPECTED_POINTY_POINTS[i].x, (int) round(target.getPoints()[i].x));
-			assertEquals((int) EXPECTED_POINTY_POINTS[i].y, (int) round(target.getPoints()[i].y));
+			assertEquals((int) EXPECTED_POINTY_POINTS[i].getX(), (int) round(target.getPoints()[i].getX()));
+			assertEquals((int) EXPECTED_POINTY_POINTS[i].getY(), (int) round(target.getPoints()[i].getY()));
 		}
 	}
 
 	@Test
 	public void shouldHaveProperPointsWhenFlat() {
-		target = new HexagonImpl(TEST_FLAT_DATA, TEST_COORDINATE);
+		target = newHexagon(TEST_FLAT_DATA, TEST_COORDINATE);
 		for (int i = 0; i < 6; i++) {
-			assertEquals((int) EXPECTED_FLAT_POINTS[i].x, (int) round(target.getPoints()[i].x));
-			assertEquals((int) EXPECTED_FLAT_POINTS[i].y, (int) round(target.getPoints()[i].y));
+		    assertEquals((int) EXPECTED_FLAT_POINTS[i].getX(), (int) round(target.getPoints()[i].getX()));
+            assertEquals((int) EXPECTED_FLAT_POINTS[i].getY(), (int) round(target.getPoints()[i].getY()));
 		}
 	}
 
@@ -88,7 +90,7 @@ public class HexagonImplTest {
 
 	@Test
 	public void shouldReturnProperCenterXCoordinateWhenGetCenterXIsCalledWithFlatHexagons() {
-		target = new HexagonImpl(TEST_FLAT_DATA, TEST_COORDINATE);
+		target = newHexagon(TEST_FLAT_DATA, TEST_COORDINATE);
 		assertEquals(EXPECTED_FLAT_CENTER_X, round(target.getCenterX()));
 	}
 
@@ -99,7 +101,7 @@ public class HexagonImplTest {
 
 	@Test
 	public void shouldReturnProperCenterYCoordinateWhenGetCenterYIsCalledWithFlatHexagons() {
-		target = new HexagonImpl(TEST_FLAT_DATA, TEST_COORDINATE);
+		target = newHexagon(TEST_FLAT_DATA, TEST_COORDINATE);
 		assertEquals(EXPECTED_FLAT_CENTER_Y, round(target.getCenterY()));
 	}
 

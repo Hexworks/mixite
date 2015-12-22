@@ -1,6 +1,7 @@
 package org.codetome.hexameter.internal.impl.layoutstrategy;
 
 import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
+import static org.codetome.hexameter.internal.impl.HexagonImpl.newHexagon;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +10,6 @@ import org.codetome.hexameter.api.AxialCoordinate;
 import org.codetome.hexameter.api.Hexagon;
 import org.codetome.hexameter.api.HexagonalGrid;
 import org.codetome.hexameter.api.HexagonalGridBuilder;
-import org.codetome.hexameter.internal.impl.HexagonImpl;
 
 /**
  * This strategy is responsible for generating a {@link HexagonalGrid} which has a triangular
@@ -25,7 +25,7 @@ public final class TriangularGridLayoutStrategy extends AbstractGridLayoutStrate
 			final int endX = gridSize - gridZ;
 			for (int gridX = 0; gridX < endX; gridX++) {
 			    final AxialCoordinate coordinate = fromCoordinates(gridX, gridZ);
-				hexagons.put(coordinate.toKey(), new HexagonImpl(builder.getSharedHexagonData(), coordinate));
+				hexagons.put(coordinate.toKey(), newHexagon(builder.getSharedHexagonData(), coordinate));
 			}
 		}
 		addCustomHexagons(builder, hexagons);

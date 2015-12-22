@@ -3,16 +3,26 @@ package org.codetome.hexameter.api;
 import static java.lang.Math.sqrt;
 
 /**
- * Represents a point.
+ * Represents a point. Please note that this represents a point in
+ * 2d space not an abstract concept of a coordinate.
  */
 public final class Point {
-	public final double x;
-	public final double y;
+	private final double x;
+	private final double y;
 
-	public Point(final double x, final double y) {
-		super();
+	private Point(final double x, final double y) {
 		this.x = x;
 		this.y = y;
+	}
+
+	/**
+	 * Creates a point from x and y positions.
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public static Point fromPosition(final double x, final double y) {
+	    return new Point(x, y);
 	}
 
 	/**
@@ -22,7 +32,17 @@ public final class Point {
 	 * @param p1
 	 * @return distance
 	 */
-	public final static double distance(final Point p0, final Point p1) {
-		return sqrt((p0.x - p1.x) * (p0.x - p1.x) + (p0.y - p1.y) * (p0.y - p1.y));
+	public final double distanceFrom(final Point point) {
+		return sqrt((this.x - point.x) * (this.x - point.x) + (this.y - point.y) * (this.y - point.y));
 	}
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+
 }

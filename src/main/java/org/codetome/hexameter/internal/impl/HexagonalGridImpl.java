@@ -3,6 +3,8 @@ package org.codetome.hexameter.internal.impl;
 import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
 import static org.codetome.hexameter.api.CoordinateConverter.convertOffsetCoordinatesToAxialX;
 import static org.codetome.hexameter.api.CoordinateConverter.convertOffsetCoordinatesToAxialZ;
+import static org.codetome.hexameter.api.Point.fromPosition;
+import static org.codetome.hexameter.internal.impl.HexagonImpl.newHexagon;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -76,7 +78,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     @Override
     public Hexagon addHexagon(final AxialCoordinate coordinate) {
-        final Hexagon newHex = new HexagonImpl(sharedHexagonData, coordinate);
+        final Hexagon newHex = newHexagon(sharedHexagonData, coordinate);
         hexagonStorage.put(coordinate.toKey(), newHex);
         return newHex;
     }
@@ -89,8 +91,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     @Override
     public boolean containsAxialCoordinate(final AxialCoordinate coordinate) {
-        return hexagonStorage
-                .containsKey(coordinate.toKey());
+        return hexagonStorage.containsKey(coordinate.toKey());
     }
 
     @Override
@@ -101,8 +102,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     private void checkCoordinate(final AxialCoordinate coordinate) {
         if (!containsAxialCoordinate(coordinate)) {
-            throw new HexagonNotFoundException(
-                    "Coordinate is off the grid: " + coordinate.toKey());
+            throw new HexagonNotFoundException("Coordinate is off the grid: " + coordinate.toKey());
         }
     }
 
@@ -117,8 +117,8 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         // it is possible that the estimated coordinates are off the grid so we
         // create a virtual hexagon
         final AxialCoordinate estimatedCoordinate = fromCoordinates(estimatedGridX, estimatedGridZ);
-        final Hexagon tempHex = new HexagonImpl(sharedHexagonData, estimatedCoordinate);
-        final Hexagon trueHex = refineHexagonByPixel(tempHex, x, y);
+        final Hexagon tempHex = newHexagon(sharedHexagonData, estimatedCoordinate);
+        final Hexagon trueHex = refineHexagonByPixel(tempHex, fromPosition(x, y));
         if (hexagonsAreAtTheSamePosition(tempHex, trueHex)) {
             return getByAxialCoordinate(estimatedCoordinate);
         } else {
@@ -147,14 +147,11 @@ public final class HexagonalGridImpl implements HexagonalGrid {
                 && hex0.getGridZ() == hex1.getGridZ();
     }
 
-    private Hexagon refineHexagonByPixel(final Hexagon hexagon, final double x, final double y) {
+    private Hexagon refineHexagonByPixel(final Hexagon hexagon, final Point clickedPoint) {
         Hexagon refined = hexagon;
-        final Point clickedPoint = new Point(x, y);
-        double smallestDistance = Point.distance(clickedPoint, new Point(
-                refined.getCenterX(), refined.getCenterY()));
+        double smallestDistance = clickedPoint.distanceFrom(fromPosition(refined.getCenterX(), refined.getCenterY()));
         for (final Hexagon neighbor : getNeighborsOf(hexagon)) {
-            final double currentDistance = Point.distance(clickedPoint, new Point(
-                    neighbor.getCenterX(), neighbor.getCenterY()));
+            final double currentDistance = clickedPoint.distanceFrom(fromPosition(neighbor.getCenterX(), neighbor.getCenterY()));
             if (currentDistance < smallestDistance) {
                 refined = neighbor;
                 smallestDistance = currentDistance;

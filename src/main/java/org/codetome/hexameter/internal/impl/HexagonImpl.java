@@ -3,6 +3,7 @@ package org.codetome.hexameter.internal.impl;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static org.codetome.hexameter.api.HexagonOrientation.FLAT_TOP;
+import static org.codetome.hexameter.api.Point.fromPosition;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -23,7 +24,7 @@ public class HexagonImpl implements Hexagon {
     private final AxialCoordinate coordinate;
     private final AtomicReference<Object> satelliteData;
 
-    public HexagonImpl(final SharedHexagonData sharedHexagonData, final AxialCoordinate coordinate) {
+    private HexagonImpl(final SharedHexagonData sharedHexagonData, final AxialCoordinate coordinate) {
         this.sharedHexagonData = sharedHexagonData;
         this.satelliteData = new AtomicReference<> ();
         final double height = sharedHexagonData.getHeight();
@@ -40,6 +41,16 @@ public class HexagonImpl implements Hexagon {
         }
     }
 
+    /**
+     * Creates a new {@link Hexagon} object from shared data and a coordinate.
+     * @param sharedHexagonData
+     * @param coordinate
+     * @return
+     */
+    public static Hexagon newHexagon(final SharedHexagonData sharedHexagonData, final AxialCoordinate coordinate) {
+        return new HexagonImpl(sharedHexagonData, coordinate);
+    }
+
     @Override
     public String toString() {
         return "HexagonImpl#{x=" + coordinate.getGridX() + ", z=" + coordinate.getGridZ() + "}";
@@ -52,11 +63,10 @@ public class HexagonImpl implements Hexagon {
             final double angle = 2
                     * Math.PI
                     / 6
-                    * (i + sharedHexagonData.getOrientation()
-                            .getCoordinateOffset());
+                    * (i + sharedHexagonData.getOrientation().getCoordinateOffset());
             final double x = centerX + sharedHexagonData.getRadius() * cos(angle);
             final double y = centerY + sharedHexagonData.getRadius() * sin(angle);
-            points[i] = new Point(x, y);
+            points[i] = fromPosition(x, y);
         }
         return points;
     }

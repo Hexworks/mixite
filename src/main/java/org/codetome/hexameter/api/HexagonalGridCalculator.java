@@ -28,7 +28,7 @@ public interface HexagonalGridCalculator {
 	int calculateDistanceBetween(Hexagon hex0, Hexagon hex1);
 
 	/**
-	 * Returns all {@link Hexagon}s which are within distance (inclusive) from the {@link Hexagon}.
+	 * Returns all {@link Hexagon}s which are within <code>distance</code> (inclusive) from the {@link Hexagon}.
 	 *
 	 * @param hexagon {@link Hexagon}
 	 * @param distance
