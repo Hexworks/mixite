@@ -18,21 +18,23 @@ import java.util.Set;
  */
 public interface HexagonalGridCalculator {
 
-	/**
-	 * Calculates the distance (in hexagons) between two {@link Hexagon} objects on the grid.
-	 *
-	 * @param hex0
-	 * @param hex1
-	 * @return distance
-	 */
-	int calculateDistanceBetween(Hexagon hex0, Hexagon hex1);
+    /**
+     * Calculates the distance (in hexagons) between two {@link Hexagon} objects on the grid.
+     *
+     * @param hex0
+     * @param hex1
+     *
+     * @return distance
+     */
+    int calculateDistanceBetween(Hexagon hex0, Hexagon hex1);
 
-	/**
-	 * Returns all {@link Hexagon}s which are within <code>distance</code> (inclusive) from the {@link Hexagon}.
-	 *
-	 * @param hexagon {@link Hexagon}
-	 * @param distance
-	 * @return {@link Hexagon}s within distance (inclusive)
-	 */
-	Set<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance);
+    /**
+     * Returns all {@link Hexagon}s which are within <code>distance</code> (inclusive) from the {@link Hexagon}.
+     *
+     * @param hexagon {@link Hexagon}
+     * @param distance
+     *
+     * @return {@link Hexagon}s within distance (inclusive)
+     */
+    Set<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance);
 }

@@ -1,19 +1,19 @@
 package org.codetome.hexameter.internal.impl;
 
+import org.codetome.hexameter.api.AxialCoordinate;
+import org.codetome.hexameter.api.Hexagon;
+import org.codetome.hexameter.api.Point;
+import org.codetome.hexameter.internal.SharedHexagonData;
+
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
+
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static org.codetome.hexameter.api.HexagonOrientation.FLAT_TOP;
 import static org.codetome.hexameter.api.Point.fromPosition;
-
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
-
-import org.codetome.hexameter.api.AxialCoordinate;
-import org.codetome.hexameter.api.Hexagon;
-import org.codetome.hexameter.api.Point;
-import org.codetome.hexameter.internal.SharedHexagonData;
 
 /**
  * Default implementation of the {@link Hexagon} interface.
@@ -29,13 +29,12 @@ public class HexagonImpl implements Hexagon {
 
     private HexagonImpl(final SharedHexagonData sharedHexagonData, final AxialCoordinate coordinate) {
         this.sharedHexagonData = sharedHexagonData;
-        this.satelliteData = new AtomicReference<> ();
+        this.satelliteData = new AtomicReference<>();
         final double height = sharedHexagonData.getHeight();
         final double width = sharedHexagonData.getWidth();
         final double radius = sharedHexagonData.getRadius();
         this.coordinate = coordinate;
-        if (FLAT_TOP.equals(sharedHexagonData
-                .getOrientation())) {
+        if (FLAT_TOP.equals(sharedHexagonData.getOrientation())) {
             centerX = coordinate.getGridX() * width + radius;
             centerY = coordinate.getGridZ() * height + coordinate.getGridX() * height / 2 + height / 2;
         } else {
@@ -46,8 +45,10 @@ public class HexagonImpl implements Hexagon {
 
     /**
      * Creates a new {@link Hexagon} object from shared data and a coordinate.
+     *
      * @param sharedHexagonData
      * @param coordinate
+     *
      * @return
      */
     public static Hexagon newHexagon(final SharedHexagonData sharedHexagonData, final AxialCoordinate coordinate) {
@@ -55,8 +56,7 @@ public class HexagonImpl implements Hexagon {
     }
 
     @Override
-    public String getId()
-    {
+    public String getId() {
         return coordinate.toKey();
     }
 
@@ -69,10 +69,7 @@ public class HexagonImpl implements Hexagon {
     public final Point[] getPoints() {
         final Point[] points = new Point[6];
         for (int i = 0; i < 6; i++) {
-            final double angle = 2
-                    * Math.PI
-                    / 6
-                    * (i + sharedHexagonData.getOrientation().getCoordinateOffset());
+            final double angle = 2 * Math.PI / 6 * (i + sharedHexagonData.getOrientation().getCoordinateOffset());
             final double x = centerX + sharedHexagonData.getRadius() * cos(angle);
             final double y = centerY + sharedHexagonData.getRadius() * sin(angle);
             points[i] = fromPosition(x, y);
@@ -93,14 +90,12 @@ public class HexagonImpl implements Hexagon {
     }
 
     @Override
-    public AxialCoordinate getAxialCoordinate()
-    {
+    public AxialCoordinate getAxialCoordinate() {
         return coordinate;
     }
 
     @Override
-    public int getGridX()
-    {
+    public int getGridX() {
         return coordinate.getGridX();
     }
 
@@ -110,8 +105,7 @@ public class HexagonImpl implements Hexagon {
     }
 
     @Override
-    public int getGridZ()
-    {
+    public int getGridZ() {
         return coordinate.getGridZ();
     }
 

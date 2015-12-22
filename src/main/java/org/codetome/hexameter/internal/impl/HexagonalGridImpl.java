@@ -1,29 +1,24 @@
 package org.codetome.hexameter.internal.impl;
 
-import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
-import static org.codetome.hexameter.api.CoordinateConverter.convertOffsetCoordinatesToAxialX;
-import static org.codetome.hexameter.api.CoordinateConverter.convertOffsetCoordinatesToAxialZ;
-import static org.codetome.hexameter.api.Point.fromPosition;
-import static org.codetome.hexameter.internal.impl.HexagonImpl.newHexagon;
+import org.codetome.hexameter.api.*;
+import org.codetome.hexameter.api.exception.HexagonNotFoundException;
+import org.codetome.hexameter.internal.SharedHexagonData;
+import org.codetome.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.codetome.hexameter.api.AxialCoordinate;
-import org.codetome.hexameter.api.Hexagon;
-import org.codetome.hexameter.api.HexagonalGrid;
-import org.codetome.hexameter.api.HexagonalGridBuilder;
-import org.codetome.hexameter.api.Point;
-import org.codetome.hexameter.api.exception.HexagonNotFoundException;
-import org.codetome.hexameter.internal.SharedHexagonData;
-import org.codetome.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy;
+import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
+import static org.codetome.hexameter.api.CoordinateConverter.convertOffsetCoordinatesToAxialX;
+import static org.codetome.hexameter.api.CoordinateConverter.convertOffsetCoordinatesToAxialZ;
+import static org.codetome.hexameter.api.Point.fromPosition;
+import static org.codetome.hexameter.internal.impl.HexagonImpl.newHexagon;
 
 public final class HexagonalGridImpl implements HexagonalGrid {
 
-    private static final int[][] NEIGHBORS = { { +1, 0 }, { +1, -1 },
-            { 0, -1 }, { -1, 0 }, { -1, +1 }, { 0, +1 } };
+    private static final int[][] NEIGHBORS = {{+1, 0}, {+1, -1}, {0, -1}, {-1, 0}, {-1, +1}, {0, +1}};
     private static final int NEIGHBOR_X_INDEX = 0;
     private static final int NEIGHBOR_Z_INDEX = 1;
 
@@ -45,7 +40,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     @Override
     public Collection<Hexagon> getHexagonsByAxialRange(final AxialCoordinate from, final AxialCoordinate to) {
-        final Collection<Hexagon> range = new HashSet<> ();
+        final Collection<Hexagon> range = new HashSet<>();
         for (int gridZ = from.getGridZ(); gridZ <= to.getGridZ(); gridZ++) {
             for (int gridX = from.getGridX(); gridX <= to.getGridX(); gridX++) {
                 final AxialCoordinate currentCoordinate = fromCoordinates(gridX, gridZ);
@@ -57,13 +52,11 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     @Override
     public Collection<Hexagon> getHexagonsByOffsetRange(final int gridXFrom, final int gridXTo, final int gridYFrom, final int gridYTo) {
-        final Collection<Hexagon> range = new HashSet<> ();
+        final Collection<Hexagon> range = new HashSet<>();
         for (int gridY = gridYFrom; gridY <= gridYTo; gridY++) {
             for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {
-                final int axialX = convertOffsetCoordinatesToAxialX(gridX, gridY,
-                        sharedHexagonData.getOrientation());
-                final int axialZ = convertOffsetCoordinatesToAxialZ(gridX, gridY,
-                        sharedHexagonData.getOrientation());
+                final int axialX = convertOffsetCoordinatesToAxialX(gridX, gridY, sharedHexagonData.getOrientation());
+                final int axialZ = convertOffsetCoordinatesToAxialZ(gridX, gridY, sharedHexagonData.getOrientation());
                 final AxialCoordinate axialCoordinate = fromCoordinates(axialX, axialZ);
                 range.add(getByAxialCoordinate(axialCoordinate));
             }
@@ -105,10 +98,8 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     public Hexagon getByPixelCoordinate(final double x, final double y) {
         int estimatedGridX = (int) (x / sharedHexagonData.getWidth());
         int estimatedGridZ = (int) (y / sharedHexagonData.getHeight());
-        estimatedGridX = convertOffsetCoordinatesToAxialX(estimatedGridX,
-                estimatedGridZ, sharedHexagonData.getOrientation());
-        estimatedGridZ = convertOffsetCoordinatesToAxialZ(estimatedGridX,
-                estimatedGridZ, sharedHexagonData.getOrientation());
+        estimatedGridX = convertOffsetCoordinatesToAxialX(estimatedGridX, estimatedGridZ, sharedHexagonData.getOrientation());
+        estimatedGridZ = convertOffsetCoordinatesToAxialZ(estimatedGridX, estimatedGridZ, sharedHexagonData.getOrientation());
         // it is possible that the estimated coordinates are off the grid so we
         // create a virtual hexagon
         final AxialCoordinate estimatedCoordinate = fromCoordinates(estimatedGridX, estimatedGridZ);
@@ -123,7 +114,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     @Override
     public Set<Hexagon> getNeighborsOf(final Hexagon hexagon) {
-        final Set<Hexagon> neighbors = new HashSet<> ();
+        final Set<Hexagon> neighbors = new HashSet<>();
         for (final int[] neighbor : NEIGHBORS) {
             Hexagon retHex = null;
             final int neighborGridX = hexagon.getGridX() + neighbor[NEIGHBOR_X_INDEX];
@@ -138,8 +129,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     }
 
     private boolean hexagonsAreAtTheSamePosition(final Hexagon hex0, final Hexagon hex1) {
-        return hex0.getGridX() == hex1.getGridX()
-                && hex0.getGridZ() == hex1.getGridZ();
+        return hex0.getGridX() == hex1.getGridX() && hex0.getGridZ() == hex1.getGridZ();
     }
 
     private Hexagon refineHexagonByPixel(final Hexagon hexagon, final Point clickedPoint) {

@@ -1,9 +1,9 @@
 package org.codetome.hexameter.api;
 
+import org.codetome.hexameter.api.exception.HexagonNotFoundException;
+
 import java.util.Collection;
 import java.util.Map;
-
-import org.codetome.hexameter.api.exception.HexagonNotFoundException;
 
 /**
  * <p>
@@ -24,90 +24,98 @@ import org.codetome.hexameter.api.exception.HexagonNotFoundException;
  */
 public interface HexagonalGrid {
 
-	/**
-	 * Returns all {@link Hexagon}s contained in this grid.
-	 *
-	 * @return hexagons
-	 */
-	Collection<Hexagon> getHexagons();
+    /**
+     * Returns all {@link Hexagon}s contained in this grid.
+     *
+     * @return hexagons
+     */
+    Collection<Hexagon> getHexagons();
 
-	/**
-	 * Returns all {@link Hexagon}s contained in the given axial coordinate range.
-	 * If the range contains coordinates which are not part of the grid it will throw a {@link HexagonNotFoundException}.
-	 *
-	 * @param from
-	 * @param to
-	 * @return {@link Hexagon}s in the given range.
-	 */
-	Collection<Hexagon> getHexagonsByAxialRange(AxialCoordinate from, AxialCoordinate to);
+    /**
+     * Returns all {@link Hexagon}s contained in the given axial coordinate range.
+     * If the range contains coordinates which are not part of the grid it will throw a {@link HexagonNotFoundException}.
+     *
+     * @param from
+     * @param to
+     *
+     * @return {@link Hexagon}s in the given range.
+     */
+    Collection<Hexagon> getHexagonsByAxialRange(AxialCoordinate from, AxialCoordinate to);
 
-	/**
-	 * Returns all {@link Hexagon}s contained in the given offset coordinate range.
-	 *
-	 * @param gridXFrom from x inclusive
-	 * @param gridXTo to x inclusive
-	 * @param gridYfrom from z inclusive
-	 * @param gridYTo to z inclusive
-	 * @return {@link Hexagon}s in the given range.
-	 */
-	Collection<Hexagon> getHexagonsByOffsetRange(int gridXFrom, int gridXTo, int gridYfrom, int gridYTo);
+    /**
+     * Returns all {@link Hexagon}s contained in the given offset coordinate range.
+     *
+     * @param gridXFrom from x inclusive
+     * @param gridXTo to x inclusive
+     * @param gridYfrom from z inclusive
+     * @param gridYTo to z inclusive
+     *
+     * @return {@link Hexagon}s in the given range.
+     */
+    Collection<Hexagon> getHexagonsByOffsetRange(int gridXFrom, int gridXTo, int gridYfrom, int gridYTo);
 
-	/**
-	 * Adds a new {@link Hexagon} at the given coordinate.
-	 *
-	 * @param coordinate
-	 * @return new {@link Hexagon} created.
-	 */
-	Hexagon addHexagon(AxialCoordinate coordinate);
+    /**
+     * Adds a new {@link Hexagon} at the given coordinate.
+     *
+     * @param coordinate
+     *
+     * @return new {@link Hexagon} created.
+     */
+    Hexagon addHexagon(AxialCoordinate coordinate);
 
-	/**
-	 * Removes the {@link Hexagon} at the given coordinate.
-	 *
-	 * @param coordinate
-	 * @return {@link Map#remove(Object)}
-	 */
-	Hexagon removeHexagon(AxialCoordinate coordinate);
+    /**
+     * Removes the {@link Hexagon} at the given coordinate.
+     *
+     * @param coordinate
+     *
+     * @return {@link Map#remove(Object)}
+     */
+    Hexagon removeHexagon(AxialCoordinate coordinate);
 
-	/**
-	 * Tells whether the given axial coordinate is on the grid or not.
-	 * If you want to look up by offset coordinate use {@link CoordinateConverter}.
-	 *
-	 * @param coordinate
-	 * @return is it on the grid?
-	 */
-	boolean containsAxialCoordinate(AxialCoordinate coordinate);
+    /**
+     * Tells whether the given axial coordinate is on the grid or not.
+     * If you want to look up by offset coordinate use {@link CoordinateConverter}.
+     *
+     * @param coordinate
+     *
+     * @return is it on the grid?
+     */
+    boolean containsAxialCoordinate(AxialCoordinate coordinate);
 
-	/**
-	 * Fetches a {@link Hexagon} by its axial coordinate. If no {@link Hexagon} found at the given location it throws a
-	 * {@link HexagonNotFoundException}.
-	 *
-	 * @param coordinate
-	 * @return {@link Hexagon}
-	 */
-	Hexagon getByAxialCoordinate(AxialCoordinate coordinate);
+    /**
+     * Fetches a {@link Hexagon} by its axial coordinate. If no {@link Hexagon} found at the given location it throws a
+     * {@link HexagonNotFoundException}.
+     *
+     * @param coordinate
+     *
+     * @return {@link Hexagon}
+     */
+    Hexagon getByAxialCoordinate(AxialCoordinate coordinate);
 
-	/**
-	 * Returns a {@link Hexagon} by a pixel coordinate. Throws {@link HexagonNotFoundException} if there were no
-	 * {@link Hexagon} at the given coordinates.
-	 * <em>Please note</em> that all pixel coordinates are relative to
-	 * the containing {@link HexagonalGrid}.
-	 *
-	 * @param x pixel x coordinate
-	 * @param y pixel y coordinate
-	 * @return {@link Hexagon}
-	 */
-	Hexagon getByPixelCoordinate(double x, double y);
+    /**
+     * Returns a {@link Hexagon} by a pixel coordinate. Throws {@link HexagonNotFoundException} if there were no
+     * {@link Hexagon} at the given coordinates.
+     * <em>Please note</em> that all pixel coordinates are relative to
+     * the containing {@link HexagonalGrid}.
+     *
+     * @param x pixel x coordinate
+     * @param y pixel y coordinate
+     *
+     * @return {@link Hexagon}
+     */
+    Hexagon getByPixelCoordinate(double x, double y);
 
-	/**
-	 * Returns all neighbors of a {@link Hexagon}.
-	 *
-	 * @param hexagon {@link Hexagon}
-	 * @return the {@link Hexagon}'s neighbors
-	 */
-	Collection<Hexagon> getNeighborsOf(Hexagon hexagon);
+    /**
+     * Returns all neighbors of a {@link Hexagon}.
+     *
+     * @param hexagon {@link Hexagon}
+     *
+     * @return the {@link Hexagon}'s neighbors
+     */
+    Collection<Hexagon> getNeighborsOf(Hexagon hexagon);
 
-	/**
-	 * Clears all satellite data attached to the {@link Hexagon}s in this grid.
-	 */
-	void clearSatelliteData();
+    /**
+     * Clears all satellite data attached to the {@link Hexagon}s in this grid.
+     */
+    void clearSatelliteData();
 }

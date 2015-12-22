@@ -13,24 +13,26 @@ public interface Hexagon extends Serializable {
 
     /**
      * Returns an unique {@link String} representating this {@link Hexagon}.
+     *
      * @return id
      */
     String getId();
 
-	/**
-	 * Returns an array containing the {@link Point}s of this {@link Hexagon}.
-	 *
-	 * @return points array
-	 */
-	Point[] getPoints();
+    /**
+     * Returns an array containing the {@link Point}s of this {@link Hexagon}.
+     *
+     * @return points array
+     */
+    Point[] getPoints();
 
-	/**
-	 * Returns the {@link AxialCoordinate} of this {@link Hexagon}.
-	 * @return
-	 */
-	AxialCoordinate getAxialCoordinate();
+    /**
+     * Returns the {@link AxialCoordinate} of this {@link Hexagon}.
+     *
+     * @return
+     */
+    AxialCoordinate getAxialCoordinate();
 
-	/**
+    /**
      * Returns this {@link Hexagon}'s <b>x</b> (axial) coordinate on the {@link HexagonalGrid}.
      *
      * @return x coordinate on the grid
@@ -53,32 +55,32 @@ public interface Hexagon extends Serializable {
      */
     int getGridZ();
 
-	/**
-	 * Returns the center <b>x</b> (pixel) coordinate of this {@link Hexagon}.
-	 *
-	 * @return center x
-	 */
-	double getCenterX();
+    /**
+     * Returns the center <b>x</b> (pixel) coordinate of this {@link Hexagon}.
+     *
+     * @return center x
+     */
+    double getCenterX();
 
-	/**
-	 * Returns the center <b>y</b> (pixel) coordinate of this {@link Hexagon}.
-	 *
-	 * @return center y
-	 */
-	double getCenterY();
+    /**
+     * Returns the center <b>y</b> (pixel) coordinate of this {@link Hexagon}.
+     *
+     * @return center y
+     */
+    double getCenterY();
 
-	/**
-	 * Can be used to add arbitrary satellite data to a {@link Hexagon}.
-	 *
-	 * @param data
-	 */
-	<T> void setSatelliteData(T data);
+    /**
+     * Returns the previously set satellite data from this {@link Hexagon}.
+     *
+     * @return
+     */
+    <T> Optional<T> getSatelliteData();
 
-	/**
-	 * Returns the previously set satellite data from this {@link Hexagon}.
-	 *
-	 * @return
-	 */
-	<T> Optional<T> getSatelliteData();
+    /**
+     * Can be used to add arbitrary satellite data to a {@link Hexagon}.
+     *
+     * @param data
+     */
+    <T> void setSatelliteData(T data);
 
 }

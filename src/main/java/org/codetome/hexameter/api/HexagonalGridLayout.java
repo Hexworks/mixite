@@ -1,10 +1,6 @@
 package org.codetome.hexameter.api;
 
-import org.codetome.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy;
-import org.codetome.hexameter.internal.impl.layoutstrategy.HexagonalGridLayoutStrategy;
-import org.codetome.hexameter.internal.impl.layoutstrategy.RectangularGridLayoutStrategy;
-import org.codetome.hexameter.internal.impl.layoutstrategy.TrapezoidGridLayoutStrategy;
-import org.codetome.hexameter.internal.impl.layoutstrategy.TriangularGridLayoutStrategy;
+import org.codetome.hexameter.internal.impl.layoutstrategy.*;
 
 /**
  * This enum represents the possible shapes a {@link HexagonalGrid} can have.
@@ -14,46 +10,46 @@ import org.codetome.hexameter.internal.impl.layoutstrategy.TriangularGridLayoutS
  */
 public enum HexagonalGridLayout {
 
-	/**
-	 * A rectangular layout has no special rules.
-	 */
-	RECTANGULAR(new RectangularGridLayoutStrategy()),
+    /**
+     * A rectangular layout has no special rules.
+     */
+    RECTANGULAR(new RectangularGridLayoutStrategy()),
 
-	/**
-	 * The hexagonal layout must have equal width and height and
-	 * it must be odd.
-	 */
-	HEXAGONAL(new HexagonalGridLayoutStrategy()),
+    /**
+     * The hexagonal layout must have equal width and height and
+     * it must be odd.
+     */
+    HEXAGONAL(new HexagonalGridLayoutStrategy()),
 
-	/**
-	 * A triangular layout must have equal width and height.
-	 */
-	TRIANGULAR(new TriangularGridLayoutStrategy()),
+    /**
+     * A triangular layout must have equal width and height.
+     */
+    TRIANGULAR(new TriangularGridLayoutStrategy()),
 
-	/**
-	 * A trapezoid layout has no special rules.
-	 */
-	TRAPEZOID(new TrapezoidGridLayoutStrategy());
+    /**
+     * A trapezoid layout has no special rules.
+     */
+    TRAPEZOID(new TrapezoidGridLayoutStrategy());
 
+    private GridLayoutStrategy gridLayoutStrategy;
 
-	private GridLayoutStrategy gridLayoutStrategy;
+    HexagonalGridLayout(final GridLayoutStrategy gridLayoutStrategy) {
+        this.gridLayoutStrategy = gridLayoutStrategy;
+    }
 
-	private HexagonalGridLayout(final GridLayoutStrategy gridLayoutStrategy) {
-		this.gridLayoutStrategy = gridLayoutStrategy;
-	}
+    /**
+     * Checks whether the grid height/width parameters can be used for the given {@link GridLayoutStrategy}.
+     *
+     * @param gridHeight
+     * @param gridWidth
+     *
+     * @return valid?
+     */
+    boolean checkParameters(final int gridHeight, final int gridWidth) {
+        return getGridLayoutStrategy().checkParameters(gridHeight, gridWidth);
+    }
 
-	public GridLayoutStrategy getGridLayoutStrategy() {
-		return gridLayoutStrategy;
-	}
-
-	/**
-	 * Checks whether the grid height/width parameters can be used for the given {@link GridLayoutStrategy}.
-	 *
-	 * @param gridHeight
-	 * @param gridWidth
-	 * @return valid?
-	 */
-	boolean checkParameters(final int gridHeight, final int gridWidth) {
-		return getGridLayoutStrategy().checkParameters(gridHeight, gridWidth);
-	}
+    public GridLayoutStrategy getGridLayoutStrategy() {
+        return gridLayoutStrategy;
+    }
 }
