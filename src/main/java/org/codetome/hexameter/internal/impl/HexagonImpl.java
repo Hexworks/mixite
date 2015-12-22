@@ -2,9 +2,12 @@ package org.codetome.hexameter.internal.impl;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
 import static org.codetome.hexameter.api.HexagonOrientation.FLAT_TOP;
 import static org.codetome.hexameter.api.Point.fromPosition;
 
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.codetome.hexameter.api.AxialCoordinate;
@@ -52,6 +55,12 @@ public class HexagonImpl implements Hexagon {
     }
 
     @Override
+    public String getId()
+    {
+        return coordinate.toKey();
+    }
+
+    @Override
     public String toString() {
         return "HexagonImpl#{x=" + coordinate.getGridX() + ", z=" + coordinate.getGridZ() + "}";
     }
@@ -73,8 +82,9 @@ public class HexagonImpl implements Hexagon {
 
     @Override
     @SuppressWarnings("unchecked")
-    public final <T> T getSatelliteData() {
-        return (T) satelliteData.get();
+    public final <T> Optional<T> getSatelliteData() {
+        final Object result = satelliteData.get();
+        return result == null ? empty() : of((T) result);
     }
 
     @Override
@@ -83,7 +93,14 @@ public class HexagonImpl implements Hexagon {
     }
 
     @Override
-    public final int getGridX() {
+    public AxialCoordinate getAxialCoordinate()
+    {
+        return coordinate;
+    }
+
+    @Override
+    public int getGridX()
+    {
         return coordinate.getGridX();
     }
 
@@ -93,7 +110,8 @@ public class HexagonImpl implements Hexagon {
     }
 
     @Override
-    public final int getGridZ() {
+    public int getGridZ()
+    {
         return coordinate.getGridZ();
     }
 

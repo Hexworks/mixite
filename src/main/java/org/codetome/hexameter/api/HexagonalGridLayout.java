@@ -1,6 +1,5 @@
 package org.codetome.hexameter.api;
 
-import org.codetome.hexameter.internal.impl.layoutstrategy.CustomGridLayoutStrategy;
 import org.codetome.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy;
 import org.codetome.hexameter.internal.impl.layoutstrategy.HexagonalGridLayoutStrategy;
 import org.codetome.hexameter.internal.impl.layoutstrategy.RectangularGridLayoutStrategy;
@@ -34,18 +33,12 @@ public enum HexagonalGridLayout {
 	/**
 	 * A trapezoid layout has no special rules.
 	 */
-	TRAPEZOID(new TrapezoidGridLayoutStrategy()),
+	TRAPEZOID(new TrapezoidGridLayoutStrategy());
 
-	/**
-	 * Represents a custom grid layout strategy. It will
-	 * add {@link Hexagon}s to the grid based on the coordinates
-	 * set by the user.
-	 */
-	CUSTOM(new CustomGridLayoutStrategy());
 
 	private GridLayoutStrategy gridLayoutStrategy;
 
-	private HexagonalGridLayout(GridLayoutStrategy gridLayoutStrategy) {
+	private HexagonalGridLayout(final GridLayoutStrategy gridLayoutStrategy) {
 		this.gridLayoutStrategy = gridLayoutStrategy;
 	}
 
@@ -55,12 +48,12 @@ public enum HexagonalGridLayout {
 
 	/**
 	 * Checks whether the grid height/width parameters can be used for the given {@link GridLayoutStrategy}.
-	 * 
+	 *
 	 * @param gridHeight
 	 * @param gridWidth
 	 * @return valid?
 	 */
-	boolean checkParameters(int gridHeight, int gridWidth) {
+	boolean checkParameters(final int gridHeight, final int gridWidth) {
 		return getGridLayoutStrategy().checkParameters(gridHeight, gridWidth);
 	}
 }

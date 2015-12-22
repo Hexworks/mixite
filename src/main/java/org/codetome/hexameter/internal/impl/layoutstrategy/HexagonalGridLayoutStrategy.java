@@ -8,8 +8,8 @@ import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
 import static org.codetome.hexameter.api.HexagonOrientation.FLAT_TOP;
 import static org.codetome.hexameter.internal.impl.HexagonImpl.newHexagon;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collection;
+import java.util.HashSet;
 
 import org.codetome.hexameter.api.AxialCoordinate;
 import org.codetome.hexameter.api.Hexagon;
@@ -21,12 +21,12 @@ import org.codetome.hexameter.api.HexagonalGridBuilder;
  * This strategy is responsible for generating a {@link HexagonalGrid} which has a hexagonal
  * shape.
  */
-public final class HexagonalGridLayoutStrategy extends AbstractGridLayoutStrategy {
+public final class HexagonalGridLayoutStrategy implements GridLayoutStrategy {
 
 	@Override
-    public Map<String, Hexagon> createHexagons(final HexagonalGridBuilder builder) {
+    public Collection<Hexagon> createHexagons(final HexagonalGridBuilder builder) {
 		final double gridSize = builder.getGridHeight();
-		final Map<String, Hexagon> hexagons = new HashMap<> ();
+		final Collection<Hexagon> hexagons = new HashSet<> ();
 		int startX = FLAT_TOP.equals(builder.getOrientation()) ? (int) floor(gridSize / 2d) : (int) round(gridSize / 4d);
 		final int hexRadius = (int) floor(gridSize / 2d);
 		final int minX = startX - hexRadius;
@@ -36,17 +36,16 @@ public final class HexagonalGridLayoutStrategy extends AbstractGridLayoutStrateg
 				final int gridX = x;
 				final int gridZ = HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? y - (int) floor(gridSize / 4d) : y;
 				final AxialCoordinate coordinate = fromCoordinates(gridX, gridZ);
-                hexagons.put(coordinate.toKey(), newHexagon(builder.getSharedHexagonData(), coordinate));
+                hexagons.add(newHexagon(builder.getSharedHexagonData(), coordinate));
 			}
 			startX--;
 		}
-		addCustomHexagons(builder, hexagons);
 		return hexagons;
 	}
 
 	@Override
     public boolean checkParameters(final int gridHeight, final int gridWidth) {
-		final boolean superResult = super.checkParameters(gridHeight, gridWidth);
+		final boolean superResult = GridLayoutStrategy.super.checkParameters(gridHeight, gridWidth);
 		final boolean result = gridHeight == gridWidth && abs(gridHeight % 2) == 1;
 		return result && superResult;
 	}

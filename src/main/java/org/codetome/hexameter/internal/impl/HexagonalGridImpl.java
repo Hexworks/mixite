@@ -6,11 +6,10 @@ import static org.codetome.hexameter.api.CoordinateConverter.convertOffsetCoordi
 import static org.codetome.hexameter.api.Point.fromPosition;
 import static org.codetome.hexameter.internal.impl.HexagonImpl.newHexagon;
 
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.codetome.hexameter.api.AxialCoordinate;
 import org.codetome.hexameter.api.Hexagon;
@@ -35,34 +34,30 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     public HexagonalGridImpl(final HexagonalGridBuilder builder) {
         sharedHexagonData = builder.getSharedHexagonData();
         gridLayoutStrategy = builder.getGridLayoutStrategy();
-        if (builder.getCustomStorage() != null) {
-            hexagonStorage = builder.getCustomStorage();
-        } else {
-            hexagonStorage = new ConcurrentHashMap<> ();
-        }
-        hexagonStorage.putAll(gridLayoutStrategy.createHexagons(builder));
+        hexagonStorage = builder.getCustomStorage();
+        gridLayoutStrategy.createHexagons(builder).forEach(hex -> hexagonStorage.put(hex.getId(), hex));
     }
 
     @Override
-    public Map<String, Hexagon> getHexagons() {
-        return hexagonStorage;
+    public Collection<Hexagon> getHexagons() {
+        return new HashSet<Hexagon>(hexagonStorage.values());
     }
 
     @Override
-    public Map<String, Hexagon> getHexagonsByAxialRange(final AxialCoordinate from, final AxialCoordinate to) {
-        final Map<String, Hexagon> range = new HashMap<> ();
+    public Collection<Hexagon> getHexagonsByAxialRange(final AxialCoordinate from, final AxialCoordinate to) {
+        final Collection<Hexagon> range = new HashSet<> ();
         for (int gridZ = from.getGridZ(); gridZ <= to.getGridZ(); gridZ++) {
             for (int gridX = from.getGridX(); gridX <= to.getGridX(); gridX++) {
                 final AxialCoordinate currentCoordinate = fromCoordinates(gridX, gridZ);
-                range.put(currentCoordinate.toKey(), getByAxialCoordinate(currentCoordinate));
+                range.add(getByAxialCoordinate(currentCoordinate));
             }
         }
         return range;
     }
 
     @Override
-    public Map<String, Hexagon> getHexagonsByOffsetRange(final int gridXFrom, final int gridXTo, final int gridYFrom, final int gridYTo) {
-        final Map<String, Hexagon> range = new HashMap<> ();
+    public Collection<Hexagon> getHexagonsByOffsetRange(final int gridXFrom, final int gridXTo, final int gridYFrom, final int gridYTo) {
+        final Collection<Hexagon> range = new HashSet<> ();
         for (int gridY = gridYFrom; gridY <= gridYTo; gridY++) {
             for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {
                 final int axialX = convertOffsetCoordinatesToAxialX(gridX, gridY,
@@ -70,7 +65,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
                 final int axialZ = convertOffsetCoordinatesToAxialZ(gridX, gridY,
                         sharedHexagonData.getOrientation());
                 final AxialCoordinate axialCoordinate = fromCoordinates(axialX, axialZ);
-                range.put(axialCoordinate.toKey(), getByAxialCoordinate(axialCoordinate));
+                range.add(getByAxialCoordinate(axialCoordinate));
             }
         }
         return range;

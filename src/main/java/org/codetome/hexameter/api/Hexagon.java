@@ -1,6 +1,7 @@
 package org.codetome.hexameter.api;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * <p>
@@ -10,6 +11,12 @@ import java.io.Serializable;
  */
 public interface Hexagon extends Serializable {
 
+    /**
+     * Returns an unique {@link String} representating this {@link Hexagon}.
+     * @return id
+     */
+    String getId();
+
 	/**
 	 * Returns an array containing the {@link Point}s of this {@link Hexagon}.
 	 *
@@ -18,27 +25,33 @@ public interface Hexagon extends Serializable {
 	Point[] getPoints();
 
 	/**
-	 * Returns this {@link Hexagon}'s <b>x</b> (axial) coordinate on the {@link HexagonalGrid}.
-	 *
-	 * @return x coordinate on the grid
+	 * Returns the {@link AxialCoordinate} of this {@link Hexagon}.
+	 * @return
 	 */
-	int getGridX();
+	AxialCoordinate getAxialCoordinate();
 
 	/**
-	 * Returns this {@link Hexagon}'s <b>y</b> coordinate on the {@link HexagonalGrid}.
-	 * The Y coordinate is not present in the axial model but it is in the cube model.
-	 * This method is just for convenience.
-	 *
-	 * @return y coordinate on the grid
-	 */
-	int getGridY();
+     * Returns this {@link Hexagon}'s <b>x</b> (axial) coordinate on the {@link HexagonalGrid}.
+     *
+     * @return x coordinate on the grid
+     */
+    int getGridX();
 
-	/**
-	 * Returns this {@link Hexagon}'s <b>z</b> (axial) coordinate on the {@link HexagonalGrid}.
-	 *
-	 * @return z coordinate on the grid
-	 */
-	int getGridZ();
+    /**
+     * Returns this {@link Hexagon}'s <b>y</b> coordinate on the {@link HexagonalGrid}.
+     * The Y coordinate is not present in the axial model but it is in the cube model.
+     * This method is just for convenience.
+     *
+     * @return y coordinate on the grid
+     */
+    int getGridY();
+
+    /**
+     * Returns this {@link Hexagon}'s <b>z</b> (axial) coordinate on the {@link HexagonalGrid}.
+     *
+     * @return z coordinate on the grid
+     */
+    int getGridZ();
 
 	/**
 	 * Returns the center <b>x</b> (pixel) coordinate of this {@link Hexagon}.
@@ -66,6 +79,6 @@ public interface Hexagon extends Serializable {
 	 *
 	 * @return
 	 */
-	<T> T getSatelliteData();
+	<T> Optional<T> getSatelliteData();
 
 }

@@ -4,9 +4,8 @@ import static org.codetome.hexameter.api.HexagonOrientation.POINTY_TOP;
 import static org.codetome.hexameter.api.HexagonalGridLayout.RECTANGULAR;
 
 import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.codetome.hexameter.api.exception.HexagonalGridCreationException;
 import org.codetome.hexameter.internal.SharedHexagonData;
@@ -30,8 +29,7 @@ public final class HexagonalGridBuilder {
 	private int gridWidth;
 	private int gridHeight;
 	private double radius;
-	private Map<String, Hexagon> customStorage;
-	private final List<AxialCoordinate> customCoordinates = new ArrayList<> ();
+	private Map<String, Hexagon> customStorage = new ConcurrentHashMap<>();
 	private HexagonOrientation orientation = POINTY_TOP;
 	private HexagonalGridLayout gridLayout = RECTANGULAR;
 
@@ -93,17 +91,6 @@ public final class HexagonalGridBuilder {
 	}
 
 	/**
-	 * Adds a custom coordinate to the {@link HexagonalGrid} which will be produced.
-	 *
-	 * @param axialCoordinate
-	 * @return this {@link HexagonalGridBuilder}.
-	 */
-	public HexagonalGridBuilder addCustomAxialCoordinate(final AxialCoordinate axialCoordinate) {
-		customCoordinates.add(axialCoordinate);
-		return this;
-	}
-
-	/**
 	 * Sets a custom storage object to the {@link HexagonalGrid}. It will be used
 	 * instead of the internal storage. You can pass any custom storage object
 	 * as long as it implements the {@link Map} interface. Refer to the swt example
@@ -124,6 +111,9 @@ public final class HexagonalGridBuilder {
 	 * @return this {@link HexagonalGridBuilder}.
 	 */
 	public HexagonalGridBuilder setCustomStorage(final Map<String, Hexagon> customStorage) {
+	    if(customStorage == null) {
+	        throw new IllegalArgumentException("customStorage cannot be null!");
+	    }
 		this.customStorage = customStorage;
 		return this;
 	}
@@ -184,10 +174,6 @@ public final class HexagonalGridBuilder {
 
 	public GridLayoutStrategy getGridLayoutStrategy() {
 		return gridLayout.getGridLayoutStrategy();
-	}
-
-	public List<AxialCoordinate> getCustomCoordinates() {
-		return customCoordinates;
 	}
 
 	public Map<String, Hexagon> getCustomStorage() {

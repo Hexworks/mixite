@@ -1,14 +1,14 @@
 package org.codetome.hexameter.internal.impl.layoutstrategy;
 
 import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
 import static org.codetome.hexameter.api.HexagonOrientation.FLAT_TOP;
 import static org.codetome.hexameter.internal.impl.layoutstrategy.GridLayouStrategyTestUtil.fetchDefaultBuilder;
-import static org.junit.Assert.assertNotNull;
 
-import java.util.Map;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.codetome.hexameter.api.Hexagon;
 import org.codetome.hexameter.api.HexagonalGridBuilder;
@@ -28,37 +28,41 @@ public class TriangularGridLayoutStrategyTest {
 
 	@Test
 	public void shouldProperlyCreateHexagonsWithPointyOrientationWhenCreateHexagonsIsCalled() {
-		final Map<String, Hexagon> hexagons = target.createHexagons(builder);
+		final Collection<Hexagon> hexagons = target.createHexagons(builder);
 		testHexagons(hexagons);
 	}
 
 	@Test
 	public void shouldProperlyCreateHexagonsWithFlatOrientationWhenCreateHexagonsIsCalled() {
 		builder.setOrientation(FLAT_TOP);
-		final Map<String, Hexagon> hexagons = target.createHexagons(builder);
+		final Collection<Hexagon> hexagons = target.createHexagons(builder);
 		testHexagons(hexagons);
 	}
 
-	private void testHexagons(final Map<String, Hexagon> hexagons) {
-		assertNotNull(hexagons.get(fromCoordinates(0, 0).toKey()));
-		assertNotNull(hexagons.get(fromCoordinates(1, 0).toKey()));
-		assertNotNull(hexagons.get(fromCoordinates(2, 0).toKey()));
-		assertNotNull(hexagons.get(fromCoordinates(0, 1).toKey()));
-		assertNotNull(hexagons.get(fromCoordinates(1, 1).toKey()));
-		assertNotNull(hexagons.get(fromCoordinates(0, 2).toKey()));
+	private void testHexagons(final Collection<Hexagon> hexagons) {
 
-		assertNull(hexagons.get(fromCoordinates(-1, 0).toKey()));
-		assertNull(hexagons.get(fromCoordinates(0, -1).toKey()));
-		assertNull(hexagons.get(fromCoordinates(1, -1).toKey()));
-		assertNull(hexagons.get(fromCoordinates(2, -1).toKey()));
-		assertNull(hexagons.get(fromCoordinates(3, -1).toKey()));
-		assertNull(hexagons.get(fromCoordinates(3, 0).toKey()));
-		assertNull(hexagons.get(fromCoordinates(2, 1).toKey()));
-		assertNull(hexagons.get(fromCoordinates(1, 2).toKey()));
-		assertNull(hexagons.get(fromCoordinates(0, 3).toKey()));
-		assertNull(hexagons.get(fromCoordinates(-1, 3).toKey()));
-		assertNull(hexagons.get(fromCoordinates(-1, 2).toKey()));
-		assertNull(hexagons.get(fromCoordinates(-1, 1).toKey()));
+	    final Set<String> coords = new HashSet<>();
+	    hexagons.forEach(hex -> coords.add(hex.getAxialCoordinate().toKey()));
+
+		assertTrue(coords.contains(fromCoordinates(0, 0).toKey()));
+		assertTrue(coords.contains(fromCoordinates(1, 0).toKey()));
+		assertTrue(coords.contains(fromCoordinates(2, 0).toKey()));
+		assertTrue(coords.contains(fromCoordinates(0, 1).toKey()));
+		assertTrue(coords.contains(fromCoordinates(1, 1).toKey()));
+		assertTrue(coords.contains(fromCoordinates(0, 2).toKey()));
+
+		assertTrue(!coords.contains(fromCoordinates(-1, 0).toKey()));
+		assertTrue(!coords.contains(fromCoordinates(0, -1).toKey()));
+		assertTrue(!coords.contains(fromCoordinates(1, -1).toKey()));
+		assertTrue(!coords.contains(fromCoordinates(2, -1).toKey()));
+		assertTrue(!coords.contains(fromCoordinates(3, -1).toKey()));
+		assertTrue(!coords.contains(fromCoordinates(3, 0).toKey()));
+		assertTrue(!coords.contains(fromCoordinates(2, 1).toKey()));
+		assertTrue(!coords.contains(fromCoordinates(1, 2).toKey()));
+		assertTrue(!coords.contains(fromCoordinates(0, 3).toKey()));
+		assertTrue(!coords.contains(fromCoordinates(-1, 3).toKey()));
+		assertTrue(!coords.contains(fromCoordinates(-1, 2).toKey()));
+		assertTrue(!coords.contains(fromCoordinates(-1, 1).toKey()));
 	}
 
 	@Test

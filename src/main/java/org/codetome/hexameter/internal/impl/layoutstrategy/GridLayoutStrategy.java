@@ -1,6 +1,6 @@
 package org.codetome.hexameter.internal.impl.layoutstrategy;
 
-import java.util.Map;
+import java.util.Collection;
 
 import org.codetome.hexameter.api.Hexagon;
 import org.codetome.hexameter.api.HexagonalGrid;
@@ -14,20 +14,22 @@ public interface GridLayoutStrategy {
 	/**
 	 * Creates the {@link Hexagon} objects which fit in the shape
 	 * of the requested layout.
-	 * 
+	 *
 	 * @param builder contains the data needed
 	 * @return created hexagons.
 	 */
-	Map<String, Hexagon> createHexagons(HexagonalGridBuilder builder);
+    Collection<Hexagon> createHexagons(HexagonalGridBuilder builder);
 
 	/**
 	 * Checks whether the supplied parameters are valid for the given strategy.
 	 * <i>For example a hexagonal grid layout only works if the width equals to the height</i>
-	 * 
+	 *
 	 * @param gridHeight
 	 * @param gridWidth
 	 * @return valid?
 	 */
-	boolean checkParameters(int gridHeight, int gridWidth);
+    default boolean checkParameters(final int gridHeight, final int gridWidth) {
+        return gridHeight > 0 && gridWidth > 0;
+    }
 
 }

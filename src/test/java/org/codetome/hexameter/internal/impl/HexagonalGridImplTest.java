@@ -9,6 +9,7 @@ import static org.codetome.hexameter.api.CoordinateConverter.convertOffsetCoordi
 import static org.codetome.hexameter.api.CoordinateConverter.convertOffsetCoordinatesToAxialZ;
 import static org.codetome.hexameter.api.HexagonOrientation.POINTY_TOP;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -47,24 +48,23 @@ public class HexagonalGridImplTest {
 		final Map<String, Hexagon> expected = new HashMap<> ();
 		builder.setCustomStorage(expected);
 		target = builder.build();
-		assertEquals(expected, target.getHexagons());
+		assertTrue(expected.values().containsAll(target.getHexagons()));
 	}
 
 	@Test
 	public void shouldReturnProperHexagonsWhenEachHexagonIsTestedInAGivenGrid() {
-		final Map<String, Hexagon> hexagons = target.getHexagons();
+		final Collection<Hexagon> hexagons = target.getHexagons();
+		final Set<String> expectedCoordinates = new HashSet<String>();
 		assertEquals(100, hexagons.size());
 		for (int x = 0; x < GRID_WIDTH; x++) {
 			for (int y = 0; y < GRID_HEIGHT; y++) {
 				final int gridX = convertOffsetCoordinatesToAxialX(x, y, ORIENTATION);
-				final int gridY = convertOffsetCoordinatesToAxialZ(x, y, ORIENTATION);
-				final String key = fromCoordinates(gridX, gridY).toKey();
-				assertTrue(hexagons.containsKey(key));
-				final Hexagon hex = hexagons.get(key);
-				assertTrue(hex.getGridX() == gridX);
-				assertTrue(hex.getGridZ() == gridY);
+				final int gridZ = convertOffsetCoordinatesToAxialZ(x, y, ORIENTATION);
+				expectedCoordinates.add(gridX + "," + gridZ);
 			}
 		}
+		hexagons.forEach(hexagon -> expectedCoordinates.remove(hexagon.getGridX() + "," + hexagon.getGridZ()));
+		assertTrue(expectedCoordinates.isEmpty());
 	}
 
 	@Test
@@ -83,13 +83,10 @@ public class HexagonalGridImplTest {
 		expected.add(target.getByAxialCoordinate(fromCoordinates(3, 5)));
 		expected.add(target.getByAxialCoordinate(fromCoordinates(4, 5)));
 
-		final Map<String, Hexagon> actual = target.getHexagonsByAxialRange(fromCoordinates(GRID_X_FROM, GRID_Z_FROM), fromCoordinates(GRID_X_TO, GRID_Z_TO));
+		final Collection<Hexagon> actual = target.getHexagonsByAxialRange(fromCoordinates(GRID_X_FROM, GRID_Z_FROM), fromCoordinates(GRID_X_TO, GRID_Z_TO));
 		assertEquals(expected.size(), actual.size());
-		for (final Hexagon hex : expected) {
-			final String key = fromCoordinates(hex.getGridX(), hex.getGridZ()).toKey();
-			assertTrue(actual.containsKey(key));
-			assertEquals(hex, actual.get(key));
-		}
+		actual.forEach(hex -> expected.remove(hex));
+		assertTrue(expected.isEmpty());
 	}
 
 	@Test
@@ -108,13 +105,10 @@ public class HexagonalGridImplTest {
 		expected.add(target.getByAxialCoordinate(fromCoordinates(1, 5)));
 		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 5)));
 
-		final Map<String, Hexagon> actual = target.getHexagonsByOffsetRange(GRID_X_FROM, GRID_X_TO, GRID_Z_FROM, GRID_Z_TO);
+		final Collection<Hexagon> actual = target.getHexagonsByOffsetRange(GRID_X_FROM, GRID_X_TO, GRID_Z_FROM, GRID_Z_TO);
 		assertEquals(expected.size(), actual.size());
-		for (final Hexagon hex : expected) {
-			final String key = fromCoordinates(hex.getGridX(), hex.getGridZ()).toKey();
-			assertTrue(actual.containsKey(key));
-			assertEquals(hex, actual.get(key));
-		}
+        actual.forEach(hex -> expected.remove(hex));
+        assertTrue(expected.isEmpty());
 	}
 
 	@Test
@@ -195,7 +189,7 @@ public class HexagonalGridImplTest {
 		expected.add(target.getByAxialCoordinate(fromCoordinates(3, 8)));
 		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 8)));
 		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 7)));
-		final Set<Hexagon> actual = target.getNeighborsOf(hex);
+		final Collection<Hexagon> actual = target.getNeighborsOf(hex);
 		assertEquals(expected, actual);
 	}
 
@@ -205,7 +199,7 @@ public class HexagonalGridImplTest {
 		final Set<Hexagon> expected = new HashSet<> ();
 		expected.add(target.getByAxialCoordinate(fromCoordinates(5, 8)));
 		expected.add(target.getByAxialCoordinate(fromCoordinates(4, 9)));
-		final Set<Hexagon> actual = target.getNeighborsOf(hex);
+		final Collection<Hexagon> actual = target.getNeighborsOf(hex);
 		assertEquals(expected, actual);
 	}
 
@@ -215,6 +209,6 @@ public class HexagonalGridImplTest {
 		final Object data = new Object();
 		testHex.setSatelliteData(data);
 		target.clearSatelliteData();
-		assertTrue(testHex.getSatelliteData() == null);
+		assertTrue(!testHex.getSatelliteData().isPresent());
 	}
 }

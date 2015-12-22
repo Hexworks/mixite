@@ -65,7 +65,7 @@ public class HexagonImplTest {
 	@Test
 	public void shouldReturnProperSatelliteDataWhenSatelliteDataIsSet() {
 		target.setSatelliteData(TEST_SATELLITE_DATA);
-		assertEquals(TEST_SATELLITE_DATA, target.getSatelliteData());
+		assertEquals(TEST_SATELLITE_DATA, target.getSatelliteData().get());
 	}
 
 	@Test

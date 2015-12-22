@@ -2,8 +2,6 @@ package org.codetome.hexameter.api;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
-import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
 import static org.codetome.hexameter.api.HexagonalGridLayout.TRIANGULAR;
 
 import java.util.HashMap;
@@ -48,6 +46,11 @@ public class HexagonalGridBuilderTest {
 		target.getSharedHexagonData();
 	}
 
+	@Test(expected=IllegalArgumentException.class)
+	public void shouldFailIfTryingToSetNullCustomStorage() {
+	    target.setCustomStorage(null);
+	}
+
 	@Test(expected = IllegalStateException.class)
 	public void shouldFailGettingSharedHexagonDataWhenRadiusIsZero() {
 		target.setRadius(0);
@@ -77,15 +80,6 @@ public class HexagonalGridBuilderTest {
 		target.setGridLayout(TRIANGULAR);
 		target.setGridHeight(4);
 		target.build();
-	}
-
-	@Test
-	public void shouldContainCustomCoordinateWhenCustomCoordinateIsAdded() {
-		final int gridX = 1;
-		final int gridZ = 2;
-		final int size = target.getCustomCoordinates().size();
-		target.addCustomAxialCoordinate(fromCoordinates(gridX, gridZ));
-		assertTrue(target.getCustomCoordinates().size() == size + 1);
 	}
 
 	@Test
