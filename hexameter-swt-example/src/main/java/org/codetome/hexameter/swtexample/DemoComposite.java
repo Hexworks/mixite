@@ -2,7 +2,6 @@ package org.codetome.hexameter.swtexample;
 
 import org.codetome.hexameter.api.*;
 import org.codetome.hexameter.api.Point;
-import org.codetome.hexameter.api.exception.HexagonNotFoundException;
 import org.codetome.hexameter.api.exception.HexagonalGridCreationException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.*;
@@ -13,6 +12,8 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.*;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.codetome.hexameter.api.HexagonOrientation.POINTY_TOP;
@@ -297,8 +298,8 @@ public class DemoComposite extends Composite {
             public void mouseUp(MouseEvent e) {
                 Hexagon hex = null;
                 try {
-                    hex = hexagonalGrid.getByPixelCoordinate(e.x, e.y);
-                } catch (HexagonNotFoundException ex) {
+                    hex = hexagonalGrid.getByPixelCoordinate(e.x, e.y).get();
+                } catch (NoSuchElementException ex) {
                     ex.printStackTrace();
                 }
                 if (hex != null) {
@@ -405,7 +406,7 @@ public class DemoComposite extends Composite {
                 gc.drawString("z:" + z, (int) (hexagon.getCenterX() + fontSize / 3), (int) hexagon.getCenterY() + fontSize / 3, true);
             }
 
-            private int[] convertToPointsArr(Point[] points) {
+            private int[] convertToPointsArr(List<Point> points) {
                 int[] pointsArr = new int[12];
                 int i = 0;
                 for (Point point : points) {

@@ -1,28 +1,17 @@
 package org.codetome.hexameter.internal.impl;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
+import org.codetome.hexameter.api.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.*;
+
+import static junit.framework.Assert.*;
 import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
 import static org.codetome.hexameter.api.CoordinateConverter.convertOffsetCoordinatesToAxialX;
 import static org.codetome.hexameter.api.CoordinateConverter.convertOffsetCoordinatesToAxialZ;
 import static org.codetome.hexameter.api.HexagonOrientation.POINTY_TOP;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import org.codetome.hexameter.api.AxialCoordinate;
-import org.codetome.hexameter.api.Hexagon;
-import org.codetome.hexameter.api.HexagonOrientation;
-import org.codetome.hexameter.api.HexagonalGrid;
-import org.codetome.hexameter.api.HexagonalGridBuilder;
-import org.codetome.hexameter.api.exception.HexagonNotFoundException;
-import org.junit.Before;
-import org.junit.Test;
 
 public class HexagonalGridImplTest {
 
@@ -54,7 +43,12 @@ public class HexagonalGridImplTest {
 	@Test
 	public void shouldReturnProperHexagonsWhenEachHexagonIsTestedInAGivenGrid() {
 		final Collection<Hexagon> hexagons = target.getHexagons();
-		final Set<String> expectedCoordinates = new HashSet<String>();
+		hexagons.forEach(hexagon -> {
+			hexagon.getPoints().forEach(point -> {
+				// your draw logic here
+			});
+		});
+		final Set<String> expectedCoordinates = new HashSet<>();
 		assertEquals(100, hexagons.size());
 		for (int x = 0; x < GRID_WIDTH; x++) {
 			for (int y = 0; y < GRID_HEIGHT; y++) {
@@ -71,17 +65,17 @@ public class HexagonalGridImplTest {
 	public void shouldReturnProperHexagonsWhenGetHexagonsByAxialRangeIsCalled() {
 		final Set<Hexagon> expected = new HashSet<> ();
 
-		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 3)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(3, 3)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(4, 3)));
+		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 3)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(3, 3)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(4, 3)).get());
 
-		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 4)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(3, 4)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(4, 4)));
+		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 4)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(3, 4)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(4, 4)).get());
 
-		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 5)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(3, 5)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(4, 5)));
+		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 5)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(3, 5)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(4, 5)).get());
 
 		final Collection<Hexagon> actual = target.getHexagonsByAxialRange(fromCoordinates(GRID_X_FROM, GRID_Z_FROM), fromCoordinates(GRID_X_TO, GRID_Z_TO));
 		assertEquals(expected.size(), actual.size());
@@ -93,17 +87,17 @@ public class HexagonalGridImplTest {
 	public void shouldReturnProperHexagonsWhenGetHexagonsByOffsetRangeIsCalled() {
 		final Set<Hexagon> expected = new HashSet<> ();
 
-		expected.add(target.getByAxialCoordinate(fromCoordinates(1, 3)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 3)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(3, 3)));
+		expected.add(target.getByAxialCoordinate(fromCoordinates(1, 3)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 3)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(3, 3)).get());
 
-		expected.add(target.getByAxialCoordinate(fromCoordinates(0, 4)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(1, 4)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 4)));
+		expected.add(target.getByAxialCoordinate(fromCoordinates(0, 4)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(1, 4)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 4)).get());
 
-		expected.add(target.getByAxialCoordinate(fromCoordinates(0, 5)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(1, 5)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 5)));
+		expected.add(target.getByAxialCoordinate(fromCoordinates(0, 5)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(1, 5)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 5)).get());
 
 		final Collection<Hexagon> actual = target.getHexagonsByOffsetRange(GRID_X_FROM, GRID_X_TO, GRID_Z_FROM, GRID_Z_TO);
 		assertEquals(expected.size(), actual.size());
@@ -141,22 +135,23 @@ public class HexagonalGridImplTest {
 	public void shouldReturnHexagonWhenGetByGridCoordinateIsCalledWithProperCoordinates() {
 		final int gridX = 2;
 		final int gridZ = 3;
-		final Hexagon hex = target.getByAxialCoordinate(fromCoordinates(gridX, gridZ));
-		assertNotNull(hex);
+		final Optional<Hexagon> hex = target.getByAxialCoordinate(fromCoordinates(gridX, gridZ));
+		assertTrue(hex.isPresent());
 	}
 
-	@Test(expected = HexagonNotFoundException.class)
-	public void shouldThrowExceptionHexagonWhenGetByGridCoordinateIsCalledWithInvalidCoordinates() {
+	@Test()
+	public void shouldBeEmptyWhenGetByGridCoordinateIsCalledWithInvalidCoordinates() {
 		final int gridX = 20;
 		final int gridZ = 30;
-		target.getByAxialCoordinate(fromCoordinates(gridX, gridZ));
+		Optional<Hexagon> result = target.getByAxialCoordinate(fromCoordinates(gridX, gridZ));
+		Assert.assertFalse(result.isPresent());
 	}
 
 	@Test
 	public void shouldReturnHexagonWhenCalledWithProperCoordinates() {
 		final double x = 310;
 		final double y = 255;
-		final Hexagon hex = target.getByPixelCoordinate(x, y);
+		final Hexagon hex = target.getByPixelCoordinate(x, y).get();
 		assertTrue(hex.getGridX() == 3);
 		assertTrue(hex.getGridZ() == 5);
 	}
@@ -165,7 +160,7 @@ public class HexagonalGridImplTest {
 	public void shouldReturnHexagonWhenCalledWithProperCoordinates2() {
 		final double x = 300;
 		final double y = 275;
-		final Hexagon hex = target.getByPixelCoordinate(x, y);
+		final Hexagon hex = target.getByPixelCoordinate(x, y).get();
 		assertTrue(hex.getGridX() == 3);
 		assertTrue(hex.getGridZ() == 5);
 	}
@@ -174,38 +169,38 @@ public class HexagonalGridImplTest {
 	public void shouldReturnHexagonWhenCalledWithProperCoordinates3() {
 		final double x = 325;
 		final double y = 275;
-		final Hexagon hex = target.getByPixelCoordinate(x, y);
+		final Hexagon hex = target.getByPixelCoordinate(x, y).get();
 		assertTrue(hex.getGridX() == 3);
 		assertTrue(hex.getGridZ() == 5);
 	}
 
 	@Test
 	public void shouldReturnProperNeighborsOfHexagonWhenHexIsInMiddle() {
-		final Hexagon hex = target.getByAxialCoordinate(fromCoordinates(3, 7));
+		final Hexagon hex = target.getByAxialCoordinate(fromCoordinates(3, 7)).get();
 		final Set<Hexagon> expected = new HashSet<> ();
-		expected.add(target.getByAxialCoordinate(fromCoordinates(3, 6)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(4, 6)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(4, 7)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(3, 8)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 8)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 7)));
+		expected.add(target.getByAxialCoordinate(fromCoordinates(3, 6)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(4, 6)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(4, 7)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(3, 8)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 8)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 7)).get());
 		final Collection<Hexagon> actual = target.getNeighborsOf(hex);
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void shouldReturnProperNeighborsOfHexagonWhenHexIsOnTheEdge() {
-		final Hexagon hex = target.getByAxialCoordinate(fromCoordinates(5, 9));
+		final Hexagon hex = target.getByAxialCoordinate(fromCoordinates(5, 9)).get();
 		final Set<Hexagon> expected = new HashSet<> ();
-		expected.add(target.getByAxialCoordinate(fromCoordinates(5, 8)));
-		expected.add(target.getByAxialCoordinate(fromCoordinates(4, 9)));
+		expected.add(target.getByAxialCoordinate(fromCoordinates(5, 8)).get());
+		expected.add(target.getByAxialCoordinate(fromCoordinates(4, 9)).get());
 		final Collection<Hexagon> actual = target.getNeighborsOf(hex);
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void shouldProperlyClearSatelliteDataWhenClearSatelliteDataIsCalled() {
-		final Hexagon testHex = target.getByAxialCoordinate(fromCoordinates(2, 3));
+		final Hexagon testHex = target.getByAxialCoordinate(fromCoordinates(2, 3)).get();
 		final Object data = new Object();
 		testHex.setSatelliteData(data);
 		target.clearSatelliteData();

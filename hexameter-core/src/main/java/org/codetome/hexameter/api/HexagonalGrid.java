@@ -1,23 +1,15 @@
 package org.codetome.hexameter.api;
 
-import org.codetome.hexameter.api.exception.HexagonNotFoundException;
-
 import java.util.Collection;
-import java.util.Map;
+import java.util.Optional;
 
 /**
  * <p>
  * Represents a hexagonal grid. Use {@link HexagonalGridBuilder} to generate a
- * ready-to-use grid. This interface contains all common functionality for
+ * ready-to-use grid. This interface contains all common functionality for dealing with
+ * Hexagons. See {@link HexagonalGridCalculator} for more advanced features.
  * </p>
- * <ul>
- * <li>getting a {@link Hexagon} by its grid coordinates</li>
- * <li>getting the neighbors of a {@link Hexagon}</li>
- * <li>calculating the distance (in hexagons) between two {@link Hexagon}s</li>
- * <li>calculating the movement range starting from a {@link Hexagon} using a
- * range</li>
- * <li>getting a {@link Hexagon} by a pixel coordinate</li>
- * </ul>
+ *
  * This {@link HexagonalGrid} uses an axial (trapezoidal) coordinate system for easier
  * computation. This means that apart from the X axis a diagonal axis is used instead of
  * the vertical Y axis.
@@ -33,7 +25,7 @@ public interface HexagonalGrid {
 
     /**
      * Returns all {@link Hexagon}s contained in the given axial coordinate range.
-     * If the range contains coordinates which are not part of the grid it will throw a {@link HexagonNotFoundException}.
+     * If the range contains coordinates which are not part of the grid they will be ignored.
      *
      * @param from
      * @param to
@@ -44,6 +36,7 @@ public interface HexagonalGrid {
 
     /**
      * Returns all {@link Hexagon}s contained in the given offset coordinate range.
+     * If the range contains coordinates which are not part of the grid they will be ignored.
      *
      * @param gridXFrom from x inclusive
      * @param gridXTo to x inclusive
@@ -56,6 +49,7 @@ public interface HexagonalGrid {
 
     /**
      * Adds a new {@link Hexagon} at the given coordinate.
+     * If there is already a Hexagon at the given position it is overwritten.
      *
      * @param coordinate
      *
@@ -68,7 +62,7 @@ public interface HexagonalGrid {
      *
      * @param coordinate
      *
-     * @return {@link Map#remove(Object)}
+     * @return the removed {@link Hexagon}
      */
     Hexagon removeHexagon(AxialCoordinate coordinate);
 
@@ -83,27 +77,25 @@ public interface HexagonalGrid {
     boolean containsAxialCoordinate(AxialCoordinate coordinate);
 
     /**
-     * Fetches a {@link Hexagon} by its axial coordinate. If no {@link Hexagon} found at the given location it throws a
-     * {@link HexagonNotFoundException}.
+     * Returns a {@link Hexagon} by its axial coordinate.
      *
      * @param coordinate
      *
-     * @return {@link Hexagon}
+     * @return Optional with a Hexagon if it is present
      */
-    Hexagon getByAxialCoordinate(AxialCoordinate coordinate);
+    Optional<Hexagon> getByAxialCoordinate(AxialCoordinate coordinate);
 
     /**
-     * Returns a {@link Hexagon} by a pixel coordinate. Throws {@link HexagonNotFoundException} if there were no
-     * {@link Hexagon} at the given coordinates.
+     * Returns a {@link Hexagon} by a pixel coordinate.
      * <em>Please note</em> that all pixel coordinates are relative to
      * the containing {@link HexagonalGrid}.
      *
      * @param x pixel x coordinate
      * @param y pixel y coordinate
      *
-     * @return {@link Hexagon}
+     * @return Optional with a Hexagon if it is present
      */
-    Hexagon getByPixelCoordinate(double x, double y);
+    Optional<Hexagon> getByPixelCoordinate(double x, double y);
 
     /**
      * Returns all neighbors of a {@link Hexagon}.

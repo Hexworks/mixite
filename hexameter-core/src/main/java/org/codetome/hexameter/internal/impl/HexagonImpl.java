@@ -5,6 +5,8 @@ import org.codetome.hexameter.api.Hexagon;
 import org.codetome.hexameter.api.Point;
 import org.codetome.hexameter.internal.SharedHexagonData;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -66,13 +68,13 @@ public class HexagonImpl implements Hexagon {
     }
 
     @Override
-    public final Point[] getPoints() {
-        final Point[] points = new Point[6];
+    public final List<Point> getPoints() {
+        final List<Point> points = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             final double angle = 2 * Math.PI / 6 * (i + sharedHexagonData.getOrientation().getCoordinateOffset());
             final double x = centerX + sharedHexagonData.getRadius() * cos(angle);
             final double y = centerY + sharedHexagonData.getRadius() * sin(angle);
-            points[i] = fromPosition(x, y);
+            points.add(fromPosition(x, y));
         }
         return points;
     }

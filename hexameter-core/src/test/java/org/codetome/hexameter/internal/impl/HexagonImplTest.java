@@ -1,11 +1,5 @@
 package org.codetome.hexameter.internal.impl;
 
-import static java.lang.Math.round;
-import static junit.framework.Assert.assertEquals;
-import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
-import static org.codetome.hexameter.api.Point.fromPosition;
-import static org.codetome.hexameter.internal.impl.HexagonImpl.newHexagon;
-
 import org.codetome.hexameter.api.AxialCoordinate;
 import org.codetome.hexameter.api.Hexagon;
 import org.codetome.hexameter.api.HexagonOrientation;
@@ -13,6 +7,12 @@ import org.codetome.hexameter.api.Point;
 import org.codetome.hexameter.internal.SharedHexagonData;
 import org.junit.Before;
 import org.junit.Test;
+
+import static java.lang.Math.round;
+import static junit.framework.Assert.assertEquals;
+import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
+import static org.codetome.hexameter.api.Point.fromPosition;
+import static org.codetome.hexameter.internal.impl.HexagonImpl.newHexagon;
 
 public class HexagonImplTest {
 
@@ -48,8 +48,8 @@ public class HexagonImplTest {
 	@Test
 	public void shouldHaveProperPointsWhenPointy() {
 		for (int i = 0; i < 6; i++) {
-			assertEquals((int) EXPECTED_POINTY_POINTS[i].getX(), (int) round(target.getPoints()[i].getX()));
-			assertEquals((int) EXPECTED_POINTY_POINTS[i].getY(), (int) round(target.getPoints()[i].getY()));
+			assertEquals((int) EXPECTED_POINTY_POINTS[i].getX(), (int) round(target.getPoints().get(i).getX()));
+			assertEquals((int) EXPECTED_POINTY_POINTS[i].getY(), (int) round(target.getPoints().get(i).getY()));
 		}
 	}
 
@@ -57,8 +57,8 @@ public class HexagonImplTest {
 	public void shouldHaveProperPointsWhenFlat() {
 		target = newHexagon(TEST_FLAT_DATA, TEST_COORDINATE);
 		for (int i = 0; i < 6; i++) {
-		    assertEquals((int) EXPECTED_FLAT_POINTS[i].getX(), (int) round(target.getPoints()[i].getX()));
-            assertEquals((int) EXPECTED_FLAT_POINTS[i].getY(), (int) round(target.getPoints()[i].getY()));
+		    assertEquals((int) EXPECTED_FLAT_POINTS[i].getX(), (int) round(target.getPoints().get(i).getX()));
+            assertEquals((int) EXPECTED_FLAT_POINTS[i].getY(), (int) round(target.getPoints().get(i).getY()));
 		}
 	}
 

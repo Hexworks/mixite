@@ -22,8 +22,8 @@ import static org.codetome.hexameter.api.HexagonalGridLayout.RECTANGULAR;
  * <li>height of the grid</li>
  * <li>radius of a {@link Hexagon}</li>
  * </ul>
- * You only have to care about the setters in this class the getters are
- * for internal purposes.
+ * Defaults for orientation and grid layout are POINTY_TOP and RECTANGULAR.
+ *
  */
 public final class HexagonalGridBuilder {
     private int gridWidth;

@@ -3,11 +3,11 @@ package org.codetome.hexameter.api;
 import java.util.Set;
 
 /**
- * Supports common operations on a {@link HexagonalGrid}.
+ * Supports advanced operations on a {@link HexagonalGrid}.
  * Operations supported:
  * <ul>
  * <li>Calculating distance between 2 {@link Hexagon}s.</li>
- * <li>Calsulating movement range from a {@link Hexagon} using an arbitrary distance.</li>
+ * <li>Calculating movement range from a {@link Hexagon} using an arbitrary distance.</li>
  * </ul>
  * <em>Not implemented yet, but are on the roadmap:</em>
  * <ul>

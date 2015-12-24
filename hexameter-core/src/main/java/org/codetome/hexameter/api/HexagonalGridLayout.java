@@ -29,7 +29,12 @@ public enum HexagonalGridLayout {
     /**
      * A trapezoid layout has no special rules.
      */
-    TRAPEZOID(new TrapezoidGridLayoutStrategy());
+    TRAPEZOID(new TrapezoidGridLayoutStrategy()),
+
+    /**
+     * An empty grid.
+     */
+    EMPTY(new EmptyGridLayoutStrategy());
 
     private GridLayoutStrategy gridLayoutStrategy;
 

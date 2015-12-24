@@ -1,18 +1,12 @@
 package org.codetome.hexameter.api;
 
-import static junit.framework.Assert.assertTrue;
-import static org.codetome.hexameter.api.HexagonalGridLayout.HEXAGONAL;
-import static org.codetome.hexameter.api.HexagonalGridLayout.RECTANGULAR;
-import static org.codetome.hexameter.api.HexagonalGridLayout.TRAPEZOID;
-import static org.codetome.hexameter.api.HexagonalGridLayout.TRIANGULAR;
-import static org.codetome.hexameter.testutils.TestUtils.superficialEnumCodeCoverage;
-
-import org.codetome.hexameter.internal.impl.layoutstrategy.HexagonalGridLayoutStrategy;
-import org.codetome.hexameter.internal.impl.layoutstrategy.RectangularGridLayoutStrategy;
-import org.codetome.hexameter.internal.impl.layoutstrategy.TrapezoidGridLayoutStrategy;
-import org.codetome.hexameter.internal.impl.layoutstrategy.TriangularGridLayoutStrategy;
+import org.codetome.hexameter.internal.impl.layoutstrategy.*;
 import org.codetome.hexameter.testutils.EnumTest;
 import org.junit.Test;
+
+import static junit.framework.Assert.assertTrue;
+import static org.codetome.hexameter.api.HexagonalGridLayout.*;
+import static org.codetome.hexameter.testutils.TestUtils.superficialEnumCodeCoverage;
 
 public class HexagonalGridLayoutTest extends EnumTest {
 
@@ -40,6 +34,11 @@ public class HexagonalGridLayoutTest extends EnumTest {
 	@Test
 	public void shouldBeTriangularGridLayoutWhenGetGridLayoutStrategyFromTriangularIsCalled() {
 		assertTrue(TRIANGULAR.getGridLayoutStrategy() instanceof TriangularGridLayoutStrategy);
+	}
+
+	@Test
+	public void shouldBeEmptyrGridLayoutWhenGetGridLayoutStrategyFromEmptyIsCalled() {
+		assertTrue(EMPTY.getGridLayoutStrategy() instanceof EmptyGridLayoutStrategy);
 	}
 
 }

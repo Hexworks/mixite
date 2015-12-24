@@ -1,6 +1,7 @@
 package org.codetome.hexameter.api;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -12,18 +13,18 @@ import java.util.Optional;
 public interface Hexagon extends Serializable {
 
     /**
-     * Returns an unique {@link String} representating this {@link Hexagon}.
+     * Returns an unique {@link String} representing this {@link Hexagon}.
      *
      * @return id
      */
     String getId();
 
     /**
-     * Returns an array containing the {@link Point}s of this {@link Hexagon}.
+     * Returns a list containing the {@link Point}s of this {@link Hexagon}.
      *
      * @return points array
      */
-    Point[] getPoints();
+    List<Point> getPoints();
 
     /**
      * Returns the {@link AxialCoordinate} of this {@link Hexagon}.
@@ -70,9 +71,9 @@ public interface Hexagon extends Serializable {
     double getCenterY();
 
     /**
-     * Returns the previously set satellite data from this {@link Hexagon}.
+     * Returns this {@link Hexagon}'s satellite data.
      *
-     * @return
+     * @return optional satellite data
      */
     <T> Optional<T> getSatelliteData();
 

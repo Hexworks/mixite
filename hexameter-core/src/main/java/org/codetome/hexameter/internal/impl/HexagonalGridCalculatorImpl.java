@@ -37,7 +37,7 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
                 final int tmpZ = hexagon.getGridZ() + z;
                 final AxialCoordinate tempCoordinate = fromCoordinates(tmpX, tmpZ);
                 if (hexagonalGrid.containsAxialCoordinate(tempCoordinate)) {
-                    final Hexagon hex = hexagonalGrid.getByAxialCoordinate(tempCoordinate);
+                    final Hexagon hex = hexagonalGrid.getByAxialCoordinate(tempCoordinate).get();
                     ret.add(hex);
                 }
             }

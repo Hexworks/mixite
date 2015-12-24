@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>hexameter-swt-example</artifactId>
-    <name>Hexameter SWT example</name>
+    <name>${project.groupId}:${project.artifactId}</name>
     <packaging>jar</packaging>
 
     <repositories>
