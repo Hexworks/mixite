@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static junit.framework.Assert.*;
 import static org.codetome.hexameter.api.AxialCoordinate.fromCoordinates;
@@ -37,19 +38,15 @@ public class HexagonalGridImplTest {
 		final Map<String, Hexagon> expected = new HashMap<> ();
 		builder.setCustomStorage(expected);
 		target = builder.build();
-		assertTrue(expected.values().containsAll(target.getHexagons()));
+		final Set<Hexagon> hexagons = new HashSet<>();
+		target.getHexagons().forEach(hexagons::add);
+		assertTrue(expected.values().containsAll(hexagons));
 	}
 
 	@Test
 	public void shouldReturnProperHexagonsWhenEachHexagonIsTestedInAGivenGrid() {
-		final Collection<Hexagon> hexagons = target.getHexagons();
-		hexagons.forEach(hexagon -> {
-			hexagon.getPoints().forEach(point -> {
-				// your draw logic here
-			});
-		});
+		final Iterable<Hexagon> hexagons = target.getHexagons();
 		final Set<String> expectedCoordinates = new HashSet<>();
-		assertEquals(100, hexagons.size());
 		for (int x = 0; x < GRID_WIDTH; x++) {
 			for (int y = 0; y < GRID_HEIGHT; y++) {
 				final int gridX = convertOffsetCoordinatesToAxialX(x, y, ORIENTATION);
@@ -57,7 +54,12 @@ public class HexagonalGridImplTest {
 				expectedCoordinates.add(gridX + "," + gridZ);
 			}
 		}
-		hexagons.forEach(hexagon -> expectedCoordinates.remove(hexagon.getGridX() + "," + hexagon.getGridZ()));
+		AtomicInteger count = new AtomicInteger();
+		hexagons.forEach(hexagon -> {
+			expectedCoordinates.remove(hexagon.getGridX() + "," + hexagon.getGridZ());
+			count.incrementAndGet();
+		});
+		assertEquals(100, count.get());
 		assertTrue(expectedCoordinates.isEmpty());
 	}
 
@@ -77,8 +79,10 @@ public class HexagonalGridImplTest {
 		expected.add(target.getByAxialCoordinate(fromCoordinates(3, 5)).get());
 		expected.add(target.getByAxialCoordinate(fromCoordinates(4, 5)).get());
 
-		final Collection<Hexagon> actual = target.getHexagonsByAxialRange(fromCoordinates(GRID_X_FROM, GRID_Z_FROM), fromCoordinates(GRID_X_TO, GRID_Z_TO));
-		assertEquals(expected.size(), actual.size());
+		final Iterable<Hexagon> actual = target.getHexagonsByAxialRange(fromCoordinates(GRID_X_FROM, GRID_Z_FROM), fromCoordinates(GRID_X_TO, GRID_Z_TO));
+		final AtomicInteger count = new AtomicInteger();
+		actual.forEach(hex -> count.incrementAndGet());
+		assertEquals(expected.size(), count.get());
 		actual.forEach(hex -> expected.remove(hex));
 		assertTrue(expected.isEmpty());
 	}
@@ -99,10 +103,12 @@ public class HexagonalGridImplTest {
 		expected.add(target.getByAxialCoordinate(fromCoordinates(1, 5)).get());
 		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 5)).get());
 
-		final Collection<Hexagon> actual = target.getHexagonsByOffsetRange(GRID_X_FROM, GRID_X_TO, GRID_Z_FROM, GRID_Z_TO);
-		assertEquals(expected.size(), actual.size());
-        actual.forEach(hex -> expected.remove(hex));
-        assertTrue(expected.isEmpty());
+		final Iterable<Hexagon> actual = target.getHexagonsByOffsetRange(GRID_X_FROM, GRID_X_TO, GRID_Z_FROM, GRID_Z_TO);
+		final AtomicInteger count = new AtomicInteger();
+		actual.forEach(hex -> count.incrementAndGet());
+		assertEquals(expected.size(), count.get());
+		actual.forEach(hex -> expected.remove(hex));
+		assertTrue(expected.isEmpty());
 	}
 
 	@Test
@@ -184,7 +190,7 @@ public class HexagonalGridImplTest {
 		expected.add(target.getByAxialCoordinate(fromCoordinates(3, 8)).get());
 		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 8)).get());
 		expected.add(target.getByAxialCoordinate(fromCoordinates(2, 7)).get());
-		final Collection<Hexagon> actual = target.getNeighborsOf(hex);
+		final Iterable<Hexagon> actual = target.getNeighborsOf(hex);
 		assertEquals(expected, actual);
 	}
 
@@ -194,7 +200,7 @@ public class HexagonalGridImplTest {
 		final Set<Hexagon> expected = new HashSet<> ();
 		expected.add(target.getByAxialCoordinate(fromCoordinates(5, 8)).get());
 		expected.add(target.getByAxialCoordinate(fromCoordinates(4, 9)).get());
-		final Collection<Hexagon> actual = target.getNeighborsOf(hex);
+		final Iterable<Hexagon> actual = target.getNeighborsOf(hex);
 		assertEquals(expected, actual);
 	}
 

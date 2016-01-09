@@ -1,6 +1,5 @@
 package org.codetome.hexameter.api;
 
-import java.util.Collection;
 import java.util.Optional;
 
 /**
@@ -21,7 +20,7 @@ public interface HexagonalGrid {
      *
      * @return hexagons
      */
-    Collection<Hexagon> getHexagons();
+    Iterable<Hexagon> getHexagons();
 
     /**
      * Returns all {@link Hexagon}s contained in the given axial coordinate range.
@@ -32,7 +31,7 @@ public interface HexagonalGrid {
      *
      * @return {@link Hexagon}s in the given range.
      */
-    Collection<Hexagon> getHexagonsByAxialRange(AxialCoordinate from, AxialCoordinate to);
+    Iterable<Hexagon> getHexagonsByAxialRange(AxialCoordinate from, AxialCoordinate to);
 
     /**
      * Returns all {@link Hexagon}s contained in the given offset coordinate range.
@@ -45,7 +44,7 @@ public interface HexagonalGrid {
      *
      * @return {@link Hexagon}s in the given range.
      */
-    Collection<Hexagon> getHexagonsByOffsetRange(int gridXFrom, int gridXTo, int gridYfrom, int gridYTo);
+    Iterable<Hexagon> getHexagonsByOffsetRange(int gridXFrom, int gridXTo, int gridYfrom, int gridYTo);
 
     /**
      * Adds a new {@link Hexagon} at the given coordinate.
@@ -104,7 +103,7 @@ public interface HexagonalGrid {
      *
      * @return the {@link Hexagon}'s neighbors
      */
-    Collection<Hexagon> getNeighborsOf(Hexagon hexagon);
+    Iterable<Hexagon> getNeighborsOf(Hexagon hexagon);
 
     /**
      * Clears all satellite data attached to the {@link Hexagon}s in this grid.

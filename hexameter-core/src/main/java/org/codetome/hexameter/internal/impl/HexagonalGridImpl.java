@@ -33,12 +33,12 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     }
 
     @Override
-    public Collection<Hexagon> getHexagons() {
-        return new HashSet<Hexagon>(hexagonStorage.values());
+    public Iterable<Hexagon> getHexagons() {
+        return new HashSet<>(hexagonStorage.values());
     }
 
     @Override
-    public Collection<Hexagon> getHexagonsByAxialRange(final AxialCoordinate from, final AxialCoordinate to) {
+    public Iterable<Hexagon> getHexagonsByAxialRange(final AxialCoordinate from, final AxialCoordinate to) {
         final Collection<Hexagon> range = new HashSet<>();
         for (int gridZ = from.getGridZ(); gridZ <= to.getGridZ(); gridZ++) {
             for (int gridX = from.getGridX(); gridX <= to.getGridX(); gridX++) {
@@ -52,7 +52,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     }
 
     @Override
-    public Collection<Hexagon> getHexagonsByOffsetRange(final int gridXFrom, final int gridXTo, final int gridYFrom, final int gridYTo) {
+    public Iterable<Hexagon> getHexagonsByOffsetRange(final int gridXFrom, final int gridXTo, final int gridYFrom, final int gridYTo) {
         final Collection<Hexagon> range = new HashSet<>();
         for (int gridY = gridYFrom; gridY <= gridYTo; gridY++) {
             for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {
@@ -115,10 +115,10 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     }
 
     @Override
-    public Set<Hexagon> getNeighborsOf(final Hexagon hexagon) {
+    public Iterable<Hexagon> getNeighborsOf(final Hexagon hexagon) {
         final Set<Hexagon> neighbors = new HashSet<>();
         for (final int[] neighbor : NEIGHBORS) {
-            Hexagon retHex = null;
+            Hexagon retHex;
             final int neighborGridX = hexagon.getGridX() + neighbor[NEIGHBOR_X_INDEX];
             final int neighborGridZ = hexagon.getGridZ() + neighbor[NEIGHBOR_Z_INDEX];
             final AxialCoordinate neighborCoordinate = fromCoordinates(neighborGridX, neighborGridZ);
