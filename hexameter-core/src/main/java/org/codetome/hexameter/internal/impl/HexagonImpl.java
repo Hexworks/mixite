@@ -23,26 +23,14 @@ import static org.codetome.hexameter.api.Point.fromPosition;
 public class HexagonImpl implements Hexagon {
 
     private static final long serialVersionUID = -6658255569921274603L;
-    private final SharedHexagonData sharedHexagonData;
-    private final double centerX;
-    private final double centerY;
+    private final SharedHexagonData sharedData;
     private final AxialCoordinate coordinate;
     private final AtomicReference<Object> satelliteData;
 
     private HexagonImpl(final SharedHexagonData sharedHexagonData, final AxialCoordinate coordinate) {
-        this.sharedHexagonData = sharedHexagonData;
+        this.sharedData = sharedHexagonData;
         this.satelliteData = new AtomicReference<>();
-        final double height = sharedHexagonData.getHeight();
-        final double width = sharedHexagonData.getWidth();
-        final double radius = sharedHexagonData.getRadius();
         this.coordinate = coordinate;
-        if (FLAT_TOP.equals(sharedHexagonData.getOrientation())) {
-            centerX = coordinate.getGridX() * width + radius;
-            centerY = coordinate.getGridZ() * height + coordinate.getGridX() * height / 2 + height / 2;
-        } else {
-            centerX = coordinate.getGridX() * width + coordinate.getGridZ() * width / 2 + width / 2;
-            centerY = coordinate.getGridZ() * height + radius;
-        }
     }
 
     /**
@@ -71,9 +59,9 @@ public class HexagonImpl implements Hexagon {
     public final List<Point> getPoints() {
         final List<Point> points = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
-            final double angle = 2 * Math.PI / 6 * (i + sharedHexagonData.getOrientation().getCoordinateOffset());
-            final double x = centerX + sharedHexagonData.getRadius() * cos(angle);
-            final double y = centerY + sharedHexagonData.getRadius() * sin(angle);
+            final double angle = 2 * Math.PI / 6 * (i + sharedData.getOrientation().getCoordinateOffset());
+            final double x = getCenterX() + sharedData.getRadius() * cos(angle);
+            final double y = getCenterY() + sharedData.getRadius() * sin(angle);
             points.add(fromPosition(x, y));
         }
         return points;
@@ -118,12 +106,20 @@ public class HexagonImpl implements Hexagon {
 
     @Override
     public final double getCenterX() {
-        return centerX;
+        if (FLAT_TOP.equals(sharedData.getOrientation())) {
+            return coordinate.getGridX() * sharedData.getWidth() + sharedData.getRadius();
+        } else {
+            return coordinate.getGridX() * sharedData.getWidth() + coordinate.getGridZ() * sharedData.getWidth() / 2 + sharedData.getWidth() / 2;
+        }
     }
 
     @Override
     public final double getCenterY() {
-        return centerY;
+        if (FLAT_TOP.equals(sharedData.getOrientation())) {
+            return coordinate.getGridZ() * sharedData.getHeight() + coordinate.getGridX() * sharedData.getHeight() / 2 + sharedData.getHeight() / 2;
+        } else {
+            return coordinate.getGridZ() * sharedData.getHeight() + sharedData.getRadius();
+        }
     }
 
 }
