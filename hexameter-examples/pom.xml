@@ -7,7 +7,7 @@
     <parent>
         <artifactId>hexameter</artifactId>
         <groupId>org.codetome</groupId>
-        <version>1.0.0</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>hexameter-examples</artifactId>

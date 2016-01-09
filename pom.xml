@@ -4,7 +4,7 @@
 
     <groupId>org.codetome</groupId>
     <artifactId>hexameter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Hexameter is a hexagonal grid library. The motivation behind it is to have an optimized,
