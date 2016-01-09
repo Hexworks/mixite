@@ -16,7 +16,6 @@
 
     <modules>
         <module>hexameter-swt-example</module>
-        <module>hexameter-rest-example</module>
     </modules>
 
 </project>
