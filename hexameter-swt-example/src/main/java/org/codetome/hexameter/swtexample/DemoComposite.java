@@ -306,12 +306,12 @@ public class DemoComposite extends Composite {
                     prevSelected = currSelected;
                     currSelected = hex;
                     drawDistance();
-                    Optional<SatelliteData> dataOptional = hex.<SatelliteData>getSatelliteData();
-                    SatelliteData data = null;
+                    Optional<SatelliteDataImpl> dataOptional = hex.<SatelliteDataImpl>getSatelliteData();
+                    SatelliteDataImpl data = null;
                     if (dataOptional.isPresent()) {
                         data = dataOptional.get();
                     } else {
-                        data = new SatelliteData();
+                        data = new SatelliteDataImpl();
                     }
                     data.setSelected(!data.isSelected());
                     hex.setSatelliteData(data);
@@ -339,7 +339,7 @@ public class DemoComposite extends Composite {
                 e.gc.fillRectangle(new Rectangle(0, 0, shellWidth, shellHeight));
 
                 for (Hexagon hexagon : hexagonalGrid.getHexagons()) {
-                    Optional<SatelliteData> data = hexagon.<SatelliteData>getSatelliteData();
+                    Optional<SatelliteDataImpl> data = hexagon.<SatelliteDataImpl>getSatelliteData();
                     if (data.isPresent() && data.get().isSelected()) {
                         if (showNeighbors) {
                             for (Hexagon hex : hexagonalGrid.getNeighborsOf(hexagon)) {
@@ -355,7 +355,7 @@ public class DemoComposite extends Composite {
                     drawEmptyHexagon(e.gc, hexagon);
                 }
                 for (Hexagon hexagon : hexagonalGrid.getHexagons()) {
-                    Optional<SatelliteData> data = hexagon.<SatelliteData>getSatelliteData();
+                    Optional<SatelliteDataImpl> data = hexagon.<SatelliteDataImpl>getSatelliteData();
                     if (data.isPresent() && data.get().isSelected()) {
                         drawFilledHexagon(e.gc, hexagon);
                     }

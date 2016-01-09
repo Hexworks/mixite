@@ -1,6 +1,8 @@
 package org.codetome.hexameter.swtexample;
 
-public class SatelliteData {
+import org.codetome.hexameter.api.SatelliteData;
+
+public class SatelliteDataImpl implements SatelliteData {
 
     private boolean isSelected;
 

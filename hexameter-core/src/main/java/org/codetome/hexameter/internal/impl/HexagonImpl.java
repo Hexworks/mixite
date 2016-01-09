@@ -3,6 +3,7 @@ package org.codetome.hexameter.internal.impl;
 import org.codetome.hexameter.api.AxialCoordinate;
 import org.codetome.hexameter.api.Hexagon;
 import org.codetome.hexameter.api.Point;
+import org.codetome.hexameter.api.SatelliteData;
 import org.codetome.hexameter.internal.SharedHexagonData;
 
 import java.util.ArrayList;
@@ -69,13 +70,13 @@ public class HexagonImpl implements Hexagon {
 
     @Override
     @SuppressWarnings("unchecked")
-    public final <T> Optional<T> getSatelliteData() {
+    public final <T extends SatelliteData> Optional<T> getSatelliteData() {
         final Object result = satelliteData.get();
         return result == null ? empty() : of((T) result);
     }
 
     @Override
-    public final <T> void setSatelliteData(final T satelliteData) {
+    public final <T extends SatelliteData> void setSatelliteData(final T satelliteData) {
         this.satelliteData.set(satelliteData);
     }
 

@@ -207,7 +207,7 @@ public class HexagonalGridImplTest {
 	@Test
 	public void shouldProperlyClearSatelliteDataWhenClearSatelliteDataIsCalled() {
 		final Hexagon testHex = target.getByAxialCoordinate(fromCoordinates(2, 3)).get();
-		final Object data = new Object();
+		final SatelliteData data = new SatelliteData(){};
 		testHex.setSatelliteData(data);
 		target.clearSatelliteData();
 		assertTrue(!testHex.getSatelliteData().isPresent());

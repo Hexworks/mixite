@@ -75,14 +75,14 @@ public interface Hexagon extends Serializable {
      *
      * @return optional satellite data
      */
-    <T> Optional<T> getSatelliteData();
+    <T extends SatelliteData> Optional<T> getSatelliteData();
 
     /**
      * Can be used to add arbitrary satellite data to a {@link Hexagon}.
      *
      * @param data
      */
-    <T> void setSatelliteData(T data);
+    <T extends SatelliteData> void setSatelliteData(T data);
 
     /**
      * Clears the satellite data of this Hexagon.
