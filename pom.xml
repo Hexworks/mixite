@@ -8,8 +8,14 @@
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Hexameter is a hexagonal grid library. The motivation behind it is to have an optimized,
-        simple and usable library for drawing hexagonal grids without being tied to any GUI framework.</description>
+        simple and usable library for drawing hexagonal grids without being tied to any GUI framework.
+    </description>
     <url>https://github.com/adam-arold/hexameter</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+    </properties>
 
     <licenses>
         <license>
@@ -37,7 +43,7 @@
 
     <modules>
         <module>hexameter-core</module>
-        <module>hexameter-swt-example</module>
+        <module>hexameter-examples</module>
     </modules>
 
     <distributionManagement>
