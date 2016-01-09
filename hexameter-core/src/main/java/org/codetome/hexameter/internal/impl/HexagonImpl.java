@@ -92,6 +92,11 @@ public class HexagonImpl implements Hexagon {
     }
 
     @Override
+    public void clearSatelliteData() {
+        setSatelliteData(null);
+    }
+
+    @Override
     public AxialCoordinate getAxialCoordinate() {
         return coordinate;
     }

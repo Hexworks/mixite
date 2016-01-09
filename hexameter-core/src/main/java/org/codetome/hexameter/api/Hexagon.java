@@ -84,4 +84,9 @@ public interface Hexagon extends Serializable {
      */
     <T> void setSatelliteData(T data);
 
+    /**
+     * Clears the satellite data of this Hexagon.
+     */
+    void clearSatelliteData();
+
 }

@@ -5,3 +5,4 @@ target/
 test-output/
 *.iml
 .idea
+hexameter-swt-example/dependency-reduced-pom.xml

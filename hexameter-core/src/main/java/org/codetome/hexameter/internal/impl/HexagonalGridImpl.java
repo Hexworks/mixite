@@ -5,7 +5,13 @@ import org.codetome.hexameter.api.exception.HexagonNotFoundException;
 import org.codetome.hexameter.internal.SharedHexagonData;
 import org.codetome.hexameter.internal.impl.layoutstrategy.GridLayoutStrategy;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
@@ -39,32 +45,23 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     @Override
     public Iterable<Hexagon> getHexagonsByAxialRange(final AxialCoordinate from, final AxialCoordinate to) {
-        final Collection<Hexagon> range = new HashSet<>();
-        for (int gridZ = from.getGridZ(); gridZ <= to.getGridZ(); gridZ++) {
-            for (int gridX = from.getGridX(); gridX <= to.getGridX(); gridX++) {
-                final AxialCoordinate currentCoordinate = fromCoordinates(gridX, gridZ);
-                if (containsAxialCoordinate(currentCoordinate)) {
-                    range.add(getByAxialCoordinate(currentCoordinate).get());
-                }
-            }
-        }
-        return range;
+        return IntStream.rangeClosed(from.getGridX(), to.getGridX()).parallel()
+                .mapToObj(x -> IntStream.rangeClosed(from.getGridZ(), to.getGridZ())
+                        .mapToObj(z -> getByAxialCoordinate(fromCoordinates(x, z))))
+                .flatMap(Stream::sequential)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toSet());
     }
 
     @Override
     public Iterable<Hexagon> getHexagonsByOffsetRange(final int gridXFrom, final int gridXTo, final int gridYFrom, final int gridYTo) {
-        final Collection<Hexagon> range = new HashSet<>();
-        for (int gridY = gridYFrom; gridY <= gridYTo; gridY++) {
-            for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {
-                final int axialX = convertOffsetCoordinatesToAxialX(gridX, gridY, sharedHexagonData.getOrientation());
-                final int axialZ = convertOffsetCoordinatesToAxialZ(gridX, gridY, sharedHexagonData.getOrientation());
-                final AxialCoordinate axialCoordinate = fromCoordinates(axialX, axialZ);
-                if (containsAxialCoordinate(axialCoordinate)) {
-                    range.add(getByAxialCoordinate(axialCoordinate).get());
-                }
-            }
-        }
-        return range;
+        return IntStream.rangeClosed(gridXFrom, gridXTo).parallel().mapToObj(x -> IntStream.rangeClosed(gridYFrom, gridYTo).mapToObj(y -> {
+            final int axialX = convertOffsetCoordinatesToAxialX(x, y, sharedHexagonData.getOrientation());
+            final int axialZ = convertOffsetCoordinatesToAxialZ(x, y, sharedHexagonData.getOrientation());
+            final AxialCoordinate axialCoordinate = fromCoordinates(axialX, axialZ);
+            return getByAxialCoordinate(axialCoordinate);
+        })).flatMap(Stream::sequential).filter(Optional::isPresent).map(Optional::get).collect(Collectors.toSet());
     }
 
     @Override
@@ -149,9 +146,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     @Override
     public void clearSatelliteData() {
-        for (final String key : hexagonStorage.keySet()) {
-            hexagonStorage.get(key).setSatelliteData(null);
-        }
+        hexagonStorage.values().parallelStream().forEach(Hexagon::clearSatelliteData);
     }
 
 }
