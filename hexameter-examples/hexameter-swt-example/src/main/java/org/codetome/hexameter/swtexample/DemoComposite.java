@@ -1,8 +1,8 @@
 package org.codetome.hexameter.swtexample;
 
-import org.codetome.hexameter.api.*;
-import org.codetome.hexameter.api.Point;
-import org.codetome.hexameter.api.exception.HexagonalGridCreationException;
+import org.codetome.hexameter.core.api.*;
+import org.codetome.hexameter.core.api.Point;
+import org.codetome.hexameter.core.api.exception.HexagonalGridCreationException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.*;
 import org.eclipse.swt.graphics.*;
@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static org.codetome.hexameter.api.HexagonOrientation.POINTY_TOP;
-import static org.codetome.hexameter.api.HexagonalGridLayout.RECTANGULAR;
+import static org.codetome.hexameter.core.api.HexagonOrientation.POINTY_TOP;
+import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
 
 public class DemoComposite extends Composite {
 
