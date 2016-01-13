@@ -5,6 +5,8 @@ an optimized, simple and usable library for drawing hexagonal grids without
 being tied to any GUI framework.
 It is **100% unit tested**.
 
+[![Build Status](https://api.travis-ci.org/Hexworks/hexameter.svg)](https://travis-ci.org/Hexworks/hexameter)
+
 # Getting started
 
 This library uses [Amit's guide to hexagonal grids](http://www.redblobgames.com/grids/hexagons/). The coordinate system
