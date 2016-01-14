@@ -113,9 +113,9 @@ Check these interfaces for more details:
 - [Hexagon](https://github.com/adam-arold/hexameter/blob/master/hexameter-core/src/main/java/org/codetome/hexameter/api/Hexagon.java)
 
 ## Roadmap:
- - Field of view calculation with obstacles
- - Pathfinding with obstacles
- - Movement range with obstacles
+ - Field of view calculation with obstacles (blocking vision)
+ - Pathfinding with obstacles  (blocking movement)
+ - Movement range with obstacles and movement cost calculation
 
 ## License
 Hexameter is made available under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
