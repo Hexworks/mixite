@@ -1,8 +1,8 @@
 package org.codetome.hexameter.swtexample;
 
-import org.codetome.hexameter.core.api.SatelliteData;
+import org.codetome.hexameter.core.api.AbstractSatelliteData;
 
-public class SatelliteDataImpl implements SatelliteData {
+public class SatelliteDataImpl extends AbstractSatelliteData {
 
     private boolean isSelected;
 

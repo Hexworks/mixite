@@ -20,7 +20,7 @@ public class HexagonImplTest {
 	private static final int TEST_GRID_Z = 3;
 	private static final AxialCoordinate TEST_COORDINATE = fromCoordinates(TEST_GRID_X, TEST_GRID_Z);
 	private static final int TEST_GRID_Y = -5;
-	private static final SatelliteData TEST_SATELLITE_DATA = new SatelliteData() {};
+	private static final SatelliteData TEST_SATELLITE_DATA = new AbstractSatelliteData() {};
 	private static final int EXPECTED_POINTY_CENTER_X = 69;
 	private static final int EXPECTED_FLAT_CENTER_X = 40;
 	private static final int EXPECTED_POINTY_CENTER_Y = 55;
