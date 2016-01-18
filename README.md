@@ -5,7 +5,9 @@ an optimized, simple and usable library for drawing hexagonal grids without
 being tied to any GUI framework.
 It is **100% unit tested**.
 
-[![Build Status](https://api.travis-ci.org/Hexworks/hexameter.svg)](https://travis-ci.org/Hexworks/hexameter)
+[![][travis img]][travis]
+[![][maven img]][maven]
+[![][license img]][license]
 
 # Getting started
 
@@ -125,3 +127,12 @@ Hexameter is created and maintained by Adam Arold
 
 *I'm open to suggestions, feel free to comment or to send me a message.
 Pull reqeusts are also welcome!*
+
+[travis]:https://travis-ci.org/Hexworks/hexameter
+[travis img]:https://api.travis-ci.org/Hexworks/hexameter.svg?branch=master
+
+[maven]:http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.codetome%22%20AND%20a%3A%22hexameter-core%22
+[maven img]:https://maven-badges.herokuapp.com/maven-central/org.codetome/hexameter-core/badge.svg
+
+[license]:https://github.com/Hexworks/hexameter/blob/master/LICENSE
+[license img]:https://img.shields.io/badge/License-MIT-blue.svg
