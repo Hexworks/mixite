@@ -34,16 +34,6 @@ public class HexagonalGridImplTest {
     }
 
     @Test
-    public void shouldReturnProperHexagonsWhenCustomStorageIsSet() {
-        final Map<String, Hexagon> expected = new HashMap<>();
-        builder.setCustomStorage(expected);
-        target = builder.build();
-        final Set<Hexagon> hexagons = new HashSet<>();
-        target.getHexagons().forEach(hexagons::add);
-        assertTrue(expected.values().containsAll(hexagons));
-    }
-
-    @Test
     public void shouldReturnHexagonsInProperIterationOrderWhenGetHexagonsIsCalled() {
         final Collection<AxialCoordinate> expectedCoordinates = builder.getGridLayoutStrategy().fetchGridCoordinates(builder);
         final Collection<AxialCoordinate> actualCoordinates = new LinkedList<>();

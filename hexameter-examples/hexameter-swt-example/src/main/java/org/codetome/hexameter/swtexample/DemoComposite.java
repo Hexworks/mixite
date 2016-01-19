@@ -11,7 +11,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -427,7 +426,7 @@ public class DemoComposite extends Composite {
         fontSize = (int) (radius / 3.5);
         font = new Font(canvas.getDisplay(), fd.getName(), fontSize, SWT.NONE);
         try {
-            HexagonalGridBuilder builder = new HexagonalGridBuilder().setGridWidth(gridWidth).setGridHeight(gridHeight).setRadius(radius).setOrientation(orientation).setGridLayout(hexagonGridLayout).setCustomStorage(new HashMap<String, Hexagon>());
+            HexagonalGridBuilder builder = new HexagonalGridBuilder().setGridWidth(gridWidth).setGridHeight(gridHeight).setRadius(radius).setOrientation(orientation).setGridLayout(hexagonGridLayout);
             hexagonalGrid = builder.build();
             hexagonalGridCalculator = builder.buildCalculatorFor(hexagonalGrid);
         } catch (HexagonalGridCreationException e) {

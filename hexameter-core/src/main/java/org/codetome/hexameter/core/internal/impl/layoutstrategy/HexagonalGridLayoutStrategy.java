@@ -5,8 +5,8 @@ import org.codetome.hexameter.core.api.HexagonOrientation;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import static java.lang.Math.*;
 import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
@@ -18,8 +18,8 @@ import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
 public final class HexagonalGridLayoutStrategy implements GridLayoutStrategy {
 
     @Override
-    public Collection<AxialCoordinate> fetchGridCoordinates(HexagonalGridBuilder builder) {
-        Collection<AxialCoordinate> coordinates = new LinkedList<>();
+    public Set<AxialCoordinate> fetchGridCoordinates(HexagonalGridBuilder builder) {
+        Set<AxialCoordinate> coordinates = new LinkedHashSet<>();
         final double gridSize = builder.getGridHeight();
         int startX = HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? (int) floor(gridSize / 2d) : (int) round(gridSize / 4d);
         final int hexRadius = (int) floor(gridSize / 2d);

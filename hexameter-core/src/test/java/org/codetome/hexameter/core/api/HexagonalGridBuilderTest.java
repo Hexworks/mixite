@@ -6,9 +6,6 @@ import org.codetome.hexameter.core.internal.impl.layoutstrategy.GridLayoutStrate
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static org.codetome.hexameter.core.api.HexagonOrientation.FLAT_TOP;
@@ -47,11 +44,6 @@ public class HexagonalGridBuilderTest {
         target.getSharedHexagonData();
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldFailIfTryingToSetNullCustomStorage() {
-        target.setCustomStorage(null);
-    }
-
     @Test(expected = IllegalStateException.class)
     public void shouldFailGettingSharedHexagonDataWhenRadiusIsZero() {
         target.setRadius(0);
@@ -81,13 +73,6 @@ public class HexagonalGridBuilderTest {
         target.setGridLayout(TRIANGULAR);
         target.setGridHeight(4);
         target.build();
-    }
-
-    @Test
-    public void shouldProperlySetCustomStorageWhenCustomStorageIsSet() {
-        final Map<String, Hexagon> customStorage = new HashMap<>();
-        target.setCustomStorage(customStorage);
-        assertEquals(customStorage, target.getCustomStorage());
     }
 
     @Test

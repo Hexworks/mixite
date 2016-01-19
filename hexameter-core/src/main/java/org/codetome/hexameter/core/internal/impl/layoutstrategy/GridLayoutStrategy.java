@@ -4,7 +4,7 @@ import org.codetome.hexameter.core.api.AxialCoordinate;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 
-import java.util.Collection;
+import java.util.Set;
 
 /**
  * Represents the method of creating a {@link HexagonalGrid} corresponding to a given shape.
@@ -12,12 +12,12 @@ import java.util.Collection;
 public interface GridLayoutStrategy {
 
     /**
-     * Fetches a monotonically increasing (from left to right, top to bottom) collection of
+     * Fetches a monotonically increasing (from left to right, top to bottom) Set of
      * grid coordinates corresponding to the shape of the requested grid layout.
      * @param builder
      * @return
      */
-    Collection<AxialCoordinate> fetchGridCoordinates(HexagonalGridBuilder builder);
+    Set<AxialCoordinate> fetchGridCoordinates(HexagonalGridBuilder builder);
 
     /**
      * Checks whether the supplied parameters are valid for the given strategy.

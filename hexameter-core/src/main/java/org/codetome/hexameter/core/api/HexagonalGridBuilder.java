@@ -2,11 +2,10 @@ package org.codetome.hexameter.core.api;
 
 import org.codetome.hexameter.core.api.exception.HexagonalGridCreationException;
 import org.codetome.hexameter.core.internal.SharedHexagonData;
-import org.codetome.hexameter.core.internal.impl.HexagonalGridImpl;
 import org.codetome.hexameter.core.internal.impl.HexagonalGridCalculatorImpl;
+import org.codetome.hexameter.core.internal.impl.HexagonalGridImpl;
 import org.codetome.hexameter.core.internal.impl.layoutstrategy.GridLayoutStrategy;
 
-import java.util.AbstractMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -28,7 +27,7 @@ public final class HexagonalGridBuilder {
     private int gridWidth;
     private int gridHeight;
     private double radius;
-    private Map<String, Hexagon> customStorage = new ConcurrentHashMap<>();
+    private Map<AxialCoordinate, Object> customStorage = new ConcurrentHashMap<>();
     private HexagonOrientation orientation = HexagonOrientation.POINTY_TOP;
     private HexagonalGridLayout gridLayout = RECTANGULAR;
 
@@ -153,37 +152,8 @@ public final class HexagonalGridBuilder {
         return gridLayout.getGridLayoutStrategy();
     }
 
-    public Map<String, Hexagon> getCustomStorage() {
+    public Map<AxialCoordinate, Object> getCustomStorage() {
         return customStorage;
-    }
-
-    /**
-     * Sets a custom storage object to the {@link HexagonalGrid}. It will be used
-     * instead of the internal storage. You can pass any custom storage object
-     * as long as it implements the {@link Map} interface. Refer to the swt example
-     * project for examples. <strong>Please note</strong> that if you supply a Map
-     * which is not empty the {@link HexagonalGrid} will overwrite its contents.
-     * Methods you must implement:
-     * <ul>
-     * <li> {@link Map#containsKey(Object)}</li>
-     * <li> {@link Map#get(Object)}</li>
-     * <li> {@link Map#putAll(Map)}</li>
-     * <li> {@link Map#put(Object, Object)}</li>
-     * <li> {@link Map#remove(Object)}</li>
-     * <li> {@link Map#keySet()}</li>
-     * </ul>
-     * Others are not necessary but highly recommended. Refer to the javadoc of {@link AbstractMap} if you need help.
-     *
-     * @param customStorage
-     *
-     * @return this {@link HexagonalGridBuilder}.
-     */
-    public HexagonalGridBuilder setCustomStorage(final Map<String, Hexagon> customStorage) {
-        if (customStorage == null) {
-            throw new IllegalArgumentException("customStorage cannot be null!");
-        }
-        this.customStorage = customStorage;
-        return this;
     }
 
     public SharedHexagonData getSharedHexagonData() {

@@ -1,11 +1,13 @@
 package org.codetome.hexameter.core.internal.impl;
 
 import org.codetome.hexameter.core.api.*;
-import org.codetome.hexameter.core.api.exception.HexagonNotFoundException;
 import org.codetome.hexameter.core.internal.SharedHexagonData;
 import org.codetome.hexameter.core.internal.impl.layoutstrategy.GridLayoutStrategy;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -14,6 +16,7 @@ import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
 import static org.codetome.hexameter.core.api.Point.fromPosition;
+import static org.codetome.hexameter.core.internal.impl.HexagonImpl.newHexagon;
 
 public final class HexagonalGridImpl implements HexagonalGrid {
 
@@ -24,28 +27,24 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     private final GridLayoutStrategy gridLayoutStrategy;
     private final HexagonalGridLayout gridLayout;
     private final SharedHexagonData sharedHexagonData;
-    private final Map<String, Hexagon> hexagonStorage;
+    private final Map<AxialCoordinate, Object> hexagonStorage;
+    private final Set<AxialCoordinate> coordinates;
     private final int gridWidth;
     private final int gridHeight;
-    private final Collection<AxialCoordinate> coordinates;
 
     public HexagonalGridImpl(final HexagonalGridBuilder builder) {
-        gridWidth = builder.getGridWidth();
-        gridHeight = builder.getGridHeight();
-        sharedHexagonData = builder.getSharedHexagonData();
-        gridLayoutStrategy = builder.getGridLayoutStrategy();
-        gridLayout = builder.getGridLayout();
-        hexagonStorage = builder.getCustomStorage();
-        this.coordinates = gridLayoutStrategy.fetchGridCoordinates(builder);
-        coordinates.forEach(axialCoordinate -> {
-            Hexagon hex = HexagonImpl.newHexagon(sharedHexagonData, axialCoordinate);
-            hexagonStorage.put(hex.getId(), hex);
-        });
+        this.gridWidth = builder.getGridWidth();
+        this.gridHeight = builder.getGridHeight();
+        this.sharedHexagonData = builder.getSharedHexagonData();
+        this.gridLayoutStrategy = builder.getGridLayoutStrategy();
+        this.gridLayout = builder.getGridLayout();
+        this.hexagonStorage = builder.getCustomStorage();
+        this.coordinates = this.gridLayoutStrategy.fetchGridCoordinates(builder);
     }
 
     @Override
     public Iterable<Hexagon> getHexagons() {
-        return coordinates.stream().map(coordinate -> hexagonStorage.get(coordinate.toKey())).collect(Collectors.toList());
+        return coordinates.stream().map(coordinate -> newHexagon(sharedHexagonData, coordinate, hexagonStorage)).collect(Collectors.toList());
     }
 
     @Override
@@ -70,18 +69,12 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     @Override
     public boolean containsAxialCoordinate(final AxialCoordinate coordinate) {
-        return hexagonStorage.containsKey(coordinate.toKey());
+        return this.coordinates.contains(coordinate);
     }
 
     @Override
     public Optional<Hexagon> getByAxialCoordinate(final AxialCoordinate coordinate) {
-        return containsAxialCoordinate(coordinate) ? of(hexagonStorage.get(coordinate.toKey())) : empty();
-    }
-
-    private void checkCoordinate(final AxialCoordinate coordinate) {
-        if (!containsAxialCoordinate(coordinate)) {
-            throw new HexagonNotFoundException("Coordinate is off the grid: " + coordinate.toKey());
-        }
+        return containsAxialCoordinate(coordinate) ? of(newHexagon(sharedHexagonData, coordinate, hexagonStorage)) : empty();
     }
 
     @Override
@@ -93,7 +86,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         // it is possible that the estimated coordinates are off the grid so we
         // create a virtual hexagon
         final AxialCoordinate estimatedCoordinate = fromCoordinates(estimatedGridX, estimatedGridZ);
-        final Hexagon tempHex = HexagonImpl.newHexagon(sharedHexagonData, estimatedCoordinate);
+        final Hexagon tempHex = newHexagon(sharedHexagonData, estimatedCoordinate, hexagonStorage);
 
         Hexagon trueHex = refineHexagonByPixel(tempHex, fromPosition(x, y));
 
@@ -122,7 +115,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     @Override
     public void clearSatelliteData() {
-        hexagonStorage.values().parallelStream().forEach(Hexagon::clearSatelliteData);
+        hexagonStorage.clear();
     }
 
     public HexagonalGridLayout getGridLayout() {

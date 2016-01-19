@@ -6,10 +6,7 @@ import org.codetome.hexameter.core.api.Point;
 import org.codetome.hexameter.core.api.SatelliteData;
 import org.codetome.hexameter.core.internal.SharedHexagonData;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.*;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -26,12 +23,12 @@ public class HexagonImpl implements Hexagon {
     private static final long serialVersionUID = -6658255569921274603L;
     private final SharedHexagonData sharedData;
     private final AxialCoordinate coordinate;
-    private final AtomicReference<Object> satelliteData;
+    private final Map<AxialCoordinate, Object> dataMap;
 
-    private HexagonImpl(final SharedHexagonData sharedHexagonData, final AxialCoordinate coordinate) {
+    private HexagonImpl(final SharedHexagonData sharedHexagonData, final AxialCoordinate coordinate, Map<AxialCoordinate, Object> dataMap) {
         this.sharedData = sharedHexagonData;
-        this.satelliteData = new AtomicReference<>();
         this.coordinate = coordinate;
+        this.dataMap = dataMap;
     }
 
     /**
@@ -42,8 +39,23 @@ public class HexagonImpl implements Hexagon {
      *
      * @return
      */
-    public static Hexagon newHexagon(final SharedHexagonData sharedHexagonData, final AxialCoordinate coordinate) {
-        return new HexagonImpl(sharedHexagonData, coordinate);
+    public static Hexagon newHexagon(final SharedHexagonData sharedHexagonData, final AxialCoordinate coordinate, Map<AxialCoordinate, Object> dataMap) {
+        return new HexagonImpl(sharedHexagonData, coordinate, dataMap);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        HexagonImpl hexagon = (HexagonImpl) o;
+        return Objects.equals(coordinate, hexagon.coordinate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(coordinate);
     }
 
     @Override
@@ -71,13 +83,13 @@ public class HexagonImpl implements Hexagon {
     @Override
     @SuppressWarnings("unchecked")
     public final <T extends SatelliteData> Optional<T> getSatelliteData() {
-        final Object result = satelliteData.get();
+        final Object result = dataMap.get(getAxialCoordinate());
         return result == null ? empty() : of((T) result);
     }
 
     @Override
     public final <T extends SatelliteData> void setSatelliteData(final T satelliteData) {
-        this.satelliteData.set(satelliteData);
+        this.dataMap.put(getAxialCoordinate(), satelliteData);
     }
 
     @Override
