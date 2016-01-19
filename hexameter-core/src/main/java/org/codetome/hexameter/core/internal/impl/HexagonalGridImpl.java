@@ -5,10 +5,7 @@ import org.codetome.hexameter.core.api.exception.HexagonNotFoundException;
 import org.codetome.hexameter.core.internal.SharedHexagonData;
 import org.codetome.hexameter.core.internal.impl.layoutstrategy.GridLayoutStrategy;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -30,6 +27,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     private final Map<String, Hexagon> hexagonStorage;
     private final int gridWidth;
     private final int gridHeight;
+    private final Collection<AxialCoordinate> coordinates;
 
     public HexagonalGridImpl(final HexagonalGridBuilder builder) {
         gridWidth = builder.getGridWidth();
@@ -38,7 +36,8 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         gridLayoutStrategy = builder.getGridLayoutStrategy();
         gridLayout = builder.getGridLayout();
         hexagonStorage = builder.getCustomStorage();
-        gridLayoutStrategy.fetchGridCoordinates(builder).forEach(axialCoordinate -> {
+        this.coordinates = gridLayoutStrategy.fetchGridCoordinates(builder);
+        coordinates.forEach(axialCoordinate -> {
             Hexagon hex = HexagonImpl.newHexagon(sharedHexagonData, axialCoordinate);
             hexagonStorage.put(hex.getId(), hex);
         });
@@ -46,7 +45,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     @Override
     public Iterable<Hexagon> getHexagons() {
-        return new HashSet<>(hexagonStorage.values());
+        return coordinates.stream().map(coordinate -> hexagonStorage.get(coordinate.toKey())).collect(Collectors.toList());
     }
 
     @Override
@@ -55,8 +54,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
                 .mapToObj(x -> IntStream.rangeClosed(from.getGridZ(), to.getGridZ())
                         .mapToObj(z -> getByAxialCoordinate(fromCoordinates(x, z))))
                 .flatMap(Stream::sequential)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
+                .filter(Optional::isPresent).map(Optional::get)
                 .collect(Collectors.toSet());
     }
 
@@ -68,17 +66,6 @@ public final class HexagonalGridImpl implements HexagonalGrid {
             final AxialCoordinate axialCoordinate = fromCoordinates(axialX, axialZ);
             return getByAxialCoordinate(axialCoordinate);
         })).flatMap(Stream::sequential).filter(Optional::isPresent).map(Optional::get).collect(Collectors.toSet());
-    }
-
-    @Override
-    public Hexagon addHexagon(final AxialCoordinate coordinate) {
-        return hexagonStorage.put(coordinate.toKey(), HexagonImpl.newHexagon(sharedHexagonData, coordinate));
-    }
-
-    @Override
-    public Hexagon removeHexagon(final AxialCoordinate coordinate) {
-        checkCoordinate(coordinate);
-        return hexagonStorage.remove(coordinate.toKey());
     }
 
     @Override

@@ -47,25 +47,6 @@ public interface HexagonalGrid {
     Iterable<Hexagon> getHexagonsByOffsetRange(int gridXFrom, int gridXTo, int gridYfrom, int gridYTo);
 
     /**
-     * Adds a new {@link Hexagon} at the given coordinate.
-     * If there is already a Hexagon at the given position it is overwritten.
-     *
-     * @param coordinate
-     *
-     * @return new {@link Hexagon} created.
-     */
-    Hexagon addHexagon(AxialCoordinate coordinate);
-
-    /**
-     * Removes the {@link Hexagon} at the given coordinate.
-     *
-     * @param coordinate
-     *
-     * @return the removed {@link Hexagon}
-     */
-    Hexagon removeHexagon(AxialCoordinate coordinate);
-
-    /**
      * Tells whether the given axial coordinate is on the grid or not.
      * If you want to look up by offset coordinate use {@link CoordinateConverter}.
      *
