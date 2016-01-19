@@ -25,12 +25,18 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     private static final int NEIGHBOR_Z_INDEX = 1;
 
     private final GridLayoutStrategy gridLayoutStrategy;
+    private final HexagonalGridLayout gridLayout;
     private final SharedHexagonData sharedHexagonData;
     private final Map<String, Hexagon> hexagonStorage;
+    private final int gridWidth;
+    private final int gridHeight;
 
     public HexagonalGridImpl(final HexagonalGridBuilder builder) {
+        gridWidth = builder.getGridWidth();
+        gridHeight = builder.getGridHeight();
         sharedHexagonData = builder.getSharedHexagonData();
         gridLayoutStrategy = builder.getGridLayoutStrategy();
+        gridLayout = builder.getGridLayout();
         hexagonStorage = builder.getCustomStorage();
         gridLayoutStrategy.createHexagons(builder).forEach(hex -> hexagonStorage.put(hex.getId(), hex));
     }
@@ -124,6 +130,27 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         return neighbors;
     }
 
+    @Override
+    public void clearSatelliteData() {
+        hexagonStorage.values().parallelStream().forEach(Hexagon::clearSatelliteData);
+    }
+
+    public HexagonalGridLayout getGridLayout() {
+        return gridLayout;
+    }
+
+    public SharedHexagonData getSharedHexagonData() {
+        return sharedHexagonData;
+    }
+
+    public int getGridWidth() {
+        return gridWidth;
+    }
+
+    public int getGridHeight() {
+        return gridHeight;
+    }
+
     private boolean hexagonsAreAtTheSamePosition(final Hexagon hex0, final Hexagon hex1) {
         return hex0.getGridX() == hex1.getGridX() && hex0.getGridZ() == hex1.getGridZ();
     }
@@ -140,10 +167,4 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         }
         return refined;
     }
-
-    @Override
-    public void clearSatelliteData() {
-        hexagonStorage.values().parallelStream().forEach(Hexagon::clearSatelliteData);
-    }
-
 }

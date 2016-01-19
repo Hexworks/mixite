@@ -193,4 +193,7 @@ public final class HexagonalGridBuilder {
         return new SharedHexagonData(orientation, radius);
     }
 
+    public HexagonalGridLayout getGridLayout() {
+        return gridLayout;
+    }
 }
