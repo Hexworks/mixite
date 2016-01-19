@@ -1,11 +1,8 @@
 package org.codetome.hexameter.core.internal.impl.layoutstrategy;
 
-import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Collection;
 
 import static junit.framework.Assert.assertTrue;
 import static org.codetome.hexameter.core.internal.impl.layoutstrategy.GridLayouStrategyTestUtil.fetchDefaultBuilder;
@@ -23,8 +20,7 @@ public class EmptyGridLayoutStrategyTest {
 
     @Test
     public void shouldProperlyCreateHexagonsWithPointyOrientationWhenCreateHexagonsIsCalled() {
-        final Collection<Hexagon> hexagons = target.createHexagons(builder);
-        assertTrue(hexagons.isEmpty());
+        assertTrue(target.fetchGridCoordinates(builder).isEmpty());
     }
 
     @Test

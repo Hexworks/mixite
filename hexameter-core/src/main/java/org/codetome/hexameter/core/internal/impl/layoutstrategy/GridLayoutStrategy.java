@@ -1,6 +1,6 @@
 package org.codetome.hexameter.core.internal.impl.layoutstrategy;
 
-import org.codetome.hexameter.core.api.Hexagon;
+import org.codetome.hexameter.core.api.AxialCoordinate;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 
@@ -12,14 +12,12 @@ import java.util.Collection;
 public interface GridLayoutStrategy {
 
     /**
-     * Creates the {@link Hexagon} objects which fit in the shape
-     * of the requested layout.
-     *
-     * @param builder contains the data needed
-     *
-     * @return created hexagons.
+     * Fetches a monotonically increasing (from left to right, top to bottom) collection of
+     * grid coordinates corresponding to the shape of the requested grid layout.
+     * @param builder
+     * @return
      */
-    Collection<Hexagon> createHexagons(HexagonalGridBuilder builder);
+    Collection<AxialCoordinate> fetchGridCoordinates(HexagonalGridBuilder builder);
 
     /**
      * Checks whether the supplied parameters are valid for the given strategy.

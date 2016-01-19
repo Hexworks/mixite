@@ -1,5 +1,7 @@
 package org.codetome.hexameter.core.api;
 
+import java.util.Objects;
+
 import static java.lang.Integer.valueOf;
 
 /**
@@ -14,6 +16,21 @@ public final class AxialCoordinate {
     private AxialCoordinate(final int gridX, final int gridZ) {
         this.gridX = gridX;
         this.gridZ = gridZ;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        AxialCoordinate that = (AxialCoordinate) o;
+        return Objects.equals(gridX, that.gridX) && Objects.equals(gridZ, that.gridZ);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(gridX, gridZ);
     }
 
     /**

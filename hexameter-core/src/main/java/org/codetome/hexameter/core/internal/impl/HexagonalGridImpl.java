@@ -38,7 +38,10 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         gridLayoutStrategy = builder.getGridLayoutStrategy();
         gridLayout = builder.getGridLayout();
         hexagonStorage = builder.getCustomStorage();
-        gridLayoutStrategy.createHexagons(builder).forEach(hex -> hexagonStorage.put(hex.getId(), hex));
+        gridLayoutStrategy.fetchGridCoordinates(builder).forEach(axialCoordinate -> {
+            Hexagon hex = HexagonImpl.newHexagon(sharedHexagonData, axialCoordinate);
+            hexagonStorage.put(hex.getId(), hex);
+        });
     }
 
     @Override
