@@ -2,14 +2,15 @@ package org.codetome.hexameter.core.api;
 
 import java.util.Objects;
 
-import static java.lang.Integer.valueOf;
+import static java.lang.Integer.parseInt;
 
 /**
  * Represents an axial coorinate pair.
  * See http://www.redblobgames.com/grids/hexagons/#coordinates to learn more.
  */
-public final class AxialCoordinate {
+public final class AxialCoordinate implements java.io.Serializable {
 
+    private static final long serialVersionUID = -6656555565645274603L;
     private final int gridX;
     private final int gridZ;
 
@@ -26,7 +27,7 @@ public final class AxialCoordinate {
         AxialCoordinate result = null;
         try {
             final String[] coords = key.split(",");
-            result = fromCoordinates(valueOf(coords[0]), valueOf(coords[1]));
+            result = fromCoordinates(parseInt(coords[0]), parseInt(coords[1]));
         } catch (final Exception e) {
             throw new IllegalArgumentException("Failed to create AxialCoordinate from key: " + key, e);
         }

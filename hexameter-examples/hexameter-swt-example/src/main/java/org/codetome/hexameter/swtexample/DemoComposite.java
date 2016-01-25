@@ -11,7 +11,6 @@ import org.codetome.hexameter.core.api.exception.HexagonalGridCreationException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -28,7 +27,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
@@ -80,9 +78,7 @@ public class DemoComposite extends Composite {
         setLayout(compositeLayout);
         setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
         final Canvas canvas = new Canvas(this, SWT.DOUBLE_BUFFERED);
-        canvas.addMouseMoveListener(new MouseMoveListener() {
-            public void mouseMove(MouseEvent event) {
-            }
+        canvas.addMouseMoveListener(event -> {
         });
         GridData canvasGridData = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
         canvasGridData.minimumWidth = CANVAS_WIDTH;
@@ -310,11 +306,9 @@ public class DemoComposite extends Composite {
             }
         });
 
-        canvas.addMouseMoveListener(new MouseMoveListener() {
-            public void mouseMove(MouseEvent event) {
-                xPositionText.setText(event.x + "");
-                yPositionText.setText(event.y + "");
-            }
+        canvas.addMouseMoveListener(event -> {
+            xPositionText.setText(event.x + "");
+            yPositionText.setText(event.y + "");
         });
 
         // darawing
@@ -428,7 +422,7 @@ public class DemoComposite extends Composite {
                 gc.setForeground(red);
                 gc.drawString("gridX:" + gridX, (int) hexagon.getCenterX() - fontSize, (int) (hexagon.getCenterY() - fontSize * 2.5), true);
                 gc.drawString("gridY:" + gridY, (int) (hexagon.getCenterX() - fontSize * 2.8), (int) hexagon.getCenterY() + fontSize / 3, true);
-                gc.drawString("gridZ:" + gridZ, (int) (hexagon.getCenterX() + fontSize / 3), (int) hexagon.getCenterY() + fontSize / 3, true);
+                gc.drawString("gridZ:" + gridZ, (int) (hexagon.getCenterX() + fontSize / 3), (int) (hexagon.getCenterY() + fontSize / 3), true);
             }
 
             private int[] convertToPointsArr(List<Point> points) {
@@ -467,11 +461,7 @@ public class DemoComposite extends Composite {
             msg.setText(e.getMessage());
             final Button ok = new Button(dialog, SWT.PUSH);
             ok.setText("Ok");
-            Listener listener = new Listener() {
-                public void handleEvent(Event event) {
-                    dialog.close();
-                }
-            };
+            Listener listener = event -> dialog.close();
             ok.addListener(SWT.Selection, listener);
             dialog.pack();
             dialog.open();

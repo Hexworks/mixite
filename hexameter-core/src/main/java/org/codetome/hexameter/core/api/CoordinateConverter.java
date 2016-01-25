@@ -16,14 +16,14 @@ public final class CoordinateConverter {
      * Calculates the axial X coordinate based on an offset coordinate pair.
      */
     public static int convertOffsetCoordinatesToAxialX(final int offsetX, final int offsetY, final HexagonOrientation orientation) {
-        return FLAT_TOP.equals(orientation) ? offsetX : offsetX - (int) Math.floor(offsetY / 2);
+        return FLAT_TOP.equals(orientation) ? offsetX : offsetX - offsetY / 2;
     }
 
     /**
      * Calculates the axial Z coordinate based on an offset coordinate pair.
      */
     public static int convertOffsetCoordinatesToAxialZ(final int offsetX, final int offsetY, final HexagonOrientation orientation) {
-        return FLAT_TOP.equals(orientation) ? offsetY - (int) Math.floor(offsetX / 2) : offsetY;
+        return FLAT_TOP.equals(orientation) ? offsetY - offsetX / 2 : offsetY;
     }
 
 }

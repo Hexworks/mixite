@@ -25,9 +25,9 @@ import static org.codetome.hexameter.core.api.Point.fromPosition;
 public class HexagonImpl implements Hexagon {
 
     private static final long serialVersionUID = -6658255569921274603L;
-    private final SharedHexagonData sharedData;
     private final AxialCoordinate coordinate;
-    private final Map<AxialCoordinate, Object> dataMap;
+    private final transient SharedHexagonData sharedData;
+    private final transient Map<AxialCoordinate, Object> dataMap;
 
     private HexagonImpl(final SharedHexagonData sharedHexagonData, final AxialCoordinate coordinate, Map<AxialCoordinate, Object> dataMap) {
         this.sharedData = sharedHexagonData;
@@ -134,6 +134,16 @@ public class HexagonImpl implements Hexagon {
     @Override
     public void clearSatelliteData() {
         setSatelliteData(null);
+    }
+
+    private void writeObject(java.io.ObjectOutputStream stream)
+            throws java.io.IOException {
+        stream.defaultWriteObject();
+    }
+
+    private void readObject(java.io.ObjectInputStream stream)
+            throws java.io.IOException, ClassNotFoundException {
+        stream.defaultReadObject();
     }
 
 }
