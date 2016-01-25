@@ -14,8 +14,6 @@ import java.util.Optional;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
-import static java.util.Optional.empty;
-import static java.util.Optional.of;
 import static org.codetome.hexameter.core.api.HexagonOrientation.FLAT_TOP;
 import static org.codetome.hexameter.core.api.Point.fromPosition;
 
@@ -123,7 +121,7 @@ public class HexagonImpl implements Hexagon {
     @SuppressWarnings("unchecked")
     public final <T extends SatelliteData> Optional<T> getSatelliteData() {
         final Object result = dataMap.get(getAxialCoordinate());
-        return result == null ? empty() : of((T) result);
+        return result == null ? Optional.empty() : Optional.of((T) result);
     }
 
     @Override

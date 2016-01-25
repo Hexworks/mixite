@@ -12,7 +12,6 @@ import static java.lang.Math.abs;
 import static java.lang.Math.floor;
 import static java.lang.Math.max;
 import static java.lang.Math.round;
-import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
 
 /**
  * This strategy is responsible for generating a {@link HexagonalGrid} which has a hexagonal
@@ -28,11 +27,11 @@ public final class HexagonalGridLayoutStrategy implements GridLayoutStrategy {
         final int hexRadius = (int) floor(gridSize / 2d);
         final int minX = startX - hexRadius;
         for (int y = 0; y < gridSize; y++) {
-            final int distanceFromMid = Math.abs(hexRadius - y);
+            final int distanceFromMid = abs(hexRadius - y);
             for (int x = max(startX, minX); x <= max(startX, minX) + hexRadius + hexRadius - distanceFromMid; x++) {
                 final int gridX = x;
                 final int gridZ = HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? y - (int) floor(gridSize / 4d) : y;
-                coordinates.add(fromCoordinates(gridX, gridZ));
+                coordinates.add(AxialCoordinate.fromCoordinates(gridX, gridZ));
             }
             startX--;
         }

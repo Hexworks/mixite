@@ -18,8 +18,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static java.util.Optional.empty;
-import static java.util.Optional.of;
 import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
 import static org.codetome.hexameter.core.api.Point.fromPosition;
 import static org.codetome.hexameter.core.internal.impl.HexagonImpl.newHexagon;
@@ -83,7 +81,9 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     @Override
     public Optional<Hexagon> getByAxialCoordinate(final AxialCoordinate coordinate) {
-        return containsAxialCoordinate(coordinate) ? of(newHexagon(sharedHexagonData, coordinate, hexagonStorage)) : empty();
+        return containsAxialCoordinate(coordinate)
+                ? Optional.of(newHexagon(sharedHexagonData, coordinate, hexagonStorage))
+                : Optional.empty();
     }
 
     @Override
@@ -102,7 +102,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         if (hexagonsAreAtTheSamePosition(tempHex, trueHex)) {
             return getByAxialCoordinate(estimatedCoordinate);
         } else {
-            return containsAxialCoordinate(trueHex.getAxialCoordinate()) ? of(trueHex) : empty();
+            return containsAxialCoordinate(trueHex.getAxialCoordinate()) ? Optional.of(trueHex) : Optional.empty();
         }
     }
 

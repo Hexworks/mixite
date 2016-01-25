@@ -27,7 +27,7 @@ public final class Point {
      *
      * @return distance
      */
-    public final double distanceFrom(final Point point) {
+    public double distanceFrom(final Point point) {
         return sqrt((this.coordinateX - point.coordinateX) * (this.coordinateX - point.coordinateX)
                 + (this.coordinateY - point.coordinateY) * (this.coordinateY - point.coordinateY));
     }
