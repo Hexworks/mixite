@@ -1,6 +1,11 @@
 package org.codetome.hexameter.core.api;
 
-import org.codetome.hexameter.core.internal.impl.layoutstrategy.*;
+import org.codetome.hexameter.core.internal.impl.layoutstrategy.EmptyGridLayoutStrategy;
+import org.codetome.hexameter.core.internal.impl.layoutstrategy.GridLayoutStrategy;
+import org.codetome.hexameter.core.internal.impl.layoutstrategy.HexagonalGridLayoutStrategy;
+import org.codetome.hexameter.core.internal.impl.layoutstrategy.RectangularGridLayoutStrategy;
+import org.codetome.hexameter.core.internal.impl.layoutstrategy.TrapezoidGridLayoutStrategy;
+import org.codetome.hexameter.core.internal.impl.layoutstrategy.TriangularGridLayoutStrategy;
 
 /**
  * This enum represents the possible shapes a {@link HexagonalGrid} can have.
@@ -44,9 +49,6 @@ public enum HexagonalGridLayout {
 
     /**
      * Checks whether the grid height/width parameters can be used for the given {@link GridLayoutStrategy}.
-     *
-     * @param gridHeight
-     * @param gridWidth
      *
      * @return valid?
      */

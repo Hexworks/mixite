@@ -17,11 +17,6 @@ public final class Point {
 
     /**
      * Creates a point from x and y positions.
-     *
-     * @param x
-     * @param y
-     *
-     * @return
      */
     public static Point fromPosition(final double x, final double y) {
         return new Point(x, y);
@@ -29,8 +24,6 @@ public final class Point {
 
     /**
      * Calculates a distance between two points.
-     *
-     * @param point
      *
      * @return distance
      */

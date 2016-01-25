@@ -6,7 +6,11 @@ import org.codetome.hexameter.core.api.Point;
 import org.codetome.hexameter.core.api.SatelliteData;
 import org.codetome.hexameter.core.internal.SharedHexagonData;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -33,14 +37,14 @@ public class HexagonImpl implements Hexagon {
 
     /**
      * Creates a new {@link Hexagon} object from shared data and a coordinate.
-     *
-     * @param sharedHexagonData
-     * @param coordinate
-     *
-     * @return
      */
     public static Hexagon newHexagon(final SharedHexagonData sharedHexagonData, final AxialCoordinate coordinate, Map<AxialCoordinate, Object> dataMap) {
         return new HexagonImpl(sharedHexagonData, coordinate, dataMap);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(coordinate);
     }
 
     @Override
@@ -54,18 +58,13 @@ public class HexagonImpl implements Hexagon {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(coordinate);
+    public String toString() {
+        return "HexagonImpl#{x=" + coordinate.getGridX() + ", z=" + coordinate.getGridZ() + "}";
     }
 
     @Override
     public String getId() {
         return coordinate.toKey();
-    }
-
-    @Override
-    public String toString() {
-        return "HexagonImpl#{x=" + coordinate.getGridX() + ", z=" + coordinate.getGridZ() + "}";
     }
 
     @Override
@@ -78,23 +77,6 @@ public class HexagonImpl implements Hexagon {
             points.add(fromPosition(x, y));
         }
         return points;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public final <T extends SatelliteData> Optional<T> getSatelliteData() {
-        final Object result = dataMap.get(getAxialCoordinate());
-        return result == null ? empty() : of((T) result);
-    }
-
-    @Override
-    public final <T extends SatelliteData> void setSatelliteData(final T satelliteData) {
-        this.dataMap.put(getAxialCoordinate(), satelliteData);
-    }
-
-    @Override
-    public void clearSatelliteData() {
-        setSatelliteData(null);
     }
 
     @Override
@@ -133,6 +115,23 @@ public class HexagonImpl implements Hexagon {
         } else {
             return coordinate.getGridZ() * sharedData.getHeight() + sharedData.getRadius();
         }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public final <T extends SatelliteData> Optional<T> getSatelliteData() {
+        final Object result = dataMap.get(getAxialCoordinate());
+        return result == null ? empty() : of((T) result);
+    }
+
+    @Override
+    public final <T extends SatelliteData> void setSatelliteData(final T satelliteData) {
+        this.dataMap.put(getAxialCoordinate(), satelliteData);
+    }
+
+    @Override
+    public void clearSatelliteData() {
+        setSatelliteData(null);
     }
 
 }

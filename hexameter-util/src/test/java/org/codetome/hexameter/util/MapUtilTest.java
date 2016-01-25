@@ -1,7 +1,11 @@
 package org.codetome.hexameter.util;
 
 import com.google.gson.GsonBuilder;
-import org.codetome.hexameter.core.api.*;
+import org.codetome.hexameter.core.api.AxialCoordinate;
+import org.codetome.hexameter.core.api.HexagonOrientation;
+import org.codetome.hexameter.core.api.HexagonalGrid;
+import org.codetome.hexameter.core.api.HexagonalGridBuilder;
+import org.codetome.hexameter.core.api.HexagonalGridLayout;
 import org.junit.Test;
 
 import static java.lang.Integer.valueOf;
@@ -51,7 +55,7 @@ public class MapUtilTest {
     public void shouldReturnProperJsonWhenExportIsCalled() {
         HexagonalGrid grid = new HexagonalGridBuilder().setGridHeight(EXPECTED_HEIGHT).setGridLayout(EXPECTED_LAYOUT).setGridWidth(EXPECTED_WIDTH).setOrientation(EXPECTED_ORIENTATION).setRadius(EXPECTED_RADIUS).build();
 
-        for(int i = 0; i < EXPECTED_CELL_DATA.length; i++) {
+        for (int i = 0; i < EXPECTED_CELL_DATA.length; i++) {
             AxialCoordinate ac = AxialCoordinate.fromCoordinates(valueOf(EXPECTED_CELL_DATA[i][0]), valueOf(EXPECTED_CELL_DATA[i][1]));
             MapSatelliteData msd = new MapSatelliteData();
             msd.setPassable("0".equals(EXPECTED_CELL_DATA[i][2]) ? false : true);

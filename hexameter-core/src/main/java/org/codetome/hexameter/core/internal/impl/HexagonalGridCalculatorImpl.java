@@ -8,7 +8,9 @@ import org.codetome.hexameter.core.api.HexagonalGridCalculator;
 import java.util.HashSet;
 import java.util.Set;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculator {
 

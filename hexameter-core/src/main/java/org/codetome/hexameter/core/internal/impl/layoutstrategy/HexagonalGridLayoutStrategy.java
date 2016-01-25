@@ -8,7 +8,10 @@ import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
+import static java.lang.Math.floor;
+import static java.lang.Math.max;
+import static java.lang.Math.round;
 import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
 
 /**

@@ -9,8 +9,6 @@ public interface SatelliteData extends Serializable {
 
     /**
      * Tells whether the Hexagon can be passed over when moving around the map or not.
-     *
-     * @return
      */
     boolean isPassable();
 
@@ -21,7 +19,6 @@ public interface SatelliteData extends Serializable {
 
     /**
      * Returns the movement cost when moving over the Hexagon.
-     * @return
      */
     double getMovementCost();
 

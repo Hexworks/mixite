@@ -28,8 +28,6 @@ public interface Hexagon extends Serializable {
 
     /**
      * Returns the {@link AxialCoordinate} of this {@link Hexagon}.
-     *
-     * @return
      */
     AxialCoordinate getAxialCoordinate();
 
@@ -79,8 +77,6 @@ public interface Hexagon extends Serializable {
 
     /**
      * Can be used to add arbitrary satellite data to a {@link Hexagon}.
-     *
-     * @param data
      */
     <T extends SatelliteData> void setSatelliteData(T data);
 

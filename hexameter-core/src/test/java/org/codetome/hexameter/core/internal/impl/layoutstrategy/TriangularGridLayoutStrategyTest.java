@@ -29,12 +29,6 @@ public class TriangularGridLayoutStrategyTest {
         testCoordinates(target.fetchGridCoordinates(builder));
     }
 
-    @Test
-    public void shouldProperlyCreateHexagonsWithFlatOrientationWhenCreateHexagonsIsCalled() {
-        builder.setOrientation(FLAT_TOP);
-        testCoordinates(target.fetchGridCoordinates(builder));
-    }
-
     private void testCoordinates(final Collection<AxialCoordinate> coords) {
 
         assertTrue(coords.contains(fromCoordinates(0, 0)));
@@ -56,6 +50,12 @@ public class TriangularGridLayoutStrategyTest {
         assertTrue(!coords.contains(fromCoordinates(-1, 3)));
         assertTrue(!coords.contains(fromCoordinates(-1, 2)));
         assertTrue(!coords.contains(fromCoordinates(-1, 1)));
+    }
+
+    @Test
+    public void shouldProperlyCreateHexagonsWithFlatOrientationWhenCreateHexagonsIsCalled() {
+        builder.setOrientation(FLAT_TOP);
+        testCoordinates(target.fetchGridCoordinates(builder));
     }
 
     @Test

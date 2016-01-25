@@ -1,6 +1,11 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import org.codetome.hexameter.core.api.*;
+import org.codetome.hexameter.core.api.AbstractSatelliteData;
+import org.codetome.hexameter.core.api.AxialCoordinate;
+import org.codetome.hexameter.core.api.Hexagon;
+import org.codetome.hexameter.core.api.HexagonOrientation;
+import org.codetome.hexameter.core.api.Point;
+import org.codetome.hexameter.core.api.SatelliteData;
 import org.codetome.hexameter.core.internal.SharedHexagonData;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,17 +31,16 @@ public class HexagonImplTest {
     private static final SatelliteData TEST_SATELLITE_DATA = new AbstractSatelliteData() {
     };
     private static final Map<AxialCoordinate, Object> TEST_SATELLITE_DATA_MAP = new ConcurrentHashMap<>();
-
-    static {
-        TEST_SATELLITE_DATA_MAP.put(TEST_COORDINATE, TEST_SATELLITE_DATA);
-    }
-
     private static final int EXPECTED_POINTY_CENTER_X = 69;
     private static final int EXPECTED_FLAT_CENTER_X = 40;
     private static final int EXPECTED_POINTY_CENTER_Y = 55;
     private static final int EXPECTED_FLAT_CENTER_Y = 78;
     private static final Point[] EXPECTED_FLAT_POINTS = new Point[]{fromPosition(50, 78), fromPosition(45, 87), fromPosition(35, 87), fromPosition(30, 78), fromPosition(35, 69), fromPosition(45, 69)};
     private static final Point[] EXPECTED_POINTY_POINTS = new Point[]{fromPosition(78, 60), fromPosition(69, 65), fromPosition(61, 60), fromPosition(61, 50), fromPosition(69, 45), fromPosition(78, 50)};
+
+    static {
+        TEST_SATELLITE_DATA_MAP.put(TEST_COORDINATE, TEST_SATELLITE_DATA);
+    }
 
     private Hexagon target;
 

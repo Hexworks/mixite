@@ -26,9 +26,6 @@ public interface HexagonalGrid {
      * Returns all {@link Hexagon}s contained in the given axial coordinate range.
      * If the range contains coordinates which are not part of the grid they will be ignored.
      *
-     * @param from
-     * @param to
-     *
      * @return {@link Hexagon}s in the given range.
      */
     Iterable<Hexagon> getHexagonsByAxialRange(AxialCoordinate from, AxialCoordinate to);
@@ -50,16 +47,12 @@ public interface HexagonalGrid {
      * Tells whether the given axial coordinate is on the grid or not.
      * If you want to look up by offset coordinate use {@link CoordinateConverter}.
      *
-     * @param coordinate
-     *
      * @return is it on the grid?
      */
     boolean containsAxialCoordinate(AxialCoordinate coordinate);
 
     /**
      * Returns a {@link Hexagon} by its axial coordinate.
-     *
-     * @param coordinate
      *
      * @return Optional with a Hexagon if it is present
      */

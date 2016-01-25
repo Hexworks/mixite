@@ -36,7 +36,7 @@ public class HexagonalGridCalculatorImplTest {
     @Test
     public void shouldProperlyCalculateMovementRangeFromHexWith1() {
         final Hexagon hex = grid.getByAxialCoordinate(fromCoordinates(3, 7)).get();
-        final Set<Hexagon> expected = new HashSet<> ();
+        final Set<Hexagon> expected = new HashSet<>();
         expected.add(hex);
         expected.add(grid.getByAxialCoordinate(fromCoordinates(3, 6)).get());
         expected.add(grid.getByAxialCoordinate(fromCoordinates(4, 6)).get());
@@ -51,7 +51,7 @@ public class HexagonalGridCalculatorImplTest {
     @Test
     public void shouldProperlyCalculateMovementRangeFromHexWith2() {
         final Hexagon hex = grid.getByAxialCoordinate(fromCoordinates(3, 7)).get();
-        final Set<Hexagon> expected = new HashSet<> ();
+        final Set<Hexagon> expected = new HashSet<>();
         expected.add(hex);
         expected.add(grid.getByAxialCoordinate(fromCoordinates(3, 6)).get());
         expected.add(grid.getByAxialCoordinate(fromCoordinates(4, 6)).get());

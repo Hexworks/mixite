@@ -1,6 +1,12 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import org.codetome.hexameter.core.api.*;
+import org.codetome.hexameter.core.api.AxialCoordinate;
+import org.codetome.hexameter.core.api.CoordinateConverter;
+import org.codetome.hexameter.core.api.Hexagon;
+import org.codetome.hexameter.core.api.HexagonalGrid;
+import org.codetome.hexameter.core.api.HexagonalGridBuilder;
+import org.codetome.hexameter.core.api.HexagonalGridLayout;
+import org.codetome.hexameter.core.api.Point;
 import org.codetome.hexameter.core.internal.SharedHexagonData;
 import org.codetome.hexameter.core.internal.impl.layoutstrategy.GridLayoutStrategy;
 

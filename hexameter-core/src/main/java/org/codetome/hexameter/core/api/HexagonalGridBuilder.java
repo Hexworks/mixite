@@ -21,7 +21,6 @@ import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
  * <li>radius of a {@link Hexagon}</li>
  * </ul>
  * Defaults for orientation and grid layout are POINTY_TOP and RECTANGULAR.
- *
  */
 public final class HexagonalGridBuilder {
     private int gridWidth;
@@ -30,19 +29,6 @@ public final class HexagonalGridBuilder {
     private Map<AxialCoordinate, Object> customStorage = new ConcurrentHashMap<>();
     private HexagonOrientation orientation = HexagonOrientation.POINTY_TOP;
     private HexagonalGridLayout gridLayout = RECTANGULAR;
-
-    /**
-     * Sets the {@link HexagonalGridLayout} which will be used when creating the {@link HexagonalGrid}.
-     * If it is not set <pre>RECTANGULAR</pre> will be assumed.
-     *
-     * @param gridLayout
-     *
-     * @return this {@link HexagonalGridBuilder}.
-     */
-    public HexagonalGridBuilder setGridLayout(final HexagonalGridLayout gridLayout) {
-        this.gridLayout = gridLayout;
-        return this;
-    }
 
     /**
      * Builds a {@link HexagonalGrid} using the parameters supplied.
@@ -75,8 +61,6 @@ public final class HexagonalGridBuilder {
     /**
      * Creates a {@link HexagonalGridCalculator} for your {@link HexagonalGrid}.
      *
-     * @param hexagonalGrid
-     *
      * @return calculator
      */
     public HexagonalGridCalculator buildCalculatorFor(final HexagonalGrid hexagonalGrid) {
@@ -106,8 +90,6 @@ public final class HexagonalGridBuilder {
     /**
      * Mandatory parameter. Sets the number of {@link Hexagon}s in the horizontal direction.
      *
-     * @param gridWidth
-     *
      * @return this {@link HexagonalGridBuilder}
      */
     public HexagonalGridBuilder setGridWidth(final int gridWidth) {
@@ -121,8 +103,6 @@ public final class HexagonalGridBuilder {
 
     /**
      * Mandatory parameter. Sets the number of {@link Hexagon}s in the vertical direction.
-     *
-     * @param gridHeight
      *
      * @return this {@link HexagonalGridBuilder}
      */
@@ -138,8 +118,6 @@ public final class HexagonalGridBuilder {
     /**
      * Sets the {@link HexagonOrientation} used in the resulting {@link HexagonalGrid}.
      * If it is not set HexagonOrientation.POINTY will be used.
-     *
-     * @param orientation
      *
      * @return this {@link HexagonalGridBuilder}
      */
@@ -165,5 +143,16 @@ public final class HexagonalGridBuilder {
 
     public HexagonalGridLayout getGridLayout() {
         return gridLayout;
+    }
+
+    /**
+     * Sets the {@link HexagonalGridLayout} which will be used when creating the {@link HexagonalGrid}.
+     * If it is not set <pre>RECTANGULAR</pre> will be assumed.
+     *
+     * @return this {@link HexagonalGridBuilder}.
+     */
+    public HexagonalGridBuilder setGridLayout(final HexagonalGridLayout gridLayout) {
+        this.gridLayout = gridLayout;
+        return this;
     }
 }

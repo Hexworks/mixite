@@ -14,17 +14,12 @@ public interface GridLayoutStrategy {
     /**
      * Fetches a monotonically increasing (from left to right, top to bottom) Set of
      * grid coordinates corresponding to the shape of the requested grid layout.
-     * @param builder
-     * @return
      */
     Set<AxialCoordinate> fetchGridCoordinates(HexagonalGridBuilder builder);
 
     /**
      * Checks whether the supplied parameters are valid for the given strategy.
      * <i>For example a hexagonal grid layout only works if the width equals to the height</i>
-     *
-     * @param gridHeight
-     * @param gridWidth
      *
      * @return valid?
      */

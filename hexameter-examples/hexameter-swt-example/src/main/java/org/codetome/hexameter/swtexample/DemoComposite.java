@@ -1,15 +1,40 @@
 package org.codetome.hexameter.swtexample;
 
-import org.codetome.hexameter.core.api.*;
+import org.codetome.hexameter.core.api.Hexagon;
+import org.codetome.hexameter.core.api.HexagonOrientation;
+import org.codetome.hexameter.core.api.HexagonalGrid;
+import org.codetome.hexameter.core.api.HexagonalGridBuilder;
+import org.codetome.hexameter.core.api.HexagonalGridCalculator;
+import org.codetome.hexameter.core.api.HexagonalGridLayout;
 import org.codetome.hexameter.core.api.Point;
 import org.codetome.hexameter.core.api.exception.HexagonalGridCreationException;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.*;
-import org.eclipse.swt.graphics.*;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseMoveListener;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Spinner;
+import org.eclipse.swt.widgets.Text;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -20,15 +45,14 @@ import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
 
 public class DemoComposite extends Composite {
 
-    private HexagonalGrid hexagonalGrid;
-    private HexagonalGridCalculator hexagonalGridCalculator;
     private static final int DEFAULT_GRID_WIDTH = 15;
     private static final int DEFAULT_GRID_HEIGHT = 15;
     private static final int DEFAULT_RADIUS = 30;
     private static final HexagonOrientation DEFAULT_ORIENTATION = POINTY_TOP;
-    private static final HexagonalGridLayout DEFAULT_GRID_LAYOUT = RECTANGULAR  ;
+    private static final HexagonalGridLayout DEFAULT_GRID_LAYOUT = RECTANGULAR;
     private static final int CANVAS_WIDTH = 1000;
-
+    private HexagonalGrid hexagonalGrid;
+    private HexagonalGridCalculator hexagonalGridCalculator;
     private int gridWidth = DEFAULT_GRID_WIDTH;
     private int gridHeight = DEFAULT_GRID_HEIGHT;
     private int radius = DEFAULT_RADIUS;
@@ -364,20 +388,6 @@ public class DemoComposite extends Composite {
                 }
             }
 
-            private void drawEmptyHexagon(GC gc, Hexagon hexagon) {
-                gc.setForeground(darkBlue);
-                gc.setBackground(white);
-                gc.drawPolygon(convertToPointsArr(hexagon.getPoints()));
-            }
-
-            private void drawFilledHexagon(GC gc, Hexagon hexagon) {
-                gc.setForeground(white);
-                gc.setBackground(darkBlue);
-                gc.fillPolygon(convertToPointsArr(hexagon.getPoints()));
-                gc.setForeground(darkBlue);
-                gc.drawPolygon(convertToPointsArr(hexagon.getPoints()));
-            }
-
             private void drawNeighborHexagon(GC gc, Hexagon hexagon) {
                 gc.setForeground(white);
                 gc.setBackground(darkGray);
@@ -389,6 +399,20 @@ public class DemoComposite extends Composite {
             private void drawMovementRangeHexagon(GC gc, Hexagon hexagon) {
                 gc.setForeground(darkBlue);
                 gc.setBackground(yellow);
+                gc.fillPolygon(convertToPointsArr(hexagon.getPoints()));
+                gc.setForeground(darkBlue);
+                gc.drawPolygon(convertToPointsArr(hexagon.getPoints()));
+            }
+
+            private void drawEmptyHexagon(GC gc, Hexagon hexagon) {
+                gc.setForeground(darkBlue);
+                gc.setBackground(white);
+                gc.drawPolygon(convertToPointsArr(hexagon.getPoints()));
+            }
+
+            private void drawFilledHexagon(GC gc, Hexagon hexagon) {
+                gc.setForeground(white);
+                gc.setBackground(darkBlue);
                 gc.fillPolygon(convertToPointsArr(hexagon.getPoints()));
                 gc.setForeground(darkBlue);
                 gc.drawPolygon(convertToPointsArr(hexagon.getPoints()));
