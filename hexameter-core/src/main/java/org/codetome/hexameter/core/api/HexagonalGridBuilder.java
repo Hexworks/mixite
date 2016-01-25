@@ -134,6 +134,9 @@ public final class HexagonalGridBuilder {
         return customStorage;
     }
 
+    /**
+     * Returns the SharedHexagonData.
+     */
     public SharedHexagonData getSharedHexagonData() {
         if (orientation == null || radius == 0) {
             throw new IllegalStateException("orientation or radius is not yet initialized");

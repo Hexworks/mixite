@@ -67,7 +67,9 @@ public class DemoComposite extends Composite {
     private int fontSize;
     private boolean drawCoordinates;
 
-    // I used window builder to build this...>:)
+    /**
+     * Demo composite.
+     */
     public DemoComposite(Shell parent, int style, final int shellWidth, final int shellHeight) {
         super(parent, style);
         GridLayout compositeLayout = new GridLayout(2, false);
@@ -79,18 +81,18 @@ public class DemoComposite extends Composite {
         setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
         final Canvas canvas = new Canvas(this, SWT.DOUBLE_BUFFERED);
         canvas.addMouseMoveListener(new MouseMoveListener() {
-            public void mouseMove(MouseEvent e) {
+            public void mouseMove(MouseEvent event) {
             }
         });
-        GridData gd_canvas = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
-        gd_canvas.minimumWidth = CANVAS_WIDTH;
-        canvas.setLayoutData(gd_canvas);
+        GridData canvasGridData = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+        canvasGridData.minimumWidth = CANVAS_WIDTH;
+        canvas.setLayoutData(canvasGridData);
         canvas.setLayout(new GridLayout(1, false));
         final Group grpControls = new Group(this, SWT.NONE);
         grpControls.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-        GridLayout gl_grpControls = new GridLayout(2, false);
-        gl_grpControls.marginHeight = 0;
-        grpControls.setLayout(gl_grpControls);
+        GridLayout graphControlGridLayout = new GridLayout(2, false);
+        graphControlGridLayout.marginHeight = 0;
+        grpControls.setLayout(graphControlGridLayout);
         grpControls.setText("Controls:");
 
         // pointy radio
@@ -132,7 +134,7 @@ public class DemoComposite extends Composite {
         layoutCombo.setText(DEFAULT_GRID_LAYOUT.name());
         layoutCombo.addSelectionListener(new SelectionAdapter() {
             @Override
-            public void widgetSelected(SelectionEvent e) {
+            public void widgetSelected(SelectionEvent event) {
                 hexagonGridLayout = HexagonalGridLayout.valueOf(layoutCombo.getText());
                 regenerateHexagonGrid(canvas);
             }
@@ -147,7 +149,7 @@ public class DemoComposite extends Composite {
         gridWidthSpinner.setSelection(gridWidth);
         gridWidthSpinner.addSelectionListener(new SelectionAdapter() {
             @Override
-            public void widgetSelected(SelectionEvent e) {
+            public void widgetSelected(SelectionEvent event) {
                 gridWidth = gridWidthSpinner.getSelection();
                 regenerateHexagonGrid(canvas);
             }
@@ -162,7 +164,7 @@ public class DemoComposite extends Composite {
         gridHeightSpinner.setSelection(gridHeight);
         gridHeightSpinner.addSelectionListener(new SelectionAdapter() {
             @Override
-            public void widgetSelected(SelectionEvent e) {
+            public void widgetSelected(SelectionEvent event) {
                 gridHeight = gridHeightSpinner.getSelection();
                 regenerateHexagonGrid(canvas);
             }
@@ -175,7 +177,7 @@ public class DemoComposite extends Composite {
         final Spinner radiusSpinner = new Spinner(grpControls, SWT.BORDER);
         radiusSpinner.addSelectionListener(new SelectionAdapter() {
             @Override
-            public void widgetSelected(SelectionEvent e) {
+            public void widgetSelected(SelectionEvent event) {
                 radius = radiusSpinner.getSelection();
                 regenerateHexagonGrid(canvas);
             }
@@ -190,7 +192,7 @@ public class DemoComposite extends Composite {
         final Spinner movementRangeSpinner = new Spinner(grpControls, SWT.BORDER);
         movementRangeSpinner.addSelectionListener(new SelectionAdapter() {
             @Override
-            public void widgetSelected(SelectionEvent e) {
+            public void widgetSelected(SelectionEvent event) {
                 movementRange = movementRangeSpinner.getSelection();
                 canvas.redraw();
             }
@@ -206,7 +208,7 @@ public class DemoComposite extends Composite {
         toggleMovementRangeCheck.setText("Toggle movement range");
         toggleMovementRangeCheck.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseUp(MouseEvent e) {
+            public void mouseUp(MouseEvent event) {
                 showMovementRange = toggleMovementRangeCheck.getSelection();
                 showNeighbors = !showMovementRange;
                 toggleNeighborsCheck.setSelection(showNeighbors);
@@ -215,7 +217,7 @@ public class DemoComposite extends Composite {
         });
         toggleNeighborsCheck.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseUp(MouseEvent e) {
+            public void mouseUp(MouseEvent event) {
                 showNeighbors = toggleNeighborsCheck.getSelection();
                 showMovementRange = !showNeighbors;
                 toggleMovementRangeCheck.setSelection(showMovementRange);
@@ -229,7 +231,7 @@ public class DemoComposite extends Composite {
         toggleDrawCoordinatesCheck.setText("Draw coordinates");
         toggleDrawCoordinatesCheck.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseUp(MouseEvent e) {
+            public void mouseUp(MouseEvent event) {
                 drawCoordinates = toggleDrawCoordinatesCheck.getSelection();
                 canvas.redraw();
             }
@@ -266,9 +268,9 @@ public class DemoComposite extends Composite {
         distanceText.setEditable(false);
         distanceText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 
-        Label lblNewLabel_1 = new Label(grpControls, SWT.NONE);
-        lblNewLabel_1.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
-        lblNewLabel_1.setText("(between last 2 selected)");
+        Label label1 = new Label(grpControls, SWT.NONE);
+        label1.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
+        label1.setText("(between last 2 selected)");
 
         resetButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -309,19 +311,19 @@ public class DemoComposite extends Composite {
         });
 
         canvas.addMouseMoveListener(new MouseMoveListener() {
-            public void mouseMove(MouseEvent e) {
-                xPositionText.setText(e.x + "");
-                yPositionText.setText(e.y + "");
+            public void mouseMove(MouseEvent event) {
+                xPositionText.setText(event.x + "");
+                yPositionText.setText(event.y + "");
             }
         });
 
         // darawing
         canvas.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseUp(MouseEvent e) {
+            public void mouseUp(MouseEvent event) {
                 Hexagon hex = null;
                 try {
-                    hex = hexagonalGrid.getByPixelCoordinate(e.x, e.y).get();
+                    hex = hexagonalGrid.getByPixelCoordinate(event.x, event.y).get();
                 } catch (NoSuchElementException ex) {
                     ex.printStackTrace();
                 }
@@ -355,35 +357,35 @@ public class DemoComposite extends Composite {
             Color yellow = getDisplay().getSystemColor(SWT.COLOR_YELLOW);
             Color red = getDisplay().getSystemColor(SWT.COLOR_RED);
 
-            public void paintControl(PaintEvent e) {
-                e.gc.setLineWidth(2);
-                e.gc.setForeground(darkBlue);
-                e.gc.setBackground(white);
-                e.gc.fillRectangle(new Rectangle(0, 0, shellWidth, shellHeight));
+            public void paintControl(PaintEvent event) {
+                event.gc.setLineWidth(2);
+                event.gc.setForeground(darkBlue);
+                event.gc.setBackground(white);
+                event.gc.fillRectangle(new Rectangle(0, 0, shellWidth, shellHeight));
 
                 for (Hexagon hexagon : hexagonalGrid.getHexagons()) {
                     Optional<SatelliteDataImpl> data = hexagon.<SatelliteDataImpl>getSatelliteData();
                     if (data.isPresent() && data.get().isSelected()) {
                         if (showNeighbors) {
                             for (Hexagon hex : hexagonalGrid.getNeighborsOf(hexagon)) {
-                                drawNeighborHexagon(e.gc, hex);
+                                drawNeighborHexagon(event.gc, hex);
                             }
                         }
                         if (showMovementRange) {
                             for (Hexagon hex : hexagonalGridCalculator.calculateMovementRangeFrom(hexagon, movementRange)) {
-                                drawMovementRangeHexagon(e.gc, hex);
+                                drawMovementRangeHexagon(event.gc, hex);
                             }
                         }
                     }
-                    drawEmptyHexagon(e.gc, hexagon);
+                    drawEmptyHexagon(event.gc, hexagon);
                 }
                 for (Hexagon hexagon : hexagonalGrid.getHexagons()) {
                     Optional<SatelliteDataImpl> data = hexagon.<SatelliteDataImpl>getSatelliteData();
                     if (data.isPresent() && data.get().isSelected()) {
-                        drawFilledHexagon(e.gc, hexagon);
+                        drawFilledHexagon(event.gc, hexagon);
                     }
                     if (drawCoordinates) {
-                        drawCoordinates(e.gc, hexagon);
+                        drawCoordinates(event.gc, hexagon);
                     }
                 }
             }
@@ -419,23 +421,23 @@ public class DemoComposite extends Composite {
             }
 
             private void drawCoordinates(GC gc, Hexagon hexagon) {
-                int x = hexagon.getGridX();
-                int y = hexagon.getGridY();
-                int z = -(x + y);
+                int gridX = hexagon.getGridX();
+                int gridY = hexagon.getGridY();
+                int gridZ = -(gridX + gridY);
                 gc.setFont(font);
                 gc.setForeground(red);
-                gc.drawString("x:" + x, (int) hexagon.getCenterX() - fontSize, (int) (hexagon.getCenterY() - fontSize * 2.5), true);
-                gc.drawString("y:" + y, (int) (hexagon.getCenterX() - fontSize * 2.8), (int) hexagon.getCenterY() + fontSize / 3, true);
-                gc.drawString("z:" + z, (int) (hexagon.getCenterX() + fontSize / 3), (int) hexagon.getCenterY() + fontSize / 3, true);
+                gc.drawString("gridX:" + gridX, (int) hexagon.getCenterX() - fontSize, (int) (hexagon.getCenterY() - fontSize * 2.5), true);
+                gc.drawString("gridY:" + gridY, (int) (hexagon.getCenterX() - fontSize * 2.8), (int) hexagon.getCenterY() + fontSize / 3, true);
+                gc.drawString("gridZ:" + gridZ, (int) (hexagon.getCenterX() + fontSize / 3), (int) hexagon.getCenterY() + fontSize / 3, true);
             }
 
             private int[] convertToPointsArr(List<Point> points) {
                 int[] pointsArr = new int[12];
-                int i = 0;
+                int idx = 0;
                 for (Point point : points) {
-                    pointsArr[i] = (int) Math.round(point.getX());
-                    pointsArr[i + 1] = (int) Math.round(point.getY());
-                    i += 2;
+                    pointsArr[idx] = (int) Math.round(point.getCoordinateX());
+                    pointsArr[idx + 1] = (int) Math.round(point.getCoordinateY());
+                    idx += 2;
                 }
                 return pointsArr;
             }
@@ -450,7 +452,12 @@ public class DemoComposite extends Composite {
         fontSize = (int) (radius / 3.5);
         font = new Font(canvas.getDisplay(), fd.getName(), fontSize, SWT.NONE);
         try {
-            HexagonalGridBuilder builder = new HexagonalGridBuilder().setGridWidth(gridWidth).setGridHeight(gridHeight).setRadius(radius).setOrientation(orientation).setGridLayout(hexagonGridLayout);
+            HexagonalGridBuilder builder = new HexagonalGridBuilder()
+                    .setGridWidth(gridWidth)
+                    .setGridHeight(gridHeight)
+                    .setRadius(radius)
+                    .setOrientation(orientation)
+                    .setGridLayout(hexagonGridLayout);
             hexagonalGrid = builder.build();
             hexagonalGridCalculator = builder.buildCalculatorFor(hexagonalGrid);
         } catch (HexagonalGridCreationException e) {

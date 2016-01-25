@@ -12,8 +12,8 @@ public class PointTest {
         final double x = 0;
         final double y = 1;
         final Point p = Point.fromPosition(x, y);
-        assertEquals(x, p.getX());
-        assertEquals(y, p.getY());
+        assertEquals(x, p.getCoordinateX());
+        assertEquals(y, p.getCoordinateY());
     }
 
     @Test

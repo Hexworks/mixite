@@ -46,12 +46,14 @@ public final class AxialCoordinate {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o)
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
-        if (o == null || getClass() != o.getClass())
+        }
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
-        AxialCoordinate that = (AxialCoordinate) o;
+        }
+        AxialCoordinate that = (AxialCoordinate) obj;
         return Objects.equals(gridX, that.gridX) && Objects.equals(gridZ, that.gridZ);
     }
 

@@ -9,9 +9,11 @@ import java.util.Optional;
  * Hexagons. See {@link HexagonalGridCalculator} for more advanced features.
  * </p>
  *
+ * <p>
  * This {@link HexagonalGrid} uses an axial (trapezoidal) coordinate system for easier
  * computation. This means that apart from the X axis a diagonal axis is used instead of
  * the vertical Y axis.
+ * </p>
  */
 public interface HexagonalGrid {
 
@@ -63,12 +65,12 @@ public interface HexagonalGrid {
      * <em>Please note</em> that all pixel coordinates are relative to
      * the containing {@link HexagonalGrid}.
      *
-     * @param x pixel x coordinate
-     * @param y pixel y coordinate
+     * @param coordinateX pixel coordinateX coordinate
+     * @param coordinateY pixel coordinateY coordinate
      *
      * @return Optional with a Hexagon if it is present
      */
-    Optional<Hexagon> getByPixelCoordinate(double x, double y);
+    Optional<Hexagon> getByPixelCoordinate(double coordinateX, double coordinateY);
 
     /**
      * Returns all neighbors of a {@link Hexagon}.

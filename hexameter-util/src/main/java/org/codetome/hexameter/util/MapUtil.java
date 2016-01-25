@@ -7,10 +7,13 @@ import org.codetome.hexameter.core.internal.SharedHexagonData;
 import org.codetome.hexameter.core.internal.impl.HexagonalGridImpl;
 
 /**
- * This class can be used to Import/Export maps from/to hexameter
+ * This class can be used to Import/Export maps from/to hexameter.
  */
 public class MapUtil {
 
+    /**
+     * Exports the map.
+     */
     public static String exportMap(HexagonalGrid grid, String name, String tilesetUrl) {
         MapData result = new MapData();
         HexagonalGridImpl hgi = (HexagonalGridImpl) grid;
@@ -37,6 +40,10 @@ public class MapUtil {
 
     private static String[] extractCellData(Hexagon hex) {
         MapSatelliteData sd = hex.<MapSatelliteData>getSatelliteData().get();
-        return new String[]{Integer.toString(hex.getGridX()), Integer.toString(hex.getGridZ()), sd.isPassable() ? "1" : "0", Double.toString(sd.getMovementCost()), sd.getTilesetId()};
+        return new String[]{Integer.toString(hex.getGridX()),
+                Integer.toString(hex.getGridZ()),
+                sd.isPassable() ? "1" : "0",
+                Double.toString(sd.getMovementCost()),
+                sd.getTilesetId()};
     }
 }

@@ -38,6 +38,9 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     private final int gridWidth;
     private final int gridHeight;
 
+    /**
+     * Creates a new HexagonalGrid based on the provided HexagonalGridBuilder.
+     */
     public HexagonalGridImpl(final HexagonalGridBuilder builder) {
         this.gridWidth = builder.getGridWidth();
         this.gridHeight = builder.getGridHeight();
@@ -84,9 +87,9 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     }
 
     @Override
-    public Optional<Hexagon> getByPixelCoordinate(final double x, final double y) {
-        int estimatedGridX = (int) (x / sharedHexagonData.getWidth());
-        int estimatedGridZ = (int) (y / sharedHexagonData.getHeight());
+    public Optional<Hexagon> getByPixelCoordinate(final double coordinateX, final double coordinateY) {
+        int estimatedGridX = (int) (coordinateX / sharedHexagonData.getWidth());
+        int estimatedGridZ = (int) (coordinateY / sharedHexagonData.getHeight());
         estimatedGridX = CoordinateConverter.convertOffsetCoordinatesToAxialX(estimatedGridX, estimatedGridZ, sharedHexagonData.getOrientation());
         estimatedGridZ = CoordinateConverter.convertOffsetCoordinatesToAxialZ(estimatedGridX, estimatedGridZ, sharedHexagonData.getOrientation());
         // it is possible that the estimated coordinates are off the grid so we
@@ -94,7 +97,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         final AxialCoordinate estimatedCoordinate = fromCoordinates(estimatedGridX, estimatedGridZ);
         final Hexagon tempHex = newHexagon(sharedHexagonData, estimatedCoordinate, hexagonStorage);
 
-        Hexagon trueHex = refineHexagonByPixel(tempHex, fromPosition(x, y));
+        Hexagon trueHex = refineHexagonByPixel(tempHex, fromPosition(coordinateX, coordinateY));
 
         if (hexagonsAreAtTheSamePosition(tempHex, trueHex)) {
             return getByAxialCoordinate(estimatedCoordinate);

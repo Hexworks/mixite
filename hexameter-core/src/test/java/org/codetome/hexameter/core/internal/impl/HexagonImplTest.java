@@ -57,8 +57,8 @@ public class HexagonImplTest {
     @Test
     public void shouldHaveProperPointsWhenPointy() {
         for (int i = 0; i < 6; i++) {
-            assertEquals((int) EXPECTED_POINTY_POINTS[i].getX(), (int) round(target.getPoints().get(i).getX()));
-            assertEquals((int) EXPECTED_POINTY_POINTS[i].getY(), (int) round(target.getPoints().get(i).getY()));
+            assertEquals((int) EXPECTED_POINTY_POINTS[i].getCoordinateX(), (int) round(target.getPoints().get(i).getCoordinateX()));
+            assertEquals((int) EXPECTED_POINTY_POINTS[i].getCoordinateY(), (int) round(target.getPoints().get(i).getCoordinateY()));
         }
     }
 
@@ -66,8 +66,8 @@ public class HexagonImplTest {
     public void shouldHaveProperPointsWhenFlat() {
         target = newHexagon(TEST_FLAT_DATA, TEST_COORDINATE, TEST_SATELLITE_DATA_MAP);
         for (int i = 0; i < 6; i++) {
-            assertEquals((int) EXPECTED_FLAT_POINTS[i].getX(), (int) round(target.getPoints().get(i).getX()));
-            assertEquals((int) EXPECTED_FLAT_POINTS[i].getY(), (int) round(target.getPoints().get(i).getY()));
+            assertEquals((int) EXPECTED_FLAT_POINTS[i].getCoordinateX(), (int) round(target.getPoints().get(i).getCoordinateX()));
+            assertEquals((int) EXPECTED_FLAT_POINTS[i].getCoordinateY(), (int) round(target.getPoints().get(i).getCoordinateY()));
         }
     }
 

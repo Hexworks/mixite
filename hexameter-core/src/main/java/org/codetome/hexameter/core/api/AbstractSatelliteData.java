@@ -9,22 +9,22 @@ public abstract class AbstractSatelliteData implements SatelliteData {
     private double movementCost;
 
     @Override
-    public boolean isPassable() {
+    public final boolean isPassable() {
         return passable;
     }
 
     @Override
-    public void setPassable(boolean passable) {
+    public final void setPassable(final boolean passable) {
         this.passable = passable;
     }
 
     @Override
-    public double getMovementCost() {
+    public final double getMovementCost() {
         return movementCost;
     }
 
     @Override
-    public void setMovementCost(double movementCost) {
+    public final void setMovementCost(final double movementCost) {
         this.movementCost = movementCost;
     }
 }

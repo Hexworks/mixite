@@ -17,6 +17,9 @@ public final class SharedHexagonData {
     private final double height;
     private final double width;
 
+    /**
+     * Creates a new SharedHexagonData based on <code>orientation</code> and <code>radius</code>.
+     */
     public SharedHexagonData(final HexagonOrientation orientation, final double radius) {
         this.orientation = orientation;
         this.radius = radius;
