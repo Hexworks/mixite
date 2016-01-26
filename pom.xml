@@ -3,7 +3,7 @@
 
     <groupId>org.codetome</groupId>
     <artifactId>hexameter</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Hexameter is a hexagonal grid library. The motivation behind it is to have an optimized,
@@ -192,7 +192,7 @@
         <connection>scm:git:git@github.com:Hexworks/hexameter.git</connection>
         <developerConnection>scm:git:git@github.com:Hexworks/hexameter.git</developerConnection>
         <url>https://github.com/Hexworks/hexameter</url>
-        <tag>v1.1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
