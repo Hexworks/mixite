@@ -1,5 +1,6 @@
 package org.codetome.hexameter.core.internal.impl;
 
+import lombok.Getter;
 import org.codetome.hexameter.core.api.AxialCoordinate;
 import org.codetome.hexameter.core.api.CoordinateConverter;
 import org.codetome.hexameter.core.api.Hexagon;
@@ -22,6 +23,8 @@ import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
 import static org.codetome.hexameter.core.api.Point.fromPosition;
 import static org.codetome.hexameter.core.internal.impl.HexagonImpl.newHexagon;
 
+@Getter
+@SuppressWarnings("PMD.UnusedPrivateField")
 public final class HexagonalGridImpl implements HexagonalGrid {
 
     private static final int[][] NEIGHBORS = {{+1, 0}, {+1, -1}, {0, -1}, {-1, 0}, {-1, +1}, {0, +1}};
@@ -125,22 +128,6 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     @Override
     public void clearSatelliteData() {
         hexagonStorage.clear();
-    }
-
-    public HexagonalGridLayout getGridLayout() {
-        return gridLayout;
-    }
-
-    public SharedHexagonData getSharedHexagonData() {
-        return sharedHexagonData;
-    }
-
-    public int getGridWidth() {
-        return gridWidth;
-    }
-
-    public int getGridHeight() {
-        return gridHeight;
     }
 
     private boolean hexagonsAreAtTheSamePosition(final Hexagon hex0, final Hexagon hex1) {

@@ -1,6 +1,9 @@
 package org.codetome.hexameter.core.api;
 
-import java.util.Objects;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+import java.io.Serializable;
 
 import static java.lang.Integer.parseInt;
 
@@ -8,7 +11,9 @@ import static java.lang.Integer.parseInt;
  * Represents an axial coorinate pair.
  * See http://www.redblobgames.com/grids/hexagons/#coordinates to learn more.
  */
-public final class AxialCoordinate implements java.io.Serializable {
+@EqualsAndHashCode
+@Getter
+public final class AxialCoordinate implements Serializable {
 
     private static final long serialVersionUID = -6656555565645274603L;
     private final int gridX;
@@ -24,7 +29,7 @@ public final class AxialCoordinate implements java.io.Serializable {
      * <code>%gridX%,%gridZ%</code>.
      */
     public static AxialCoordinate fromKey(final String key) {
-        AxialCoordinate result = null;
+        AxialCoordinate result;
         try {
             final String[] coords = key.split(",");
             result = fromCoordinates(parseInt(coords[0]), parseInt(coords[1]));
@@ -41,37 +46,12 @@ public final class AxialCoordinate implements java.io.Serializable {
         return new AxialCoordinate(gridX, gridZ);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(gridX, gridZ);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        AxialCoordinate that = (AxialCoordinate) obj;
-        return Objects.equals(gridX, that.gridX) && Objects.equals(gridZ, that.gridZ);
-    }
-
     /**
      * Creates a key which can be used in key-value storage objects based on this
      * {@link AxialCoordinate}.
      */
     public String toKey() {
         return gridX + "," + gridZ;
-    }
-
-    public int getGridX() {
-        return gridX;
-    }
-
-    public int getGridZ() {
-        return gridZ;
     }
 
 }

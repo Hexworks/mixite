@@ -1,11 +1,14 @@
 package org.codetome.hexameter.core.api;
 
+import lombok.Getter;
+
 import static java.lang.Math.sqrt;
 
 /**
  * Represents a point. Please note that this represents a point in
  * 2d space not an abstract concept of a coordinate.
  */
+@Getter
 public final class Point {
     private final double coordinateX;
     private final double coordinateY;
@@ -31,13 +34,4 @@ public final class Point {
         return sqrt((this.coordinateX - point.coordinateX) * (this.coordinateX - point.coordinateX)
                 + (this.coordinateY - point.coordinateY) * (this.coordinateY - point.coordinateY));
     }
-
-    public double getCoordinateX() {
-        return coordinateX;
-    }
-
-    public double getCoordinateY() {
-        return coordinateY;
-    }
-
 }

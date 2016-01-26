@@ -1,5 +1,6 @@
 package org.codetome.hexameter.core.internal.impl;
 
+import lombok.EqualsAndHashCode;
 import org.codetome.hexameter.core.api.AxialCoordinate;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.Point;
@@ -9,7 +10,6 @@ import org.codetome.hexameter.core.internal.SharedHexagonData;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 import static java.lang.Math.cos;
@@ -20,6 +20,7 @@ import static org.codetome.hexameter.core.api.Point.fromPosition;
 /**
  * Default implementation of the {@link Hexagon} interface.
  */
+@EqualsAndHashCode
 public class HexagonImpl implements Hexagon {
 
     private static final long serialVersionUID = -6658255569921274603L;
@@ -38,23 +39,6 @@ public class HexagonImpl implements Hexagon {
      */
     public static Hexagon newHexagon(final SharedHexagonData sharedHexagonData, final AxialCoordinate coordinate, Map<AxialCoordinate, Object> dataMap) {
         return new HexagonImpl(sharedHexagonData, coordinate, dataMap);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(coordinate);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        HexagonImpl hexagon = (HexagonImpl) obj;
-        return Objects.equals(coordinate, hexagon.coordinate);
     }
 
     @Override

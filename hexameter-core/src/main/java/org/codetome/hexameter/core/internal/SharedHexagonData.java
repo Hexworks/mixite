@@ -1,5 +1,6 @@
 package org.codetome.hexameter.core.internal;
 
+import lombok.Getter;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonOrientation;
 import org.codetome.hexameter.core.api.HexagonalGrid;
@@ -10,6 +11,8 @@ import static java.lang.Math.sqrt;
  * Immutable class which holds the shared data between the {@link Hexagon}s of a {@link HexagonalGrid}.
  * This is just for optimization of memory usage.
  */
+@Getter
+@SuppressWarnings("PMD.UnusedPrivateField")
 public final class SharedHexagonData {
 
     private final HexagonOrientation orientation;
@@ -33,21 +36,5 @@ public final class SharedHexagonData {
 
     private double calculateWidth(final double radius) {
         return radius * 3 / 2;
-    }
-
-    public HexagonOrientation getOrientation() {
-        return orientation;
-    }
-
-    public double getRadius() {
-        return radius;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public double getWidth() {
-        return width;
     }
 }
