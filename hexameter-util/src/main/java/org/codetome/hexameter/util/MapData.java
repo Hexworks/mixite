@@ -89,10 +89,6 @@ public class MapData {
         return cells;
     }
 
-    public void setCells(List<String[]> cells) {
-        this.cells = cells;
-    }
-
     public void addCellData(String[] cellData) {
         cells.add(cellData);
     }

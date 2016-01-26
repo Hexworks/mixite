@@ -15,6 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static java.lang.Math.round;
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
 import static org.codetome.hexameter.core.api.Point.fromPosition;
 import static org.codetome.hexameter.core.internal.impl.HexagonImpl.newHexagon;
@@ -78,6 +79,14 @@ public class HexagonImplTest {
     }
 
     @Test
+    public void shouldReturnProperSatelliteDataWhenSatelliteDataIsCleared() {
+        target.setSatelliteData(TEST_SATELLITE_DATA);
+        assertEquals(TEST_SATELLITE_DATA, target.getSatelliteData().get());
+        target.clearSatelliteData();
+        assertFalse(target.getSatelliteData().isPresent());
+    }
+
+    @Test
     public void shouldReturnProperXCoordinateWhenGetGridXIsCalled() {
         assertEquals(TEST_GRID_X, target.getGridX());
     }
@@ -112,6 +121,21 @@ public class HexagonImplTest {
     public void shouldReturnProperCenterYCoordinateWhenGetCenterYIsCalledWithFlatHexagons() {
         target = newHexagon(TEST_FLAT_DATA, TEST_COORDINATE, TEST_SATELLITE_DATA_MAP);
         assertEquals(EXPECTED_FLAT_CENTER_Y, round(target.getCenterY()));
+    }
+
+    @Test
+    public void shouldBeEqualToItself() {
+        assertEquals(target, target);
+    }
+
+    @Test
+    public void shouldNotBeEqualToNull() {
+        assertFalse(target.equals(null));
+    }
+
+    @Test
+    public void shouldProperlyGetIdWhenGetIdIsCalled() {
+        assertEquals(TEST_COORDINATE.toKey(), target.getId());
     }
 
 }

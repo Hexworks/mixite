@@ -1,5 +1,6 @@
 package org.codetome.hexameter.core.api;
 
+import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,6 +22,16 @@ public class AxialCoordinateTest {
     @Test
     public void shouldReturnProperCoordinateWhenGetGridXIsCalled() {
         assertEquals(TEST_GRID_X, target.getGridX());
+    }
+
+    @Test
+    public void shouldBeEqualToItself() {
+        Assert.assertEquals(target, target);
+    }
+
+    @Test
+    public void shouldNotBeEqualToNull() {
+        Assert.assertFalse(target.equals(null));
     }
 
     @Test

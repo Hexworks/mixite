@@ -131,7 +131,7 @@ public class HexagonImpl implements Hexagon {
 
     @Override
     public void clearSatelliteData() {
-        setSatelliteData(null);
+        this.dataMap.remove(getAxialCoordinate());
     }
 
     private void writeObject(java.io.ObjectOutputStream stream)

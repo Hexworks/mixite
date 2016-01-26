@@ -3,7 +3,7 @@
 Hexameter is a hexagonal grid library. The motivation behind it is to have
 an optimized, simple and usable library for drawing hexagonal grids without
 being tied to any GUI framework.
-It is **100% unit tested**.
+It is **100% unit tested** *(apart from some generated code)*.
 
 [![][travis img]][travis]
 [![][maven img]][maven]

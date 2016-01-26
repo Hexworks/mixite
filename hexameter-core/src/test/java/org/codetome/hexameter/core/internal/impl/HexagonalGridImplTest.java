@@ -5,7 +5,6 @@ import org.codetome.hexameter.core.api.AxialCoordinate;
 import org.codetome.hexameter.core.api.CoordinateConverter;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonOrientation;
-import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 import org.codetome.hexameter.core.api.SatelliteData;
 import org.junit.Assert;
@@ -23,6 +22,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
 import static org.codetome.hexameter.core.api.HexagonOrientation.POINTY_TOP;
+import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
 import static org.junit.Assert.assertArrayEquals;
 
 public class HexagonalGridImplTest {
@@ -35,13 +35,13 @@ public class HexagonalGridImplTest {
     private static final int GRID_X_TO = 4;
     private static final int GRID_Z_FROM = 3;
     private static final int GRID_Z_TO = 5;
-    private HexagonalGrid target;
+    private HexagonalGridImpl target;
     private HexagonalGridBuilder builder;
 
     @Before
     public void setUp() throws Exception {
         builder = new HexagonalGridBuilder().setGridHeight(GRID_HEIGHT).setGridWidth(GRID_WIDTH).setRadius(RADIUS).setOrientation(ORIENTATION);
-        target = builder.build();
+        target = (HexagonalGridImpl) builder.build();
     }
 
     @Test
@@ -202,5 +202,28 @@ public class HexagonalGridImplTest {
         testHex.setSatelliteData(data);
         target.clearSatelliteData();
         assertTrue(!testHex.getSatelliteData().isPresent());
+    }
+
+    @Test
+    public void shouldProperlyReturnGridLayoutWhenGetGridLayoutIsCalled() {
+        Assert.assertEquals(RECTANGULAR, target.getGridLayout());
+    }
+
+    @Test
+    public void shouldProperlyReturnSharedHexagonDataWhenGetSharedHexagonDataIsCalled() {
+        Assert.assertEquals(builder.getSharedHexagonData().getHeight(), target.getSharedHexagonData().getHeight(), 0);
+        Assert.assertEquals(builder.getSharedHexagonData().getWidth(), target.getSharedHexagonData().getWidth(), 0);
+        Assert.assertEquals(builder.getSharedHexagonData().getRadius(), target.getSharedHexagonData().getRadius(), 0);
+        Assert.assertEquals(builder.getSharedHexagonData().getOrientation(), target.getSharedHexagonData().getOrientation());
+    }
+
+    @Test
+    public void shouldProperlyReturnGridWidthWhenGetGridWidthIsCalled() {
+        Assert.assertEquals(GRID_WIDTH, target.getGridWidth());
+    }
+
+    @Test
+    public void shouldProperlyReturnGridHeightWhenGetGridHeightIsCalled() {
+        Assert.assertEquals(GRID_HEIGHT, target.getGridHeight());
     }
 }
