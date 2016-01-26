@@ -19,7 +19,7 @@ public class MapData {
     private double radius;
     private HexagonOrientation orientation;
     private HexagonalGridLayout layout;
-    private List<Object[]> cells = new ArrayList<>();
+    private List<String[]> cells = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -85,15 +85,15 @@ public class MapData {
         this.layout = layout;
     }
 
-    public List<Object[]> getCells() {
+    public List<String[]> getCells() {
         return cells;
     }
 
-    public void setCells(List<Object[]> cells) {
+    public void setCells(List<String[]> cells) {
         this.cells = cells;
     }
 
-    public void addCellData(Object[] cellData) {
+    public void addCellData(String[] cellData) {
         cells.add(cellData);
     }
 }
