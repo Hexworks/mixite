@@ -20,8 +20,8 @@
 
     <modules>
         <module>hexameter-core</module>
-        <module>hexameter-examples</module>
         <module>hexameter-util</module>
+        <module>hexameter-examples</module>
     </modules>
     <build>
         <pluginManagement>
