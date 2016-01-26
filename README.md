@@ -7,6 +7,7 @@ It is **100% unit tested** *(apart from some generated code)*.
 
 [![][travis img]][travis]
 [![][maven img]][maven]
+[![][codecov img]][codecov]
 [![][license img]][license]
 
 # Getting started
@@ -133,6 +134,9 @@ Pull reqeusts are also welcome!*
 
 [maven]:http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.codetome%22%20AND%20a%3A%22hexameter-core%22
 [maven img]:https://maven-badges.herokuapp.com/maven-central/org.codetome/hexameter-core/badge.svg
+
+[codecov img]:https://codecov.io/github/Hexworks/hexameter/coverage.svg?branch=master
+[codecov]:https://codecov.io/github/Hexworks/hexameter?branch=master
 
 [license]:https://github.com/Hexworks/hexameter/blob/master/LICENSE
 [license img]:https://img.shields.io/badge/License-MIT-blue.svg
