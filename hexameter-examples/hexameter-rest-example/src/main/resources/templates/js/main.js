@@ -4,7 +4,7 @@ var gridId = null;
 document.addEventListener('DOMContentLoaded', function () {
     initPixi();
     $.ajax({
-        url: 'http://localhost:' + HEROKU_ASSIGNED_PORT + '/grids',
+        url: appURL + '/grids',
         type: 'POST',
         dataType: 'json',
         data: JSON.stringify({
@@ -29,7 +29,7 @@ document.querySelector("#redraw").addEventListener("click", function (event) {
     var orientation = document.querySelector('input[name="orientation"]:checked').value;
 
     $.ajax({
-        url: 'http://localhost:' + HEROKU_ASSIGNED_PORT + '/grids',
+        url: appURL + '/grids',
         type: 'PUT',
         dataType: 'json',
         data: JSON.stringify({
@@ -51,7 +51,7 @@ document.querySelector("#redraw").addEventListener("click", function (event) {
 
 function fetchGrid(gridId) {
     $.ajax({
-        url: 'http://localhost:' + HEROKU_ASSIGNED_PORT + '/grids/getGridForDrawing/' + gridId,
+        url: appURL + '/grids/getGridForDrawing/' + gridId,
         type: 'GET',
         success: function (result) {
             hexagonData = result.cellData;

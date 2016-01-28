@@ -29,7 +29,7 @@ import static spark.Spark.put;
 
 public class Main {
 
-    private static final int HTTP_BAD_REQUEST = 400;
+    private static final int DEFAULT_PORT = 4567;
 
     public static void main(String[] args) {
 
@@ -41,7 +41,11 @@ public class Main {
         Spark.staticFileLocation("/templates");
 
         Map<String, Object> map = new HashMap<>();
-        map.put("herokuAssignedPort", getHerokuAssignedPort());
+        if(isRunningOnHeroku()) {
+            map.put("appURL", "http://hexameter-rest-example.herokuapp.com");
+        } else {
+            map.put("appURL", "http://localhost:" + DEFAULT_PORT);
+        }
 
 
         get("/", (rq, rs) -> new ModelAndView(map, "index"), new ThymeleafTemplateEngine());
@@ -127,6 +131,10 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException("IOException from a StringWriter?");
         }
+    }
+
+    private static boolean isRunningOnHeroku() {
+        return new ProcessBuilder().environment().get("PORT") != null;
     }
 
     private static int getHerokuAssignedPort() {
