@@ -1,6 +1,6 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import org.codetome.hexameter.core.api.AbstractSatelliteData;
+import org.codetome.hexameter.core.api.DefaultSatelliteData;
 import org.codetome.hexameter.core.api.AxialCoordinate;
 import org.codetome.hexameter.core.api.CoordinateConverter;
 import org.codetome.hexameter.core.api.Hexagon;
@@ -197,7 +197,7 @@ public class HexagonalGridImplTest {
     @Test
     public void shouldProperlyClearSatelliteDataWhenClearSatelliteDataIsCalled() {
         final Hexagon testHex = target.getByAxialCoordinate(fromCoordinates(2, 3)).get();
-        final SatelliteData data = new AbstractSatelliteData() {
+        final SatelliteData data = new DefaultSatelliteData() {
         };
         testHex.setSatelliteData(data);
         target.clearSatelliteData();

@@ -1,100 +1,126 @@
 package org.codetome.hexameter.restexample;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Data;
-import org.codetome.hexameter.core.api.HexagonOrientation;
-import org.codetome.hexameter.core.api.HexagonalGrid;
-import org.codetome.hexameter.core.api.HexagonalGridBuilder;
-import org.codetome.hexameter.core.api.HexagonalGridLayout;
+import javassist.NotFoundException;
+import org.codetome.hexameter.restexample.dto.GridDto;
+import org.codetome.hexameter.restexample.model.Model;
+import org.codetome.hexameter.restexample.payload.HexagonBuilderPayload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import spark.ModelAndView;
+import spark.Spark;
+import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT;
-import static org.codetome.hexameter.core.api.HexagonOrientation.POINTY_TOP;
-import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
+import static java.lang.Integer.parseInt;
+import static spark.Spark.before;
+import static spark.Spark.exception;
 import static spark.Spark.get;
+import static spark.Spark.options;
 import static spark.Spark.port;
 import static spark.Spark.post;
+import static spark.Spark.put;
 
 public class Main {
 
     private static final int HTTP_BAD_REQUEST = 400;
 
-    @Data
-    static class HexagonBuilderPayload {
-        private int gridWidth;
-        private int gridHeight;
-        private double radius;
-        private HexagonOrientation orientation = POINTY_TOP;
-        private HexagonalGridLayout gridLayout = RECTANGULAR;
-
-        public boolean isValid() {
-            return gridWidth > 0 && gridHeight > 0 && radius > 0 && orientation != null && gridLayout != null;
-        }
-    }
-
-    public static class Model {
-
-        private AtomicInteger nextId = new AtomicInteger(1);
-
-        private Map<Integer, HexagonalGrid> grids = new HashMap<>();
-
-        public int createGrid(HexagonBuilderPayload payload) {
-            int id = nextId.incrementAndGet();
-            HexagonalGrid grid = new HexagonalGridBuilder()
-                    .setGridHeight(payload.getGridHeight())
-                    .setGridWidth(payload.getGridWidth())
-                    .setGridLayout(payload.getGridLayout())
-                    .setOrientation(payload.getOrientation())
-                    .setRadius(payload.getRadius()).build();
-            grids.put(id, grid);
-            return id;
-        }
-
-        public HexagonalGrid getGridById(Integer id) {
-            return grids.get(id);
-        }
-    }
-
     public static void main(String[] args) {
+
+        Logger logger = LoggerFactory.getLogger(Main.class);
+
         port(getHerokuAssignedPort());
         Model model = new Model();
 
+        Spark.staticFileLocation("/templates");
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("herokuAssignedPort", getHerokuAssignedPort());
+
+
+        get("/", (rq, rs) -> new ModelAndView(map, "index"), new ThymeleafTemplateEngine());
+
         post("/grids", (request, response) -> {
-            try {
-                ObjectMapper mapper = new ObjectMapper();
-                HexagonBuilderPayload payload = mapper.readValue(request.body(), HexagonBuilderPayload.class);
-                if (!payload.isValid()) {
-                    response.status(HTTP_BAD_REQUEST);
-                    return "";
-                }
-                int id = model.createGrid(payload);
-                response.status(200);
-                response.type("application/json");
-                return id;
-            } catch (Exception e) {
-                response.status(HTTP_BAD_REQUEST);
-                return "";
-            }
+            HexagonBuilderPayload payload = new ObjectMapper().readValue(request.body(), HexagonBuilderPayload.class);
+            int id = model.createGrid(payload);
+            response.status(201);
+            response.type("application/json");
+            return id;
         });
 
-        get("/grids/:id", (request, response) -> {
+        put("/grids", (request, response) -> {
+            HexagonBuilderPayload payload = new ObjectMapper().readValue(request.body(), HexagonBuilderPayload.class);
+            int id = model.replaceGrid(payload);
+            response.status(201);
+            response.type("application/json");
+            return id;
+        });
+
+        get("/grids/getGridForDrawing/:id", (request, response) -> {
             response.status(200);
             response.type("application/json");
-            return dataToJson(model.getGridById(Integer.parseInt(request.params(":id"))));
+            return dataToJson(GridDto.fromGrid(model.getGridById(parseInt(request.params(":id")))));
+        });
+
+        exception(NotFoundException.class, (e, request, response) -> {
+            response.status(404);
+            response.body("Resource not found");
+        });
+
+        exception(IOException.class, (e, request, response) -> {
+            response.status(400);
+            logger.error("Fail", e);
+            response.body("Bad request");
+        });
+
+        exception(JsonParseException.class, (e, request, response) -> {
+            response.status(400);
+            logger.error("Fail", e);
+            response.body("Bad request");
+        });
+
+        exception(JsonMappingException.class, (e, request, response) -> {
+            response.status(400);
+            logger.error("Fail", e);
+            response.body("Bad request");
+        });
+
+        options("/*",
+                (request, response) -> {
+
+                    String accessControlRequestHeaders = request
+                            .headers("Access-Control-Request-Headers");
+                    if (accessControlRequestHeaders != null) {
+                        response.header("Access-Control-Allow-Headers",
+                                accessControlRequestHeaders);
+                    }
+
+                    String accessControlRequestMethod = request
+                            .headers("Access-Control-Request-Method");
+                    if (accessControlRequestMethod != null) {
+                        response.header("Access-Control-Allow-Methods",
+                                accessControlRequestMethod);
+                    }
+
+                    return "OK";
+                });
+
+        before((request, response) -> {
+            response.header("Access-Control-Allow-Origin", "*");
         });
 
     }
 
 
-    public static String dataToJson(Object data) {
+    private static String dataToJson(Object data) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            mapper.enable(INDENT_OUTPUT);
             StringWriter sw = new StringWriter();
             mapper.writeValue(sw, data);
             return sw.toString();
@@ -106,7 +132,7 @@ public class Main {
     private static int getHerokuAssignedPort() {
         ProcessBuilder processBuilder = new ProcessBuilder();
         if (processBuilder.environment().get("PORT") != null) {
-            return Integer.parseInt(processBuilder.environment().get("PORT"));
+            return parseInt(processBuilder.environment().get("PORT"));
         }
         return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
     }

@@ -8,11 +8,11 @@ public class AbstractSatelliteDataTest {
 
     private static final double EXPECTED_MOVEMENT_COST = 5.1;
     private static final boolean EXPECTED_IS_PASSABLE = true;
-    private AbstractSatelliteData target;
+    private DefaultSatelliteData target;
 
     @Before
     public void setUp() throws Exception {
-        target = new AbstractSatelliteData() {
+        target = new DefaultSatelliteData() {
         };
     }
 

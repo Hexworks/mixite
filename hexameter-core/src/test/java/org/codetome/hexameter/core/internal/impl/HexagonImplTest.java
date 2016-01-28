@@ -1,6 +1,6 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import org.codetome.hexameter.core.api.AbstractSatelliteData;
+import org.codetome.hexameter.core.api.DefaultSatelliteData;
 import org.codetome.hexameter.core.api.AxialCoordinate;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonOrientation;
@@ -29,7 +29,7 @@ public class HexagonImplTest {
     private static final int TEST_GRID_Z = 3;
     private static final AxialCoordinate TEST_COORDINATE = fromCoordinates(TEST_GRID_X, TEST_GRID_Z);
     private static final int TEST_GRID_Y = -5;
-    private static final SatelliteData TEST_SATELLITE_DATA = new AbstractSatelliteData() {
+    private static final SatelliteData TEST_SATELLITE_DATA = new DefaultSatelliteData() {
     };
     private static final Map<AxialCoordinate, Object> TEST_SATELLITE_DATA_MAP = new ConcurrentHashMap<>();
     private static final int EXPECTED_POINTY_CENTER_X = 69;

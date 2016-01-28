@@ -9,8 +9,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @SuppressWarnings("PMD.UnusedPrivateField")
-public abstract class AbstractSatelliteData implements SatelliteData {
+public class DefaultSatelliteData implements SatelliteData {
 
+    private static final long serialVersionUID = 4397186040368615654L;
     private boolean passable;
     private double movementCost;
 }

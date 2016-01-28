@@ -1,8 +1,8 @@
 package org.codetome.hexameter.swtexample;
 
-import org.codetome.hexameter.core.api.AbstractSatelliteData;
+import org.codetome.hexameter.core.api.DefaultSatelliteData;
 
-public class SatelliteDataImpl extends AbstractSatelliteData {
+public class SatelliteDataImpl extends DefaultSatelliteData {
 
     private static final long serialVersionUID = 1335166038345783576L;
 

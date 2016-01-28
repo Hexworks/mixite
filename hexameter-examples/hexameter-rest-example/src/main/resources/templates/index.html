@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" class="no-js" lang="">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title></title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var HEROKU_ASSIGNED_PORT = 4567;//[[${herokuAssignedPort}]];
+        /*]]>*/
+    </script>
+    <script src="/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Hexameter rest example</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Hexagonal grid</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="pixi-container">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Controls</h3>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label class="radio-inline">
+                                <input type="radio" name="orientation" id="pointyTop" value="POINTY_TOP" checked="checked"/>Pointy top
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="orientation" id="flatTop" value="FLAT_TOP" />Flat top
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <select id="layout" class="form-control">
+                                <option>RECTANGULAR</option>
+                                <option>HEXAGONAL</option>
+                                <option>TRIANGULAR</option>
+                                <option>TRAPEZOID</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="columns">Columns</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">Columns</div>
+                                <input type="text" class="form-control" id="columns" placeholder="15" value="15"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="rows">Rows</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">Rows&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                <input type="text" class="form-control" id="rows" placeholder="15" value="15"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="rows">Radius</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">Radius&nbsp;&nbsp;&nbsp;</div>
+                                <input type="text" class="form-control" id="radius" placeholder="20" value="20" />
+                            </div>
+                        </div>
+
+                        <button id="redraw" type="submit" class="btn btn-default">Redraw</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /container -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('\&lt;script src="/js/vendor/jquery-1.11.2.min.js">&lt;\/script>')</script>
+
+<script src="/js/vendor/bootstrap.min.js"></script>
+<script src="/js/vendor/pixi.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>
