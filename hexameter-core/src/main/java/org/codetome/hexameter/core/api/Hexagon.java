@@ -1,6 +1,5 @@
 package org.codetome.hexameter.core.api;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +9,7 @@ import java.util.Optional;
  * </p>
  * <em>Please note</em> that all coordinates are relative to the {@link HexagonalGrid} containing this {@link Hexagon}.
  */
-public interface Hexagon extends Serializable {
+public interface Hexagon {
 
     /**
      * Returns an unique {@link String} representing this {@link Hexagon}.

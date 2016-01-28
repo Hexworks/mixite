@@ -1,5 +1,7 @@
 package org.codetome.hexameter.core.api;
 
+import org.codetome.hexameter.core.internal.GridData;
+
 import java.util.Optional;
 
 /**
@@ -16,6 +18,11 @@ import java.util.Optional;
  * </p>
  */
 public interface HexagonalGrid {
+
+    /**
+     * Returns this HexagonalGrid's GridData.
+     */
+    GridData getGridData();
 
     /**
      * Returns all {@link Hexagon}s contained in this grid.

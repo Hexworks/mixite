@@ -35,19 +35,19 @@ public class HexagonalGridBuilderTest {
         assertEquals(GRID_WIDTH, target.getGridWidth());
         assertEquals(GRID_LAYOUT_STRATEGY, target.getGridLayoutStrategy());
         assertEquals(RADIUS, target.getRadius());
-        Assert.assertNotNull(target.getSharedHexagonData());
+        Assert.assertNotNull(target.getGridData());
     }
 
     @Test(expected = IllegalStateException.class)
     public void shouldFailGettingSharedHexagonDataWhenOrientationIsNull() {
         target.setOrientation(null);
-        target.getSharedHexagonData();
+        target.getGridData();
     }
 
     @Test(expected = IllegalStateException.class)
     public void shouldFailGettingSharedHexagonDataWhenRadiusIsZero() {
         target.setRadius(0);
-        target.getSharedHexagonData();
+        target.getGridData();
     }
 
     @Test(expected = HexagonalGridCreationException.class)

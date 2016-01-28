@@ -1,7 +1,7 @@
 package org.codetome.hexameter.core.api;
 
 import org.codetome.hexameter.core.api.exception.HexagonalGridCreationException;
-import org.codetome.hexameter.core.internal.SharedHexagonData;
+import org.codetome.hexameter.core.internal.GridData;
 import org.codetome.hexameter.core.internal.impl.HexagonalGridCalculatorImpl;
 import org.codetome.hexameter.core.internal.impl.HexagonalGridImpl;
 import org.codetome.hexameter.core.internal.impl.layoutstrategy.GridLayoutStrategy;
@@ -135,17 +135,13 @@ public final class HexagonalGridBuilder {
     }
 
     /**
-     * Returns the SharedHexagonData.
+     * Returns the GridData.
      */
-    public SharedHexagonData getSharedHexagonData() {
-        if (orientation == null || radius == 0) {
-            throw new IllegalStateException("orientation or radius is not yet initialized");
+    public GridData getGridData() {
+        if (orientation == null || gridLayout == null || radius == 0 || gridWidth == 0 || gridHeight == 0) {
+            throw new IllegalStateException("Not all necessary fields are initialized!");
         }
-        return new SharedHexagonData(orientation, radius);
-    }
-
-    public HexagonalGridLayout getGridLayout() {
-        return gridLayout;
+        return new GridData(orientation, gridLayout, radius, gridWidth, gridHeight);
     }
 
     /**

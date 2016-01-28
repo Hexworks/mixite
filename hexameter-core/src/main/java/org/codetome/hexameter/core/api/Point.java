@@ -10,6 +10,7 @@ import static java.lang.Math.sqrt;
  */
 @Getter
 public final class Point {
+
     private final double coordinateX;
     private final double coordinateY;
 

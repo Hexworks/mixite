@@ -1,7 +1,6 @@
 package org.codetome.hexameter.core.api;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -11,8 +10,7 @@ import static java.lang.Integer.parseInt;
  * Represents an axial coorinate pair.
  * See http://www.redblobgames.com/grids/hexagons/#coordinates to learn more.
  */
-@EqualsAndHashCode
-@Getter
+@Data
 public final class AxialCoordinate implements Serializable {
 
     private static final long serialVersionUID = -6656555565645274603L;

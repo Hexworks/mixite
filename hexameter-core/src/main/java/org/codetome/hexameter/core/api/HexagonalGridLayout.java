@@ -1,6 +1,5 @@
 package org.codetome.hexameter.core.api;
 
-import org.codetome.hexameter.core.internal.impl.layoutstrategy.EmptyGridLayoutStrategy;
 import org.codetome.hexameter.core.internal.impl.layoutstrategy.GridLayoutStrategy;
 import org.codetome.hexameter.core.internal.impl.layoutstrategy.HexagonalGridLayoutStrategy;
 import org.codetome.hexameter.core.internal.impl.layoutstrategy.RectangularGridLayoutStrategy;
@@ -34,12 +33,7 @@ public enum HexagonalGridLayout {
     /**
      * A trapezoid layout has no special rules.
      */
-    TRAPEZOID(new TrapezoidGridLayoutStrategy()),
-
-    /**
-     * An empty grid.
-     */
-    EMPTY(new EmptyGridLayoutStrategy());
+    TRAPEZOID(new TrapezoidGridLayoutStrategy());
 
     private GridLayoutStrategy gridLayoutStrategy;
 

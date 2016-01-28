@@ -1,12 +1,11 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import org.codetome.hexameter.core.api.DefaultSatelliteData;
 import org.codetome.hexameter.core.api.AxialCoordinate;
+import org.codetome.hexameter.core.api.DefaultSatelliteData;
 import org.codetome.hexameter.core.api.Hexagon;
-import org.codetome.hexameter.core.api.HexagonOrientation;
 import org.codetome.hexameter.core.api.Point;
 import org.codetome.hexameter.core.api.SatelliteData;
-import org.codetome.hexameter.core.internal.SharedHexagonData;
+import org.codetome.hexameter.core.internal.GridData;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,20 +16,22 @@ import static java.lang.Math.round;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
+import static org.codetome.hexameter.core.api.HexagonOrientation.FLAT_TOP;
+import static org.codetome.hexameter.core.api.HexagonOrientation.POINTY_TOP;
+import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
 import static org.codetome.hexameter.core.api.Point.fromPosition;
 import static org.codetome.hexameter.core.internal.impl.HexagonImpl.newHexagon;
 
 public class HexagonImplTest {
 
     private static final double TEST_RADIUS = 10;
-    private static final SharedHexagonData TEST_POINTY_DATA = new SharedHexagonData(HexagonOrientation.POINTY_TOP, TEST_RADIUS);
-    private static final SharedHexagonData TEST_FLAT_DATA = new SharedHexagonData(HexagonOrientation.FLAT_TOP, TEST_RADIUS);
+    private static final GridData TEST_POINTY_DATA = new GridData(POINTY_TOP, RECTANGULAR, TEST_RADIUS, 1, 1);
+    private static final GridData TEST_FLAT_DATA = new GridData(FLAT_TOP, RECTANGULAR, TEST_RADIUS, 1, 1);
     private static final int TEST_GRID_X = 2;
     private static final int TEST_GRID_Z = 3;
     private static final AxialCoordinate TEST_COORDINATE = fromCoordinates(TEST_GRID_X, TEST_GRID_Z);
     private static final int TEST_GRID_Y = -5;
-    private static final SatelliteData TEST_SATELLITE_DATA = new DefaultSatelliteData() {
-    };
+    private static final SatelliteData TEST_SATELLITE_DATA = new DefaultSatelliteData();
     private static final Map<AxialCoordinate, Object> TEST_SATELLITE_DATA_MAP = new ConcurrentHashMap<>();
     private static final int EXPECTED_POINTY_CENTER_X = 69;
     private static final int EXPECTED_FLAT_CENTER_X = 40;
@@ -48,11 +49,6 @@ public class HexagonImplTest {
     @Before
     public void setUp() {
         target = newHexagon(TEST_POINTY_DATA, TEST_COORDINATE, TEST_SATELLITE_DATA_MAP);
-    }
-
-    @Test
-    public void shouldReturnProperStringRepresentationOfHexagonWhenToStringCalled() {
-        assertEquals("HexagonImpl#{x=" + TEST_GRID_X + ", z=" + TEST_GRID_Z + "}", target.toString());
     }
 
     @Test

@@ -1,11 +1,12 @@
 package org.codetome.hexameter.core.internal.impl;
 
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.codetome.hexameter.core.api.AxialCoordinate;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.Point;
 import org.codetome.hexameter.core.api.SatelliteData;
-import org.codetome.hexameter.core.internal.SharedHexagonData;
+import org.codetome.hexameter.core.internal.GridData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +22,15 @@ import static org.codetome.hexameter.core.api.Point.fromPosition;
  * Default implementation of the {@link Hexagon} interface.
  */
 @EqualsAndHashCode
+@ToString(of = "coordinate")
 public class HexagonImpl implements Hexagon {
 
-    private static final long serialVersionUID = -6658255569921274603L;
     private final AxialCoordinate coordinate;
-    private final transient SharedHexagonData sharedData;
+    private final transient GridData sharedData;
     private final transient Map<AxialCoordinate, Object> dataMap;
 
-    private HexagonImpl(final SharedHexagonData sharedHexagonData, final AxialCoordinate coordinate, Map<AxialCoordinate, Object> dataMap) {
-        this.sharedData = sharedHexagonData;
+    private HexagonImpl(final GridData gridData, final AxialCoordinate coordinate, Map<AxialCoordinate, Object> dataMap) {
+        this.sharedData = gridData;
         this.coordinate = coordinate;
         this.dataMap = dataMap;
     }
@@ -37,13 +38,8 @@ public class HexagonImpl implements Hexagon {
     /**
      * Creates a new {@link Hexagon} object from shared data and a coordinate.
      */
-    public static Hexagon newHexagon(final SharedHexagonData sharedHexagonData, final AxialCoordinate coordinate, Map<AxialCoordinate, Object> dataMap) {
-        return new HexagonImpl(sharedHexagonData, coordinate, dataMap);
-    }
-
-    @Override
-    public String toString() {
-        return "HexagonImpl#{x=" + coordinate.getGridX() + ", z=" + coordinate.getGridZ() + "}";
+    public static Hexagon newHexagon(final GridData gridData, final AxialCoordinate coordinate, Map<AxialCoordinate, Object> dataMap) {
+        return new HexagonImpl(gridData, coordinate, dataMap);
     }
 
     @Override
@@ -86,18 +82,20 @@ public class HexagonImpl implements Hexagon {
     @Override
     public final double getCenterX() {
         if (FLAT_TOP.equals(sharedData.getOrientation())) {
-            return coordinate.getGridX() * sharedData.getWidth() + sharedData.getRadius();
+            return coordinate.getGridX() * sharedData.getHexagonWidth() + sharedData.getRadius();
         } else {
-            return coordinate.getGridX() * sharedData.getWidth() + coordinate.getGridZ() * sharedData.getWidth() / 2 + sharedData.getWidth() / 2;
+            return coordinate.getGridX() * sharedData.getHexagonWidth() + coordinate.getGridZ()
+                    * sharedData.getHexagonWidth() / 2 + sharedData.getHexagonWidth() / 2;
         }
     }
 
     @Override
     public final double getCenterY() {
         if (FLAT_TOP.equals(sharedData.getOrientation())) {
-            return coordinate.getGridZ() * sharedData.getHeight() + coordinate.getGridX() * sharedData.getHeight() / 2 + sharedData.getHeight() / 2;
+            return coordinate.getGridZ() * sharedData.getHexagonHeight() + coordinate.getGridX()
+                    * sharedData.getHexagonHeight() / 2 + sharedData.getHexagonHeight() / 2;
         } else {
-            return coordinate.getGridZ() * sharedData.getHeight() + sharedData.getRadius();
+            return coordinate.getGridZ() * sharedData.getHexagonHeight() + sharedData.getRadius();
         }
     }
 
@@ -117,15 +115,4 @@ public class HexagonImpl implements Hexagon {
     public void clearSatelliteData() {
         this.dataMap.remove(getAxialCoordinate());
     }
-
-    private void writeObject(java.io.ObjectOutputStream stream)
-            throws java.io.IOException {
-        stream.defaultWriteObject();
-    }
-
-    private void readObject(java.io.ObjectInputStream stream)
-            throws java.io.IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-    }
-
 }
