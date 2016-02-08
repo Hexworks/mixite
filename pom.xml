@@ -20,7 +20,6 @@
 
     <modules>
         <module>hexameter-core</module>
-        <module>hexameter-util</module>
         <module>hexameter-examples</module>
     </modules>
     <build>
