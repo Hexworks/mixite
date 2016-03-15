@@ -125,7 +125,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         return gridData;
     }
 
-    private boolean hexagonsAreAtTheSamePosition(final Hexagon hex0, final Hexagon hex1) {
+    private static boolean hexagonsAreAtTheSamePosition(final Hexagon hex0, final Hexagon hex1) {
         return hex0.getGridX() == hex1.getGridX() && hex0.getGridZ() == hex1.getGridZ();
     }
 
