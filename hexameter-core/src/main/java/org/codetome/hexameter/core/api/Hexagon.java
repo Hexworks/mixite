@@ -1,7 +1,8 @@
 package org.codetome.hexameter.core.api;
 
 import java.util.List;
-import java.util.Optional;
+
+import org.codetome.hexameter.core.backport.Optional;
 
 /**
  * <p>

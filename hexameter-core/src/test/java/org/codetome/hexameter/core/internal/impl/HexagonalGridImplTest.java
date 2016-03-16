@@ -1,23 +1,30 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import org.codetome.hexameter.core.api.*;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Optional;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
 import static org.codetome.hexameter.core.api.HexagonOrientation.POINTY_TOP;
 import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
 import static org.junit.Assert.assertArrayEquals;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.codetome.hexameter.core.api.AxialCoordinate;
+import org.codetome.hexameter.core.api.CoordinateConverter;
+import org.codetome.hexameter.core.api.DefaultSatelliteData;
+import org.codetome.hexameter.core.api.Hexagon;
+import org.codetome.hexameter.core.api.HexagonOrientation;
+import org.codetome.hexameter.core.api.HexagonalGrid;
+import org.codetome.hexameter.core.api.HexagonalGridBuilder;
+import org.codetome.hexameter.core.api.SatelliteData;
+import org.codetome.hexameter.core.backport.Optional;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 public class HexagonalGridImplTest {
 

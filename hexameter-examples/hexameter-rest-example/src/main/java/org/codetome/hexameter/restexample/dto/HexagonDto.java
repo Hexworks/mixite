@@ -1,10 +1,10 @@
 package org.codetome.hexameter.restexample.dto;
 
-import lombok.Data;
 import org.codetome.hexameter.core.api.DefaultSatelliteData;
 import org.codetome.hexameter.core.api.Hexagon;
+import org.codetome.hexameter.core.backport.Optional;
 
-import java.util.Optional;
+import lombok.Data;
 
 @Data
 public class HexagonDto {

@@ -1,25 +1,26 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import lombok.Getter;
+import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
+import static org.codetome.hexameter.core.api.Point.fromPosition;
+import static org.codetome.hexameter.core.internal.impl.HexagonImpl.newHexagon;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 import org.codetome.hexameter.core.api.AxialCoordinate;
 import org.codetome.hexameter.core.api.CoordinateConverter;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 import org.codetome.hexameter.core.api.Point;
+import org.codetome.hexameter.core.backport.Optional;
 import org.codetome.hexameter.core.internal.GridData;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
-import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
-import static org.codetome.hexameter.core.api.Point.fromPosition;
-import static org.codetome.hexameter.core.internal.impl.HexagonImpl.newHexagon;
+import lombok.Getter;
 
 @Getter
 @SuppressWarnings("PMD.UnusedPrivateField")

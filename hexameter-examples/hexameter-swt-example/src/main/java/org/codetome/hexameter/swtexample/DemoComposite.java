@@ -1,5 +1,11 @@
 package org.codetome.hexameter.swtexample;
 
+import static org.codetome.hexameter.core.api.HexagonOrientation.POINTY_TOP;
+import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonOrientation;
 import org.codetome.hexameter.core.api.HexagonalGrid;
@@ -8,6 +14,7 @@ import org.codetome.hexameter.core.api.HexagonalGridCalculator;
 import org.codetome.hexameter.core.api.HexagonalGridLayout;
 import org.codetome.hexameter.core.api.Point;
 import org.codetome.hexameter.core.api.exception.HexagonalGridCreationException;
+import org.codetome.hexameter.core.backport.Optional;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -33,13 +40,6 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
-
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-
-import static org.codetome.hexameter.core.api.HexagonOrientation.POINTY_TOP;
-import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
 
 public class DemoComposite extends Composite {
 

@@ -1,8 +1,7 @@
 package org.codetome.hexameter.core.api;
 
+import org.codetome.hexameter.core.backport.Optional;
 import org.codetome.hexameter.core.internal.GridData;
-
-import java.util.Optional;
 
 /**
  * <p>

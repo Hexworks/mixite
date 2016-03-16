@@ -1,6 +1,6 @@
 package org.codetome.hexameter.core.api;
 
-import java.util.Optional;
+import org.codetome.hexameter.core.backport.Optional;
 
 /**
  * Represents arbitrary data which can be attached to a Hexagon.

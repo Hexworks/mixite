@@ -1,13 +1,15 @@
 package org.codetome.hexameter.core.api;
 
+import static org.codetome.hexameter.core.backport.Optional.ofNullable;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.codetome.hexameter.core.backport.Optional;
+
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-
-import static java.util.Optional.ofNullable;
 
 /**
  * Convenience class implementing SatelliteData.
