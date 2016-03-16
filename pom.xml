@@ -162,6 +162,12 @@
             <artifactId>checkstyle</artifactId>
             <version>6.14.1</version>
         </dependency>
+        <dependency>
+            <groupId>io.reactivex</groupId>
+            <artifactId>rxjava</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
 
         <dependency>
             <groupId>junit</groupId>
