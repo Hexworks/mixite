@@ -29,7 +29,11 @@ import static spark.Spark.put;
 
 public class Main {
 
+    private static final String BAD_REQUEST = "Bad request";
+    private static final String APPLICATION_JSON = "application/json";
     private static final int DEFAULT_PORT = 4567;
+
+    private Main() {}
 
     public static void main(String[] args) {
 
@@ -54,7 +58,7 @@ public class Main {
             HexagonBuilderPayload payload = new ObjectMapper().readValue(request.body(), HexagonBuilderPayload.class);
             int id = model.createGrid(payload);
             response.status(201);
-            response.type("application/json");
+            response.type(APPLICATION_JSON);
             return id;
         });
 
@@ -62,13 +66,13 @@ public class Main {
             HexagonBuilderPayload payload = new ObjectMapper().readValue(request.body(), HexagonBuilderPayload.class);
             int id = model.replaceGrid(payload);
             response.status(201);
-            response.type("application/json");
+            response.type(APPLICATION_JSON);
             return id;
         });
 
         get("/grids/getGridForDrawing/:id", (request, response) -> {
             response.status(200);
-            response.type("application/json");
+            response.type(APPLICATION_JSON);
             return dataToJson(GridDto.fromGrid(model.getGridById(parseInt(request.params(":id")))));
         });
 
@@ -80,19 +84,19 @@ public class Main {
         exception(IOException.class, (e, request, response) -> {
             response.status(400);
             logger.error("Fail", e);
-            response.body("Bad request");
+            response.body(BAD_REQUEST);
         });
 
         exception(JsonParseException.class, (e, request, response) -> {
             response.status(400);
             logger.error("Fail", e);
-            response.body("Bad request");
+            response.body(BAD_REQUEST);
         });
 
         exception(JsonMappingException.class, (e, request, response) -> {
             response.status(400);
             logger.error("Fail", e);
-            response.body("Bad request");
+            response.body(BAD_REQUEST);
         });
 
         options("/*",

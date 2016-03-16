@@ -39,11 +39,11 @@ public final class GridData {
         this.hexagonWidth = FLAT_TOP.equals(orientation) ? calculateWidth(radius) : calculateHeight(radius);
     }
 
-    private double calculateHeight(final double radius) {
+    private static double calculateHeight(final double radius) {
         return sqrt(3) * radius;
     }
 
-    private double calculateWidth(final double radius) {
+    private static double calculateWidth(final double radius) {
         return radius * 3 / 2;
     }
 }

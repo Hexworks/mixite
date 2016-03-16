@@ -326,7 +326,7 @@ public class DemoComposite extends Composite {
                     currSelected = hex;
                     drawDistance();
                     Optional<SatelliteDataImpl> dataOptional = hex.<SatelliteDataImpl>getSatelliteData();
-                    SatelliteDataImpl data = null;
+                    SatelliteDataImpl data;
                     if (dataOptional.isPresent()) {
                         data = dataOptional.get();
                     } else {
