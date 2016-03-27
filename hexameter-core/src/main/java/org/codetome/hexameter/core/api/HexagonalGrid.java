@@ -1,7 +1,11 @@
 package org.codetome.hexameter.core.api;
 
+import java.util.Collection;
+
 import org.codetome.hexameter.core.backport.Optional;
 import org.codetome.hexameter.core.internal.GridData;
+
+import rx.Observable;
 
 /**
  * <p>
@@ -28,7 +32,7 @@ public interface HexagonalGrid {
      *
      * @return hexagons
      */
-    Iterable<Hexagon> getHexagons();
+    Observable<Hexagon> getHexagons();
 
     /**
      * Returns all {@link Hexagon}s contained in the given axial coordinate range.
@@ -36,7 +40,7 @@ public interface HexagonalGrid {
      *
      * @return {@link Hexagon}s in the given range.
      */
-    Iterable<Hexagon> getHexagonsByAxialRange(AxialCoordinate from, AxialCoordinate to);
+    Observable<Hexagon> getHexagonsByAxialRange(AxialCoordinate from, AxialCoordinate to);
 
     /**
      * Returns all {@link Hexagon}s contained in the given offset coordinate range.
@@ -44,12 +48,12 @@ public interface HexagonalGrid {
      *
      * @param gridXFrom from x inclusive
      * @param gridXTo to x inclusive
-     * @param gridYfrom from z inclusive
+     * @param gridYFrom from z inclusive
      * @param gridYTo to z inclusive
      *
      * @return {@link Hexagon}s in the given range.
      */
-    Iterable<Hexagon> getHexagonsByOffsetRange(int gridXFrom, int gridXTo, int gridYfrom, int gridYTo);
+    Observable<Hexagon> getHexagonsByOffsetRange(int gridXFrom, int gridXTo, int gridYFrom, int gridYTo);
 
     /**
      * Tells whether the given axial coordinate is on the grid or not.
@@ -85,7 +89,7 @@ public interface HexagonalGrid {
      *
      * @return the {@link Hexagon}'s neighbors
      */
-    Iterable<Hexagon> getNeighborsOf(Hexagon hexagon);
+    Collection<Hexagon> getNeighborsOf(Hexagon hexagon);
 
     /**
      * Clears all satellite data attached to the {@link Hexagon}s in this grid.

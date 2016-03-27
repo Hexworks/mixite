@@ -41,6 +41,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 
+import rx.functions.Action1;
+
 public class DemoComposite extends Composite {
 
     private static final int DEFAULT_GRID_WIDTH = 15;
@@ -357,31 +359,37 @@ public class DemoComposite extends Composite {
                 event.gc.setBackground(white);
                 event.gc.fillRectangle(new Rectangle(0, 0, shellWidth, shellHeight));
 
-                for (Hexagon hexagon : hexagonalGrid.getHexagons()) {
-                    Optional<SatelliteDataImpl> data = hexagon.<SatelliteDataImpl>getSatelliteData();
-                    if (data.isPresent() && data.get().isSelected()) {
-                        if (showNeighbors) {
-                            for (Hexagon hex : hexagonalGrid.getNeighborsOf(hexagon)) {
-                                drawNeighborHexagon(event.gc, hex);
+                hexagonalGrid.getHexagons().forEach(new Action1<Hexagon>() {
+                    @Override
+                    public void call(Hexagon hexagon) {
+                        Optional<SatelliteDataImpl> data = hexagon.<SatelliteDataImpl>getSatelliteData();
+                        if (data.isPresent() && data.get().isSelected()) {
+                            if (showNeighbors) {
+                                for (Hexagon hex : hexagonalGrid.getNeighborsOf(hexagon)) {
+                                    drawNeighborHexagon(event.gc, hex);
+                                }
+                            }
+                            if (showMovementRange) {
+                                for (Hexagon hex : hexagonalGridCalculator.calculateMovementRangeFrom(hexagon, movementRange)) {
+                                    drawMovementRangeHexagon(event.gc, hex);
+                                }
                             }
                         }
-                        if (showMovementRange) {
-                            for (Hexagon hex : hexagonalGridCalculator.calculateMovementRangeFrom(hexagon, movementRange)) {
-                                drawMovementRangeHexagon(event.gc, hex);
-                            }
+                        drawEmptyHexagon(event.gc, hexagon);
+                    }
+                });
+                hexagonalGrid.getHexagons().forEach(new Action1<Hexagon>() {
+                    @Override
+                    public void call(Hexagon hexagon) {
+                        Optional<SatelliteDataImpl> data = hexagon.<SatelliteDataImpl>getSatelliteData();
+                        if (data.isPresent() && data.get().isSelected()) {
+                            drawFilledHexagon(event.gc, hexagon);
+                        }
+                        if (drawCoordinates) {
+                            drawCoordinates(event.gc, hexagon);
                         }
                     }
-                    drawEmptyHexagon(event.gc, hexagon);
-                }
-                for (Hexagon hexagon : hexagonalGrid.getHexagons()) {
-                    Optional<SatelliteDataImpl> data = hexagon.<SatelliteDataImpl>getSatelliteData();
-                    if (data.isPresent() && data.get().isSelected()) {
-                        drawFilledHexagon(event.gc, hexagon);
-                    }
-                    if (drawCoordinates) {
-                        drawCoordinates(event.gc, hexagon);
-                    }
-                }
+                });
             }
 
             private void drawNeighborHexagon(GC gc, Hexagon hexagon) {

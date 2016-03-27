@@ -26,6 +26,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import rx.Observable;
+
 public class HexagonalGridImplTest {
 
     private static final int RADIUS = 30;
@@ -55,7 +57,7 @@ public class HexagonalGridImplTest {
 
     @Test
     public void shouldReturnProperHexagonsWhenEachHexagonIsTestedInAGivenGrid() {
-        final Iterable<Hexagon> hexagons = target.getHexagons();
+        final Observable<Hexagon> hexagons = target.getHexagons();
         final Set<String> expectedCoordinates = new HashSet<>();
         for (int x = 0; x < GRID_WIDTH; x++) {
             for (int y = 0; y < GRID_HEIGHT; y++) {
@@ -89,7 +91,7 @@ public class HexagonalGridImplTest {
         expected.add(target.getByAxialCoordinate(fromCoordinates(3, 5)).get());
         expected.add(target.getByAxialCoordinate(fromCoordinates(4, 5)).get());
 
-        final Iterable<Hexagon> actual = target.getHexagonsByAxialRange(fromCoordinates(GRID_X_FROM, GRID_Z_FROM), fromCoordinates(GRID_X_TO, GRID_Z_TO));
+        final Observable<Hexagon> actual = target.getHexagonsByAxialRange(fromCoordinates(GRID_X_FROM, GRID_Z_FROM), fromCoordinates(GRID_X_TO, GRID_Z_TO));
         final AtomicInteger count = new AtomicInteger();
         actual.forEach(hex -> count.incrementAndGet());
         assertEquals(expected.size(), count.get());
@@ -113,7 +115,7 @@ public class HexagonalGridImplTest {
         expected.add(target.getByAxialCoordinate(fromCoordinates(1, 5)).get());
         expected.add(target.getByAxialCoordinate(fromCoordinates(2, 5)).get());
 
-        final Iterable<Hexagon> actual = target.getHexagonsByOffsetRange(GRID_X_FROM, GRID_X_TO, GRID_Z_FROM, GRID_Z_TO);
+        final Observable<Hexagon> actual = target.getHexagonsByOffsetRange(GRID_X_FROM, GRID_X_TO, GRID_Z_FROM, GRID_Z_TO);
         final AtomicInteger count = new AtomicInteger();
         actual.forEach(hex -> count.incrementAndGet());
         assertEquals(expected.size(), count.get());

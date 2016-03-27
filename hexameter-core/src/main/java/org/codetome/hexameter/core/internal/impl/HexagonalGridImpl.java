@@ -4,12 +4,11 @@ import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
 import static org.codetome.hexameter.core.api.Point.fromPosition;
 import static org.codetome.hexameter.core.internal.impl.HexagonImpl.newHexagon;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import org.codetome.hexameter.core.api.AxialCoordinate;
 import org.codetome.hexameter.core.api.CoordinateConverter;
@@ -21,6 +20,9 @@ import org.codetome.hexameter.core.backport.Optional;
 import org.codetome.hexameter.core.internal.GridData;
 
 import lombok.Getter;
+import rx.Observable;
+import rx.Observable.OnSubscribe;
+import rx.Subscriber;
 
 @Getter
 @SuppressWarnings("PMD.UnusedPrivateField")
@@ -44,28 +46,59 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     }
 
     @Override
-    public Iterable<Hexagon> getHexagons() {
-        return coordinates.stream().map(coordinate -> newHexagon(gridData, coordinate, hexagonStorage)).collect(Collectors.toList());
+    public Observable<Hexagon> getHexagons() {
+        Observable<Hexagon> result = Observable.create(new OnSubscribe<Hexagon>() {
+            @Override
+            public void call(Subscriber<? super Hexagon> subscriber) {
+                final Iterator<AxialCoordinate> coordinateIterator = coordinates.iterator();
+                while (coordinateIterator.hasNext()) {
+                    subscriber.onNext(newHexagon(gridData, coordinateIterator.next(), hexagonStorage));
+                }
+                subscriber.onCompleted();
+            }
+        });
+        return result;
     }
 
     @Override
-    public Iterable<Hexagon> getHexagonsByAxialRange(final AxialCoordinate from, final AxialCoordinate to) {
-        return IntStream.rangeClosed(from.getGridX(), to.getGridX()).parallel()
-                .mapToObj(x -> IntStream.rangeClosed(from.getGridZ(), to.getGridZ())
-                        .mapToObj(z -> getByAxialCoordinate(fromCoordinates(x, z))))
-                .flatMap(Stream::sequential)
-                .filter(Optional::isPresent).map(Optional::get)
-                .collect(Collectors.toSet());
+    public Observable<Hexagon> getHexagonsByAxialRange(final AxialCoordinate from, final AxialCoordinate to) {
+        Observable<Hexagon> result = Observable.create(new OnSubscribe<Hexagon>() {
+            @Override
+            public void call(Subscriber<? super Hexagon> subscriber) {
+                for (int gridZ = from.getGridZ(); gridZ <= to.getGridZ(); gridZ++) {
+                    for (int gridX = from.getGridX(); gridX <= to.getGridX(); gridX++) {
+                        final AxialCoordinate currentCoordinate = fromCoordinates(gridX, gridZ);
+                        if (containsAxialCoordinate(currentCoordinate)) {
+                            subscriber.onNext(getByAxialCoordinate(currentCoordinate).get());
+                        }
+                    }
+                }
+                subscriber.onCompleted();
+            }
+        });
+        return result;
     }
 
     @Override
-    public Iterable<Hexagon> getHexagonsByOffsetRange(final int gridXFrom, final int gridXTo, final int gridYFrom, final int gridYTo) {
-        return IntStream.rangeClosed(gridXFrom, gridXTo).parallel().mapToObj(x -> IntStream.rangeClosed(gridYFrom, gridYTo).mapToObj(y -> {
-            final int axialX = CoordinateConverter.convertOffsetCoordinatesToAxialX(x, y, gridData.getOrientation());
-            final int axialZ = CoordinateConverter.convertOffsetCoordinatesToAxialZ(x, y, gridData.getOrientation());
-            final AxialCoordinate axialCoordinate = fromCoordinates(axialX, axialZ);
-            return getByAxialCoordinate(axialCoordinate);
-        })).flatMap(Stream::sequential).filter(Optional::isPresent).map(Optional::get).collect(Collectors.toSet());
+    public Observable<Hexagon> getHexagonsByOffsetRange(final int gridXFrom, final int gridXTo, final int gridYFrom, final int gridYTo) {
+        Observable<Hexagon> result = Observable.create(new OnSubscribe<Hexagon>() {
+            @Override
+            public void call(Subscriber<? super Hexagon> subscriber) {
+                for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {
+                    for (int gridY = gridYFrom; gridY <= gridYTo; gridY++) {
+                        final int axialX = CoordinateConverter.convertOffsetCoordinatesToAxialX(gridX, gridY, gridData.getOrientation());
+                        final int axialZ = CoordinateConverter.convertOffsetCoordinatesToAxialZ(gridX, gridY, gridData.getOrientation());
+                        final AxialCoordinate axialCoordinate = fromCoordinates(axialX, axialZ);
+                        final Optional<Hexagon> hex = getByAxialCoordinate(axialCoordinate);
+                        if (hex.isPresent()) {
+                            subscriber.onNext(hex.get());
+                        }
+                    }
+                }
+                subscriber.onCompleted();
+            }
+        });
+        return result;
     }
 
     @Override
@@ -101,7 +134,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     }
 
     @Override
-    public Iterable<Hexagon> getNeighborsOf(final Hexagon hexagon) {
+    public Collection<Hexagon> getNeighborsOf(final Hexagon hexagon) {
         final Set<Hexagon> neighbors = new HashSet<>();
         for (final int[] neighbor : NEIGHBORS) {
             Hexagon retHex;
