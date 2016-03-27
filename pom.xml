@@ -13,7 +13,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>1.7</java.version>
     </properties>
 
     <packaging>pom</packaging>
@@ -71,7 +71,7 @@
                         <linkXRef>true</linkXRef>
                         <sourceEncoding>utf-8</sourceEncoding>
                         <minimumTokens>100</minimumTokens>
-                        <targetJdk>1.8</targetJdk>
+                        <targetJdk>${java.version}</targetJdk>
                         <excludes>
                             <exclude>**/*Bean.java</exclude>
                             <exclude>**/generated/*.java</exclude>
@@ -113,8 +113,8 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
                     </configuration>
                 </plugin>
                 <plugin>

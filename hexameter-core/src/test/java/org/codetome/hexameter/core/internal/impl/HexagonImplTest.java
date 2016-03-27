@@ -1,17 +1,5 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import org.codetome.hexameter.core.api.AxialCoordinate;
-import org.codetome.hexameter.core.api.DefaultSatelliteData;
-import org.codetome.hexameter.core.api.Hexagon;
-import org.codetome.hexameter.core.api.Point;
-import org.codetome.hexameter.core.api.SatelliteData;
-import org.codetome.hexameter.core.internal.GridData;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import static java.lang.Math.round;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
@@ -21,6 +9,20 @@ import static org.codetome.hexameter.core.api.HexagonOrientation.POINTY_TOP;
 import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
 import static org.codetome.hexameter.core.api.Point.fromPosition;
 import static org.codetome.hexameter.core.internal.impl.HexagonImpl.newHexagon;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.codetome.hexameter.core.api.AxialCoordinate;
+import org.codetome.hexameter.core.api.DefaultSatelliteData;
+import org.codetome.hexameter.core.api.Hexagon;
+import org.codetome.hexameter.core.api.Point;
+import org.codetome.hexameter.core.api.SatelliteData;
+import org.codetome.hexameter.core.internal.GridData;
+import org.junit.Before;
+import org.junit.Test;
 
 public class HexagonImplTest {
 
@@ -53,18 +55,20 @@ public class HexagonImplTest {
 
     @Test
     public void shouldHaveProperPointsWhenPointy() {
+        List<Point> points = new ArrayList<>(target.getPoints());
         for (int i = 0; i < 6; i++) {
-            assertEquals((int) EXPECTED_POINTY_POINTS[i].getCoordinateX(), (int) round(target.getPoints().get(i).getCoordinateX()));
-            assertEquals((int) EXPECTED_POINTY_POINTS[i].getCoordinateY(), (int) round(target.getPoints().get(i).getCoordinateY()));
+            assertEquals((int) EXPECTED_POINTY_POINTS[i].getCoordinateX(), (int) round(points.get(i).getCoordinateX()));
+            assertEquals((int) EXPECTED_POINTY_POINTS[i].getCoordinateY(), (int) round(points.get(i).getCoordinateY()));
         }
     }
 
     @Test
     public void shouldHaveProperPointsWhenFlat() {
         target = newHexagon(TEST_FLAT_DATA, TEST_COORDINATE, TEST_SATELLITE_DATA_MAP);
+        List<Point> points = new ArrayList<>(target.getPoints());
         for (int i = 0; i < 6; i++) {
-            assertEquals((int) EXPECTED_FLAT_POINTS[i].getCoordinateX(), (int) round(target.getPoints().get(i).getCoordinateX()));
-            assertEquals((int) EXPECTED_FLAT_POINTS[i].getCoordinateY(), (int) round(target.getPoints().get(i).getCoordinateY()));
+            assertEquals((int) EXPECTED_FLAT_POINTS[i].getCoordinateX(), (int) round(points.get(i).getCoordinateX()));
+            assertEquals((int) EXPECTED_FLAT_POINTS[i].getCoordinateY(), (int) round(points.get(i).getCoordinateY()));
         }
     }
 

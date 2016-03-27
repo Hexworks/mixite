@@ -13,7 +13,7 @@ import rx.Observable;
  * ready-to-use grid. This interface contains all common functionality for dealing with
  * Hexagons. See {@link HexagonalGridCalculator} for more advanced features.
  * </p>
- *
+ * <p/>
  * <p>
  * This {@link HexagonalGrid} uses an axial (trapezoidal) coordinate system for easier
  * computation. This means that apart from the X axis a diagonal axis is used instead of
@@ -47,10 +47,9 @@ public interface HexagonalGrid {
      * If the range contains coordinates which are not part of the grid they will be ignored.
      *
      * @param gridXFrom from x inclusive
-     * @param gridXTo to x inclusive
+     * @param gridXTo   to x inclusive
      * @param gridYFrom from z inclusive
-     * @param gridYTo to z inclusive
-     *
+     * @param gridYTo   to z inclusive
      * @return {@link Hexagon}s in the given range.
      */
     Observable<Hexagon> getHexagonsByOffsetRange(int gridXFrom, int gridXTo, int gridYFrom, int gridYTo);
@@ -77,7 +76,6 @@ public interface HexagonalGrid {
      *
      * @param coordinateX pixel coordinateX coordinate
      * @param coordinateY pixel coordinateY coordinate
-     *
      * @return Optional with a Hexagon if it is present
      */
     Optional<Hexagon> getByPixelCoordinate(double coordinateX, double coordinateY);
@@ -86,7 +84,6 @@ public interface HexagonalGrid {
      * Returns all neighbors of a {@link Hexagon}.
      *
      * @param hexagon {@link Hexagon}
-     *
      * @return the {@link Hexagon}'s neighbors
      */
     Collection<Hexagon> getNeighborsOf(Hexagon hexagon);

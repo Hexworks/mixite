@@ -1,11 +1,5 @@
 package org.codetome.hexameter.swtexample;
 
-import static org.codetome.hexameter.core.api.HexagonOrientation.POINTY_TOP;
-import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
-
-import java.util.List;
-import java.util.NoSuchElementException;
-
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonOrientation;
 import org.codetome.hexameter.core.api.HexagonalGrid;
@@ -18,6 +12,7 @@ import org.codetome.hexameter.core.backport.Optional;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -34,14 +29,20 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
-
 import rx.functions.Action1;
+
+import java.util.Collection;
+import java.util.NoSuchElementException;
+
+import static org.codetome.hexameter.core.api.HexagonOrientation.POINTY_TOP;
+import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
 
 public class DemoComposite extends Composite {
 
@@ -80,7 +81,10 @@ public class DemoComposite extends Composite {
         setLayout(compositeLayout);
         setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
         final Canvas canvas = new Canvas(this, SWT.DOUBLE_BUFFERED);
-        canvas.addMouseMoveListener(event -> {
+        canvas.addMouseMoveListener(new MouseMoveListener() {
+            @Override
+            public void mouseMove(MouseEvent event) {
+            }
         });
         GridData canvasGridData = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
         canvasGridData.minimumWidth = CANVAS_WIDTH;
@@ -308,9 +312,12 @@ public class DemoComposite extends Composite {
             }
         });
 
-        canvas.addMouseMoveListener(event -> {
-            xPositionText.setText(event.x + "");
-            yPositionText.setText(event.y + "");
+        canvas.addMouseMoveListener(new MouseMoveListener() {
+            @Override
+            public void mouseMove(MouseEvent event) {
+                xPositionText.setText(event.x + "");
+                yPositionText.setText(event.y + "");
+            }
         });
 
         // darawing
@@ -353,7 +360,7 @@ public class DemoComposite extends Composite {
             Color yellow = getDisplay().getSystemColor(SWT.COLOR_YELLOW);
             Color red = getDisplay().getSystemColor(SWT.COLOR_RED);
 
-            public void paintControl(PaintEvent event) {
+            public void paintControl(final PaintEvent event) {
                 event.gc.setLineWidth(2);
                 event.gc.setForeground(darkBlue);
                 event.gc.setBackground(white);
@@ -433,7 +440,7 @@ public class DemoComposite extends Composite {
                 gc.drawString("gridZ:" + gridZ, (int) (hexagon.getCenterX() + fontSize / 3), (int) (hexagon.getCenterY() + fontSize / 3), true);
             }
 
-            private int[] convertToPointsArr(List<Point> points) {
+            private int[] convertToPointsArr(Collection<Point> points) {
                 int[] pointsArr = new int[12];
                 int idx = 0;
                 for (Point point : points) {
@@ -469,7 +476,12 @@ public class DemoComposite extends Composite {
             msg.setText(e.getMessage());
             final Button ok = new Button(dialog, SWT.PUSH);
             ok.setText("Ok");
-            Listener listener = event -> dialog.close();
+            Listener listener = new Listener() {
+                @Override
+                public void handleEvent(Event event) {
+                    dialog.close();
+                }
+            };
             ok.addListener(SWT.Selection, listener);
             dialog.pack();
             dialog.open();

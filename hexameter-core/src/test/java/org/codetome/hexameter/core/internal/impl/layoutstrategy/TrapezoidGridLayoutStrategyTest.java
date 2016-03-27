@@ -1,15 +1,15 @@
 package org.codetome.hexameter.core.internal.impl.layoutstrategy;
 
+import static junit.framework.Assert.assertTrue;
+import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
+import static org.codetome.hexameter.core.api.HexagonOrientation.FLAT_TOP;
+
+import java.util.Collection;
+
 import org.codetome.hexameter.core.api.AxialCoordinate;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Collection;
-
-import static junit.framework.Assert.assertTrue;
-import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
-import static org.codetome.hexameter.core.api.HexagonOrientation.FLAT_TOP;
 
 public class TrapezoidGridLayoutStrategyTest {
 
@@ -24,7 +24,7 @@ public class TrapezoidGridLayoutStrategyTest {
 
     @Test
     public void shouldProperlyCreateHexagonsWithPointyOrientationWhenCreateHexagonsIsCalled() {
-        testCoordinates(target.fetchGridCoordinates(builder));
+        testCoordinates(target.fetchGridCoordinates(builder).toList().toBlocking().single());
     }
 
     private void testCoordinates(final Collection<AxialCoordinate> coords) {
@@ -56,7 +56,7 @@ public class TrapezoidGridLayoutStrategyTest {
     @Test
     public void shouldProperlyCreateHexagonsWithFlatOrientationWhenCreateHexagonsIsCalled() {
         builder.setOrientation(FLAT_TOP);
-        testCoordinates(target.fetchGridCoordinates(builder));
+        testCoordinates(target.fetchGridCoordinates(builder).toList().toBlocking().single());
     }
 
     @Test

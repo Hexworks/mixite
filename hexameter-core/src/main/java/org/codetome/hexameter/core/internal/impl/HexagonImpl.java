@@ -1,14 +1,7 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
-import static org.codetome.hexameter.core.api.HexagonOrientation.FLAT_TOP;
-import static org.codetome.hexameter.core.api.Point.fromPosition;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.codetome.hexameter.core.api.AxialCoordinate;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.Point;
@@ -16,8 +9,14 @@ import org.codetome.hexameter.core.api.SatelliteData;
 import org.codetome.hexameter.core.backport.Optional;
 import org.codetome.hexameter.core.internal.GridData;
 
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+import static org.codetome.hexameter.core.api.HexagonOrientation.FLAT_TOP;
+import static org.codetome.hexameter.core.api.Point.fromPosition;
 
 /**
  * Default implementation of the {@link Hexagon} interface.
@@ -104,7 +103,7 @@ public class HexagonImpl implements Hexagon {
     @SuppressWarnings("unchecked")
     public final <T extends SatelliteData> Optional<T> getSatelliteData() {
         final Object result = dataMap.get(getAxialCoordinate());
-        return result == null ? Optional.empty() : Optional.of((T) result);
+        return result == null ? Optional.<T>empty() : Optional.of((T) result);
     }
 
     @Override

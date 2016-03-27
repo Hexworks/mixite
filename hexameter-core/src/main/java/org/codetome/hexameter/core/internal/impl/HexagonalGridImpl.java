@@ -1,15 +1,6 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
-import static org.codetome.hexameter.core.api.Point.fromPosition;
-import static org.codetome.hexameter.core.internal.impl.HexagonImpl.newHexagon;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
+import lombok.Getter;
 import org.codetome.hexameter.core.api.AxialCoordinate;
 import org.codetome.hexameter.core.api.CoordinateConverter;
 import org.codetome.hexameter.core.api.Hexagon;
@@ -18,11 +9,21 @@ import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 import org.codetome.hexameter.core.api.Point;
 import org.codetome.hexameter.core.backport.Optional;
 import org.codetome.hexameter.core.internal.GridData;
-
-import lombok.Getter;
 import rx.Observable;
 import rx.Observable.OnSubscribe;
 import rx.Subscriber;
+import rx.functions.Action1;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
+import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
+import static org.codetome.hexameter.core.api.Point.fromPosition;
+import static org.codetome.hexameter.core.internal.impl.HexagonImpl.newHexagon;
 
 @Getter
 @SuppressWarnings("PMD.UnusedPrivateField")
@@ -42,7 +43,13 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     public HexagonalGridImpl(final HexagonalGridBuilder builder) {
         this.gridData = builder.getGridData();
         this.hexagonStorage = builder.getCustomStorage();
-        this.coordinates = builder.getGridLayoutStrategy().fetchGridCoordinates(builder);
+        this.coordinates = new LinkedHashSet<>();
+        builder.getGridLayoutStrategy().fetchGridCoordinates(builder).subscribe(new Action1<AxialCoordinate>() {
+            @Override
+            public void call(AxialCoordinate axialCoordinate) {
+                HexagonalGridImpl.this.coordinates.add(axialCoordinate);
+            }
+        });
     }
 
     @Override
@@ -108,9 +115,10 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     @Override
     public Optional<Hexagon> getByAxialCoordinate(final AxialCoordinate coordinate) {
+
         return containsAxialCoordinate(coordinate)
                 ? Optional.of(newHexagon(gridData, coordinate, hexagonStorage))
-                : Optional.empty();
+                : Optional.<Hexagon>empty();
     }
 
     @Override
@@ -129,7 +137,7 @@ public final class HexagonalGridImpl implements HexagonalGrid {
         if (hexagonsAreAtTheSamePosition(tempHex, trueHex)) {
             return getByAxialCoordinate(estimatedCoordinate);
         } else {
-            return containsAxialCoordinate(trueHex.getAxialCoordinate()) ? Optional.of(trueHex) : Optional.empty();
+            return containsAxialCoordinate(trueHex.getAxialCoordinate()) ? Optional.of(trueHex) : Optional.<Hexagon>empty();
         }
     }
 

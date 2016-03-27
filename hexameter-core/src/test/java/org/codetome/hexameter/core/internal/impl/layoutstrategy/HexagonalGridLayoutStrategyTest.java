@@ -1,17 +1,17 @@
 package org.codetome.hexameter.core.internal.impl.layoutstrategy;
 
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
+import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
+import static org.codetome.hexameter.core.internal.impl.layoutstrategy.GridLayouStrategyTestUtil.fetchDefaultBuilder;
+
+import java.util.Collection;
+
 import org.codetome.hexameter.core.api.AxialCoordinate;
 import org.codetome.hexameter.core.api.HexagonOrientation;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Collection;
-
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
-import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
-import static org.codetome.hexameter.core.internal.impl.layoutstrategy.GridLayouStrategyTestUtil.fetchDefaultBuilder;
 
 public class HexagonalGridLayoutStrategyTest {
 
@@ -26,7 +26,7 @@ public class HexagonalGridLayoutStrategyTest {
 
     @Test
     public void shouldProperlyCreateHexagonsWithPointyOrientationWhenCreateHexagonsIsCalled() {
-        final Collection<AxialCoordinate> coords = target.fetchGridCoordinates(builder);
+        final Collection<AxialCoordinate> coords = target.fetchGridCoordinates(builder).toList().toBlocking().single();
 
 
         assertTrue(coords.contains(fromCoordinates(1, 0)));
@@ -53,7 +53,7 @@ public class HexagonalGridLayoutStrategyTest {
     @Test
     public void shouldProperlyCreateHexagonsWithPointyOrientationWhenCreateHexagonsIsCalledWithBiggerSize() {
         builder.setGridHeight(5).setGridWidth(5);
-        final Collection<AxialCoordinate> coords = target.fetchGridCoordinates(builder);
+        final Collection<AxialCoordinate> coords = target.fetchGridCoordinates(builder).toList().toBlocking().single();
 
         assertTrue(coords.contains(fromCoordinates(1, 0)));
         assertTrue(coords.contains(fromCoordinates(2, 0)));
@@ -91,7 +91,7 @@ public class HexagonalGridLayoutStrategyTest {
     @Test
     public void shouldProperlyCreateHexagonsWithFlatOrientationWhenCreateHexagonsIsCalled() {
         builder.setOrientation(HexagonOrientation.FLAT_TOP);
-        final Collection<AxialCoordinate> coords = target.fetchGridCoordinates(builder);
+        final Collection<AxialCoordinate> coords = target.fetchGridCoordinates(builder).toList().toBlocking().single();
 
 
         assertTrue(coords.contains(fromCoordinates(1, 0)));
@@ -118,7 +118,7 @@ public class HexagonalGridLayoutStrategyTest {
     @Test
     public void shouldProperlyCreateHexagonsWithFlatOrientationWhenCreateHexagonsIsCalledWithBiggerSize() {
         builder.setGridHeight(5).setGridWidth(5).setOrientation(HexagonOrientation.FLAT_TOP);
-        final Collection<AxialCoordinate> coords = target.fetchGridCoordinates(builder);
+        final Collection<AxialCoordinate> coords = target.fetchGridCoordinates(builder).toList().toBlocking().single();
 
 
         assertTrue(coords.contains(fromCoordinates(2, -1)));

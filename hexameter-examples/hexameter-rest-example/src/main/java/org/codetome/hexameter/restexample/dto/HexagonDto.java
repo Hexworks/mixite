@@ -1,10 +1,12 @@
 package org.codetome.hexameter.restexample.dto;
 
+import lombok.Data;
 import org.codetome.hexameter.core.api.DefaultSatelliteData;
 import org.codetome.hexameter.core.api.Hexagon;
+import org.codetome.hexameter.core.api.Point;
 import org.codetome.hexameter.core.backport.Optional;
 
-import lombok.Data;
+import java.util.ArrayList;
 
 @Data
 public class HexagonDto {
@@ -32,9 +34,10 @@ public class HexagonDto {
         result.setCenterPoint(new Double[]{hexagon.getCenterX(), hexagon.getCenterY()});
         result.setGridCoordinate(new int[]{hexagon.getGridX(), hexagon.getGridZ()});
         Double[][] points = new Double[6][2];
+        final ArrayList<Point> hexPoints = new ArrayList<>(hexagon.getPoints());
         for (int i = 0; i < 6; i++) {
-            points[i][0] = hexagon.getPoints().get(i).getCoordinateX();
-            points[i][1] = hexagon.getPoints().get(i).getCoordinateY();
+            points[i][0] = hexPoints.get(i).getCoordinateX();
+            points[i][1] = hexPoints.get(i).getCoordinateY();
         }
         result.setPoints(points);
         final Optional<DefaultSatelliteData> satelliteData = hexagon.getSatelliteData();

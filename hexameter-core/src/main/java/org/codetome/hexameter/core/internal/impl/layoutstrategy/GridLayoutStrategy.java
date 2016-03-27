@@ -3,19 +3,18 @@ package org.codetome.hexameter.core.internal.impl.layoutstrategy;
 import org.codetome.hexameter.core.api.AxialCoordinate;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
-
-import java.util.Set;
+import rx.Observable;
 
 /**
  * Represents the method of creating a {@link HexagonalGrid} corresponding to a given shape.
  */
-public interface GridLayoutStrategy {
+public abstract class GridLayoutStrategy {
 
     /**
      * Fetches a monotonically increasing (from left to right, top to bottom) Set of
      * grid coordinates corresponding to the shape of the requested grid layout.
      */
-    Set<AxialCoordinate> fetchGridCoordinates(HexagonalGridBuilder builder);
+    public abstract Observable<AxialCoordinate> fetchGridCoordinates(HexagonalGridBuilder builder);
 
     /**
      * Checks whether the supplied parameters are valid for the given strategy.
@@ -23,7 +22,7 @@ public interface GridLayoutStrategy {
      *
      * @return valid?
      */
-    default boolean checkParameters(final int gridHeight, final int gridWidth) {
+    public boolean checkParameters(final int gridHeight, final int gridWidth) {
         return gridHeight > 0 && gridWidth > 0;
     }
 

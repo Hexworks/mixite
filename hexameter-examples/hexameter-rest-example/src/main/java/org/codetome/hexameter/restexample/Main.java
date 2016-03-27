@@ -9,8 +9,13 @@ import org.codetome.hexameter.restexample.model.Model;
 import org.codetome.hexameter.restexample.payload.HexagonBuilderPayload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import spark.ExceptionHandler;
+import spark.Filter;
 import spark.ModelAndView;
-import spark.Spark;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.TemplateViewRoute;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import java.io.IOException;
@@ -26,6 +31,7 @@ import static spark.Spark.options;
 import static spark.Spark.port;
 import static spark.Spark.post;
 import static spark.Spark.put;
+import static spark.Spark.staticFileLocation;
 
 public class Main {
 
@@ -37,14 +43,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Logger logger = LoggerFactory.getLogger(Main.class);
+        final Logger logger = LoggerFactory.getLogger(Main.class);
+        final Model model = new Model();
+        final Map<String, Object> map = new HashMap<>();
 
         port(getHerokuAssignedPort());
-        Model model = new Model();
+        staticFileLocation("/templates");
 
-        Spark.staticFileLocation("/templates");
-
-        Map<String, Object> map = new HashMap<>();
         if(isRunningOnHeroku()) {
             map.put("appURL", "http://hexameter-rest-example.herokuapp.com");
         } else {
@@ -52,75 +57,107 @@ public class Main {
         }
 
 
-        get("/", (rq, rs) -> new ModelAndView(map, "index"), new ThymeleafTemplateEngine());
+        get("/", new TemplateViewRoute() {
+            @Override
+            public ModelAndView handle(Request rq, Response rs) throws Exception {
+                return new ModelAndView(map, "index");
+            }
+        }, new ThymeleafTemplateEngine());
 
-        post("/grids", (request, response) -> {
-            HexagonBuilderPayload payload = new ObjectMapper().readValue(request.body(), HexagonBuilderPayload.class);
-            int id = model.createGrid(payload);
-            response.status(201);
-            response.type(APPLICATION_JSON);
-            return id;
+        post("/grids", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                HexagonBuilderPayload payload = new ObjectMapper().readValue(request.body(), HexagonBuilderPayload.class);
+                int id = model.createGrid(payload);
+                response.status(201);
+                response.type(APPLICATION_JSON);
+                return id;
+            }
         });
 
-        put("/grids", (request, response) -> {
-            HexagonBuilderPayload payload = new ObjectMapper().readValue(request.body(), HexagonBuilderPayload.class);
-            int id = model.replaceGrid(payload);
-            response.status(201);
-            response.type(APPLICATION_JSON);
-            return id;
+        put("/grids", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                HexagonBuilderPayload payload = new ObjectMapper().readValue(request.body(), HexagonBuilderPayload.class);
+                int id = model.replaceGrid(payload);
+                response.status(201);
+                response.type(APPLICATION_JSON);
+                return id;
+            }
         });
 
-        get("/grids/getGridForDrawing/:id", (request, response) -> {
-            response.status(200);
-            response.type(APPLICATION_JSON);
-            return dataToJson(GridDto.fromGrid(model.getGridById(parseInt(request.params(":id")))));
+        get("/grids/getGridForDrawing/:id", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                response.status(200);
+                response.type(APPLICATION_JSON);
+                return dataToJson(GridDto.fromGrid(model.getGridById(parseInt(request.params(":id")))));
+            }
         });
 
-        exception(NotFoundException.class, (e, request, response) -> {
-            response.status(404);
-            response.body("Resource not found");
+        exception(NotFoundException.class, new ExceptionHandler() {
+            @Override
+            public void handle(Exception e, Request request, Response response) {
+                response.status(404);
+                response.body("Resource not found");
+            }
         });
 
-        exception(IOException.class, (e, request, response) -> {
-            response.status(400);
-            logger.error("Fail", e);
-            response.body(BAD_REQUEST);
+        exception(IOException.class, new ExceptionHandler() {
+            @Override
+            public void handle(Exception e, Request request, Response response) {
+                response.status(400);
+                logger.error("Fail", e);
+                response.body(BAD_REQUEST);
+            }
         });
 
-        exception(JsonParseException.class, (e, request, response) -> {
-            response.status(400);
-            logger.error("Fail", e);
-            response.body(BAD_REQUEST);
+        exception(JsonParseException.class, new ExceptionHandler() {
+            @Override
+            public void handle(Exception e, Request request, Response response) {
+                response.status(400);
+                logger.error("Fail", e);
+                response.body(BAD_REQUEST);
+            }
         });
 
-        exception(JsonMappingException.class, (e, request, response) -> {
-            response.status(400);
-            logger.error("Fail", e);
-            response.body(BAD_REQUEST);
+        exception(JsonMappingException.class, new ExceptionHandler() {
+            @Override
+            public void handle(Exception e, Request request, Response response) {
+                response.status(400);
+                logger.error("Fail", e);
+                response.body(BAD_REQUEST);
+            }
         });
 
         options("/*",
-                (request, response) -> {
+                new Route() {
+                    @Override
+                    public Object handle(Request request, Response response) throws Exception {
 
-                    String accessControlRequestHeaders = request
-                            .headers("Access-Control-Request-Headers");
-                    if (accessControlRequestHeaders != null) {
-                        response.header("Access-Control-Allow-Headers",
-                                accessControlRequestHeaders);
+                        String accessControlRequestHeaders = request
+                                .headers("Access-Control-Request-Headers");
+                        if (accessControlRequestHeaders != null) {
+                            response.header("Access-Control-Allow-Headers",
+                                    accessControlRequestHeaders);
+                        }
+
+                        String accessControlRequestMethod = request
+                                .headers("Access-Control-Request-Method");
+                        if (accessControlRequestMethod != null) {
+                            response.header("Access-Control-Allow-Methods",
+                                    accessControlRequestMethod);
+                        }
+
+                        return "OK";
                     }
-
-                    String accessControlRequestMethod = request
-                            .headers("Access-Control-Request-Method");
-                    if (accessControlRequestMethod != null) {
-                        response.header("Access-Control-Allow-Methods",
-                                accessControlRequestMethod);
-                    }
-
-                    return "OK";
                 });
 
-        before((request, response) -> {
-            response.header("Access-Control-Allow-Origin", "*");
+        before(new Filter() {
+            @Override
+            public void handle(Request request, Response response) throws Exception {
+                response.header("Access-Control-Allow-Origin", "*");
+            }
         });
 
     }

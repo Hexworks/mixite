@@ -1,8 +1,8 @@
 package org.codetome.hexameter.core.api;
 
-import java.util.List;
-
 import org.codetome.hexameter.core.backport.Optional;
+
+import java.util.Collection;
 
 /**
  * <p>
@@ -24,7 +24,7 @@ public interface Hexagon {
      *
      * @return points array
      */
-    List<Point> getPoints();
+    Collection<Point> getPoints();
 
     /**
      * Returns the {@link AxialCoordinate} of this {@link Hexagon}.

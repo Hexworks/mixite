@@ -1,9 +1,11 @@
 package org.codetome.hexameter.core;
 
+import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 import org.junit.Before;
 import org.junit.Test;
+import rx.functions.Action1;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -43,8 +45,13 @@ public class StressTest {
         HexagonalGrid grid = hexagonalGridBuilder.build();
 
         final long start = System.nanoTime();
-        AtomicInteger ai = new AtomicInteger();
-        grid.getHexagons().forEach(hexagon -> ai.incrementAndGet());
+        final AtomicInteger ai = new AtomicInteger();
+        grid.getHexagons().forEach(new Action1<Hexagon>() {
+            @Override
+            public void call(Hexagon hexagon) {
+                ai.incrementAndGet();
+            }
+        });
         System.out.println("Number of hexes: " + ai.get());
         final long end = System.nanoTime();
         assertThat(nanoToMs(end - start)).isLessThan(EXPECTED_MAXIMUM_FETCH_TIME);

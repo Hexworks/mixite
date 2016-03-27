@@ -1,18 +1,5 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
-import static org.codetome.hexameter.core.api.HexagonOrientation.POINTY_TOP;
-import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
-import static org.junit.Assert.assertArrayEquals;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import org.codetome.hexameter.core.api.AxialCoordinate;
 import org.codetome.hexameter.core.api.CoordinateConverter;
 import org.codetome.hexameter.core.api.DefaultSatelliteData;
@@ -25,8 +12,21 @@ import org.codetome.hexameter.core.backport.Optional;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import rx.Observable;
+import rx.functions.Action1;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
+import static org.codetome.hexameter.core.api.HexagonOrientation.POINTY_TOP;
+import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
+import static org.junit.Assert.assertArrayEquals;
 
 public class HexagonalGridImplTest {
 
@@ -49,9 +49,22 @@ public class HexagonalGridImplTest {
 
     @Test
     public void shouldReturnHexagonsInProperIterationOrderWhenGetHexagonsIsCalled() {
-        final Collection<AxialCoordinate> expectedCoordinates = builder.getGridLayoutStrategy().fetchGridCoordinates(builder);
-        final Collection<AxialCoordinate> actualCoordinates = new LinkedList<>();
-        target.getHexagons().forEach(hexagon -> actualCoordinates.add(hexagon.getAxialCoordinate()));
+        final Collection<AxialCoordinate> expectedCoordinates = new ArrayList<>();
+        final Collection<AxialCoordinate> actualCoordinates = new ArrayList<>();
+
+        builder.getGridLayoutStrategy().fetchGridCoordinates(builder).forEach(new Action1<AxialCoordinate>() {
+            @Override
+            public void call(AxialCoordinate axialCoordinate) {
+                expectedCoordinates.add(axialCoordinate);
+            }
+        });
+        target.getHexagons().forEach(new Action1<Hexagon>() {
+            @Override
+            public void call(Hexagon hexagon) {
+                actualCoordinates.add(hexagon.getAxialCoordinate());
+            }
+        });
+
         assertArrayEquals(expectedCoordinates.toArray(), actualCoordinates.toArray());
     }
 
@@ -66,10 +79,13 @@ public class HexagonalGridImplTest {
                 expectedCoordinates.add(gridX + "," + gridZ);
             }
         }
-        AtomicInteger count = new AtomicInteger();
-        hexagons.forEach(hexagon -> {
-            expectedCoordinates.remove(hexagon.getGridX() + "," + hexagon.getGridZ());
-            count.incrementAndGet();
+        final AtomicInteger count = new AtomicInteger();
+        hexagons.forEach(new Action1<Hexagon>() {
+            @Override
+            public void call(Hexagon hexagon) {
+                expectedCoordinates.remove(hexagon.getGridX() + "," + hexagon.getGridZ());
+                count.incrementAndGet();
+            }
         });
         assertEquals(100, count.get());
         assertTrue(expectedCoordinates.isEmpty());
@@ -93,9 +109,19 @@ public class HexagonalGridImplTest {
 
         final Observable<Hexagon> actual = target.getHexagonsByAxialRange(fromCoordinates(GRID_X_FROM, GRID_Z_FROM), fromCoordinates(GRID_X_TO, GRID_Z_TO));
         final AtomicInteger count = new AtomicInteger();
-        actual.forEach(hex -> count.incrementAndGet());
+        actual.forEach(new Action1<Hexagon>() {
+            @Override
+            public void call(Hexagon hex) {
+                count.incrementAndGet();
+            }
+        });
         assertEquals(expected.size(), count.get());
-        actual.forEach(hex -> expected.remove(hex));
+        actual.forEach(new Action1<Hexagon>() {
+            @Override
+            public void call(Hexagon hex) {
+                expected.remove(hex);
+            }
+        });
         assertTrue(expected.isEmpty());
     }
 
@@ -117,9 +143,19 @@ public class HexagonalGridImplTest {
 
         final Observable<Hexagon> actual = target.getHexagonsByOffsetRange(GRID_X_FROM, GRID_X_TO, GRID_Z_FROM, GRID_Z_TO);
         final AtomicInteger count = new AtomicInteger();
-        actual.forEach(hex -> count.incrementAndGet());
+        actual.forEach(new Action1<Hexagon>() {
+            @Override
+            public void call(Hexagon hex) {
+                count.incrementAndGet();
+            }
+        });
         assertEquals(expected.size(), count.get());
-        actual.forEach(hex -> expected.remove(hex));
+        actual.forEach(new Action1<Hexagon>() {
+            @Override
+            public void call(Hexagon hex) {
+                expected.remove(hex);
+            }
+        });
         assertTrue(expected.isEmpty());
     }
 
