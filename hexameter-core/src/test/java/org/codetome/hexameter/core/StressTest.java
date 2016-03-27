@@ -9,6 +9,7 @@ import rx.functions.Action1;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -52,8 +53,8 @@ public class StressTest {
                 ai.incrementAndGet();
             }
         });
-        System.out.println("Number of hexes: " + ai.get());
         final long end = System.nanoTime();
+        System.out.println(format("Number of hexes: %s, generated in: %dms.", ai.get(), nanoToMs(end - start)));
         assertThat(nanoToMs(end - start)).isLessThan(EXPECTED_MAXIMUM_FETCH_TIME);
     }
 
