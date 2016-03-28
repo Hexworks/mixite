@@ -14,6 +14,10 @@ public final class CoordinateConverter {
 
     /**
      * Calculates the axial X coordinate based on an offset coordinate pair.
+     * @param offsetX offset x
+     * @param offsetY offset y
+     * @param orientation orientation
+     * @return axial x
      */
     public static int convertOffsetCoordinatesToAxialX(final int offsetX, final int offsetY, final HexagonOrientation orientation) {
         return FLAT_TOP.equals(orientation) ? offsetX : offsetX - offsetY / 2;
@@ -21,6 +25,10 @@ public final class CoordinateConverter {
 
     /**
      * Calculates the axial Z coordinate based on an offset coordinate pair.
+     * @param offsetX offset x
+     * @param offsetY offset y
+     * @param orientation orientation
+     * @return axial z
      */
     public static int convertOffsetCoordinatesToAxialZ(final int offsetX, final int offsetY, final HexagonOrientation orientation) {
         return FLAT_TOP.equals(orientation) ? offsetY - offsetX / 2 : offsetY;

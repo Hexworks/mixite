@@ -37,6 +37,11 @@ public class HexagonImpl implements Hexagon {
 
     /**
      * Creates a new {@link Hexagon} object from shared data and a coordinate.
+     *
+     * @param gridData grid data
+     * @param coordinate coordinate
+     * @param dataMap data map
+     * @return hexagon
      */
     public static Hexagon newHexagon(final GridData gridData, final AxialCoordinate coordinate, Map<AxialCoordinate, Object> dataMap) {
         return new HexagonImpl(gridData, coordinate, dataMap);

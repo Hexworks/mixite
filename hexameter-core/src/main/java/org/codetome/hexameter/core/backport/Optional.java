@@ -36,16 +36,14 @@ import java.util.function.Supplier;
  * A container object which may or may not contain a non-null value.
  * If a value is present, {@code isPresent()} will return {@code true} and
  * {@code get()} will return the value.
- * <p/>
  *
- * <p>Additional methods that depend on the presence or absence of a contained
+ * Additional methods that depend on the presence or absence of a contained
  * value are provided, such as {@link #orElse(java.lang.Object) orElse()}
  * (return a default value if value not present) and
  * {@link #ifPresent(java.util.function.Consumer) ifPresent()} (execute a block
  * of code if the value is present).
- * <p/>
  *
- * <p>This is a <a href="../lang/doc-files/ValueBased.html">value-based</a>
+ * This is a <a href="../lang/doc-files/ValueBased.html">value-based</a>
  * class; use of identity-sensitive operations (including reference equality
  * ({@code ==}), identity hash code, or synchronization) on instances of
  * {@code Optional} may have unpredictable results and should be avoided.
@@ -79,7 +77,7 @@ public final class Optional<T> {
      *
      * @param <T> Type of the non-existent value
      * @return an empty {@code Optional}
-     * @apiNote Though it may be tempting to do so, avoid testing if an object
+     * Though it may be tempting to do so, avoid testing if an object
      * is empty by comparing with {@code ==} against instances returned by
      * {@code Option.empty()}. There is no guarantee that it is a singleton.
      * Instead, use {@link #isPresent()}.
@@ -192,12 +190,11 @@ public final class Optional<T> {
      * function to the value of this {@code Optional}, if a value is present,
      * otherwise an empty {@code Optional}
      * @throws NullPointerException if the mapping function is null
-     * @apiNote This method supports post-processing on optional values, without
+     * This method supports post-processing on optional values, without
      * the need to explicitly check for a return status.  For example, the
      * following code traverses a stream of file names, selects one that has
      * not yet been processed, and then opens that file, returning an
      * {@code Optional<FileInputStream>}:
-     * <p/>
      *
      * <pre>{@code
      *     Optional<FileInputStream> fis =
@@ -205,7 +202,6 @@ public final class Optional<T> {
      *                       .findFirst()
      *                       .map(name -> new FileInputStream(name));
      * }</pre>
-     * <p/>
      * Here, {@code findFirst} returns an {@code Optional<String>}, and then
      * {@code map} returns an {@code Optional<FileInputStream>} for the desired
      * file if one exists.
@@ -281,8 +277,7 @@ public final class Optional<T> {
      * @throws X                    if there is no value present
      * @throws NullPointerException if no value is present and
      *                              {@code exceptionSupplier} is null
-     * @apiNote A method reference to the exception constructor with an empty
-     * argument list can be used as the supplier. For example,
+
      * {@code IllegalStateException::new}
      */
     public <X extends Throwable> T orElseThrow(Supplier<? extends X> exceptionSupplier) throws X {
@@ -337,7 +332,7 @@ public final class Optional<T> {
      * between implementations and versions.
      *
      * @return the string representation of this instance
-     * @implSpec If a value is present the result must include its string
+     * If a value is present the result must include its string
      * representation in the result. Empty and present Optionals must be
      * unambiguously differentiable.
      */

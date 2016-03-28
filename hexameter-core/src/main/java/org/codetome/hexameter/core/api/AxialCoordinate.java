@@ -25,6 +25,8 @@ public final class AxialCoordinate implements Serializable {
     /**
      * Tries to create an {@link AxialCoordinate} from a key which has the format:
      * <code>%gridX%,%gridZ%</code>.
+     * @param key key
+     * @return coord
      */
     public static AxialCoordinate fromKey(final String key) {
         AxialCoordinate result;
@@ -39,6 +41,9 @@ public final class AxialCoordinate implements Serializable {
 
     /**
      * Creates an instance of {@link AxialCoordinate} from an x and a z coordinate.
+     * @param gridX grid x
+     * @param gridZ grid z
+     * @return coord
      */
     public static AxialCoordinate fromCoordinates(final int gridX, final int gridZ) {
         return new AxialCoordinate(gridX, gridZ);
@@ -47,6 +52,7 @@ public final class AxialCoordinate implements Serializable {
     /**
      * Creates a key which can be used in key-value storage objects based on this
      * {@link AxialCoordinate}.
+     * @return key
      */
     public String toKey() {
         return gridX + "," + gridZ;

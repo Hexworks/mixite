@@ -39,6 +39,8 @@ public final class HexagonalGridImpl implements HexagonalGrid {
 
     /**
      * Creates a new HexagonalGrid based on the provided HexagonalGridBuilder.
+     *
+     * @param builder builder
      */
     public HexagonalGridImpl(final HexagonalGridBuilder builder) {
         this.gridData = builder.getGridData();

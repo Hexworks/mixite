@@ -1,11 +1,10 @@
 package org.codetome.hexameter.core.api;
 
-import java.util.Collection;
-
 import org.codetome.hexameter.core.backport.Optional;
 import org.codetome.hexameter.core.internal.GridData;
-
 import rx.Observable;
+
+import java.util.Collection;
 
 /**
  * <p>
@@ -13,7 +12,6 @@ import rx.Observable;
  * ready-to-use grid. This interface contains all common functionality for dealing with
  * Hexagons. See {@link HexagonalGridCalculator} for more advanced features.
  * </p>
- * <p/>
  * <p>
  * This {@link HexagonalGrid} uses an axial (trapezoidal) coordinate system for easier
  * computation. This means that apart from the X axis a diagonal axis is used instead of
@@ -24,6 +22,7 @@ public interface HexagonalGrid {
 
     /**
      * Returns this HexagonalGrid's GridData.
+     * @return grid data
      */
     GridData getGridData();
 
@@ -38,6 +37,8 @@ public interface HexagonalGrid {
      * Returns all {@link Hexagon}s contained in the given axial coordinate range.
      * If the range contains coordinates which are not part of the grid they will be ignored.
      *
+     * @param from from
+     * @param to to
      * @return {@link Hexagon}s in the given range.
      */
     Observable<Hexagon> getHexagonsByAxialRange(AxialCoordinate from, AxialCoordinate to);
@@ -58,6 +59,7 @@ public interface HexagonalGrid {
      * Tells whether the given axial coordinate is on the grid or not.
      * If you want to look up by offset coordinate use {@link CoordinateConverter}.
      *
+     * @param coordinate coord
      * @return is it on the grid?
      */
     boolean containsAxialCoordinate(AxialCoordinate coordinate);
@@ -65,6 +67,7 @@ public interface HexagonalGrid {
     /**
      * Returns a {@link Hexagon} by its axial coordinate.
      *
+     * @param coordinate coord
      * @return Optional with a Hexagon if it is present
      */
     Optional<Hexagon> getByAxialCoordinate(AxialCoordinate coordinate);

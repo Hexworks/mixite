@@ -5,9 +5,7 @@ import org.codetome.hexameter.core.backport.Optional;
 import java.util.Collection;
 
 /**
- * <p>
  * Represents a Hexagon.
- * </p>
  * <em>Please note</em> that all coordinates are relative to the {@link HexagonalGrid} containing this {@link Hexagon}.
  */
 public interface Hexagon {
@@ -28,6 +26,8 @@ public interface Hexagon {
 
     /**
      * Returns the {@link AxialCoordinate} of this {@link Hexagon}.
+     *
+     * @return axial coord
      */
     AxialCoordinate getAxialCoordinate();
 
@@ -71,12 +71,15 @@ public interface Hexagon {
     /**
      * Returns this {@link Hexagon}'s satellite data.
      *
+     * @param <T> type of data
      * @return optional satellite data
      */
     <T extends SatelliteData> Optional<T> getSatelliteData();
 
     /**
      * Can be used to add arbitrary satellite data to a {@link Hexagon}.
+     * @param data data
+     * @param <T> type of data
      */
     <T extends SatelliteData> void setSatelliteData(T data);
 

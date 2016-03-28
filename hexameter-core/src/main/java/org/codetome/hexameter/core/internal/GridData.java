@@ -27,6 +27,12 @@ public final class GridData {
 
     /**
      * Creates a new GridData based on <code>orientation</code> and <code>radius</code>.
+     *
+     * @param orientation orientation
+     * @param gridLayout grid layout
+     * @param radius radius
+     * @param gridWidth grid width (units)
+     * @param gridHeight grid height (units)
      */
     public GridData(final HexagonOrientation orientation, final HexagonalGridLayout gridLayout,
                     final double radius, int gridWidth, int gridHeight) {
