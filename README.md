@@ -41,6 +41,20 @@ This library is not tied to any GUI implementation. All operations provided by t
 
 ## Basic usage
 
+### Maven dependency
+Let's start by adding Hexameter as a Maven dependency to your project:
+
+    <dependency>
+	    <groupId>org.codetome</groupId>
+	    <artifactId>hexameter</artifactId>
+	    <version>2.0.0</version>
+    </dependency>
+    
+You can also use Gradle:
+
+    'org.codetome:hexameter:2.0.0'
+
+
 ### Creating a grid
 
 You can use the [HexagonalGridBuilder][hexgridbuilder] from the API package to create a [HexagonalGrid][hexgrid]:
