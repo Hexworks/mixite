@@ -35,4 +35,14 @@ public interface HexagonalGridCalculator {
      * @return {@link Hexagon}s within distance (inclusive)
      */
     Set<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance);
+
+    /**
+     * Returns the Hexagon on the grid which is at the point resulted by rotating the <code>targetHex</code>'s
+     * coordinates around the <code>originalHex</code> by <code>rotationDirection</code> degrees.
+     * @param originalHex center hex
+     * @param targetHex hex to rotate
+     * @param rotationDirection direction of the rotation
+     * @return result
+     */
+    Hexagon rotateHexagon(Hexagon originalHex, Hexagon targetHex, RotationDirection rotationDirection);
 }

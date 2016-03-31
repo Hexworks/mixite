@@ -4,6 +4,7 @@ import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridCalculator;
+import org.codetome.hexameter.core.api.RotationDirection;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -44,5 +45,10 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
             }
         }
         return ret;
+    }
+
+    @Override
+    public Hexagon rotateHexagon(Hexagon originalHex, Hexagon targetHex, RotationDirection rotationDirection) {
+        return null;
     }
 }
