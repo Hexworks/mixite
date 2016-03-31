@@ -4,8 +4,10 @@ import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 import org.codetome.hexameter.core.api.HexagonalGridCalculator;
+import org.codetome.hexameter.core.api.RotationDirection;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,12 +20,23 @@ public class HexagonalGridCalculatorImplTest {
     private HexagonalGrid grid;
     private HexagonalGridCalculator target;
 
+    @Mock
+    private Hexagon originalHex;
+    @Mock
+    private Hexagon targetHex;
+    private RotationDirection rotationDirection;
+
     @Before
     public void setUp() throws Exception {
         final HexagonalGridBuilder builder = new HexagonalGridBuilder()
                 .setGridHeight(10).setGridWidth(10).setRadius(10);
         grid = builder.build();
         target = builder.buildCalculatorFor(grid);
+    }
+
+    @Test
+    public void shouldProperlyRotateHexagonWhenRotateIsCalledWithValidParameters() {
+        target.rotateHexagon(originalHex, targetHex, rotationDirection);
     }
 
     @Test
