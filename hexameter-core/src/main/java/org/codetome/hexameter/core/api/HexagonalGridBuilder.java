@@ -26,7 +26,7 @@ public final class  HexagonalGridBuilder {
     private int gridWidth;
     private int gridHeight;
     private double radius;
-    private Map<AxialCoordinate, Object> customStorage = new ConcurrentHashMap<>();
+    private Map<CubeCoordinate, Object> customStorage = new ConcurrentHashMap<>();
     private HexagonOrientation orientation = HexagonOrientation.POINTY_TOP;
     private HexagonalGridLayout gridLayout = RECTANGULAR;
 
@@ -134,7 +134,7 @@ public final class  HexagonalGridBuilder {
         return gridLayout.getGridLayoutStrategy();
     }
 
-    public Map<AxialCoordinate, Object> getCustomStorage() {
+    public Map<CubeCoordinate, Object> getCustomStorage() {
         return customStorage;
     }
 

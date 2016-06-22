@@ -2,12 +2,12 @@ package org.codetome.hexameter.core.internal.impl.layoutstrategy;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
-import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
+import static org.codetome.hexameter.core.api.CubeCoordinate.fromCoordinates;
 import static org.codetome.hexameter.core.api.HexagonOrientation.FLAT_TOP;
 
 import java.util.Collection;
 
-import org.codetome.hexameter.core.api.AxialCoordinate;
+import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class RectangularGridLayoutStrategyTest {
     @Test
     public void shouldProperlyCreateHexagonsWithPointyOrientationWhenCreateHexagonsIsCalled() {
 
-        final Collection<AxialCoordinate> coords = target.fetchGridCoordinates(builder).toList().toBlocking().single();
+        final Collection<CubeCoordinate> coords = target.fetchGridCoordinates(builder).toList().toBlocking().single();
 
         assertTrue(coords.contains(fromCoordinates(0, 0)));
         assertTrue(coords.contains(fromCoordinates(1, 0)));
@@ -57,7 +57,7 @@ public class RectangularGridLayoutStrategyTest {
     @Test
     public void shouldProperlyCreateHexagonsWithFlatOrientationWhenCreateHexagonsIsCalled() {
         builder.setOrientation(FLAT_TOP);
-        final Collection<AxialCoordinate> coords = target.fetchGridCoordinates(builder).toList().toBlocking().single();
+        final Collection<CubeCoordinate> coords = target.fetchGridCoordinates(builder).toList().toBlocking().single();
 
 
         assertTrue(coords.contains(fromCoordinates(0, 0)));

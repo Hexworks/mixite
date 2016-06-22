@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class HexagonDto {
     /**
      * Represents the grid coordinate (x,z) of a Hexagon.
-     * This is an AxialCoordinate.
+     * This is an CubeCoordinate.
      */
     private int[] gridCoordinate;
     /**

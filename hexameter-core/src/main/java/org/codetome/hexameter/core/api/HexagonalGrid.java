@@ -13,7 +13,7 @@ import java.util.Collection;
  * Hexagons. See {@link HexagonalGridCalculator} for more advanced features.
  * </p>
  * <p>
- * This {@link HexagonalGrid} uses an axial (trapezoidal) coordinate system for easier
+ * This {@link HexagonalGrid} uses an cube (trapezoidal) coordinate system for easier
  * computation. This means that apart from the X axis a diagonal axis is used instead of
  * the vertical Y axis.
  * </p>
@@ -34,14 +34,14 @@ public interface HexagonalGrid {
     Observable<Hexagon> getHexagons();
 
     /**
-     * Returns all {@link Hexagon}s contained in the given axial coordinate range.
+     * Returns all {@link Hexagon}s contained in the given cube coordinate range.
      * If the range contains coordinates which are not part of the grid they will be ignored.
      *
      * @param from from
      * @param to to
      * @return {@link Hexagon}s in the given range.
      */
-    Observable<Hexagon> getHexagonsByAxialRange(AxialCoordinate from, AxialCoordinate to);
+    Observable<Hexagon> getHexagonsByCubeRange(CubeCoordinate from, CubeCoordinate to);
 
     /**
      * Returns all {@link Hexagon}s contained in the given offset coordinate range.
@@ -56,21 +56,21 @@ public interface HexagonalGrid {
     Observable<Hexagon> getHexagonsByOffsetRange(int gridXFrom, int gridXTo, int gridYFrom, int gridYTo);
 
     /**
-     * Tells whether the given axial coordinate is on the grid or not.
+     * Tells whether the given cube coordinate is on the grid or not.
      * If you want to look up by offset coordinate use {@link CoordinateConverter}.
      *
      * @param coordinate coord
      * @return is it on the grid?
      */
-    boolean containsAxialCoordinate(AxialCoordinate coordinate);
+    boolean containsCubeCoordinate(CubeCoordinate coordinate);
 
     /**
-     * Returns a {@link Hexagon} by its axial coordinate.
+     * Returns a {@link Hexagon} by its cube coordinate.
      *
      * @param coordinate coord
      * @return Optional with a Hexagon if it is present
      */
-    Optional<Hexagon> getByAxialCoordinate(AxialCoordinate coordinate);
+    Optional<Hexagon> getByCubeCoordinate(CubeCoordinate coordinate);
 
     /**
      * Returns a {@link Hexagon} by a pixel coordinate.

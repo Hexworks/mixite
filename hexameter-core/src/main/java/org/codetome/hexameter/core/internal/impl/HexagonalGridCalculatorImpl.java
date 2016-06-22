@@ -1,6 +1,6 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import org.codetome.hexameter.core.api.AxialCoordinate;
+import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridCalculator;
@@ -36,9 +36,9 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
                 final int z = -x - y;
                 final int tmpX = hexagon.getGridX() + x;
                 final int tmpZ = hexagon.getGridZ() + z;
-                final AxialCoordinate tempCoordinate = AxialCoordinate.fromCoordinates(tmpX, tmpZ);
-                if (hexagonalGrid.containsAxialCoordinate(tempCoordinate)) {
-                    final Hexagon hex = hexagonalGrid.getByAxialCoordinate(tempCoordinate).get();
+                final CubeCoordinate tempCoordinate = CubeCoordinate.fromCoordinates(tmpX, tmpZ);
+                if (hexagonalGrid.containsCubeCoordinate(tempCoordinate)) {
+                    final Hexagon hex = hexagonalGrid.getByCubeCoordinate(tempCoordinate).get();
                     ret.add(hex);
                 }
             }

@@ -4,7 +4,7 @@ import static org.codetome.hexameter.core.api.HexagonOrientation.FLAT_TOP;
 
 /**
  * Utility class for converting coordinated from the offset system to
- * the axial one (the library uses the latter).
+ * the cube one (the library uses the latter).
  */
 public final class CoordinateConverter {
 
@@ -13,24 +13,24 @@ public final class CoordinateConverter {
     }
 
     /**
-     * Calculates the axial X coordinate based on an offset coordinate pair.
+     * Calculates the cube X coordinate based on an offset coordinate pair.
      * @param offsetX offset x
      * @param offsetY offset y
      * @param orientation orientation
-     * @return axial x
+     * @return cube x
      */
-    public static int convertOffsetCoordinatesToAxialX(final int offsetX, final int offsetY, final HexagonOrientation orientation) {
+    public static int convertOffsetCoordinatesToCubeX(final int offsetX, final int offsetY, final HexagonOrientation orientation) {
         return FLAT_TOP.equals(orientation) ? offsetX : offsetX - offsetY / 2;
     }
 
     /**
-     * Calculates the axial Z coordinate based on an offset coordinate pair.
+     * Calculates the cube Z coordinate based on an offset coordinate pair.
      * @param offsetX offset x
      * @param offsetY offset y
      * @param orientation orientation
-     * @return axial z
+     * @return cube z
      */
-    public static int convertOffsetCoordinatesToAxialZ(final int offsetX, final int offsetY, final HexagonOrientation orientation) {
+    public static int convertOffsetCoordinatesToCubeZ(final int offsetX, final int offsetY, final HexagonOrientation orientation) {
         return FLAT_TOP.equals(orientation) ? offsetY - offsetX / 2 : offsetY;
     }
 

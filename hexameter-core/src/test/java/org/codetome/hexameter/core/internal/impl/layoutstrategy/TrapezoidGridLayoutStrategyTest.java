@@ -1,12 +1,12 @@
 package org.codetome.hexameter.core.internal.impl.layoutstrategy;
 
 import static junit.framework.Assert.assertTrue;
-import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
+import static org.codetome.hexameter.core.api.CubeCoordinate.fromCoordinates;
 import static org.codetome.hexameter.core.api.HexagonOrientation.FLAT_TOP;
 
 import java.util.Collection;
 
-import org.codetome.hexameter.core.api.AxialCoordinate;
+import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +27,7 @@ public class TrapezoidGridLayoutStrategyTest {
         testCoordinates(target.fetchGridCoordinates(builder).toList().toBlocking().single());
     }
 
-    private void testCoordinates(final Collection<AxialCoordinate> coords) {
+    private void testCoordinates(final Collection<CubeCoordinate> coords) {
 
         assertTrue(coords.contains(fromCoordinates(0, 0)));
         assertTrue(coords.contains(fromCoordinates(1, 0)));

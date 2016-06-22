@@ -1,6 +1,6 @@
 package org.codetome.hexameter.core.internal.impl.layoutstrategy;
 
-import org.codetome.hexameter.core.api.AxialCoordinate;
+import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 import rx.Observable;
@@ -17,7 +17,7 @@ public abstract class GridLayoutStrategy {
      * @param builder builder
      * @return observable
      */
-    public abstract Observable<AxialCoordinate> fetchGridCoordinates(HexagonalGridBuilder builder);
+    public abstract Observable<CubeCoordinate> fetchGridCoordinates(HexagonalGridBuilder builder);
 
     /**
      * Checks whether the supplied parameters are valid for the given strategy.

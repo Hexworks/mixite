@@ -2,7 +2,7 @@ package org.codetome.hexameter.core.internal.impl;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.codetome.hexameter.core.api.AxialCoordinate;
+import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.Point;
 import org.codetome.hexameter.core.api.SatelliteData;
@@ -25,11 +25,11 @@ import static org.codetome.hexameter.core.api.Point.fromPosition;
 @ToString(of = "coordinate")
 public class HexagonImpl implements Hexagon {
 
-    private final AxialCoordinate coordinate;
+    private final CubeCoordinate coordinate;
     private final transient GridData sharedData;
-    private final transient Map<AxialCoordinate, Object> dataMap;
+    private final transient Map<CubeCoordinate, Object> dataMap;
 
-    private HexagonImpl(final GridData gridData, final AxialCoordinate coordinate, Map<AxialCoordinate, Object> dataMap) {
+    private HexagonImpl(final GridData gridData, final CubeCoordinate coordinate, Map<CubeCoordinate, Object> dataMap) {
         this.sharedData = gridData;
         this.coordinate = coordinate;
         this.dataMap = dataMap;
@@ -43,13 +43,13 @@ public class HexagonImpl implements Hexagon {
      * @param dataMap data map
      * @return hexagon
      */
-    public static Hexagon newHexagon(final GridData gridData, final AxialCoordinate coordinate, Map<AxialCoordinate, Object> dataMap) {
+    public static Hexagon newHexagon(final GridData gridData, final CubeCoordinate coordinate, Map<CubeCoordinate, Object> dataMap) {
         return new HexagonImpl(gridData, coordinate, dataMap);
     }
 
     @Override
     public String getId() {
-        return coordinate.toKey();
+        return coordinate.toAxialKey();
     }
 
     @Override
@@ -65,7 +65,7 @@ public class HexagonImpl implements Hexagon {
     }
 
     @Override
-    public AxialCoordinate getAxialCoordinate() {
+    public CubeCoordinate getCubeCoordinate() {
         return coordinate;
     }
 
@@ -76,7 +76,7 @@ public class HexagonImpl implements Hexagon {
 
     @Override
     public final int getGridY() {
-        return -(coordinate.getGridX() + coordinate.getGridZ());
+        return coordinate.getGridY();
     }
 
     @Override
@@ -107,17 +107,17 @@ public class HexagonImpl implements Hexagon {
     @Override
     @SuppressWarnings("unchecked")
     public final <T extends SatelliteData> Optional<T> getSatelliteData() {
-        final Object result = dataMap.get(getAxialCoordinate());
+        final Object result = dataMap.get(getCubeCoordinate());
         return result == null ? Optional.<T>empty() : Optional.of((T) result);
     }
 
     @Override
     public final <T extends SatelliteData> void setSatelliteData(final T satelliteData) {
-        this.dataMap.put(getAxialCoordinate(), satelliteData);
+        this.dataMap.put(getCubeCoordinate(), satelliteData);
     }
 
     @Override
     public void clearSatelliteData() {
-        this.dataMap.remove(getAxialCoordinate());
+        this.dataMap.remove(getCubeCoordinate());
     }
 }

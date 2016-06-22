@@ -25,8 +25,8 @@ diving into the details.
 
 # Getting started
 
-This library uses [Amit's guide to hexagonal grids][amitlink]. The coordinate system used by this library is the Axial coordinate system.
-Please check [here][axialcoords] for further details.
+This library uses [Amit's guide to hexagonal grids][amitlink]. The coordinate system used by this library is the Cubic coordinate system.
+Please check [here][cubecoords] for further details.
 
 Hexagonal grids come in **flat topped** and **pointy topped** shapes. The grid can have several layouts:
  - Hexagonal: the width and height of a this layout has to be equal and both have to be an odd number.
@@ -49,7 +49,7 @@ Let's start by adding Hexameter as a Maven dependency to your project:
 	    <artifactId>hexameter</artifactId>
 	    <version>2.0.0</version>
     </dependency>
-    
+
 You can also use Gradle:
 
     'org.codetome:hexameter:2.0.0'
@@ -63,7 +63,7 @@ You can use the [HexagonalGridBuilder][hexgridbuilder] from the API package to c
     import org.codetome.hexameter.core.api.HexagonOrientation;
     import org.codetome.hexameter.core.api.HexagonalGrid;
     import org.codetome.hexameter.core.api.HexagonalGridBuilder;
-    
+
     import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
     import static org.codetome.hexameter.core.api.HexagonOrientation.FLAT_TOP;
     // ...
@@ -106,7 +106,7 @@ After that you can iterate over all the `Point`s of your `Hexagon`s:
             }
         }
     });
-	
+
 
 Note that each `Point` represents a coordinate in 2D space. You can use them for drawing.
 
@@ -143,7 +143,7 @@ You can find a simple GUI example in the `hexameter-swt-example` submodule. Run 
  - Checking whether a Hexagon is on a grid or not
  - Adding custom data to a Hexagon
  - Clearing all custom data from the HexagonalGrid
- - Getting a subset of Hexagons (using axial or offset coordinate range) from the grid
+ - Getting a subset of Hexagons (using cube or offset coordinate range) from the grid
 
 Check these interfaces for more details:
 
@@ -182,7 +182,7 @@ Pull requests are also welcome!*
 [license img]:https://img.shields.io/badge/License-MIT-blue.svg
 
 [amitlink]:http://www.redblobgames.com/grids/hexagons/
-[axialcoords]:http://www.redblobgames.com/grids/hexagons/#coordinates
+[cubecoords]:http://www.redblobgames.com/grids/hexagons/#coordinates
 [herokurestlink]:http://hexameter-rest-example.herokuapp.com/
 [exampleprojectslink]:https://github.com/Hexworks/hexameter/tree/master/hexameter-examples
 

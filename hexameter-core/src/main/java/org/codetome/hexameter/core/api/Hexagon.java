@@ -25,14 +25,14 @@ public interface Hexagon {
     Collection<Point> getPoints();
 
     /**
-     * Returns the {@link AxialCoordinate} of this {@link Hexagon}.
+     * Returns the {@link CubeCoordinate} of this {@link Hexagon}.
      *
-     * @return axial coord
+     * @return cube coord
      */
-    AxialCoordinate getAxialCoordinate();
+    CubeCoordinate getCubeCoordinate();
 
     /**
-     * Returns this {@link Hexagon}'s <b>x</b> (axial) coordinate on the {@link HexagonalGrid}.
+     * Returns this {@link Hexagon}'s <b>x</b> (cube) coordinate on the {@link HexagonalGrid}.
      *
      * @return x coordinate on the grid
      */
@@ -40,7 +40,7 @@ public interface Hexagon {
 
     /**
      * Returns this {@link Hexagon}'s <b>y</b> coordinate on the {@link HexagonalGrid}.
-     * The Y coordinate is not present in the axial model but it is in the cube model.
+     * The Y coordinate is not present in the cube model but it is in the cube model.
      * This method is just for convenience.
      *
      * @return y coordinate on the grid
@@ -48,7 +48,7 @@ public interface Hexagon {
     int getGridY();
 
     /**
-     * Returns this {@link Hexagon}'s <b>z</b> (axial) coordinate on the {@link HexagonalGrid}.
+     * Returns this {@link Hexagon}'s <b>z</b> (cube) coordinate on the {@link HexagonalGrid}.
      *
      * @return z coordinate on the grid
      */

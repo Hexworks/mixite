@@ -5,14 +5,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
-import static org.codetome.hexameter.core.api.AxialCoordinate.fromCoordinates;
-import static org.codetome.hexameter.core.api.AxialCoordinate.fromKey;
+import static org.codetome.hexameter.core.api.CubeCoordinate.fromCoordinates;
+import static org.codetome.hexameter.core.api.CubeCoordinate.fromAxialKey;
 
-public class AxialCoordinateTest {
+public class CubeCoordinateTest {
 
     private static final int TEST_GRID_X = 4;
     private static final int TEST_GRID_Z = 5;
-    private AxialCoordinate target;
+    private CubeCoordinate target;
 
     @Before
     public void setUp() {
@@ -41,19 +41,19 @@ public class AxialCoordinateTest {
 
     @Test
     public void shouldReturnProperKeyWhenToKeyIsCalled() {
-        assertEquals(TEST_GRID_X + "," + TEST_GRID_Z, target.toKey());
+        assertEquals(TEST_GRID_X + "," + TEST_GRID_Z, target.toAxialKey());
     }
 
     @Test
     public void shouldCreateProperAxialCoordinateWhenFromKeyIsCalled() {
-        final AxialCoordinate result = fromKey(TEST_GRID_X + "," + TEST_GRID_Z);
+        final CubeCoordinate result = fromAxialKey(TEST_GRID_X + "," + TEST_GRID_Z);
         assertEquals(target.getGridX(), result.getGridX());
         assertEquals(target.getGridZ(), result.getGridZ());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldFailToCreateCoordinateFromMalformedKey() {
-        AxialCoordinate.fromKey(null);
+        CubeCoordinate.fromAxialKey(null);
     }
 
 }
