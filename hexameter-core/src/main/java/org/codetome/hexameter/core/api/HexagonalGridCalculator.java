@@ -1,5 +1,7 @@
 package org.codetome.hexameter.core.api;
 
+import org.codetome.hexameter.core.backport.Optional;
+
 import java.util.Set;
 
 /**
@@ -44,5 +46,5 @@ public interface HexagonalGridCalculator {
      * @param rotationDirection direction of the rotation
      * @return result
      */
-    Hexagon rotateHexagon(Hexagon originalHex, Hexagon targetHex, RotationDirection rotationDirection);
+    Optional<Hexagon> rotateHexagon(Hexagon originalHex, Hexagon targetHex, RotationDirection rotationDirection);
 }

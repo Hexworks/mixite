@@ -5,6 +5,7 @@ import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 import org.codetome.hexameter.core.api.HexagonalGridCalculator;
 import org.codetome.hexameter.core.api.RotationDirection;
+import org.codetome.hexameter.core.backport.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -13,7 +14,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static junit.framework.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.codetome.hexameter.core.api.CubeCoordinate.fromCoordinates;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 public class HexagonalGridCalculatorImplTest {
 
@@ -28,15 +32,11 @@ public class HexagonalGridCalculatorImplTest {
 
     @Before
     public void setUp() throws Exception {
+        initMocks(this);
         final HexagonalGridBuilder builder = new HexagonalGridBuilder()
                 .setGridHeight(10).setGridWidth(10).setRadius(10);
         grid = builder.build();
         target = builder.buildCalculatorFor(grid);
-    }
-
-    @Test
-    public void shouldProperlyRotateHexagonWhenRotateIsCalledWithValidParameters() {
-        target.rotateHexagon(originalHex, targetHex, rotationDirection);
     }
 
     @Test
@@ -88,6 +88,29 @@ public class HexagonalGridCalculatorImplTest {
 
         final Set<Hexagon> actual = target.calculateMovementRangeFrom(hex, 2);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldProperlyCalculateRotationWhenGivenAValidGrid() {
+        configureMockitoForRotation();
+
+        final Optional<Hexagon> resultOpt = target.rotateHexagon(originalHex, targetHex, RotationDirection.RIGHT);
+
+        Hexagon result = resultOpt.get();
+
+        assertThat(result.getGridX()).isEqualTo(3);
+        assertThat(result.getGridY()).isEqualTo(-4);
+        assertThat(result.getGridZ()).isEqualTo(1);
+    }
+
+    private void configureMockitoForRotation() {
+        when(originalHex.getGridX()).thenReturn(3);
+        when(originalHex.getGridY()).thenReturn(-2);
+        when(originalHex.getGridZ()).thenReturn(-1);
+
+        when(targetHex.getGridX()).thenReturn(5);
+        when(targetHex.getGridY()).thenReturn(-4);
+        when(targetHex.getGridZ()).thenReturn(-1);
     }
 
 }
