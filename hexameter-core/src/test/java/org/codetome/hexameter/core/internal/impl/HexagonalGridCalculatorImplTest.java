@@ -103,6 +103,13 @@ public class HexagonalGridCalculatorImplTest {
         assertThat(result.getGridZ()).isEqualTo(1);
     }
 
+    @Test
+    public void shouldProperlyCalculateRingWhenGivenValidParameters() {
+        when(targetHex.getGridX()).thenReturn(0);
+        when(targetHex.getGridZ()).thenReturn(0);
+        final Set<Hexagon> result = target.calculateRingFrom(targetHex, 3);
+    }
+
     private void configureMockitoForRotation() {
         when(originalHex.getGridX()).thenReturn(3);
         when(originalHex.getGridY()).thenReturn(-2);

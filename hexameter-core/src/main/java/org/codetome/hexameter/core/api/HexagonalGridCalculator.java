@@ -47,4 +47,14 @@ public interface HexagonalGridCalculator {
      * @return result
      */
     Optional<Hexagon> rotateHexagon(Hexagon originalHex, Hexagon targetHex, RotationDirection rotationDirection);
+
+
+    /**
+     * Returns the {@link Set} of {@link Hexagon}s which are <code>radius</code> distance
+     * from <code>centerHexagon</code>.
+     * @param centerHexagon center
+     * @param radius radius
+     * @return Set of hexagons or empty set if not applicable
+     */
+    Set<Hexagon> calculateRingFrom(Hexagon centerHexagon, int radius);
 }

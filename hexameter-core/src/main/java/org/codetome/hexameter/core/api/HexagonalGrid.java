@@ -22,6 +22,7 @@ public interface HexagonalGrid {
 
     /**
      * Returns this HexagonalGrid's GridData.
+     *
      * @return grid data
      */
     GridData getGridData();
@@ -38,7 +39,7 @@ public interface HexagonalGrid {
      * If the range contains coordinates which are not part of the grid they will be ignored.
      *
      * @param from from
-     * @param to to
+     * @param to   to
      * @return {@link Hexagon}s in the given range.
      */
     Observable<Hexagon> getHexagonsByCubeRange(CubeCoordinate from, CubeCoordinate to);
@@ -82,6 +83,13 @@ public interface HexagonalGrid {
      * @return Optional with a Hexagon if it is present
      */
     Optional<Hexagon> getByPixelCoordinate(double coordinateX, double coordinateY);
+
+    /**
+     * Returns a neighbor of a Hexagon by its neighbor index.
+     *
+     * @return neighbor or empty Optional if not applicable
+     */
+    Optional<Hexagon> getNeighborByIndex(Hexagon hexagon, int index);
 
     /**
      * Returns all neighbors of a {@link Hexagon}.

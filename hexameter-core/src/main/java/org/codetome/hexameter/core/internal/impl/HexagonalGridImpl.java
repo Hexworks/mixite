@@ -1,8 +1,8 @@
 package org.codetome.hexameter.core.internal.impl;
 
 import lombok.Getter;
-import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.CoordinateConverter;
+import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
@@ -144,16 +144,20 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     }
 
     @Override
+    public Optional<Hexagon> getNeighborByIndex(Hexagon hexagon, int index) {
+        final int neighborGridX = hexagon.getGridX() + NEIGHBORS[index][NEIGHBOR_X_INDEX];
+        final int neighborGridZ = hexagon.getGridZ() + NEIGHBORS[index][NEIGHBOR_Z_INDEX];
+        final CubeCoordinate neighborCoordinate = fromCoordinates(neighborGridX, neighborGridZ);
+        return getByCubeCoordinate(neighborCoordinate);
+    }
+
+    @Override
     public Collection<Hexagon> getNeighborsOf(final Hexagon hexagon) {
         final Set<Hexagon> neighbors = new HashSet<>();
-        for (final int[] neighbor : NEIGHBORS) {
-            Hexagon retHex;
-            final int neighborGridX = hexagon.getGridX() + neighbor[NEIGHBOR_X_INDEX];
-            final int neighborGridZ = hexagon.getGridZ() + neighbor[NEIGHBOR_Z_INDEX];
-            final CubeCoordinate neighborCoordinate = fromCoordinates(neighborGridX, neighborGridZ);
-            if (containsCubeCoordinate(neighborCoordinate)) {
-                retHex = getByCubeCoordinate(neighborCoordinate).get();
-                neighbors.add(retHex);
+        for (int i = 0; i < NEIGHBORS.length; i++) {
+            Optional<Hexagon> retHex = getNeighborByIndex(hexagon, i);
+            if (retHex.isPresent()) {
+                neighbors.add(retHex.get());
             }
         }
         return neighbors;

@@ -59,4 +59,20 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
                 originalHex.getGridZ() + rotatedCoord.getGridZ()); // 0, x,
         return hexagonalGrid.getByCubeCoordinate(resultCoord);
     }
+
+    @Override
+    public Set<Hexagon> calculateRingFrom(Hexagon centerHexagon, int radius) {
+        final Set<Hexagon> result = new HashSet<>();
+        final int neighborIndex = 0;
+        Hexagon currentHexagon = centerHexagon;
+        for (int i = 0; i < radius; i++) {
+            final Optional<Hexagon> neighbor = hexagonalGrid.getNeighborByIndex(currentHexagon, neighborIndex);
+            if (neighbor.isPresent()) {
+                currentHexagon = neighbor.get();
+            } else {
+                return result;
+            }
+        }
+        return result;
+    }
 }
