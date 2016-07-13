@@ -15,6 +15,7 @@ import java.util.Set;
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import static java.lang.Math.round;
 
 public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculator {
 
@@ -83,37 +84,35 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
         int distance = calculateDistanceBetween(from, to);
         List<Hexagon> results = new LinkedList<>();
         for (int i = 0; i <= distance; i++) {
-            CubeCoordinate h = cubeLinearInterpolate(from.getCubeCoordinate(), to.getCubeCoordinate(),
-                    (1.0 / distance) * i);
-            results.add(hexagonalGrid.getByCubeCoordinate(h).get());
+            CubeCoordinate interpolatedCoordinate = cubeLinearInterpolate(from.getCubeCoordinate(),
+                    to.getCubeCoordinate(), (1.0 / distance) * i);
+            results.add(hexagonalGrid.getByCubeCoordinate(interpolatedCoordinate).get());
         }
         return results;
     }
 
-    private CubeCoordinate cubeLinearInterpolate(CubeCoordinate from, CubeCoordinate to, double t) {
-        return roundToCubeCoordinate(linearInterpolate(from.getGridX(), to.getGridX(), t),
-                linearInterpolate(from.getGridY(), to.getGridY(), t),
-                linearInterpolate(from.getGridZ(), to.getGridZ(), t));
+    private CubeCoordinate cubeLinearInterpolate(CubeCoordinate from, CubeCoordinate to, double sample) {
+        return roundToCubeCoordinate(linearInterpolate(from.getGridX(), to.getGridX(), sample),
+                linearInterpolate(from.getGridY(), to.getGridY(), sample),
+                linearInterpolate(from.getGridZ(), to.getGridZ(), sample));
     }
 
-    private double linearInterpolate(int from, int to, double t) {
-        return from + (to - from) * t;
+    private double linearInterpolate(int from, int to, double sample) {
+        return from + (to - from) * sample;
     }
 
-    private CubeCoordinate roundToCubeCoordinate(double x, double y, double z) {
-        int rx = (int) Math.round(x);
-        int ry = (int) Math.round(y);
-        int rz = (int) Math.round(z);
+    private CubeCoordinate roundToCubeCoordinate(double gridX, double gridY, double gridZ) {
+        int rx = (int) round(gridX);
+        int ry = (int) round(gridY);
+        int rz = (int) round(gridZ);
 
-        double x_diff = Math.abs(rx - x);
-        double y_diff = Math.abs(ry - y);
-        double z_diff = Math.abs(rz - z);
+        double differenceX = abs(rx - gridX);
+        double differenceY = abs(ry - gridY);
+        double differenceZ = abs(rz - gridZ);
 
-        if (x_diff > y_diff && x_diff > z_diff) {
+        if (differenceX > differenceY && differenceX > differenceZ) {
             rx = -ry - rz;
-        } else if (y_diff > z_diff) {
-            ry = -rx - rz;
-        } else {
+        } else if (differenceY <= differenceZ) {
             rz = -rx - ry;
         }
         return CubeCoordinate.fromCoordinates(rx, rz);

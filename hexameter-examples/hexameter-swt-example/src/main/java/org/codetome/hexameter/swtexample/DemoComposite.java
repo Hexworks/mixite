@@ -489,6 +489,8 @@ public class DemoComposite extends Composite {
     }
 
     private void regenerateHexagonGrid(Canvas canvas) {
+        prevSelected = null;
+        currSelected = null;
         FontData fd = canvas.getDisplay().getSystemFont().getFontData()[0];
         fontSize = (int) (radius / 3.5);
         font = new Font(canvas.getDisplay(), fd.getName(), fontSize, SWT.NONE);

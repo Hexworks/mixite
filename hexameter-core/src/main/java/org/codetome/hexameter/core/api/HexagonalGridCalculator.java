@@ -62,7 +62,7 @@ public interface HexagonalGridCalculator {
 
     /**
      * Retruns a {@link List} of {@link Hexagon}s which must be traversed in the
-     * given order to go from one hexagon to another
+     * given order to go from one hexagon to another.
      * 
      * @param from hexagon to start line drawing
      * @param to hexgon to end line drawing
