@@ -8,6 +8,8 @@ import org.codetome.hexameter.core.api.RotationDirection;
 import org.codetome.hexameter.core.backport.Optional;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import static java.lang.Math.abs;
@@ -74,5 +76,46 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
             }
         }
         return result;
+    }
+
+    @Override
+    public List<Hexagon> drawLine(Hexagon from, Hexagon to) {
+        int distance = calculateDistanceBetween(from, to);
+        List<Hexagon> results = new LinkedList<>();
+        for (int i = 0; i <= distance; i++) {
+            CubeCoordinate h = cubeLinearInterpolate(from.getCubeCoordinate(), to.getCubeCoordinate(),
+                    (1.0 / distance) * i);
+            results.add(hexagonalGrid.getByCubeCoordinate(h).get());
+        }
+        return results;
+    }
+
+    private CubeCoordinate cubeLinearInterpolate(CubeCoordinate from, CubeCoordinate to, double t) {
+        return roundToCubeCoordinate(linearInterpolate(from.getGridX(), to.getGridX(), t),
+                linearInterpolate(from.getGridY(), to.getGridY(), t),
+                linearInterpolate(from.getGridZ(), to.getGridZ(), t));
+    }
+
+    private double linearInterpolate(int from, int to, double t) {
+        return from + (to - from) * t;
+    }
+
+    private CubeCoordinate roundToCubeCoordinate(double x, double y, double z) {
+        int rx = (int) Math.round(x);
+        int ry = (int) Math.round(y);
+        int rz = (int) Math.round(z);
+
+        double x_diff = Math.abs(rx - x);
+        double y_diff = Math.abs(ry - y);
+        double z_diff = Math.abs(rz - z);
+
+        if (x_diff > y_diff && x_diff > z_diff) {
+            rx = -ry - rz;
+        } else if (y_diff > z_diff) {
+            ry = -rx - rz;
+        } else {
+            rz = -rx - ry;
+        }
+        return CubeCoordinate.fromCoordinates(rx, rz);
     }
 }

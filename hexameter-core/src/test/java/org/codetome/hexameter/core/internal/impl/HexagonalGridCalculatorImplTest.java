@@ -10,7 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static junit.framework.Assert.assertEquals;
@@ -88,6 +90,22 @@ public class HexagonalGridCalculatorImplTest {
 
         final Set<Hexagon> actual = target.calculateMovementRangeFrom(hex, 2);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldProperlyCalculateLine() {
+        List<Hexagon> actual = target.drawLine(grid.getByCubeCoordinate(fromCoordinates(3, 7)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(8, 1)).get()); 
+        assertEquals(
+                Arrays.asList(
+                        grid.getByCubeCoordinate(fromCoordinates(3, 7)).get(),
+                        grid.getByCubeCoordinate(fromCoordinates(4, 6)).get(),
+                        grid.getByCubeCoordinate(fromCoordinates(5, 5)).get(),
+                        grid.getByCubeCoordinate(fromCoordinates(6, 4)).get(),
+                        grid.getByCubeCoordinate(fromCoordinates(6, 3)).get(),
+                        grid.getByCubeCoordinate(fromCoordinates(7, 2)).get(),
+                        grid.getByCubeCoordinate(fromCoordinates(8, 1)).get()),
+                actual);
     }
 
     @Test
