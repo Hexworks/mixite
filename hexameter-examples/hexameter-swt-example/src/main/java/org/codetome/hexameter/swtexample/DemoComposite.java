@@ -39,6 +39,8 @@ import org.eclipse.swt.widgets.Text;
 import rx.functions.Action1;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.codetome.hexameter.core.api.HexagonOrientation.POINTY_TOP;
@@ -61,6 +63,7 @@ public class DemoComposite extends Composite {
     private HexagonalGridLayout hexagonGridLayout = DEFAULT_GRID_LAYOUT;
     private boolean showNeighbors = false;
     private boolean showMovementRange = false;
+    private boolean showLineDrawing = false;
     private Hexagon prevSelected = null;
     private Hexagon currSelected = null;
     private int movementRange;
@@ -205,6 +208,18 @@ public class DemoComposite extends Composite {
         final Button toggleNeighborsCheck = new Button(grpControls, SWT.CHECK);
         toggleNeighborsCheck.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
         toggleNeighborsCheck.setText("Toggle neighbors");
+        
+        final Button toggleLineDrawing = new Button(grpControls, SWT.CHECK);
+        toggleLineDrawing.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
+        toggleLineDrawing.setText("Toggle line drawing");
+        toggleLineDrawing.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseUp(MouseEvent event) {
+                showLineDrawing = toggleLineDrawing.getSelection();
+                canvas.redraw();
+            }
+        });
+
         final Button toggleMovementRangeCheck = new Button(grpControls, SWT.CHECK);
         toggleMovementRangeCheck.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
         toggleMovementRangeCheck.setText("Toggle movement range");
@@ -366,6 +381,12 @@ public class DemoComposite extends Composite {
                 event.gc.setBackground(white);
                 event.gc.fillRectangle(new Rectangle(0, 0, shellWidth, shellHeight));
 
+                final List<Hexagon> lineHexes;
+                if (prevSelected != null && currSelected != null && showLineDrawing) {
+                    lineHexes = hexagonalGridCalculator.drawLine(prevSelected, currSelected);
+                } else {
+                    lineHexes = Collections.emptyList();
+                }
                 hexagonalGrid.getHexagons().forEach(new Action1<Hexagon>() {
                     @Override
                     public void call(Hexagon hexagon) {
@@ -395,6 +416,9 @@ public class DemoComposite extends Composite {
                         if (drawCoordinates) {
                             drawCoordinates(event.gc, hexagon);
                         }
+                        if (lineHexes.contains(hexagon)) {
+                            drawLineHexagon(event.gc, hexagon);
+                        }
                     }
                 });
             }
@@ -413,6 +437,14 @@ public class DemoComposite extends Composite {
                 gc.fillPolygon(convertToPointsArr(hexagon.getPoints()));
                 gc.setForeground(darkBlue);
                 gc.drawPolygon(convertToPointsArr(hexagon.getPoints()));
+            }
+            
+            private void drawLineHexagon(GC gc, Hexagon hexagon) {
+                int previousLineWidth = gc.getLineWidth();
+                gc.setLineWidth(3);
+                gc.setForeground(red);
+                gc.drawPolygon(convertToPointsArr(hexagon.getPoints()));
+                gc.setLineWidth(previousLineWidth);
             }
 
             private void drawEmptyHexagon(GC gc, Hexagon hexagon) {
@@ -457,6 +489,8 @@ public class DemoComposite extends Composite {
     }
 
     private void regenerateHexagonGrid(Canvas canvas) {
+        prevSelected = null;
+        currSelected = null;
         FontData fd = canvas.getDisplay().getSystemFont().getFontData()[0];
         fontSize = (int) (radius / 3.5);
         font = new Font(canvas.getDisplay(), fd.getName(), fontSize, SWT.NONE);

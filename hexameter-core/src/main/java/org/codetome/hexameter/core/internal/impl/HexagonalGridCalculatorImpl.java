@@ -8,11 +8,14 @@ import org.codetome.hexameter.core.api.RotationDirection;
 import org.codetome.hexameter.core.backport.Optional;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import static java.lang.Math.round;
 
 public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculator {
 
@@ -74,5 +77,44 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
             }
         }
         return result;
+    }
+
+    @Override
+    public List<Hexagon> drawLine(Hexagon from, Hexagon to) {
+        int distance = calculateDistanceBetween(from, to);
+        List<Hexagon> results = new LinkedList<>();
+        for (int i = 0; i <= distance; i++) {
+            CubeCoordinate interpolatedCoordinate = cubeLinearInterpolate(from.getCubeCoordinate(),
+                    to.getCubeCoordinate(), (1.0 / distance) * i);
+            results.add(hexagonalGrid.getByCubeCoordinate(interpolatedCoordinate).get());
+        }
+        return results;
+    }
+
+    private CubeCoordinate cubeLinearInterpolate(CubeCoordinate from, CubeCoordinate to, double sample) {
+        return roundToCubeCoordinate(linearInterpolate(from.getGridX(), to.getGridX(), sample),
+                linearInterpolate(from.getGridY(), to.getGridY(), sample),
+                linearInterpolate(from.getGridZ(), to.getGridZ(), sample));
+    }
+
+    private double linearInterpolate(int from, int to, double sample) {
+        return from + (to - from) * sample;
+    }
+
+    private CubeCoordinate roundToCubeCoordinate(double gridX, double gridY, double gridZ) {
+        int rx = (int) round(gridX);
+        int ry = (int) round(gridY);
+        int rz = (int) round(gridZ);
+
+        double differenceX = abs(rx - gridX);
+        double differenceY = abs(ry - gridY);
+        double differenceZ = abs(rz - gridZ);
+
+        if (differenceX > differenceY && differenceX > differenceZ) {
+            rx = -ry - rz;
+        } else if (differenceY <= differenceZ) {
+            rz = -rx - ry;
+        }
+        return CubeCoordinate.fromCoordinates(rx, rz);
     }
 }

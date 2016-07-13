@@ -2,6 +2,7 @@ package org.codetome.hexameter.core.api;
 
 import org.codetome.hexameter.core.backport.Optional;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -57,4 +58,15 @@ public interface HexagonalGridCalculator {
      * @return Set of hexagons or empty set if not applicable
      */
     Set<Hexagon> calculateRingFrom(Hexagon centerHexagon, int radius);
+
+
+    /**
+     * Retruns a {@link List} of {@link Hexagon}s which must be traversed in the
+     * given order to go from one hexagon to another.
+     * 
+     * @param from hexagon to start line drawing
+     * @param to hexgon to end line drawing
+     * @return A list of hexagons
+     */
+    List<Hexagon> drawLine(Hexagon from, Hexagon to);
 }
