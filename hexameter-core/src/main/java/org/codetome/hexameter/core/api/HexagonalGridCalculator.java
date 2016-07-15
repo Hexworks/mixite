@@ -69,4 +69,12 @@ public interface HexagonalGridCalculator {
      * @return A list of hexagons
      */
     List<Hexagon> drawLine(Hexagon from, Hexagon to);
+    
+    /**
+     * Returns true if a hexagon is visible from another hexagon.
+     * @param hexagon the hexagon that we are testing the visibility
+     * @param from the hexgon from which we are testing the visibility
+     * @return true if hexagon is visible, false otherwise
+     */
+    boolean isVisible(Hexagon hexagon, Hexagon from);
 }

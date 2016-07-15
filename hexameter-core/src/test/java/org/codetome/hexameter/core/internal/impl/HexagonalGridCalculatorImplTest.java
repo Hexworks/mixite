@@ -1,10 +1,12 @@
 package org.codetome.hexameter.core.internal.impl;
 
+import org.codetome.hexameter.core.api.DefaultSatelliteData;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 import org.codetome.hexameter.core.api.HexagonalGridCalculator;
 import org.codetome.hexameter.core.api.RotationDirection;
+import org.codetome.hexameter.core.api.SatelliteData;
 import org.codetome.hexameter.core.backport.Optional;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +18,8 @@ import java.util.List;
 import java.util.Set;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.assertFalse;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.codetome.hexameter.core.api.CubeCoordinate.fromCoordinates;
 import static org.mockito.Mockito.when;
@@ -106,6 +110,24 @@ public class HexagonalGridCalculatorImplTest {
                         grid.getByCubeCoordinate(fromCoordinates(7, 2)).get(),
                         grid.getByCubeCoordinate(fromCoordinates(8, 1)).get()),
                 actual);
+    }
+
+    @Test
+    public void shouldCheckForVisibilityCorrectly() {
+
+        Optional<Hexagon> hexagon = grid.getByCubeCoordinate(fromCoordinates(2, 5));
+        SatelliteData data = new DefaultSatelliteData();
+        data.setBlocksView(true);
+        hexagon.get().setSatelliteData(data);
+
+        assertFalse(target.isVisible(grid.getByCubeCoordinate(fromCoordinates(8, 1)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(-3, 8)).get()));
+        assertFalse(target.isVisible(grid.getByCubeCoordinate(fromCoordinates(4, 4)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(-3, 8)).get()));
+        assertTrue(target.isVisible(grid.getByCubeCoordinate(fromCoordinates(8, 3)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(-3, 8)).get()));
+        assertTrue(target.isVisible(grid.getByCubeCoordinate(fromCoordinates(7, 1)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(-3, 8)).get()));
     }
 
     @Test
