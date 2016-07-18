@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -110,6 +111,10 @@ public class HexagonalGridCalculatorImplTest {
                         grid.getByCubeCoordinate(fromCoordinates(7, 2)).get(),
                         grid.getByCubeCoordinate(fromCoordinates(8, 1)).get()),
                 actual);
+        
+         actual = target.drawLine(grid.getByCubeCoordinate(fromCoordinates(3, 7)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(3, 7)).get());
+         assertEquals(Collections.emptyList(), actual);
     }
 
     @Test
