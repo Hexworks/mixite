@@ -23,6 +23,7 @@ public class DefaultSatelliteData implements SatelliteData {
     private boolean passable;
     private double movementCost;
     private Map<String, Object> customData = new ConcurrentHashMap<>();
+    private boolean blocksView;
 
     @Override
     public <T> void addCustomData(final String key, final T data) {

@@ -10,6 +10,7 @@ public class DefaultSatelliteDataTest {
 
     private static final double EXPECTED_MOVEMENT_COST = 5.1;
     private static final boolean EXPECTED_IS_PASSABLE = true;
+    private static final boolean EXPECTED_IS_BLOCKS_VIEW = true;
     private static final String EXPECTED_CUSTOM_DATA = "EXPECTED_CUSTOM_DATA";
     private static final String EXPECTED_CUSTOM_DATA_KEY = "EXPECTED_CUSTOM_DATA_KEY";
 
@@ -26,6 +27,12 @@ public class DefaultSatelliteDataTest {
     public void shouldProperlySetAndGetIsPassable() {
         target.setPassable(EXPECTED_IS_PASSABLE);
         Assert.assertEquals(target.isPassable(), EXPECTED_IS_PASSABLE);
+    }
+    
+    @Test
+    public void shouldProperlySetAndGetIsBlocksView() {
+        target.setBlocksView(EXPECTED_IS_BLOCKS_VIEW);
+        Assert.assertEquals(target.isBlocksView(), EXPECTED_IS_BLOCKS_VIEW);
     }
 
     @Test

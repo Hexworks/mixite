@@ -32,6 +32,17 @@ public interface SatelliteData {
      * @param movementCost movement cost
      */
     void setMovementCost(double movementCost);
+    
+    /**
+     * @return true if the hexagon blocks view, false otherwise.
+     */
+    boolean isBlocksView();
+    
+    /**
+     * Set whether the hexagon blocks view.
+     * @param blocksView pass true if the hexagon blocks view, false otherwise
+     */
+    void setBlocksView(boolean blocksView);
 
     /**
      * Adds custom data to this SatelliteData.
