@@ -379,7 +379,7 @@ public class DemoComposite extends Composite {
                         data = new SatelliteDataImpl();
                     }
                     data.setSelected(!data.isSelected());
-                    data.setBlocksView(data.isSelected());
+                    data.setOpaque(data.isSelected());
                     hex.setSatelliteData(data);
                 }
                 canvas.redraw();

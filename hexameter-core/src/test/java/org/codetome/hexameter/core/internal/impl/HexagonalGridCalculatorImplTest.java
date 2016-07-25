@@ -19,6 +19,7 @@ import java.util.Set;
 import static junit.framework.Assert.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.codetome.hexameter.core.api.CubeCoordinate.fromCoordinates;
+import static org.codetome.hexameter.core.api.RotationDirection.LEFT;
 import static org.codetome.hexameter.core.api.RotationDirection.RIGHT;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -120,7 +121,7 @@ public class HexagonalGridCalculatorImplTest {
 
         Optional<Hexagon> hexagon = grid.getByCubeCoordinate(fromCoordinates(2, 5));
         SatelliteData data = new DefaultSatelliteData();
-        data.setBlocksView(true);
+        data.setOpaque(true);
         hexagon.get().setSatelliteData(data);
 
         assertThat(target.isVisible(grid.getByCubeCoordinate(fromCoordinates(8, 1)).get(),
@@ -134,10 +135,35 @@ public class HexagonalGridCalculatorImplTest {
     }
 
     @Test
-    public void shouldProperlyCalculateRotationWhenGivenAValidGrid() {
-        configureMockitoForRotation();
+    public void shouldProperlyCalculateRotationRightWhenGivenAValidGrid() {
+        when(originalHex.getGridX()).thenReturn(3);
+        when(originalHex.getGridY()).thenReturn(-2);
+        when(originalHex.getGridZ()).thenReturn(-1);
+
+        when(targetHex.getGridX()).thenReturn(5);
+        when(targetHex.getGridY()).thenReturn(-4);
+        when(targetHex.getGridZ()).thenReturn(-1);
 
         final Optional<Hexagon> resultOpt = target.rotateHexagon(originalHex, targetHex, RIGHT);
+
+        Hexagon result = resultOpt.get();
+
+        assertThat(result.getGridX()).isEqualTo(3);
+        assertThat(result.getGridY()).isEqualTo(-4);
+        assertThat(result.getGridZ()).isEqualTo(1);
+    }
+
+    @Test
+    public void shouldProperlyCalculateRotationLeftWhenGivenAValidGrid() {
+        when(targetHex.getGridX()).thenReturn(3);
+        when(targetHex.getGridY()).thenReturn(-2);
+        when(targetHex.getGridZ()).thenReturn(-1);
+
+        when(originalHex.getGridX()).thenReturn(5);
+        when(originalHex.getGridY()).thenReturn(-4);
+        when(originalHex.getGridZ()).thenReturn(-1);
+
+        final Optional<Hexagon> resultOpt = target.rotateHexagon(originalHex, targetHex, LEFT);
 
         Hexagon result = resultOpt.get();
 
@@ -153,14 +179,5 @@ public class HexagonalGridCalculatorImplTest {
         final Set<Hexagon> result = target.calculateRingFrom(targetHex, 3);
     }
 
-    private void configureMockitoForRotation() {
-        when(originalHex.getGridX()).thenReturn(3);
-        when(originalHex.getGridY()).thenReturn(-2);
-        when(originalHex.getGridZ()).thenReturn(-1);
-
-        when(targetHex.getGridX()).thenReturn(5);
-        when(targetHex.getGridY()).thenReturn(-4);
-        when(targetHex.getGridZ()).thenReturn(-1);
-    }
 
 }

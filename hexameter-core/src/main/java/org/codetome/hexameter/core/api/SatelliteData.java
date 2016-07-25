@@ -22,6 +22,17 @@ public interface SatelliteData {
     void setPassable(boolean passable);
 
     /**
+     * @return true if the {@link Hexagon} can bee seen through, false otherwise.
+     */
+    boolean isOpaque();
+
+    /**
+     * Set whether the {@link Hexagon} can be seen through.
+     * @param opaque is opaque?
+     */
+    void setOpaque(boolean opaque);
+
+    /**
      * Returns the movement cost when moving over the Hexagon.
      * @return movement cost
      */
@@ -32,17 +43,6 @@ public interface SatelliteData {
      * @param movementCost movement cost
      */
     void setMovementCost(double movementCost);
-    
-    /**
-     * @return true if the hexagon blocks view, false otherwise.
-     */
-    boolean isBlocksView();
-    
-    /**
-     * Set whether the hexagon blocks view.
-     * @param blocksView pass true if the hexagon blocks view, false otherwise
-     */
-    void setBlocksView(boolean blocksView);
 
     /**
      * Adds custom data to this SatelliteData.

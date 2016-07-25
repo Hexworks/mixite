@@ -101,7 +101,7 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
             if (pathHexagon.equals(from) || pathHexagon.equals(to)) {
                 continue;
             }
-            if (pathHexagon.getSatelliteData().isPresent() && pathHexagon.getSatelliteData().get().isBlocksView()) {
+            if (pathHexagon.getSatelliteData().isPresent() && pathHexagon.getSatelliteData().get().isOpaque()) {
                 return false;
             }
         }

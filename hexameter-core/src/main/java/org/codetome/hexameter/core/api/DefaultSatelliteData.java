@@ -1,14 +1,13 @@
 package org.codetome.hexameter.core.api;
 
-import static org.codetome.hexameter.core.backport.Optional.ofNullable;
+import lombok.Getter;
+import lombok.Setter;
+import org.codetome.hexameter.core.backport.Optional;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.codetome.hexameter.core.backport.Optional;
-
-import lombok.Getter;
-import lombok.Setter;
+import static org.codetome.hexameter.core.backport.Optional.ofNullable;
 
 
 /**
@@ -21,9 +20,9 @@ public class DefaultSatelliteData implements SatelliteData {
 
     private static final long serialVersionUID = 4397186040368615654L;
     private boolean passable;
+    private boolean opaque;
     private double movementCost;
     private Map<String, Object> customData = new ConcurrentHashMap<>();
-    private boolean blocksView;
 
     @Override
     public <T> void addCustomData(final String key, final T data) {

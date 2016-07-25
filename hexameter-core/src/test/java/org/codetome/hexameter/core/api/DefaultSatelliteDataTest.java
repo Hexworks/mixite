@@ -28,11 +28,11 @@ public class DefaultSatelliteDataTest {
         target.setPassable(EXPECTED_IS_PASSABLE);
         Assert.assertEquals(target.isPassable(), EXPECTED_IS_PASSABLE);
     }
-    
+
     @Test
     public void shouldProperlySetAndGetIsBlocksView() {
-        target.setBlocksView(EXPECTED_IS_BLOCKS_VIEW);
-        Assert.assertEquals(target.isBlocksView(), EXPECTED_IS_BLOCKS_VIEW);
+        target.setOpaque(EXPECTED_IS_BLOCKS_VIEW);
+        Assert.assertEquals(target.isOpaque(), EXPECTED_IS_BLOCKS_VIEW);
     }
 
     @Test
