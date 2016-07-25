@@ -97,13 +97,14 @@
                     <version>0.7.5.201505241946</version>
                     <executions>
                         <execution>
+                            <id>prepare-agent</id>
                             <goals>
                                 <goal>prepare-agent</goal>
                             </goals>
                         </execution>
                         <execution>
                             <id>report</id>
-                            <phase>test</phase>
+                            <phase>prepare-package</phase>
                             <goals>
                                 <goal>report</goal>
                             </goals>
@@ -111,7 +112,7 @@
                     </executions>
                     <configuration>
                         <excludes>
-                            <exclude>org.codetome.hexameter.core.backport.Optional</exclude>
+                            <exclude>**/Optional*</exclude>
                         </excludes>
                     </configuration>
                 </plugin>
