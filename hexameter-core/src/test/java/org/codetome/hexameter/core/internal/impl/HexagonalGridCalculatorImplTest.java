@@ -12,17 +12,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.assertFalse;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.codetome.hexameter.core.api.CubeCoordinate.fromCoordinates;
+import static org.codetome.hexameter.core.api.RotationDirection.RIGHT;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -98,23 +95,24 @@ public class HexagonalGridCalculatorImplTest {
     }
 
     @Test
-    public void shouldProperlyCalculateLine() {
+    public void shouldProperlyCalculateLineWithMultipleElements() {
         List<Hexagon> actual = target.drawLine(grid.getByCubeCoordinate(fromCoordinates(3, 7)).get(),
-                grid.getByCubeCoordinate(fromCoordinates(8, 1)).get()); 
-        assertEquals(
-                Arrays.asList(
-                        grid.getByCubeCoordinate(fromCoordinates(3, 7)).get(),
-                        grid.getByCubeCoordinate(fromCoordinates(4, 6)).get(),
-                        grid.getByCubeCoordinate(fromCoordinates(5, 5)).get(),
-                        grid.getByCubeCoordinate(fromCoordinates(6, 4)).get(),
-                        grid.getByCubeCoordinate(fromCoordinates(6, 3)).get(),
-                        grid.getByCubeCoordinate(fromCoordinates(7, 2)).get(),
-                        grid.getByCubeCoordinate(fromCoordinates(8, 1)).get()),
-                actual);
-        
-         actual = target.drawLine(grid.getByCubeCoordinate(fromCoordinates(3, 7)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(8, 1)).get());
+        assertThat(actual).containsSequence(
+                grid.getByCubeCoordinate(fromCoordinates(3, 7)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(4, 6)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(5, 5)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(6, 4)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(6, 3)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(7, 2)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(8, 1)).get());
+    }
+
+    @Test
+    public void shouldProperlyCalculateLineWithOneElement() {
+        List<Hexagon> actual = target.drawLine(grid.getByCubeCoordinate(fromCoordinates(3, 7)).get(),
                 grid.getByCubeCoordinate(fromCoordinates(3, 7)).get());
-         assertEquals(Collections.emptyList(), actual);
+        assertThat(actual).isEmpty();
     }
 
     @Test
@@ -125,21 +123,21 @@ public class HexagonalGridCalculatorImplTest {
         data.setBlocksView(true);
         hexagon.get().setSatelliteData(data);
 
-        assertFalse(target.isVisible(grid.getByCubeCoordinate(fromCoordinates(8, 1)).get(),
-                grid.getByCubeCoordinate(fromCoordinates(-3, 8)).get()));
-        assertFalse(target.isVisible(grid.getByCubeCoordinate(fromCoordinates(4, 4)).get(),
-                grid.getByCubeCoordinate(fromCoordinates(-3, 8)).get()));
-        assertTrue(target.isVisible(grid.getByCubeCoordinate(fromCoordinates(8, 3)).get(),
-                grid.getByCubeCoordinate(fromCoordinates(-3, 8)).get()));
-        assertTrue(target.isVisible(grid.getByCubeCoordinate(fromCoordinates(7, 1)).get(),
-                grid.getByCubeCoordinate(fromCoordinates(-3, 8)).get()));
+        assertThat(target.isVisible(grid.getByCubeCoordinate(fromCoordinates(8, 1)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(-3, 8)).get())).isFalse();
+        assertThat(target.isVisible(grid.getByCubeCoordinate(fromCoordinates(4, 4)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(-3, 8)).get())).isFalse();
+        assertThat(target.isVisible(grid.getByCubeCoordinate(fromCoordinates(8, 3)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(-3, 8)).get())).isTrue();
+        assertThat(target.isVisible(grid.getByCubeCoordinate(fromCoordinates(7, 1)).get(),
+                grid.getByCubeCoordinate(fromCoordinates(-3, 8)).get())).isTrue();
     }
 
     @Test
     public void shouldProperlyCalculateRotationWhenGivenAValidGrid() {
         configureMockitoForRotation();
 
-        final Optional<Hexagon> resultOpt = target.rotateHexagon(originalHex, targetHex, RotationDirection.RIGHT);
+        final Optional<Hexagon> resultOpt = target.rotateHexagon(originalHex, targetHex, RIGHT);
 
         Hexagon result = resultOpt.get();
 

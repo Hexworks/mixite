@@ -94,6 +94,20 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
         return results;
     }
 
+    @Override
+    public boolean isVisible(Hexagon from, Hexagon to) {
+        List<Hexagon> traversePath = drawLine(from, to);
+        for (Hexagon pathHexagon : traversePath) {
+            if (pathHexagon.equals(from) || pathHexagon.equals(to)) {
+                continue;
+            }
+            if (pathHexagon.getSatelliteData().isPresent() && pathHexagon.getSatelliteData().get().isBlocksView()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private CubeCoordinate cubeLinearInterpolate(CubeCoordinate from, CubeCoordinate to, double sample) {
         return roundToCubeCoordinate(linearInterpolate(from.getGridX(), to.getGridX(), sample),
                 linearInterpolate(from.getGridY(), to.getGridY(), sample),
@@ -120,19 +134,4 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
         }
         return CubeCoordinate.fromCoordinates(rx, rz);
     }
-
-    @Override
-    public boolean isVisible(Hexagon hexagon, Hexagon from) {
-        List<Hexagon> traversePath = drawLine(from, hexagon);
-        for (Hexagon pathHexagon : traversePath) {
-            if (pathHexagon.equals(from) || pathHexagon.equals(hexagon)) {
-                continue;
-            }
-            if (pathHexagon.getSatelliteData().isPresent() && pathHexagon.getSatelliteData().get().isBlocksView()) {
-                return false;
-            }
-        }
-        return true;
-    }
-    
 }

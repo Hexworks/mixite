@@ -61,20 +61,20 @@ public interface HexagonalGridCalculator {
 
 
     /**
-     * Retruns a {@link List} of {@link Hexagon}s which must be traversed in the
-     * given order to go from one hexagon to another.
-     * 
-     * @param from hexagon to start line drawing
-     * @param to hexgon to end line drawing
-     * @return A list of hexagons
+     * Returns a {@link List} of {@link Hexagon}s which must be traversed in the
+     * given order to go from the <code>from</code> Hexagon to the <code>to</code> Hexagon.
+     *
+     * @param from starting hexagon
+     * @param to target hexagon
+     * @return List of hexagons containing the line
      */
     List<Hexagon> drawLine(Hexagon from, Hexagon to);
-    
+
     /**
-     * Returns true if a hexagon is visible from another hexagon.
-     * @param hexagon the hexagon that we are testing the visibility
-     * @param from the hexgon from which we are testing the visibility
+     * Returns true if the <code>from</code> {@link Hexagon} is visible from the <code>to</code> Hexagon.
+     * @param from the Hexagon that we are testing the visibility from
+     * @param to the Hexagon from which we are testing the visibility to
      * @return true if hexagon is visible, false otherwise
      */
-    boolean isVisible(Hexagon hexagon, Hexagon from);
+    boolean isVisible(Hexagon from, Hexagon to);
 }
