@@ -52,9 +52,9 @@ public interface SatelliteData {
     /**
      * Adds custom data to this SatelliteData.
      *
-     * @param key  a key to be used for later retrieval
+     * @param key a key to be used for later retrieval
      * @param data the data itself
-     * @param <T>  type of the data
+     * @param <T> type of the data
      */
     <T> void addCustomData(String key, T data);
 
@@ -63,6 +63,7 @@ public interface SatelliteData {
      *
      * @param key the key which can be used to fetch the data
      * @param <T> type of the data
+     *
      * @return data itself
      */
     <T> Optional<T> getCustomData(String key);

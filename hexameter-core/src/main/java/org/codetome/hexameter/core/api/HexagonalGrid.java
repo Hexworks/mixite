@@ -39,7 +39,8 @@ public interface HexagonalGrid {
      * If the range contains coordinates which are not part of the grid they will be ignored.
      *
      * @param from from
-     * @param to   to
+     * @param to to
+     *
      * @return {@link Hexagon}s in the given range.
      */
     Observable<Hexagon> getHexagonsByCubeRange(CubeCoordinate from, CubeCoordinate to);
@@ -49,9 +50,10 @@ public interface HexagonalGrid {
      * If the range contains coordinates which are not part of the grid they will be ignored.
      *
      * @param gridXFrom from x inclusive
-     * @param gridXTo   to x inclusive
+     * @param gridXTo to x inclusive
      * @param gridYFrom from z inclusive
-     * @param gridYTo   to z inclusive
+     * @param gridYTo to z inclusive
+     *
      * @return {@link Hexagon}s in the given range.
      */
     Observable<Hexagon> getHexagonsByOffsetRange(int gridXFrom, int gridXTo, int gridYFrom, int gridYTo);
@@ -61,6 +63,7 @@ public interface HexagonalGrid {
      * If you want to look up by offset coordinate use {@link CoordinateConverter}.
      *
      * @param coordinate coord
+     *
      * @return is it on the grid?
      */
     boolean containsCubeCoordinate(CubeCoordinate coordinate);
@@ -69,6 +72,7 @@ public interface HexagonalGrid {
      * Returns a {@link Hexagon} by its cube coordinate.
      *
      * @param coordinate coord
+     *
      * @return Optional with a Hexagon if it is present
      */
     Optional<Hexagon> getByCubeCoordinate(CubeCoordinate coordinate);
@@ -80,6 +84,7 @@ public interface HexagonalGrid {
      *
      * @param coordinateX pixel coordinateX coordinate
      * @param coordinateY pixel coordinateY coordinate
+     *
      * @return Optional with a Hexagon if it is present
      */
     Optional<Hexagon> getByPixelCoordinate(double coordinateX, double coordinateY);
@@ -95,6 +100,7 @@ public interface HexagonalGrid {
      * Returns all neighbors of a {@link Hexagon}.
      *
      * @param hexagon {@link Hexagon}
+     *
      * @return the {@link Hexagon}'s neighbors
      */
     Collection<Hexagon> getNeighborsOf(Hexagon hexagon);

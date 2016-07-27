@@ -35,9 +35,10 @@ public class HexagonImpl implements Hexagon {
     /**
      * Creates a new {@link Hexagon} object from shared data and a coordinate.
      *
-     * @param gridData   grid data
+     * @param gridData grid data
      * @param coordinate coordinate
-     * @param dataMap    data map
+     * @param dataMap data map
+     *
      * @return hexagon
      */
     public static Hexagon newHexagon(final GridData gridData, final CubeCoordinate coordinate, Map<CubeCoordinate, Object> dataMap) {
@@ -119,6 +120,11 @@ public class HexagonImpl implements Hexagon {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(coordinate);
+    }
+
+    @Override
     public boolean equals(Object object) {
         if (this == object) {
             return true;
@@ -128,10 +134,5 @@ public class HexagonImpl implements Hexagon {
         }
         HexagonImpl hexagon = (HexagonImpl) object;
         return Objects.equals(coordinate, hexagon.coordinate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(coordinate);
     }
 }

@@ -27,6 +27,7 @@ public final class CubeCoordinate implements Serializable {
      * <code>%gridX%,%gridZ%</code>.
      *
      * @param axialKey key
+     *
      * @return coord
      */
     public static CubeCoordinate fromAxialKey(final String axialKey) {
@@ -45,6 +46,7 @@ public final class CubeCoordinate implements Serializable {
      *
      * @param gridX grid x
      * @param gridZ grid z
+     *
      * @return coord
      */
     public static CubeCoordinate fromCoordinates(final int gridX, final int gridZ) {
@@ -74,6 +76,11 @@ public final class CubeCoordinate implements Serializable {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(gridX, gridZ);
+    }
+
+    @Override
     public boolean equals(Object object) {
         if (this == object) {
             return true;
@@ -83,10 +90,5 @@ public final class CubeCoordinate implements Serializable {
         }
         CubeCoordinate that = (CubeCoordinate) object;
         return gridX == that.gridX && gridZ == that.gridZ;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(gridX, gridZ);
     }
 }

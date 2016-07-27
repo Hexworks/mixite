@@ -52,6 +52,11 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     }
 
     @Override
+    public GridData getGridData() {
+        return gridData;
+    }
+
+    @Override
     public Observable<Hexagon> getHexagons() {
         Observable<Hexagon> result = Observable.create(new OnSubscribe<Hexagon>() {
             @Override
@@ -162,11 +167,6 @@ public final class HexagonalGridImpl implements HexagonalGrid {
     @Override
     public void clearSatelliteData() {
         hexagonStorage.clear();
-    }
-
-    @Override
-    public GridData getGridData() {
-        return gridData;
     }
 
     private Hexagon refineHexagonByPixel(final Hexagon hexagon, final Point clickedPoint) {

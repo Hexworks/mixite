@@ -21,16 +21,6 @@ public class DefaultSatelliteData implements SatelliteData {
     private Map<String, Object> customData = new ConcurrentHashMap<>();
 
     @Override
-    public <T> void addCustomData(final String key, final T data) {
-        customData.put(key, data);
-    }
-
-    @Override
-    public <T> Optional<T> getCustomData(final String key) {
-        return ofNullable((T) customData.get(key));
-    }
-
-    @Override
     public boolean isPassable() {
         return passable;
     }
@@ -58,5 +48,15 @@ public class DefaultSatelliteData implements SatelliteData {
     @Override
     public void setMovementCost(double movementCost) {
         this.movementCost = movementCost;
+    }
+
+    @Override
+    public <T> void addCustomData(final String key, final T data) {
+        customData.put(key, data);
+    }
+
+    @Override
+    public <T> Optional<T> getCustomData(final String key) {
+        return ofNullable((T) customData.get(key));
     }
 }

@@ -14,9 +14,11 @@ public final class CoordinateConverter {
 
     /**
      * Calculates the cube X coordinate based on an offset coordinate pair.
+     *
      * @param offsetX offset x
      * @param offsetY offset y
      * @param orientation orientation
+     *
      * @return cube x
      */
     public static int convertOffsetCoordinatesToCubeX(final int offsetX, final int offsetY, final HexagonOrientation orientation) {
@@ -25,9 +27,11 @@ public final class CoordinateConverter {
 
     /**
      * Calculates the cube Z coordinate based on an offset coordinate pair.
+     *
      * @param offsetX offset x
      * @param offsetY offset y
      * @param orientation orientation
+     *
      * @return cube z
      */
     public static int convertOffsetCoordinatesToCubeZ(final int offsetX, final int offsetY, final HexagonOrientation orientation) {

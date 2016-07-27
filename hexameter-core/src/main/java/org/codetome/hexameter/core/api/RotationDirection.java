@@ -19,10 +19,6 @@ public enum RotationDirection {
         }
     });
 
-    interface RotationCalculator {
-        CubeCoordinate calculate(CubeCoordinate coord);
-    }
-
     private RotationCalculator rotationCalculator;
 
     RotationDirection(RotationCalculator rotationCalculator) {
@@ -33,9 +29,14 @@ public enum RotationDirection {
      * Calculates a rotation (right or left) of <code>coord</code>.
      *
      * @param coord coordinate to rotate
+     *
      * @return rotated coordinate
      */
     public CubeCoordinate calculateRotation(CubeCoordinate coord) {
         return rotationCalculator.calculate(coord);
+    }
+
+    interface RotationCalculator {
+        CubeCoordinate calculate(CubeCoordinate coord);
     }
 }

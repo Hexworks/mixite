@@ -21,6 +21,7 @@ public final class Point {
      *
      * @param coordinateX x
      * @param coordinateY y
+     *
      * @return point
      */
     public static Point fromPosition(final double coordinateX, final double coordinateY) {
@@ -31,6 +32,7 @@ public final class Point {
      * Calculates a distance between two points.
      *
      * @param point point
+     *
      * @return distance
      */
     public double distanceFrom(final Point point) {
