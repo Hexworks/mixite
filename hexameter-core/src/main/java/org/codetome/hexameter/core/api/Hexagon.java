@@ -78,8 +78,9 @@ public interface Hexagon {
 
     /**
      * Can be used to add arbitrary satellite data to a {@link Hexagon}.
+     *
      * @param data data
-     * @param <T> type of data
+     * @param <T>  type of data
      */
     <T extends SatelliteData> void setSatelliteData(T data);
 

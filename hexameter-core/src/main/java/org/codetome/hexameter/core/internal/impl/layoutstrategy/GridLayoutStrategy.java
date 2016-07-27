@@ -24,7 +24,7 @@ public abstract class GridLayoutStrategy {
      * <i>For example a hexagonal grid layout only works if the width equals to the height</i>
      *
      * @param gridHeight height
-     * @param gridWidth width
+     * @param gridWidth  width
      * @return valid?
      */
     public boolean checkParameters(final int gridHeight, final int gridWidth) {

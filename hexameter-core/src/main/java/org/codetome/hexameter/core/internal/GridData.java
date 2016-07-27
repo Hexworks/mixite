@@ -1,6 +1,5 @@
 package org.codetome.hexameter.core.internal;
 
-import lombok.Getter;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonOrientation;
 import org.codetome.hexameter.core.api.HexagonalGrid;
@@ -13,8 +12,6 @@ import static org.codetome.hexameter.core.api.HexagonOrientation.FLAT_TOP;
  * Immutable class which holds the shared data between the {@link Hexagon}s of a {@link HexagonalGrid}
  * and the HexagonalGrid's own immutable properties.
  */
-@Getter
-@SuppressWarnings("PMD.UnusedPrivateField")
 public final class GridData {
 
     private final HexagonOrientation orientation;
@@ -29,10 +26,10 @@ public final class GridData {
      * Creates a new GridData based on <code>orientation</code> and <code>radius</code>.
      *
      * @param orientation orientation
-     * @param gridLayout grid layout
-     * @param radius radius
-     * @param gridWidth grid width (units)
-     * @param gridHeight grid height (units)
+     * @param gridLayout  grid layout
+     * @param radius      radius
+     * @param gridWidth   grid width (units)
+     * @param gridHeight  grid height (units)
      */
     public GridData(final HexagonOrientation orientation, final HexagonalGridLayout gridLayout,
                     final double radius, int gridWidth, int gridHeight) {
@@ -51,5 +48,33 @@ public final class GridData {
 
     private static double calculateWidth(final double radius) {
         return radius * 3 / 2;
+    }
+
+    public HexagonOrientation getOrientation() {
+        return orientation;
+    }
+
+    public HexagonalGridLayout getGridLayout() {
+        return gridLayout;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public double getHexagonHeight() {
+        return hexagonHeight;
+    }
+
+    public double getHexagonWidth() {
+        return hexagonWidth;
+    }
+
+    public int getGridWidth() {
+        return gridWidth;
+    }
+
+    public int getGridHeight() {
+        return gridHeight;
     }
 }

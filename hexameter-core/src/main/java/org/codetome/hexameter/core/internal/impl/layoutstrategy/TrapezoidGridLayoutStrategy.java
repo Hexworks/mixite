@@ -31,5 +31,4 @@ public final class TrapezoidGridLayoutStrategy extends GridLayoutStrategy {
     public boolean checkParameters(final int gridHeight, final int gridWidth) {
         return super.checkParameters(gridHeight, gridWidth);
     }
-
 }

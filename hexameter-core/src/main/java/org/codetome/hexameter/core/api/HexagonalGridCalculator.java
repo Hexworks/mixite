@@ -16,7 +16,7 @@ import java.util.Set;
  * <ul>
  * <li>Calculating movement range with obstacles</li>
  * <li>Calculating field of view</li>
- * <li>Pathfinding between two {@link Hexagon}s (using obstacles)</li>
+ * <li>Path finding between two {@link Hexagon}s (using obstacles)</li>
  * </ul>
  */
 public interface HexagonalGridCalculator {
@@ -33,7 +33,7 @@ public interface HexagonalGridCalculator {
     /**
      * Returns all {@link Hexagon}s which are within <code>distance</code> (inclusive) from the {@link Hexagon}.
      *
-     * @param hexagon {@link Hexagon}
+     * @param hexagon  {@link Hexagon}
      * @param distance distance
      * @return {@link Hexagon}s within distance (inclusive)
      */
@@ -42,8 +42,9 @@ public interface HexagonalGridCalculator {
     /**
      * Returns the Hexagon on the grid which is at the point resulted by rotating the <code>targetHex</code>'s
      * coordinates around the <code>originalHex</code> by <code>rotationDirection</code> degrees.
-     * @param originalHex center hex
-     * @param targetHex hex to rotate
+     *
+     * @param originalHex       center hex
+     * @param targetHex         hex to rotate
      * @param rotationDirection direction of the rotation
      * @return result
      */
@@ -53,8 +54,9 @@ public interface HexagonalGridCalculator {
     /**
      * Returns the {@link Set} of {@link Hexagon}s which are <code>radius</code> distance
      * from <code>centerHexagon</code>.
+     *
      * @param centerHexagon center
-     * @param radius radius
+     * @param radius        radius
      * @return Set of hexagons or empty set if not applicable
      */
     Set<Hexagon> calculateRingFrom(Hexagon centerHexagon, int radius);
@@ -65,15 +67,16 @@ public interface HexagonalGridCalculator {
      * given order to go from the <code>from</code> Hexagon to the <code>to</code> Hexagon.
      *
      * @param from starting hexagon
-     * @param to target hexagon
+     * @param to   target hexagon
      * @return List of hexagons containing the line
      */
     List<Hexagon> drawLine(Hexagon from, Hexagon to);
 
     /**
      * Returns true if the <code>from</code> {@link Hexagon} is visible from the <code>to</code> Hexagon.
+     *
      * @param from the Hexagon that we are testing the visibility from
-     * @param to the Hexagon from which we are testing the visibility to
+     * @param to   the Hexagon from which we are testing the visibility to
      * @return true if hexagon is visible, false otherwise
      */
     boolean isVisible(Hexagon from, Hexagon to);

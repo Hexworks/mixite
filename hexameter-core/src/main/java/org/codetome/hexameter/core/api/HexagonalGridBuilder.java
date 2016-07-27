@@ -22,7 +22,7 @@ import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
  * </ul>
  * Defaults for orientation and grid layout are POINTY_TOP and RECTANGULAR.
  */
-public final class  HexagonalGridBuilder {
+public final class HexagonalGridBuilder {
     private int gridWidth;
     private int gridHeight;
     private double radius;
@@ -76,7 +76,6 @@ public final class  HexagonalGridBuilder {
      * Sets the radius of the {@link Hexagon}s contained in the resulting {@link HexagonalGrid}.
      *
      * @param radius in pixels
-     *
      * @return this {@link HexagonalGridBuilder}
      */
     public HexagonalGridBuilder setRadius(final double radius) {

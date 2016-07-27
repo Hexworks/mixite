@@ -1,7 +1,5 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.Point;
@@ -12,6 +10,7 @@ import org.codetome.hexameter.core.internal.GridData;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -21,8 +20,6 @@ import static org.codetome.hexameter.core.api.Point.fromPosition;
 /**
  * Default implementation of the {@link Hexagon} interface.
  */
-@EqualsAndHashCode
-@ToString(of = "coordinate")
 public class HexagonImpl implements Hexagon {
 
     private final CubeCoordinate coordinate;
@@ -38,9 +35,9 @@ public class HexagonImpl implements Hexagon {
     /**
      * Creates a new {@link Hexagon} object from shared data and a coordinate.
      *
-     * @param gridData grid data
+     * @param gridData   grid data
      * @param coordinate coordinate
-     * @param dataMap data map
+     * @param dataMap    data map
      * @return hexagon
      */
     public static Hexagon newHexagon(final GridData gridData, final CubeCoordinate coordinate, Map<CubeCoordinate, Object> dataMap) {
@@ -119,5 +116,22 @@ public class HexagonImpl implements Hexagon {
     @Override
     public void clearSatelliteData() {
         this.dataMap.remove(getCubeCoordinate());
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        HexagonImpl hexagon = (HexagonImpl) object;
+        return Objects.equals(coordinate, hexagon.coordinate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(coordinate);
     }
 }

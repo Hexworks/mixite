@@ -1,8 +1,7 @@
 package org.codetome.hexameter.core.api;
 
-import lombok.Data;
-
 import java.io.Serializable;
+import java.util.Objects;
 
 import static java.lang.Integer.parseInt;
 
@@ -12,7 +11,6 @@ import static java.lang.Integer.parseInt;
  * Note that the y coordinate is not stored in this object since it can be
  * calculated.
  */
-@Data
 public final class CubeCoordinate implements Serializable {
 
     private static final long serialVersionUID = -6656555565645274603L;
@@ -27,6 +25,7 @@ public final class CubeCoordinate implements Serializable {
     /**
      * Tries to create an {@link CubeCoordinate} from a key which has the format:
      * <code>%gridX%,%gridZ%</code>.
+     *
      * @param axialKey key
      * @return coord
      */
@@ -43,6 +42,7 @@ public final class CubeCoordinate implements Serializable {
 
     /**
      * Creates an instance of {@link CubeCoordinate} from an x and a z coordinate.
+     *
      * @param gridX grid x
      * @param gridZ grid z
      * @return coord
@@ -54,6 +54,7 @@ public final class CubeCoordinate implements Serializable {
     /**
      * Creates an axial (x, z) key which can be used in key-value storage objects based on this
      * {@link CubeCoordinate}.
+     *
      * @return key
      */
     public String toAxialKey() {
@@ -62,5 +63,30 @@ public final class CubeCoordinate implements Serializable {
 
     public int getGridY() {
         return -(getGridX() + getGridZ());
+    }
+
+    public int getGridX() {
+        return gridX;
+    }
+
+    public int getGridZ() {
+        return gridZ;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        CubeCoordinate that = (CubeCoordinate) object;
+        return gridX == that.gridX && gridZ == that.gridZ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(gridX, gridZ);
     }
 }

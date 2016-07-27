@@ -1,7 +1,5 @@
 package org.codetome.hexameter.core.api;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.codetome.hexameter.core.backport.Optional;
 
 import java.util.Map;
@@ -13,8 +11,6 @@ import static org.codetome.hexameter.core.backport.Optional.ofNullable;
 /**
  * Convenience class implementing SatelliteData.
  */
-@Getter
-@Setter
 @SuppressWarnings("PMD.UnusedPrivateField")
 public class DefaultSatelliteData implements SatelliteData {
 
@@ -32,5 +28,35 @@ public class DefaultSatelliteData implements SatelliteData {
     @Override
     public <T> Optional<T> getCustomData(final String key) {
         return ofNullable((T) customData.get(key));
+    }
+
+    @Override
+    public boolean isPassable() {
+        return passable;
+    }
+
+    @Override
+    public void setPassable(boolean passable) {
+        this.passable = passable;
+    }
+
+    @Override
+    public boolean isOpaque() {
+        return opaque;
+    }
+
+    @Override
+    public void setOpaque(boolean opaque) {
+        this.opaque = opaque;
+    }
+
+    @Override
+    public double getMovementCost() {
+        return movementCost;
+    }
+
+    @Override
+    public void setMovementCost(double movementCost) {
+        this.movementCost = movementCost;
     }
 }

@@ -31,6 +31,7 @@ public enum RotationDirection {
 
     /**
      * Calculates a rotation (right or left) of <code>coord</code>.
+     *
      * @param coord coordinate to rotate
      * @return rotated coordinate
      */

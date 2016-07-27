@@ -11,12 +11,14 @@ public interface SatelliteData {
 
     /**
      * Tells whether the Hexagon can be passed over when moving around the map or not.
+     *
      * @return is passable?
      */
     boolean isPassable();
 
     /**
      * Sets whether the Hexagon is passable or not.
+     *
      * @param passable passable?
      */
     void setPassable(boolean passable);
@@ -28,32 +30,37 @@ public interface SatelliteData {
 
     /**
      * Set whether the {@link Hexagon} can be seen through.
+     *
      * @param opaque is opaque?
      */
     void setOpaque(boolean opaque);
 
     /**
      * Returns the movement cost when moving over the Hexagon.
+     *
      * @return movement cost
      */
     double getMovementCost();
 
     /**
      * Sets the movement cost.
+     *
      * @param movementCost movement cost
      */
     void setMovementCost(double movementCost);
 
     /**
      * Adds custom data to this SatelliteData.
-     * @param key a key to be used for later retrieval
+     *
+     * @param key  a key to be used for later retrieval
      * @param data the data itself
-     * @param <T> type of the data
+     * @param <T>  type of the data
      */
     <T> void addCustomData(String key, T data);
 
     /**
      * Retrieves custom data stored in this SatelliteData.
+     *
      * @param key the key which can be used to fetch the data
      * @param <T> type of the data
      * @return data itself
