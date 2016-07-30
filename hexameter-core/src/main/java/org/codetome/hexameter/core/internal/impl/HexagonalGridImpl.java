@@ -51,7 +51,7 @@ public final class HexagonalGridImpl<T extends SatelliteData> implements Hexagon
 
     @Override
     public Observable<Hexagon<T>> getHexagons() {
-        Observable<Hexagon<T>> result = Observable.create(new OnSubscribe<Hexagon<T>>() {
+        return Observable.create(new OnSubscribe<Hexagon<T>>() {
             @Override
             public void call(final Subscriber<? super Hexagon<T>> subscriber) {
                 hexagonDataStorage.getCoordinates().subscribe(new Subscriber<CubeCoordinate>() {
@@ -70,15 +70,13 @@ public final class HexagonalGridImpl<T extends SatelliteData> implements Hexagon
                         subscriber.onNext(new HexagonImpl<>(gridData, cubeCoordinate, hexagonDataStorage));
                     }
                 });
-                subscriber.onCompleted();
             }
         });
-        return result;
     }
 
     @Override
     public Observable<Hexagon<T>> getHexagonsByCubeRange(final CubeCoordinate from, final CubeCoordinate to) {
-        Observable<Hexagon<T>> result = Observable.create(new OnSubscribe<Hexagon<T>>() {
+        return Observable.create(new OnSubscribe<Hexagon<T>>() {
             @Override
             public void call(Subscriber<? super Hexagon<T>> subscriber) {
                 for (int gridZ = from.getGridZ(); gridZ <= to.getGridZ(); gridZ++) {
@@ -92,12 +90,11 @@ public final class HexagonalGridImpl<T extends SatelliteData> implements Hexagon
                 subscriber.onCompleted();
             }
         });
-        return result;
     }
 
     @Override
     public Observable<Hexagon<T>> getHexagonsByOffsetRange(final int gridXFrom, final int gridXTo, final int gridYFrom, final int gridYTo) {
-        Observable<Hexagon<T>> result = Observable.create(new OnSubscribe<Hexagon<T>>() {
+        return Observable.create(new OnSubscribe<Hexagon<T>>() {
             @Override
             public void call(Subscriber<? super Hexagon<T>> subscriber) {
                 for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {
@@ -114,7 +111,6 @@ public final class HexagonalGridImpl<T extends SatelliteData> implements Hexagon
                 subscriber.onCompleted();
             }
         });
-        return result;
     }
 
     @Override
