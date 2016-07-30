@@ -33,7 +33,7 @@
                     <executions>
                         <execution>
                             <id>checkstyle</id>
-                            <phase>validate</phase>
+                            <phase>verify</phase>
                             <goals>
                                 <goal>check</goal>
                             </goals>
@@ -57,7 +57,7 @@
                     <executions>
                         <execution>
                             <id>analyze-compile</id>
-                            <phase>compile</phase>
+                            <phase>verify</phase>
                             <goals>
                                 <goal>check</goal>
                             </goals>
@@ -84,7 +84,7 @@
                     <executions>
                         <execution>
                             <id>analyze-compile</id>
-                            <phase>compile</phase>
+                            <phase>verify</phase>
                             <goals>
                                 <goal>check</goal>
                             </goals>
@@ -103,7 +103,7 @@
                         </execution>
                         <execution>
                             <id>report</id>
-                            <phase>test</phase>
+                            <phase>verify</phase>
                             <goals>
                                 <goal>report</goal>
                             </goals>
@@ -130,6 +130,7 @@
                     <executions>
                         <execution>
                             <id>attach-sources</id>
+                            <phase>install</phase>
                             <goals>
                                 <goal>jar-no-fork</goal>
                             </goals>
@@ -144,6 +145,7 @@
                     <executions>
                         <execution>
                             <id>attach-javadocs</id>
+                            <phase>install</phase>
                             <goals>
                                 <goal>jar</goal>
                             </goals>
