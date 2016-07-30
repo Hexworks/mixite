@@ -5,6 +5,7 @@ import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridCalculator;
 import org.codetome.hexameter.core.api.RotationDirection;
+import org.codetome.hexameter.core.api.contract.SatelliteData;
 import org.codetome.hexameter.core.backport.Optional;
 
 import java.util.HashSet;
@@ -17,9 +18,9 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static java.lang.Math.round;
 
-public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculator {
+public final class HexagonalGridCalculatorImpl<T extends SatelliteData> implements HexagonalGridCalculator<T> {
 
-    private final HexagonalGrid hexagonalGrid;
+    private final HexagonalGrid<T> hexagonalGrid;
 
     public HexagonalGridCalculatorImpl(final HexagonalGrid hexagonalGrid) {
         this.hexagonalGrid = hexagonalGrid;
@@ -34,8 +35,8 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
     }
 
     @Override
-    public Set<Hexagon> calculateMovementRangeFrom(final Hexagon hexagon, final int distance) {
-        final Set<Hexagon> ret = new HashSet<>();
+    public Set<Hexagon<T>> calculateMovementRangeFrom(final Hexagon<T> hexagon, final int distance) {
+        final Set<Hexagon<T>> ret = new HashSet<>();
         for (int x = -distance; x <= distance; x++) {
             for (int y = max(-distance, -x - distance); y <= min(distance, -x + distance); y++) {
                 final int z = -x - y;
@@ -43,7 +44,7 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
                 final int tmpZ = hexagon.getGridZ() + z;
                 final CubeCoordinate tempCoordinate = CubeCoordinate.fromCoordinates(tmpX, tmpZ);
                 if (hexagonalGrid.containsCubeCoordinate(tempCoordinate)) {
-                    final Hexagon hex = hexagonalGrid.getByCubeCoordinate(tempCoordinate).get();
+                    final Hexagon<T> hex = hexagonalGrid.getByCubeCoordinate(tempCoordinate).get();
                     ret.add(hex);
                 }
             }
@@ -52,7 +53,7 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
     }
 
     @Override
-    public Optional<Hexagon> rotateHexagon(Hexagon originalHex, Hexagon targetHex, RotationDirection rotationDirection) {
+    public Optional<Hexagon<T>> rotateHexagon(Hexagon<T> originalHex, Hexagon<T> targetHex, RotationDirection rotationDirection) {
         final int diffX = targetHex.getGridX() - originalHex.getGridX();
         final int diffZ = targetHex.getGridZ() - originalHex.getGridZ();
         final CubeCoordinate diffCoord = CubeCoordinate.fromCoordinates(diffX, diffZ);
@@ -64,12 +65,12 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
     }
 
     @Override
-    public Set<Hexagon> calculateRingFrom(Hexagon centerHexagon, int radius) {
-        final Set<Hexagon> result = new HashSet<>();
+    public Set<Hexagon<T>> calculateRingFrom(Hexagon<T> centerHexagon, int radius) {
+        final Set<Hexagon<T>> result = new HashSet<>();
         final int neighborIndex = 0;
-        Hexagon currentHexagon = centerHexagon;
+        Hexagon<T> currentHexagon = centerHexagon;
         for (int i = 0; i < radius; i++) {
-            final Optional<Hexagon> neighbor = hexagonalGrid.getNeighborByIndex(currentHexagon, neighborIndex);
+            final Optional<Hexagon<T>> neighbor = hexagonalGrid.getNeighborByIndex(currentHexagon, neighborIndex);
             if (neighbor.isPresent()) {
                 currentHexagon = neighbor.get();
             } else {
@@ -80,9 +81,9 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
     }
 
     @Override
-    public List<Hexagon> drawLine(Hexagon from, Hexagon to) {
+    public List<Hexagon<T>> drawLine(Hexagon<T> from, Hexagon<T> to) {
         int distance = calculateDistanceBetween(from, to);
-        List<Hexagon> results = new LinkedList<>();
+        List<Hexagon<T>> results = new LinkedList<>();
         if (distance == 0) {
             return results;
         }
@@ -95,9 +96,9 @@ public final class HexagonalGridCalculatorImpl implements HexagonalGridCalculato
     }
 
     @Override
-    public boolean isVisible(Hexagon from, Hexagon to) {
-        List<Hexagon> traversePath = drawLine(from, to);
-        for (Hexagon pathHexagon : traversePath) {
+    public boolean isVisible(Hexagon<T> from, Hexagon<T> to) {
+        List<Hexagon<T>> traversePath = drawLine(from, to);
+        for (Hexagon<T> pathHexagon : traversePath) {
             if (pathHexagon.equals(from) || pathHexagon.equals(to)) {
                 continue;
             }

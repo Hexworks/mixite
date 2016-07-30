@@ -1,12 +1,11 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import org.codetome.hexameter.core.api.DefaultSatelliteData;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 import org.codetome.hexameter.core.api.HexagonalGridCalculator;
 import org.codetome.hexameter.core.api.RotationDirection;
-import org.codetome.hexameter.core.api.SatelliteData;
+import org.codetome.hexameter.core.api.defaults.DefaultSatelliteData;
 import org.codetome.hexameter.core.backport.Optional;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,8 +25,8 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public class HexagonalGridCalculatorImplTest {
 
-    private HexagonalGrid grid;
-    private HexagonalGridCalculator target;
+    private HexagonalGrid<DefaultSatelliteData> grid;
+    private HexagonalGridCalculator<DefaultSatelliteData> target;
 
     @Mock
     private Hexagon originalHex;
@@ -38,7 +37,7 @@ public class HexagonalGridCalculatorImplTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        final HexagonalGridBuilder builder = new HexagonalGridBuilder()
+        final HexagonalGridBuilder<DefaultSatelliteData> builder = new HexagonalGridBuilder<DefaultSatelliteData>()
                 .setGridHeight(10).setGridWidth(10).setRadius(10);
         grid = builder.build();
         target = builder.buildCalculatorFor(grid);
@@ -97,7 +96,7 @@ public class HexagonalGridCalculatorImplTest {
 
     @Test
     public void shouldProperlyCalculateLineWithMultipleElements() {
-        List<Hexagon> actual = target.drawLine(grid.getByCubeCoordinate(fromCoordinates(3, 7)).get(),
+        List<Hexagon<DefaultSatelliteData>> actual = target.drawLine(grid.getByCubeCoordinate(fromCoordinates(3, 7)).get(),
                 grid.getByCubeCoordinate(fromCoordinates(8, 1)).get());
         assertThat(actual).containsSequence(
                 grid.getByCubeCoordinate(fromCoordinates(3, 7)).get(),
@@ -111,7 +110,7 @@ public class HexagonalGridCalculatorImplTest {
 
     @Test
     public void shouldProperlyCalculateLineWithOneElement() {
-        List<Hexagon> actual = target.drawLine(grid.getByCubeCoordinate(fromCoordinates(3, 7)).get(),
+        List<Hexagon<DefaultSatelliteData>> actual = target.drawLine(grid.getByCubeCoordinate(fromCoordinates(3, 7)).get(),
                 grid.getByCubeCoordinate(fromCoordinates(3, 7)).get());
         assertThat(actual).isEmpty();
     }
@@ -119,8 +118,8 @@ public class HexagonalGridCalculatorImplTest {
     @Test
     public void shouldCheckForVisibilityCorrectly() {
 
-        Optional<Hexagon> hexagon = grid.getByCubeCoordinate(fromCoordinates(2, 5));
-        SatelliteData data = new DefaultSatelliteData();
+        Optional<Hexagon<DefaultSatelliteData>> hexagon = grid.getByCubeCoordinate(fromCoordinates(2, 5));
+        DefaultSatelliteData data = new DefaultSatelliteData();
         data.setOpaque(true);
         hexagon.get().setSatelliteData(data);
 

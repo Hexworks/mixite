@@ -1,11 +1,6 @@
-package org.codetome.hexameter.core.api;
+package org.codetome.hexameter.core.api.defaults;
 
-import org.codetome.hexameter.core.backport.Optional;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import static org.codetome.hexameter.core.backport.Optional.ofNullable;
+import org.codetome.hexameter.core.api.contract.SatelliteData;
 
 
 /**
@@ -14,11 +9,9 @@ import static org.codetome.hexameter.core.backport.Optional.ofNullable;
 @SuppressWarnings("PMD.UnusedPrivateField")
 public class DefaultSatelliteData implements SatelliteData {
 
-    private static final long serialVersionUID = 4397186040368615654L;
     private boolean passable;
     private boolean opaque;
     private double movementCost;
-    private Map<String, Object> customData = new ConcurrentHashMap<>();
 
     @Override
     public boolean isPassable() {
@@ -48,15 +41,5 @@ public class DefaultSatelliteData implements SatelliteData {
     @Override
     public void setMovementCost(double movementCost) {
         this.movementCost = movementCost;
-    }
-
-    @Override
-    public <T> void addCustomData(final String key, final T data) {
-        customData.put(key, data);
-    }
-
-    @Override
-    public <T> Optional<T> getCustomData(final String key) {
-        return ofNullable((T) customData.get(key));
     }
 }

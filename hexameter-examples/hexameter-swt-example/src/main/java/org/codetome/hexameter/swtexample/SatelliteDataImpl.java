@@ -1,6 +1,6 @@
 package org.codetome.hexameter.swtexample;
 
-import org.codetome.hexameter.core.api.DefaultSatelliteData;
+import org.codetome.hexameter.core.api.defaults.DefaultSatelliteData;
 
 public class SatelliteDataImpl extends DefaultSatelliteData {
 

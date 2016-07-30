@@ -1,5 +1,6 @@
 package org.codetome.hexameter.core.api;
 
+import org.codetome.hexameter.core.api.contract.SatelliteData;
 import org.codetome.hexameter.core.backport.Optional;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.Set;
  * <li>Path finding between two {@link Hexagon}s (using obstacles)</li>
  * </ul>
  */
-public interface HexagonalGridCalculator {
+public interface HexagonalGridCalculator<T extends SatelliteData> {
 
     /**
      * Calculates the distance (in hexagons) between two {@link Hexagon} objects on the grid.
@@ -29,7 +30,7 @@ public interface HexagonalGridCalculator {
      *
      * @return distance
      */
-    int calculateDistanceBetween(Hexagon hex0, Hexagon hex1);
+    int calculateDistanceBetween(Hexagon<T> hex0, Hexagon<T> hex1);
 
     /**
      * Returns all {@link Hexagon}s which are within <code>distance</code> (inclusive) from the {@link Hexagon}.
@@ -39,7 +40,7 @@ public interface HexagonalGridCalculator {
      *
      * @return {@link Hexagon}s within distance (inclusive)
      */
-    Set<Hexagon> calculateMovementRangeFrom(Hexagon hexagon, int distance);
+    Set<Hexagon<T>> calculateMovementRangeFrom(Hexagon<T> hexagon, int distance);
 
     /**
      * Returns the Hexagon on the grid which is at the point resulted by rotating the <code>targetHex</code>'s
@@ -51,7 +52,7 @@ public interface HexagonalGridCalculator {
      *
      * @return result
      */
-    Optional<Hexagon> rotateHexagon(Hexagon originalHex, Hexagon targetHex, RotationDirection rotationDirection);
+    Optional<Hexagon<T>> rotateHexagon(Hexagon<T> originalHex, Hexagon<T> targetHex, RotationDirection rotationDirection);
 
 
     /**
@@ -63,7 +64,7 @@ public interface HexagonalGridCalculator {
      *
      * @return Set of hexagons or empty set if not applicable
      */
-    Set<Hexagon> calculateRingFrom(Hexagon centerHexagon, int radius);
+    Set<Hexagon<T>> calculateRingFrom(Hexagon<T> centerHexagon, int radius);
 
 
     /**
@@ -75,7 +76,7 @@ public interface HexagonalGridCalculator {
      *
      * @return List of hexagons containing the line
      */
-    List<Hexagon> drawLine(Hexagon from, Hexagon to);
+    List<Hexagon<T>> drawLine(Hexagon<T> from, Hexagon<T> to);
 
     /**
      * Returns true if the <code>from</code> {@link Hexagon} is visible from the <code>to</code> Hexagon.
@@ -85,5 +86,5 @@ public interface HexagonalGridCalculator {
      *
      * @return true if hexagon is visible, false otherwise
      */
-    boolean isVisible(Hexagon from, Hexagon to);
+    boolean isVisible(Hexagon<T> from, Hexagon<T> to);
 }

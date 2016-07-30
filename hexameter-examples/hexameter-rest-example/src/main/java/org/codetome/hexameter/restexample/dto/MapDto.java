@@ -1,7 +1,7 @@
 package org.codetome.hexameter.restexample.dto;
 
 import lombok.Data;
-import org.codetome.hexameter.core.api.DefaultSatelliteData;
+import org.codetome.hexameter.core.api.defaults.DefaultSatelliteData;
 import org.codetome.hexameter.core.api.HexagonOrientation;
 import org.codetome.hexameter.core.api.HexagonalGridLayout;
 

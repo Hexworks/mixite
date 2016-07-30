@@ -1,9 +1,9 @@
 package org.codetome.hexameter.restexample.dto;
 
 import lombok.Data;
-import org.codetome.hexameter.core.api.DefaultSatelliteData;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.Point;
+import org.codetome.hexameter.core.api.defaults.DefaultSatelliteData;
 import org.codetome.hexameter.core.backport.Optional;
 
 import java.util.ArrayList;
@@ -45,5 +45,37 @@ public class HexagonDto {
             result.setSatelliteData(satelliteData.get());
         }
         return result;
+    }
+
+    public int[] getGridCoordinate() {
+        return gridCoordinate;
+    }
+
+    public void setGridCoordinate(final int[] gridCoordinate) {
+        this.gridCoordinate = gridCoordinate;
+    }
+
+    public Double[] getCenterPoint() {
+        return centerPoint;
+    }
+
+    public void setCenterPoint(final Double[] centerPoint) {
+        this.centerPoint = centerPoint;
+    }
+
+    public Double[][] getPoints() {
+        return points;
+    }
+
+    public void setPoints(final Double[][] points) {
+        this.points = points;
+    }
+
+    public DefaultSatelliteData getSatelliteData() {
+        return satelliteData;
+    }
+
+    public void setSatelliteData(final DefaultSatelliteData satelliteData) {
+        this.satelliteData = satelliteData;
     }
 }

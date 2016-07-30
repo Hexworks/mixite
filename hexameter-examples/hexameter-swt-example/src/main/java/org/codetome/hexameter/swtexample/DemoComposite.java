@@ -54,8 +54,8 @@ public class DemoComposite extends Composite {
     private static final HexagonOrientation DEFAULT_ORIENTATION = POINTY_TOP;
     private static final HexagonalGridLayout DEFAULT_GRID_LAYOUT = RECTANGULAR;
     private static final int CANVAS_WIDTH = 1000;
-    private HexagonalGrid hexagonalGrid;
-    private HexagonalGridCalculator hexagonalGridCalculator;
+    private HexagonalGrid<SatelliteDataImpl> hexagonalGrid;
+    private HexagonalGridCalculator<SatelliteDataImpl> hexagonalGridCalculator;
     private int gridWidth = DEFAULT_GRID_WIDTH;
     private int gridHeight = DEFAULT_GRID_HEIGHT;
     private int radius = DEFAULT_RADIUS;
@@ -349,7 +349,7 @@ public class DemoComposite extends Composite {
             public void mouseMove(MouseEvent event) {
                 xPositionText.setText(event.x + "");
                 yPositionText.setText(event.y + "");
-                Optional<Hexagon> currMouseOverOptional = hexagonalGrid.getByPixelCoordinate(event.x, event.y);
+                Optional<Hexagon<SatelliteDataImpl>> currMouseOverOptional = hexagonalGrid.getByPixelCoordinate(event.x, event.y);
                 if (currMouseOverOptional.isPresent()) {
                     currMouseOver = currMouseOverOptional.get();
                     canvas.redraw();
@@ -371,7 +371,7 @@ public class DemoComposite extends Composite {
                     prevSelected = currSelected;
                     currSelected = hex;
                     drawDistance();
-                    Optional<SatelliteDataImpl> dataOptional = hex.<SatelliteDataImpl>getSatelliteData();
+                    Optional<SatelliteDataImpl> dataOptional = hex.getSatelliteData();
                     SatelliteDataImpl data;
                     if (dataOptional.isPresent()) {
                         data = dataOptional.get();
@@ -413,10 +413,10 @@ public class DemoComposite extends Composite {
                 } else {
                     lineHexes = Collections.emptyList();
                 }
-                hexagonalGrid.getHexagons().forEach(new Action1<Hexagon>() {
+                hexagonalGrid.getHexagons().forEach(new Action1<Hexagon<SatelliteDataImpl>>() {
                     @Override
-                    public void call(Hexagon hexagon) {
-                        Optional<SatelliteDataImpl> data = hexagon.<SatelliteDataImpl>getSatelliteData();
+                    public void call(Hexagon<SatelliteDataImpl> hexagon) {
+                        Optional<SatelliteDataImpl> data = hexagon.getSatelliteData();
                         if (data.isPresent() && data.get().isSelected()) {
                             if (showNeighbors) {
                                 for (Hexagon hex : hexagonalGrid.getNeighborsOf(hexagon)) {

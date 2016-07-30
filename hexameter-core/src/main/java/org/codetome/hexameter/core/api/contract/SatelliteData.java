@@ -1,6 +1,6 @@
-package org.codetome.hexameter.core.api;
+package org.codetome.hexameter.core.api.contract;
 
-import org.codetome.hexameter.core.backport.Optional;
+import org.codetome.hexameter.core.api.Hexagon;
 
 /**
  * Represents arbitrary data which can be attached to a Hexagon.
@@ -48,25 +48,5 @@ public interface SatelliteData {
      * @param movementCost movement cost
      */
     void setMovementCost(double movementCost);
-
-    /**
-     * Adds custom data to this SatelliteData.
-     *
-     * @param key a key to be used for later retrieval
-     * @param data the data itself
-     * @param <T> type of the data
-     */
-    <T> void addCustomData(String key, T data);
-
-    /**
-     * Retrieves custom data stored in this SatelliteData.
-     *
-     * @param key the key which can be used to fetch the data
-     * @param <T> type of the data
-     *
-     * @return data itself
-     */
-    <T> Optional<T> getCustomData(String key);
-
 
 }

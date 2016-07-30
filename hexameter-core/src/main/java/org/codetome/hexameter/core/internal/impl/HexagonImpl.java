@@ -3,13 +3,13 @@ package org.codetome.hexameter.core.internal.impl;
 import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.Point;
-import org.codetome.hexameter.core.api.SatelliteData;
+import org.codetome.hexameter.core.api.contract.HexagonDataStorage;
+import org.codetome.hexameter.core.api.contract.SatelliteData;
 import org.codetome.hexameter.core.backport.Optional;
 import org.codetome.hexameter.core.internal.GridData;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import static java.lang.Math.cos;
@@ -20,29 +20,23 @@ import static org.codetome.hexameter.core.api.Point.fromPosition;
 /**
  * Default implementation of the {@link Hexagon} interface.
  */
-public class HexagonImpl implements Hexagon {
+public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
 
     private final CubeCoordinate coordinate;
     private final transient GridData sharedData;
-    private final transient Map<CubeCoordinate, Object> dataMap;
-
-    private HexagonImpl(final GridData gridData, final CubeCoordinate coordinate, Map<CubeCoordinate, Object> dataMap) {
-        this.sharedData = gridData;
-        this.coordinate = coordinate;
-        this.dataMap = dataMap;
-    }
+    private final transient HexagonDataStorage<T> hexagonDataStorage;
 
     /**
      * Creates a new {@link Hexagon} object from shared data and a coordinate.
      *
      * @param gridData grid data
      * @param coordinate coordinate
-     * @param dataMap data map
-     *
-     * @return hexagon
-     */
-    public static Hexagon newHexagon(final GridData gridData, final CubeCoordinate coordinate, Map<CubeCoordinate, Object> dataMap) {
-        return new HexagonImpl(gridData, coordinate, dataMap);
+     * @param hexagonDataStorage data map
+     **/
+    public HexagonImpl(final GridData gridData, final CubeCoordinate coordinate, HexagonDataStorage<T> hexagonDataStorage) {
+        this.sharedData = gridData;
+        this.coordinate = coordinate;
+        this.hexagonDataStorage = hexagonDataStorage;
     }
 
     @Override
@@ -104,19 +98,18 @@ public class HexagonImpl implements Hexagon {
 
     @Override
     @SuppressWarnings("unchecked")
-    public final <T extends SatelliteData> Optional<T> getSatelliteData() {
-        final Object result = dataMap.get(getCubeCoordinate());
-        return result == null ? Optional.<T>empty() : Optional.of((T) result);
+    public final Optional<T> getSatelliteData() {
+        return hexagonDataStorage.getSatelliteDataBy(getCubeCoordinate());
     }
 
     @Override
-    public final <T extends SatelliteData> void setSatelliteData(final T satelliteData) {
-        this.dataMap.put(getCubeCoordinate(), satelliteData);
+    public final void setSatelliteData(final T satelliteData) {
+        this.hexagonDataStorage.addCoordinate(getCubeCoordinate(), satelliteData);
     }
 
     @Override
     public void clearSatelliteData() {
-        this.dataMap.remove(getCubeCoordinate());
+        this.hexagonDataStorage.clearDataFor(getCubeCoordinate());
     }
 
     @Override

@@ -33,4 +33,20 @@ public class GridDto {
     public void addCellData(HexagonDto hexagonDto) {
         cellData.add(hexagonDto);
     }
+
+    public GridData getGridData() {
+        return gridData;
+    }
+
+    public void setGridData(final GridData gridData) {
+        this.gridData = gridData;
+    }
+
+    public List<HexagonDto> getCellData() {
+        return cellData;
+    }
+
+    public void setCellData(final List<HexagonDto> cellData) {
+        this.cellData = cellData;
+    }
 }

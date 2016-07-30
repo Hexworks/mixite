@@ -1,13 +1,13 @@
 package org.codetome.hexameter.core.api;
 
+import org.codetome.hexameter.core.api.contract.HexagonDataStorage;
+import org.codetome.hexameter.core.api.contract.SatelliteData;
+import org.codetome.hexameter.core.api.defaults.DefaultHexagonDataStorage;
 import org.codetome.hexameter.core.api.exception.HexagonalGridCreationException;
 import org.codetome.hexameter.core.internal.GridData;
 import org.codetome.hexameter.core.internal.impl.HexagonalGridCalculatorImpl;
 import org.codetome.hexameter.core.internal.impl.HexagonalGridImpl;
 import org.codetome.hexameter.core.internal.impl.layoutstrategy.GridLayoutStrategy;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
 
@@ -22,11 +22,11 @@ import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
  * </ul>
  * Defaults for orientation and grid layout are POINTY_TOP and RECTANGULAR.
  */
-public final class HexagonalGridBuilder {
+public final class HexagonalGridBuilder<T extends SatelliteData> {
     private int gridWidth;
     private int gridHeight;
     private double radius;
-    private Map<CubeCoordinate, Object> customStorage = new ConcurrentHashMap<>();
+    private HexagonDataStorage hexagonDataStorage = new DefaultHexagonDataStorage();
     private HexagonOrientation orientation = HexagonOrientation.POINTY_TOP;
     private HexagonalGridLayout gridLayout = RECTANGULAR;
 
@@ -138,8 +138,8 @@ public final class HexagonalGridBuilder {
         return gridLayout.getGridLayoutStrategy();
     }
 
-    public Map<CubeCoordinate, Object> getCustomStorage() {
-        return customStorage;
+    public HexagonDataStorage<T> getHexagonDataStorage() {
+        return hexagonDataStorage;
     }
 
     /**

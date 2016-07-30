@@ -1,18 +1,18 @@
 package org.codetome.hexameter.core.internal.impl;
 
 import org.codetome.hexameter.core.api.CubeCoordinate;
-import org.codetome.hexameter.core.api.DefaultSatelliteData;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.Point;
-import org.codetome.hexameter.core.api.SatelliteData;
+import org.codetome.hexameter.core.api.contract.HexagonDataStorage;
+import org.codetome.hexameter.core.api.contract.SatelliteData;
+import org.codetome.hexameter.core.api.defaults.DefaultHexagonDataStorage;
+import org.codetome.hexameter.core.api.defaults.DefaultSatelliteData;
 import org.codetome.hexameter.core.internal.GridData;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static java.lang.Math.round;
 import static junit.framework.Assert.assertEquals;
@@ -22,7 +22,6 @@ import static org.codetome.hexameter.core.api.HexagonOrientation.FLAT_TOP;
 import static org.codetome.hexameter.core.api.HexagonOrientation.POINTY_TOP;
 import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
 import static org.codetome.hexameter.core.api.Point.fromPosition;
-import static org.codetome.hexameter.core.internal.impl.HexagonImpl.newHexagon;
 
 public class HexagonImplTest {
 
@@ -34,7 +33,7 @@ public class HexagonImplTest {
     private static final CubeCoordinate TEST_COORDINATE = fromCoordinates(TEST_GRID_X, TEST_GRID_Z);
     private static final int TEST_GRID_Y = -5;
     private static final SatelliteData TEST_SATELLITE_DATA = new DefaultSatelliteData();
-    private static final Map<CubeCoordinate, Object> TEST_SATELLITE_DATA_MAP = new ConcurrentHashMap<>();
+    private static final HexagonDataStorage TEST_SATELLITE_DATA_MAP = new DefaultHexagonDataStorage();
     private static final int EXPECTED_POINTY_CENTER_X = 69;
     private static final int EXPECTED_FLAT_CENTER_X = 40;
     private static final int EXPECTED_POINTY_CENTER_Y = 55;
@@ -43,14 +42,14 @@ public class HexagonImplTest {
     private static final Point[] EXPECTED_POINTY_POINTS = new Point[]{fromPosition(78, 60), fromPosition(69, 65), fromPosition(61, 60), fromPosition(61, 50), fromPosition(69, 45), fromPosition(78, 50)};
 
     static {
-        TEST_SATELLITE_DATA_MAP.put(TEST_COORDINATE, TEST_SATELLITE_DATA);
+        TEST_SATELLITE_DATA_MAP.addCoordinate(TEST_COORDINATE, TEST_SATELLITE_DATA);
     }
 
     private Hexagon target;
 
     @Before
     public void setUp() {
-        target = newHexagon(TEST_POINTY_DATA, TEST_COORDINATE, TEST_SATELLITE_DATA_MAP);
+        target = new HexagonImpl(TEST_POINTY_DATA, TEST_COORDINATE, TEST_SATELLITE_DATA_MAP);
     }
 
     @Test
@@ -64,7 +63,7 @@ public class HexagonImplTest {
 
     @Test
     public void shouldHaveProperPointsWhenFlat() {
-        target = newHexagon(TEST_FLAT_DATA, TEST_COORDINATE, TEST_SATELLITE_DATA_MAP);
+        target = new HexagonImpl(TEST_FLAT_DATA, TEST_COORDINATE, TEST_SATELLITE_DATA_MAP);
         List<Point> points = new ArrayList<>(target.getPoints());
         for (int i = 0; i < 6; i++) {
             assertEquals((int) EXPECTED_FLAT_POINTS[i].getCoordinateX(), (int) round(points.get(i).getCoordinateX()));
@@ -108,7 +107,7 @@ public class HexagonImplTest {
 
     @Test
     public void shouldReturnProperCenterXCoordinateWhenGetCenterXIsCalledWithFlatHexagons() {
-        target = newHexagon(TEST_FLAT_DATA, TEST_COORDINATE, TEST_SATELLITE_DATA_MAP);
+        target = new HexagonImpl(TEST_FLAT_DATA, TEST_COORDINATE, TEST_SATELLITE_DATA_MAP);
         assertEquals(EXPECTED_FLAT_CENTER_X, round(target.getCenterX()));
     }
 
@@ -119,7 +118,7 @@ public class HexagonImplTest {
 
     @Test
     public void shouldReturnProperCenterYCoordinateWhenGetCenterYIsCalledWithFlatHexagons() {
-        target = newHexagon(TEST_FLAT_DATA, TEST_COORDINATE, TEST_SATELLITE_DATA_MAP);
+        target = new HexagonImpl(TEST_FLAT_DATA, TEST_COORDINATE, TEST_SATELLITE_DATA_MAP);
         assertEquals(EXPECTED_FLAT_CENTER_Y, round(target.getCenterY()));
     }
 
