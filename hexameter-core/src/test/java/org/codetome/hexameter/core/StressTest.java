@@ -20,8 +20,8 @@ public class StressTest {
     private static final int BIG_GRID_HEIGHT = 1000;
     private static final int BIG_GRID_WIDTH = 1000;
     private static final double BIG_GRID_RADIUS = 50;
-    private static final long EXPECTED_MAXIMUM_GENERATION_TIME = 2000;
-    private static final long EXPECTED_MAXIMUM_FETCH_TIME = 2000;
+    private static final long EXPECTED_MAXIMUM_GENERATION_TIME = 3000;
+    private static final long EXPECTED_MAXIMUM_FETCH_TIME = 3000;
 
     private HexagonalGridBuilder hexagonalGridBuilder;
 
