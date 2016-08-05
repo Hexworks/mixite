@@ -8,20 +8,20 @@ public enum RotationDirection {
 
     RIGHT(new RotationCalculator() {
         @Override
-        public CubeCoordinate calculate(CubeCoordinate coord) {
+        public CubeCoordinate calculate(final CubeCoordinate coord) {
             return CubeCoordinate.fromCoordinates(-coord.getGridZ(), -coord.getGridY());
         }
     }),
     LEFT(new RotationCalculator() {
         @Override
-        public CubeCoordinate calculate(CubeCoordinate coord) {
+        public CubeCoordinate calculate(final CubeCoordinate coord) {
             return CubeCoordinate.fromCoordinates(-coord.getGridY(), -coord.getGridX());
         }
     });
 
     private RotationCalculator rotationCalculator;
 
-    RotationDirection(RotationCalculator rotationCalculator) {
+    RotationDirection(final RotationCalculator rotationCalculator) {
         this.rotationCalculator = rotationCalculator;
     }
 
@@ -32,7 +32,7 @@ public enum RotationDirection {
      *
      * @return rotated coordinate
      */
-    public CubeCoordinate calculateRotation(CubeCoordinate coord) {
+    public CubeCoordinate calculateRotation(final CubeCoordinate coord) {
         return rotationCalculator.calculate(coord);
     }
 

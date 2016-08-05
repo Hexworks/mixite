@@ -1,21 +1,20 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import org.codetome.hexameter.core.api.CubeCoordinate;
-import org.codetome.hexameter.core.api.Hexagon;
-import org.codetome.hexameter.core.api.Point;
-import org.codetome.hexameter.core.api.contract.HexagonDataStorage;
-import org.codetome.hexameter.core.api.contract.SatelliteData;
-import org.codetome.hexameter.core.backport.Optional;
-import org.codetome.hexameter.core.internal.GridData;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
-import static org.codetome.hexameter.core.api.HexagonOrientation.FLAT_TOP;
-import static org.codetome.hexameter.core.api.Point.fromPosition;
+import org.codetome.hexameter.core.api.CubeCoordinate;
+import org.codetome.hexameter.core.api.Hexagon;
+import org.codetome.hexameter.core.api.HexagonOrientation;
+import org.codetome.hexameter.core.api.Point;
+import org.codetome.hexameter.core.api.contract.HexagonDataStorage;
+import org.codetome.hexameter.core.api.contract.SatelliteData;
+import org.codetome.hexameter.core.backport.Optional;
+import org.codetome.hexameter.core.internal.GridData;
 
 /**
  * Default implementation of the {@link Hexagon} interface.
@@ -33,14 +32,14 @@ public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
      * @param coordinate coordinate
      * @param hexagonDataStorage data map
      **/
-    public HexagonImpl(final GridData gridData, final CubeCoordinate coordinate, HexagonDataStorage<T> hexagonDataStorage) {
+    public HexagonImpl(final GridData gridData, final CubeCoordinate coordinate, final HexagonDataStorage<T> hexagonDataStorage) {
         this.sharedData = gridData;
         this.coordinate = coordinate;
         this.hexagonDataStorage = hexagonDataStorage;
     }
 
     @Override
-    public String getId() {
+    public final String getId() {
         return coordinate.toAxialKey();
     }
 
@@ -51,18 +50,18 @@ public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
             final double angle = 2 * Math.PI / 6 * (i + sharedData.getOrientation().getCoordinateOffset());
             final double x = getCenterX() + sharedData.getRadius() * cos(angle);
             final double y = getCenterY() + sharedData.getRadius() * sin(angle);
-            points.add(fromPosition(x, y));
+            points.add(Point.fromPosition(x, y));
         }
         return points;
     }
 
     @Override
-    public CubeCoordinate getCubeCoordinate() {
+    public final CubeCoordinate getCubeCoordinate() {
         return coordinate;
     }
 
     @Override
-    public int getGridX() {
+    public final int getGridX() {
         return coordinate.getGridX();
     }
 
@@ -72,13 +71,13 @@ public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
     }
 
     @Override
-    public int getGridZ() {
+    public final int getGridZ() {
         return coordinate.getGridZ();
     }
 
     @Override
     public final double getCenterX() {
-        if (FLAT_TOP.equals(sharedData.getOrientation())) {
+        if (HexagonOrientation.FLAT_TOP.equals(sharedData.getOrientation())) {
             return coordinate.getGridX() * sharedData.getHexagonWidth() + sharedData.getRadius();
         } else {
             return coordinate.getGridX() * sharedData.getHexagonWidth() + coordinate.getGridZ()
@@ -88,7 +87,7 @@ public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
 
     @Override
     public final double getCenterY() {
-        if (FLAT_TOP.equals(sharedData.getOrientation())) {
+        if (HexagonOrientation.FLAT_TOP.equals(sharedData.getOrientation())) {
             return coordinate.getGridZ() * sharedData.getHexagonHeight() + coordinate.getGridX()
                     * sharedData.getHexagonHeight() / 2 + sharedData.getHexagonHeight() / 2;
         } else {
@@ -108,24 +107,24 @@ public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
     }
 
     @Override
-    public void clearSatelliteData() {
+    public final void clearSatelliteData() {
         this.hexagonDataStorage.clearDataFor(getCubeCoordinate());
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hash(coordinate);
     }
 
     @Override
-    public boolean equals(Object object) {
+    public final boolean equals(final Object object) {
         if (this == object) {
             return true;
         }
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        HexagonImpl hexagon = (HexagonImpl) object;
+        final HexagonImpl hexagon = (HexagonImpl) object;
         return Objects.equals(coordinate, hexagon.coordinate);
     }
 }

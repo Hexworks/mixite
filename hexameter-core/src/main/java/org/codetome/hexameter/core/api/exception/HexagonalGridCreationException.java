@@ -4,7 +4,7 @@ public final class HexagonalGridCreationException extends RuntimeException {
 
     private static final long serialVersionUID = -7529365413922459037L;
 
-    public HexagonalGridCreationException(String message) {
+    public HexagonalGridCreationException(final String message) {
         super(message);
     }
 

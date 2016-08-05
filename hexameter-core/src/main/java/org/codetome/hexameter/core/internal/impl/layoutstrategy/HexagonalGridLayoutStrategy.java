@@ -1,18 +1,19 @@
 package org.codetome.hexameter.core.internal.impl.layoutstrategy;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.codetome.hexameter.core.api.CubeCoordinate;
-import org.codetome.hexameter.core.api.HexagonOrientation;
-import org.codetome.hexameter.core.api.HexagonalGrid;
-import org.codetome.hexameter.core.api.HexagonalGridBuilder;
-import rx.Observable;
-import rx.Observable.OnSubscribe;
-import rx.Subscriber;
-
 import static java.lang.Math.abs;
 import static java.lang.Math.floor;
 import static java.lang.Math.max;
 import static java.lang.Math.round;
+
+import org.codetome.hexameter.core.api.CubeCoordinate;
+import org.codetome.hexameter.core.api.HexagonOrientation;
+import org.codetome.hexameter.core.api.HexagonalGrid;
+import org.codetome.hexameter.core.api.HexagonalGridBuilder;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import rx.Observable;
+import rx.Observable.OnSubscribe;
+import rx.Subscriber;
 
 /**
  * This strategy is responsible for generating a {@link HexagonalGrid} which has a hexagonal
@@ -25,7 +26,7 @@ public final class HexagonalGridLayoutStrategy extends GridLayoutStrategy {
     public Observable<CubeCoordinate> fetchGridCoordinates(final HexagonalGridBuilder builder) {
         Observable<CubeCoordinate> result = Observable.create(new OnSubscribe<CubeCoordinate>() {
             @Override
-            public void call(Subscriber<? super CubeCoordinate> subscriber) {
+            public void call(final Subscriber<? super CubeCoordinate> subscriber) {
                 final double gridSize = builder.getGridHeight();
                 int startX = HexagonOrientation.FLAT_TOP.equals(builder.getOrientation()) ? (int) floor(gridSize / 2d) : (int) round(gridSize / 4d);
                 final int hexRadius = (int) floor(gridSize / 2d);
@@ -47,7 +48,7 @@ public final class HexagonalGridLayoutStrategy extends GridLayoutStrategy {
 
     @Override
     public boolean checkParameters(final int gridHeight, final int gridWidth) {
-        final boolean superResult = super.checkParameters(gridHeight, gridWidth);
+        final boolean superResult = checkCommonCase(gridHeight, gridWidth);
         final boolean result = gridHeight == gridWidth && abs(gridHeight % 2) == 1;
         return result && superResult;
     }

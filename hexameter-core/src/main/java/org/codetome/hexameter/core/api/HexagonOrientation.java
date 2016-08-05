@@ -10,7 +10,7 @@ public enum HexagonOrientation {
 
     private float coordinateOffset;
 
-    HexagonOrientation(float coordinateOffset) {
+    HexagonOrientation(final float coordinateOffset) {
         this.coordinateOffset = coordinateOffset;
     }
 

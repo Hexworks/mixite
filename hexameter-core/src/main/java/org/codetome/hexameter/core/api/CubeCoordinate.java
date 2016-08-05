@@ -3,8 +3,6 @@ package org.codetome.hexameter.core.api;
 import java.io.Serializable;
 import java.util.Objects;
 
-import static java.lang.Integer.parseInt;
-
 /**
  * Represents a cube coorinate pair.
  * See http://www.redblobgames.com/grids/hexagons/#coordinates to learn more.
@@ -13,6 +11,7 @@ import static java.lang.Integer.parseInt;
  */
 public final class CubeCoordinate implements Serializable {
 
+    public static final String SEP = ",";
     private static final long serialVersionUID = -6656555565645274603L;
     private final int gridX;
     private final int gridZ;
@@ -27,14 +26,13 @@ public final class CubeCoordinate implements Serializable {
      * <code>%gridX%,%gridZ%</code>.
      *
      * @param axialKey key
-     *
      * @return coord
      */
     public static CubeCoordinate fromAxialKey(final String axialKey) {
         CubeCoordinate result;
         try {
-            final String[] coords = axialKey.split(",");
-            result = fromCoordinates(parseInt(coords[0]), parseInt(coords[1]));
+            final String[] coords = axialKey.split(SEP);
+            result = fromCoordinates(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]));
         } catch (final Exception e) {
             throw new IllegalArgumentException("Failed to create CubeCoordinate from key: " + axialKey, e);
         }
@@ -46,7 +44,6 @@ public final class CubeCoordinate implements Serializable {
      *
      * @param gridX grid x
      * @param gridZ grid z
-     *
      * @return coord
      */
     public static CubeCoordinate fromCoordinates(final int gridX, final int gridZ) {
@@ -60,7 +57,7 @@ public final class CubeCoordinate implements Serializable {
      * @return key
      */
     public String toAxialKey() {
-        return gridX + "," + gridZ;
+        return gridX + SEP + gridZ;
     }
 
     public int getGridY() {
@@ -81,14 +78,14 @@ public final class CubeCoordinate implements Serializable {
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
         if (this == object) {
             return true;
         }
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        CubeCoordinate that = (CubeCoordinate) object;
+        final CubeCoordinate that = (CubeCoordinate) object;
         return gridX == that.gridX && gridZ == that.gridZ;
     }
 }

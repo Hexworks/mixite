@@ -9,8 +9,6 @@ import org.codetome.hexameter.core.internal.impl.HexagonalGridCalculatorImpl;
 import org.codetome.hexameter.core.internal.impl.HexagonalGridImpl;
 import org.codetome.hexameter.core.internal.impl.layoutstrategy.GridLayoutStrategy;
 
-import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
-
 /**
  * <p>Builder for a {@link HexagonalGrid}.
  * Can be used to build a {@link HexagonalGrid}.
@@ -28,7 +26,7 @@ public final class HexagonalGridBuilder<T extends SatelliteData> {
     private double radius;
     private HexagonDataStorage hexagonDataStorage = new DefaultHexagonDataStorage();
     private HexagonOrientation orientation = HexagonOrientation.POINTY_TOP;
-    private HexagonalGridLayout gridLayout = RECTANGULAR;
+    private HexagonalGridLayout gridLayout = HexagonalGridLayout.RECTANGULAR;
 
     /**
      * Builds a {@link HexagonalGrid} using the parameters supplied.

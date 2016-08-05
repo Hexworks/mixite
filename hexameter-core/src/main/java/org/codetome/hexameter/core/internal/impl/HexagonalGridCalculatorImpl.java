@@ -1,5 +1,15 @@
 package org.codetome.hexameter.core.internal.impl;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+import static java.lang.Math.round;
+
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonalGrid;
@@ -7,16 +17,6 @@ import org.codetome.hexameter.core.api.HexagonalGridCalculator;
 import org.codetome.hexameter.core.api.RotationDirection;
 import org.codetome.hexameter.core.api.contract.SatelliteData;
 import org.codetome.hexameter.core.backport.Optional;
-
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
-import static java.lang.Math.abs;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-import static java.lang.Math.round;
 
 public final class HexagonalGridCalculatorImpl<T extends SatelliteData> implements HexagonalGridCalculator<T> {
 
@@ -53,7 +53,7 @@ public final class HexagonalGridCalculatorImpl<T extends SatelliteData> implemen
     }
 
     @Override
-    public Optional<Hexagon<T>> rotateHexagon(Hexagon<T> originalHex, Hexagon<T> targetHex, RotationDirection rotationDirection) {
+    public Optional<Hexagon<T>> rotateHexagon(final Hexagon<T> originalHex, final Hexagon<T> targetHex, final RotationDirection rotationDirection) {
         final int diffX = targetHex.getGridX() - originalHex.getGridX();
         final int diffZ = targetHex.getGridZ() - originalHex.getGridZ();
         final CubeCoordinate diffCoord = CubeCoordinate.fromCoordinates(diffX, diffZ);
@@ -65,7 +65,7 @@ public final class HexagonalGridCalculatorImpl<T extends SatelliteData> implemen
     }
 
     @Override
-    public Set<Hexagon<T>> calculateRingFrom(Hexagon<T> centerHexagon, int radius) {
+    public Set<Hexagon<T>> calculateRingFrom(final Hexagon<T> centerHexagon, final int radius) {
         final Set<Hexagon<T>> result = new HashSet<>();
         final int neighborIndex = 0;
         Hexagon<T> currentHexagon = centerHexagon;
@@ -81,14 +81,14 @@ public final class HexagonalGridCalculatorImpl<T extends SatelliteData> implemen
     }
 
     @Override
-    public List<Hexagon<T>> drawLine(Hexagon<T> from, Hexagon<T> to) {
-        int distance = calculateDistanceBetween(from, to);
-        List<Hexagon<T>> results = new LinkedList<>();
+    public List<Hexagon<T>> drawLine(final Hexagon<T> from, final Hexagon<T> to) {
+        final int distance = calculateDistanceBetween(from, to);
+        final List<Hexagon<T>> results = new LinkedList<>();
         if (distance == 0) {
             return results;
         }
         for (int i = 0; i <= distance; i++) {
-            CubeCoordinate interpolatedCoordinate = cubeLinearInterpolate(from.getCubeCoordinate(),
+            final CubeCoordinate interpolatedCoordinate = cubeLinearInterpolate(from.getCubeCoordinate(),
                     to.getCubeCoordinate(), (1.0 / distance) * i);
             results.add(hexagonalGrid.getByCubeCoordinate(interpolatedCoordinate).get());
         }
@@ -96,8 +96,8 @@ public final class HexagonalGridCalculatorImpl<T extends SatelliteData> implemen
     }
 
     @Override
-    public boolean isVisible(Hexagon<T> from, Hexagon<T> to) {
-        List<Hexagon<T>> traversePath = drawLine(from, to);
+    public boolean isVisible(final Hexagon<T> from, final Hexagon<T> to) {
+        final List<Hexagon<T>> traversePath = drawLine(from, to);
         for (Hexagon<T> pathHexagon : traversePath) {
             if (pathHexagon.equals(from) || pathHexagon.equals(to)) {
                 continue;
@@ -109,24 +109,24 @@ public final class HexagonalGridCalculatorImpl<T extends SatelliteData> implemen
         return true;
     }
 
-    private CubeCoordinate cubeLinearInterpolate(CubeCoordinate from, CubeCoordinate to, double sample) {
+    private CubeCoordinate cubeLinearInterpolate(final CubeCoordinate from, final CubeCoordinate to, final double sample) {
         return roundToCubeCoordinate(linearInterpolate(from.getGridX(), to.getGridX(), sample),
                 linearInterpolate(from.getGridY(), to.getGridY(), sample),
                 linearInterpolate(from.getGridZ(), to.getGridZ(), sample));
     }
 
-    private double linearInterpolate(int from, int to, double sample) {
+    private double linearInterpolate(final int from, final int to, final double sample) {
         return from + (to - from) * sample;
     }
 
-    private CubeCoordinate roundToCubeCoordinate(double gridX, double gridY, double gridZ) {
+    private CubeCoordinate roundToCubeCoordinate(final double gridX, final double gridY, final double gridZ) {
         int rx = (int) round(gridX);
-        int ry = (int) round(gridY);
+        final int ry = (int) round(gridY);
         int rz = (int) round(gridZ);
 
-        double differenceX = abs(rx - gridX);
-        double differenceY = abs(ry - gridY);
-        double differenceZ = abs(rz - gridZ);
+        final double differenceX = abs(rx - gridX);
+        final double differenceY = abs(ry - gridY);
+        final double differenceZ = abs(rz - gridZ);
 
         if (differenceX > differenceY && differenceX > differenceZ) {
             rx = -ry - rz;

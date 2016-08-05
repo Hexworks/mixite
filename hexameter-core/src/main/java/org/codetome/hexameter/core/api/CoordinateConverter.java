@@ -1,6 +1,5 @@
 package org.codetome.hexameter.core.api;
 
-import static org.codetome.hexameter.core.api.HexagonOrientation.FLAT_TOP;
 
 /**
  * Utility class for converting coordinated from the offset system to
@@ -22,7 +21,7 @@ public final class CoordinateConverter {
      * @return cube x
      */
     public static int convertOffsetCoordinatesToCubeX(final int offsetX, final int offsetY, final HexagonOrientation orientation) {
-        return FLAT_TOP.equals(orientation) ? offsetX : offsetX - offsetY / 2;
+        return HexagonOrientation.FLAT_TOP.equals(orientation) ? offsetX : offsetX - offsetY / 2;
     }
 
     /**
@@ -35,7 +34,7 @@ public final class CoordinateConverter {
      * @return cube z
      */
     public static int convertOffsetCoordinatesToCubeZ(final int offsetX, final int offsetY, final HexagonOrientation orientation) {
-        return FLAT_TOP.equals(orientation) ? offsetY - offsetX / 2 : offsetY;
+        return HexagonOrientation.FLAT_TOP.equals(orientation) ? offsetY - offsetX / 2 : offsetY;
     }
 
 }

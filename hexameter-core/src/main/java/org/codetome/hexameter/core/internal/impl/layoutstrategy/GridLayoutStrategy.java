@@ -29,7 +29,9 @@ public abstract class GridLayoutStrategy {
      *
      * @return valid?
      */
-    public boolean checkParameters(final int gridHeight, final int gridWidth) {
+    public abstract boolean checkParameters(final int gridHeight, final int gridWidth);
+
+    protected final boolean checkCommonCase(final int gridHeight, final int gridWidth) {
         return gridHeight > 0 && gridWidth > 0;
     }
 

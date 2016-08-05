@@ -14,32 +14,32 @@ public class DefaultSatelliteData implements SatelliteData {
     private double movementCost;
 
     @Override
-    public boolean isPassable() {
+    public final boolean isPassable() {
         return passable;
     }
 
     @Override
-    public void setPassable(boolean passable) {
+    public final void setPassable(final boolean passable) {
         this.passable = passable;
     }
 
     @Override
-    public boolean isOpaque() {
+    public final boolean isOpaque() {
         return opaque;
     }
 
     @Override
-    public void setOpaque(boolean opaque) {
+    public final void setOpaque(final boolean opaque) {
         this.opaque = opaque;
     }
 
     @Override
-    public double getMovementCost() {
+    public final double getMovementCost() {
         return movementCost;
     }
 
     @Override
-    public void setMovementCost(double movementCost) {
+    public final void setMovementCost(final double movementCost) {
         this.movementCost = movementCost;
     }
 }

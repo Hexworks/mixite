@@ -1,5 +1,9 @@
 package org.codetome.hexameter.core.internal.impl;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.codetome.hexameter.core.api.CoordinateConverter;
 import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.Hexagon;
@@ -10,14 +14,11 @@ import org.codetome.hexameter.core.api.contract.HexagonDataStorage;
 import org.codetome.hexameter.core.api.contract.SatelliteData;
 import org.codetome.hexameter.core.backport.Optional;
 import org.codetome.hexameter.core.internal.GridData;
+
 import rx.Observable;
 import rx.Observable.OnSubscribe;
 import rx.Subscriber;
 import rx.functions.Action1;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 public final class HexagonalGridImpl<T extends SatelliteData> implements HexagonalGrid<T> {
 
@@ -38,7 +39,7 @@ public final class HexagonalGridImpl<T extends SatelliteData> implements Hexagon
         this.hexagonDataStorage = builder.getHexagonDataStorage();
         builder.getGridLayoutStrategy().fetchGridCoordinates(builder).subscribe(new Action1<CubeCoordinate>() {
             @Override
-            public void call(CubeCoordinate cubeCoordinate) {
+            public void call(final CubeCoordinate cubeCoordinate) {
                 HexagonalGridImpl.this.hexagonDataStorage.addCoordinate(cubeCoordinate);
             }
         });
@@ -78,7 +79,7 @@ public final class HexagonalGridImpl<T extends SatelliteData> implements Hexagon
     public Observable<Hexagon<T>> getHexagonsByCubeRange(final CubeCoordinate from, final CubeCoordinate to) {
         return Observable.create(new OnSubscribe<Hexagon<T>>() {
             @Override
-            public void call(Subscriber<? super Hexagon<T>> subscriber) {
+            public void call(final Subscriber<? super Hexagon<T>> subscriber) {
                 for (int gridZ = from.getGridZ(); gridZ <= to.getGridZ(); gridZ++) {
                     for (int gridX = from.getGridX(); gridX <= to.getGridX(); gridX++) {
                         final CubeCoordinate currentCoordinate = CubeCoordinate.fromCoordinates(gridX, gridZ);
@@ -96,7 +97,7 @@ public final class HexagonalGridImpl<T extends SatelliteData> implements Hexagon
     public Observable<Hexagon<T>> getHexagonsByOffsetRange(final int gridXFrom, final int gridXTo, final int gridYFrom, final int gridYTo) {
         return Observable.create(new OnSubscribe<Hexagon<T>>() {
             @Override
-            public void call(Subscriber<? super Hexagon<T>> subscriber) {
+            public void call(final Subscriber<? super Hexagon<T>> subscriber) {
                 for (int gridX = gridXFrom; gridX <= gridXTo; gridX++) {
                     for (int gridY = gridYFrom; gridY <= gridYTo; gridY++) {
                         final int cubeX = CoordinateConverter.convertOffsetCoordinatesToCubeX(gridX, gridY, gridData.getOrientation());
@@ -135,9 +136,7 @@ public final class HexagonalGridImpl<T extends SatelliteData> implements Hexagon
         // create a virtual hexagon
         final CubeCoordinate estimatedCoordinate = CubeCoordinate.fromCoordinates(estimatedGridX, estimatedGridZ);
         final Hexagon tempHex = new HexagonImpl<>(gridData, estimatedCoordinate, hexagonDataStorage);
-
-        Hexagon trueHex = refineHexagonByPixel(tempHex, Point.fromPosition(coordinateX, coordinateY));
-
+        final Hexagon trueHex = refineHexagonByPixel(tempHex, Point.fromPosition(coordinateX, coordinateY));
         if (hexagonsAreAtTheSamePosition(tempHex, trueHex)) {
             return getByCubeCoordinate(estimatedCoordinate);
         } else {
@@ -146,7 +145,7 @@ public final class HexagonalGridImpl<T extends SatelliteData> implements Hexagon
     }
 
     @Override
-    public Optional<Hexagon<T>> getNeighborByIndex(Hexagon<T> hexagon, int index) {
+    public Optional<Hexagon<T>> getNeighborByIndex(final Hexagon<T> hexagon, final int index) {
         final int neighborGridX = hexagon.getGridX() + NEIGHBORS[index][NEIGHBOR_X_INDEX];
         final int neighborGridZ = hexagon.getGridZ() + NEIGHBORS[index][NEIGHBOR_Z_INDEX];
         final CubeCoordinate neighborCoordinate = CubeCoordinate.fromCoordinates(neighborGridX, neighborGridZ);
@@ -157,7 +156,7 @@ public final class HexagonalGridImpl<T extends SatelliteData> implements Hexagon
     public Collection<Hexagon<T>> getNeighborsOf(final Hexagon<T> hexagon) {
         final Set<Hexagon<T>> neighbors = new HashSet<>();
         for (int i = 0; i < NEIGHBORS.length; i++) {
-            Optional<Hexagon<T>> retHex = getNeighborByIndex(hexagon, i);
+            final Optional<Hexagon<T>> retHex = getNeighborByIndex(hexagon, i);
             if (retHex.isPresent()) {
                 neighbors.add(retHex.get());
             }
