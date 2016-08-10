@@ -22,6 +22,7 @@
     <modules>
         <module>hexameter-core</module>
         <module>hexameter-examples</module>
+        <module>hexameter-rest</module>
     </modules>
     <build>
         <pluginManagement>
