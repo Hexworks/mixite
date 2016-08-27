@@ -1,20 +1,24 @@
 package org.codetome.hexameter.core;
 
+import static java.lang.String.format;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+
 import rx.functions.Action1;
-
-import java.util.concurrent.atomic.AtomicInteger;
-
-import static java.lang.String.format;
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * This should be later refactored to a stress test directory.
  */
+
+@Ignore
 public class StressTest {
 
     private static final int BIG_GRID_HEIGHT = 1000;
