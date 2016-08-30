@@ -26,6 +26,7 @@ public final class CubeCoordinate implements Serializable {
      * <code>%gridX%,%gridZ%</code>.
      *
      * @param axialKey key
+     *
      * @return coord
      */
     public static CubeCoordinate fromAxialKey(final String axialKey) {
@@ -44,6 +45,7 @@ public final class CubeCoordinate implements Serializable {
      *
      * @param gridX grid x
      * @param gridZ grid z
+     *
      * @return coord
      */
     public static CubeCoordinate fromCoordinates(final int gridX, final int gridZ) {

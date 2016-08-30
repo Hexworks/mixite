@@ -1,9 +1,5 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.codetome.hexameter.core.api.CoordinateConverter;
 import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.Hexagon;
@@ -14,11 +10,14 @@ import org.codetome.hexameter.core.api.contract.HexagonDataStorage;
 import org.codetome.hexameter.core.api.contract.SatelliteData;
 import org.codetome.hexameter.core.backport.Optional;
 import org.codetome.hexameter.core.internal.GridData;
-
 import rx.Observable;
 import rx.Observable.OnSubscribe;
 import rx.Subscriber;
 import rx.functions.Action1;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public final class HexagonalGridImpl<T extends SatelliteData> implements HexagonalGrid<T> {
 

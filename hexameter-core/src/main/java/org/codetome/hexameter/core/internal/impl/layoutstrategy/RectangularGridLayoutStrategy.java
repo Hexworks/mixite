@@ -1,11 +1,10 @@
 package org.codetome.hexameter.core.internal.impl.layoutstrategy;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.codetome.hexameter.core.api.CoordinateConverter;
 import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import rx.Observable;
 import rx.Subscriber;
 

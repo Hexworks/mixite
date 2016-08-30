@@ -1,12 +1,5 @@
 package org.codetome.hexameter.core.internal.impl;
 
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonOrientation;
@@ -15,6 +8,13 @@ import org.codetome.hexameter.core.api.contract.HexagonDataStorage;
 import org.codetome.hexameter.core.api.contract.SatelliteData;
 import org.codetome.hexameter.core.backport.Optional;
 import org.codetome.hexameter.core.internal.GridData;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 /**
  * Default implementation of the {@link Hexagon} interface.

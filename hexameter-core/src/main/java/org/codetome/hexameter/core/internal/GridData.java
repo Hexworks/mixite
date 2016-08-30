@@ -1,11 +1,11 @@
 package org.codetome.hexameter.core.internal;
 
-import static java.lang.Math.sqrt;
-
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonOrientation;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridLayout;
+
+import static java.lang.Math.sqrt;
 
 /**
  * Immutable class which holds the shared data between the {@link Hexagon}s of a {@link HexagonalGrid}
@@ -25,10 +25,10 @@ public final class GridData {
      * Creates a new GridData based on <code>orientation</code> and <code>radius</code>.
      *
      * @param orientation orientation
-     * @param gridLayout  grid layout
-     * @param radius      radius
-     * @param gridWidth   grid width (units)
-     * @param gridHeight  grid height (units)
+     * @param gridLayout grid layout
+     * @param radius radius
+     * @param gridWidth grid width (units)
+     * @param gridHeight grid height (units)
      */
     public GridData(final HexagonOrientation orientation, final HexagonalGridLayout gridLayout,
                     final double radius, final int gridWidth, final int gridHeight) {

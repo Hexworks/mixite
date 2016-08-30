@@ -66,7 +66,6 @@ public interface HexagonalGridCalculator<T extends SatelliteData> {
      */
     Set<Hexagon<T>> calculateRingFrom(Hexagon<T> centerHexagon, int radius);
 
-
     /**
      * Returns a {@link List} of {@link Hexagon}s which must be traversed in the
      * given order to go from the <code>from</code> Hexagon to the <code>to</code> Hexagon.

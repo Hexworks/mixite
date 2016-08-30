@@ -1,12 +1,11 @@
 package org.codetome.hexameter.core.api;
 
-import java.util.Collection;
-
 import org.codetome.hexameter.core.api.contract.SatelliteData;
 import org.codetome.hexameter.core.backport.Optional;
 import org.codetome.hexameter.core.internal.GridData;
-
 import rx.Observable;
+
+import java.util.Collection;
 
 /**
  * <p>

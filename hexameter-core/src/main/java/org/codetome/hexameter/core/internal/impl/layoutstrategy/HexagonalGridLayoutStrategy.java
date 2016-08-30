@@ -1,19 +1,18 @@
 package org.codetome.hexameter.core.internal.impl.layoutstrategy;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.floor;
-import static java.lang.Math.max;
-import static java.lang.Math.round;
-
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.HexagonOrientation;
 import org.codetome.hexameter.core.api.HexagonalGrid;
 import org.codetome.hexameter.core.api.HexagonalGridBuilder;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import rx.Observable;
 import rx.Observable.OnSubscribe;
 import rx.Subscriber;
+
+import static java.lang.Math.abs;
+import static java.lang.Math.floor;
+import static java.lang.Math.max;
+import static java.lang.Math.round;
 
 /**
  * This strategy is responsible for generating a {@link HexagonalGrid} which has a hexagonal
