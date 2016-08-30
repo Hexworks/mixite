@@ -5,11 +5,11 @@
     <parent>
         <artifactId>hexameter</artifactId>
         <groupId>org.codetome</groupId>
-        <version>2.0.1-SNAPSHOT</version>
+        <version>3.0.0</version>
     </parent>
 
     <artifactId>hexameter-examples</artifactId>
-  <version>1.1.2-SNAPSHOT</version>
+  <version>1.1.2</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <packaging>pom</packaging>
 
