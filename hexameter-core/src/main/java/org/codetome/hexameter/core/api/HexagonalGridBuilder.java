@@ -36,9 +36,9 @@ public final class HexagonalGridBuilder<T extends SatelliteData> {
      *
      * @return {@link HexagonalGrid}
      */
-    public HexagonalGrid build() {
+    public HexagonalGrid<T> build() {
         checkParameters();
-        return new HexagonalGridImpl(this);
+        return new HexagonalGridImpl<>(this);
     }
 
     private void checkParameters() {
