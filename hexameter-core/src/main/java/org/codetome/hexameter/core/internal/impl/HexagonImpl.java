@@ -96,7 +96,7 @@ public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
+    //@SuppressWarnings("unchecked")
     public final Optional<T> getSatelliteData() {
         return hexagonDataStorage.getSatelliteDataBy(getCubeCoordinate());
     }

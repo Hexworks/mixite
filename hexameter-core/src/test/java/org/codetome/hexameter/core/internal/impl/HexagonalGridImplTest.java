@@ -40,7 +40,7 @@ public class HexagonalGridImplTest {
     private HexagonalGrid<DefaultSatelliteData> target;
     private HexagonalGridBuilder<DefaultSatelliteData> builder;
 
-    @Before
+	@Before
     public void setUp() throws Exception {
         builder = new HexagonalGridBuilder<DefaultSatelliteData>().setGridHeight(GRID_HEIGHT).setGridWidth(GRID_WIDTH).setRadius(RADIUS).setOrientation(ORIENTATION);
         target = builder.build();
@@ -219,17 +219,17 @@ public class HexagonalGridImplTest {
         expected.add(target.getByCubeCoordinate(fromCoordinates(3, 8)).get());
         expected.add(target.getByCubeCoordinate(fromCoordinates(2, 8)).get());
         expected.add(target.getByCubeCoordinate(fromCoordinates(2, 7)).get());
-        final Iterable<Hexagon> actual = target.getNeighborsOf(hex);
+        final Iterable<Hexagon<DefaultSatelliteData>> actual = target.getNeighborsOf(hex);
         assertEquals(expected, actual);
     }
 
     @Test
     public void shouldReturnProperNeighborsOfHexagonWhenHexIsOnTheEdge() {
-        final Hexagon hex = target.getByCubeCoordinate(fromCoordinates(5, 9)).get();
-        final Set<Hexagon> expected = new HashSet<>();
+        final Hexagon<DefaultSatelliteData> hex = target.getByCubeCoordinate(fromCoordinates(5, 9)).get();
+        final Set<Hexagon<?>> expected = new HashSet<>();
         expected.add(target.getByCubeCoordinate(fromCoordinates(5, 8)).get());
         expected.add(target.getByCubeCoordinate(fromCoordinates(4, 9)).get());
-        final Iterable<Hexagon> actual = target.getNeighborsOf(hex);
+        final Iterable<Hexagon<DefaultSatelliteData>> actual = target.getNeighborsOf(hex);
         assertEquals(expected, actual);
     }
 
