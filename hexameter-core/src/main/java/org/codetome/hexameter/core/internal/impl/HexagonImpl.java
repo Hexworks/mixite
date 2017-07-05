@@ -1,5 +1,13 @@
 package org.codetome.hexameter.core.internal.impl;
 
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonOrientation;
@@ -9,21 +17,17 @@ import org.codetome.hexameter.core.api.contract.SatelliteData;
 import org.codetome.hexameter.core.backport.Optional;
 import org.codetome.hexameter.core.internal.GridData;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
-
 /**
  * Default implementation of the {@link Hexagon} interface.
  */
 public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
 
     private final CubeCoordinate coordinate;
+    private final transient Point[] points;
+    private final transient List<Point> pointList;
     private final transient GridData sharedData;
     private final transient HexagonDataStorage<T> hexagonDataStorage;
+    private final transient Rectangle extBound, intBound;
 
     /**
      * Creates a new {@link Hexagon} object from shared data and a coordinate.
@@ -36,6 +40,27 @@ public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
         this.sharedData = gridData;
         this.coordinate = coordinate;
         this.hexagonDataStorage = hexagonDataStorage;
+        
+        this.pointList = calcPoints();
+        this.points = getPoints().toArray(new Point[0]);
+        int		x1 = (int) points[3].getCoordinateX(),
+				y1 = (int) points[2].getCoordinateY(),
+				x2 = (int) points[0].getCoordinateX(),
+				y2 = (int) points[5].getCoordinateY();
+		
+		extBound = new Rectangle(x1, y1, x2-x1, y2-y1);
+		intBound = new Rectangle((int)(getCenterX()-(1.25*sharedData.getRadius() / 2)), (int)(getCenterY()-(1.25*sharedData.getRadius() / 2)), (int)(1.25f*sharedData.getRadius()), (int)(1.25f*sharedData.getRadius()));
+    }
+    
+    private List<Point> calcPoints() {
+    	final List<Point> points = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            final double angle = 2 * Math.PI / 6 * (i + sharedData.getOrientation().getCoordinateOffset());
+            final double x = getCenterX() + sharedData.getRadius() * cos(angle);
+            final double y = getCenterY() + sharedData.getRadius() * sin(angle);
+            points.add(Point.fromPosition(x, y));
+        }
+        return points;
     }
 
     @Override
@@ -45,14 +70,17 @@ public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
 
     @Override
     public final List<Point> getPoints() {
-        final List<Point> points = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            final double angle = 2 * Math.PI / 6 * (i + sharedData.getOrientation().getCoordinateOffset());
-            final double x = getCenterX() + sharedData.getRadius() * cos(angle);
-            final double y = getCenterY() + sharedData.getRadius() * sin(angle);
-            points.add(Point.fromPosition(x, y));
-        }
-        return points;
+    	return pointList;
+    }
+    
+    @Override
+    public ArrayList<Point> getPointList() {
+    	return (ArrayList<Point>)getPoints();
+    }
+    
+    @Override
+    public Point[] getPointArray() {
+    	return points;
     }
 
     @Override
@@ -127,4 +155,14 @@ public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
         final HexagonImpl hexagon = (HexagonImpl) object;
         return Objects.equals(coordinate, hexagon.coordinate);
     }
+
+	@Override
+	public Rectangle getExternalBoundingBox() {
+		return extBound;
+	}
+
+	@Override
+	public Rectangle getInternalBoundingBox() {
+		return intBound;
+	}
 }

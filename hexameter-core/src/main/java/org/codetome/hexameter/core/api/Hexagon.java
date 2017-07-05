@@ -1,9 +1,11 @@
 package org.codetome.hexameter.core.api;
 
+import java.awt.Rectangle;
+import java.util.Collection;
+import java.util.List;
+
 import org.codetome.hexameter.core.api.contract.SatelliteData;
 import org.codetome.hexameter.core.backport.Optional;
-
-import java.util.Collection;
 
 /**
  * Represents a Hexagon.
@@ -20,6 +22,26 @@ public interface Hexagon<T extends SatelliteData> {
      * Returns a list containing the {@link Point}s of this {@link Hexagon}.
      */
     Collection<Point> getPoints();
+    
+    /**
+     * Returns a list containing the {@link Point}s of this {@link Hexagon}.
+     */
+    List<Point> getPointList();
+    
+    /**
+     * Returns an array containing the {@link Point}s of this {@link Hexagon}
+     */
+    Point[] getPointArray();
+    
+    /**
+     * Returns a rectangle defining the <b>external</b> boundary box of this {@link Hexagon} (a rectangle that hits the 2 pointy corners and the 2 flat sides)
+     */
+    Rectangle getExternalBoundingBox();
+    
+    /**
+     * Returns a rectangle defining the <b>internal</b> boundary box of this {@link Hexagon} (the biggest rectangle that hits the outline of the {@link Hexagon} exactly 4 times)
+     */
+    Rectangle getInternalBoundingBox();
 
     /**
      * Returns the {@link CubeCoordinate} of this {@link Hexagon}.
