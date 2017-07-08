@@ -21,9 +21,9 @@ import org.codetome.hexameter.core.internal.GridData;
  * Default implementation of the {@link Hexagon} interface.
  */
 public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
-
     private final CubeCoordinate coordinate;
     private final transient Point[] points;
+    private final transient float[] vertices;
     private final transient List<Point> pointList;
     private final transient GridData sharedData;
     private final transient HexagonDataStorage<T> hexagonDataStorage;
@@ -50,6 +50,15 @@ public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
 		
 		extBound = new Rectangle(x1, y1, x2-x1, y2-y1);
 		intBound = new Rectangle((int)(getCenterX()-(1.25*sharedData.getRadius() / 2)), (int)(getCenterY()-(1.25*sharedData.getRadius() / 2)), (int)(1.25f*sharedData.getRadius()), (int)(1.25f*sharedData.getRadius()));
+		
+		this.vertices = new float[] {
+			(float) points[0].getCoordinateX(), (float) points[0].getCoordinateY(),
+			(float) points[1].getCoordinateX(), (float) points[1].getCoordinateY(),
+			(float) points[2].getCoordinateX(), (float) points[2].getCoordinateY(),
+			(float) points[3].getCoordinateX(), (float) points[3].getCoordinateY(),
+			(float) points[4].getCoordinateX(), (float) points[4].getCoordinateY(),
+			(float) points[5].getCoordinateX(), (float) points[5].getCoordinateY(),
+		};
     }
     
     private List<Point> calcPoints() {
@@ -164,5 +173,10 @@ public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
 	@Override
 	public Rectangle getInternalBoundingBox() {
 		return intBound;
+	}
+
+	@Override
+	public float[] getVertices() {
+		return vertices;
 	}
 }

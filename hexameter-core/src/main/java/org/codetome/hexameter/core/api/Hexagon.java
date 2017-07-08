@@ -12,7 +12,13 @@ import org.codetome.hexameter.core.backport.Optional;
  * <em>Please note</em> that all coordinates are relative to the {@link HexagonalGrid} containing this {@link Hexagon}.
  */
 public interface Hexagon<T extends SatelliteData> {
-
+	public static final short[] triangles = new short[] {
+		0, 1, 2,
+		0, 2, 5,
+		2, 3, 5,
+		3, 4, 5
+	};
+	
     /**
      * Returns an unique {@link String} representing this {@link Hexagon}.
      */
@@ -32,6 +38,11 @@ public interface Hexagon<T extends SatelliteData> {
      * Returns an array containing the {@link Point}s of this {@link Hexagon}
      */
     Point[] getPointArray();
+    
+    /**
+     * Returns an array of the vertices of this {@link Hexagon}
+     */
+    float[] getVertices();
     
     /**
      * Returns a rectangle defining the <b>external</b> boundary box of this {@link Hexagon} (a rectangle that hits the 2 pointy corners and the 2 flat sides)
