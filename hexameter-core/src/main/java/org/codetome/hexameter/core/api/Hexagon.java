@@ -1,16 +1,24 @@
 package org.codetome.hexameter.core.api;
 
+import java.awt.Rectangle;
+import java.util.Collection;
+import java.util.List;
+
 import org.codetome.hexameter.core.api.contract.SatelliteData;
 import org.codetome.hexameter.core.backport.Optional;
-
-import java.util.Collection;
 
 /**
  * Represents a Hexagon.
  * <em>Please note</em> that all coordinates are relative to the {@link HexagonalGrid} containing this {@link Hexagon}.
  */
 public interface Hexagon<T extends SatelliteData> {
-
+	public static final short[] triangles = new short[] {
+		0, 1, 2,
+		0, 2, 5,
+		2, 3, 5,
+		3, 4, 5
+	};
+	
     /**
      * Returns an unique {@link String} representing this {@link Hexagon}.
      */
@@ -20,6 +28,31 @@ public interface Hexagon<T extends SatelliteData> {
      * Returns a list containing the {@link Point}s of this {@link Hexagon}.
      */
     Collection<Point> getPoints();
+    
+    /**
+     * Returns a list containing the {@link Point}s of this {@link Hexagon}.
+     */
+    List<Point> getPointList();
+    
+    /**
+     * Returns an array containing the {@link Point}s of this {@link Hexagon}
+     */
+    Point[] getPointArray();
+    
+    /**
+     * Returns an array of the vertices of this {@link Hexagon}
+     */
+    float[] getVertices();
+    
+    /**
+     * Returns a rectangle defining the <b>external</b> boundary box of this {@link Hexagon} (a rectangle that hits the 2 pointy corners and the 2 flat sides)
+     */
+    Rectangle getExternalBoundingBox();
+    
+    /**
+     * Returns a rectangle defining the <b>internal</b> boundary box of this {@link Hexagon} (the biggest rectangle that hits the outline of the {@link Hexagon} exactly 4 times)
+     */
+    Rectangle getInternalBoundingBox();
 
     /**
      * Returns the {@link CubeCoordinate} of this {@link Hexagon}.
