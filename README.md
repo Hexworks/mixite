@@ -21,7 +21,7 @@ diving into the details.
 [![][codecov img]][codecov]
 [![][license img]][license]
 
-# Getting started
+## Getting started
 
 This library uses [Amit's guide to hexagonal grids][amitlink]. The coordinate system used by this library is the Cubic coordinate system.
 Please check [here][cubecoords] for further details.
