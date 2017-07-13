@@ -5,7 +5,9 @@ an optimized, simple and usable library for drawing hexagonal grids without
 being tied to any GUI framework.
 
 This means that you can use Hexameter on Android, your backend or your desktop app.
-~~There is a REST-based web example which you can tinker with [here][herokurestlink].~~ (this is under rewrite)
+
+There is a REST-based web example which you can tinker with [here][herokurestlink]. *(not recommended, this is under rewrite)*
+
 You can also check out the hexameter.example.swt project [here][exampleprojectslink].
 
 Hexameter currently supports a maximum grid size of 1000 * 1000 (1.000.000 cells) with the default implementation but
