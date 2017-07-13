@@ -1,0 +1,129 @@
+buildscript {
+    ext {
+        shadowVersion = '2.0.1'
+
+        rxVersion = '1.1.1'
+
+        junitVersion = '4.12'
+        mockitoVersion = '1.10.19'
+        assertjVersion = '3.6.2'
+    }
+    repositories {
+        jcenter()
+        mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath("com.github.jengelman.gradle.plugins:shadow:$shadowVersion")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'signing'
+apply plugin: 'maven-publish'
+
+jar {
+    baseName = 'hexameter'
+}
+
+sourceCompatibility = 1.7
+
+configurations {
+    shadow
+    compile.extendsFrom provided
+    provided.extendsFrom shadow
+}
+
+shadowJar {
+    baseName = 'hexameter'
+    classifier = null
+}
+
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+    archives shadowJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compile("io.reactivex:rxjava:$rxVersion")
+    testCompile("junit:junit:$junitVersion")
+    testCompile("org.mockito:mockito-core:$mockitoVersion")
+    testCompile("org.assertj:assertj-core:$assertjVersion")
+}
+
+
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Hexameter'
+                packaging 'jar'
+                artifactId 'hexameter.core'
+                description 'Hexagon grid library which is GUI agnostic. Supports a multitude of grid layouts including hexagonal, triangular, rectangular and more.'
+                url 'https://github.com/Hexworks/hexameter'
+                scm {
+                    connection 'scm:git:https://github.com/Hexworks/hexameter.git'
+                    developerConnection 'scm:git:https://github.com/Hexworks/hexameter.git'
+                    url 'scm:git:https://github.com/Hexworks/hexameter.git'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT License'
+                        url 'https://opensource.org/licenses/MIT'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'adam-arold'
+                        name 'Adam Arold'
+                        email 'arold.adam@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+}

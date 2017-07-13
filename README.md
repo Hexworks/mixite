@@ -3,14 +3,13 @@
 Hexameter is a hexagonal grid library. The motivation behind it is to have
 an optimized, simple and usable library for drawing hexagonal grids without
 being tied to any GUI framework.
-It is **100% unit tested** *(apart from some generated code)*.
 
 This means that you can use Hexameter on Android, your backend or your desktop app.
-There is a REST-based web example which you can tinker with [here][herokurestlink].
-You can also check out more code examples in the hexameter-examples project [here][exampleprojectslink].
+~~There is a REST-based web example which you can tinker with [here][herokurestlink].~~ (this is under rewrite)
+You can also check out the hexameter.example.swt project [here][exampleprojectslink].
 
 Hexameter currently supports a maximum grid size of 1000 * 1000 (1.000.000 cells) with the default implementation but
-you can provide your own storage implementation to allieviate this limitation.
+you can provide your own storage implementation to alleviate this limitation.
 
 Note that this library uses [RxJava][rxlink]. You should familiarize yourself with the basics (nothing more needed) in order
 to use it effectively. If you don't want to learn [RxJava][rxlink] don't worry the code examples below can be used without
@@ -43,14 +42,14 @@ This library is not tied to any GUI implementation. All operations provided by t
 Let's start by adding Hexameter as a Maven dependency to your project:
 
     <dependency>
-	    <groupId>org.codetome</groupId>
-	    <artifactId>hexameter-core</artifactId>
-	    <version>3.0.0</version>
+	    <groupId>org.codetome.hexameter</groupId>
+	    <artifactId>hexameter</artifactId>
+	    <version>2017.1.0</version>
     </dependency>
 
 You can also use Gradle:
 
-    'org.codetome:hexameter-core:3.0.0'
+    'org.codetome.hexameter:hexameter:2017.1.0'
 
 
 ### Creating a grid
@@ -123,12 +122,12 @@ factor of a grid at the moment is the coordinates (which consume memory) and the
 
 ### GUI example:
 
-You can find a simple GUI example in the `hexameter-swt-example` submodule. Run it by doing the following steps.
+You can find a simple GUI example in the `hexameter.example.swt` project. Run it by doing the following steps.
 
-1. Clone the project: `git clone git@github.com:adam-arold/hexameter.git`
-2. cd to the newly created `hexameter` folder: `cd hexameter/`
-3. build the project: `mvn clean install`
-4. run the created uberjar: `java -jar hexameter-examples/hexameter-swt-example/target/hexameter-swt-example-1.1.3-SNAPSHOT.jar`
+1. Clone the project: `git clone git@github.com:Hexworks/hexameter.example.swt.git`
+2. cd to the newly created `hexameter.example.swt` folder: `cd hexameter.example.swt/`
+3. build the project: `./gradlew clean build` (or `gradlew clean build` on Windows)
+4. run the created uberjar: `java -jar build/libs/hexameter.example.swt.jar`
 
 
 ### Supported operations
@@ -181,8 +180,8 @@ Pull requests are also welcome!*
 [travis]:https://travis-ci.org/Hexworks/hexameter
 [travis img]:https://api.travis-ci.org/Hexworks/hexameter.svg?branch=master
 
-[maven]:http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.codetome%22%20AND%20a%3A%22hexameter-core%22
-[maven img]:https://maven-badges.herokuapp.com/maven-central/org.codetome/hexameter-core/badge.svg
+[maven]:http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.codetome.hexameter%22%20AND%20a%3A%22hexameter%22
+[maven img]:https://maven-badges.herokuapp.com/maven-central/org.codetome.hexameter/hexameter/badge.svg
 
 [codecov img]:https://codecov.io/github/Hexworks/hexameter/coverage.svg?branch=master
 [codecov]:https://codecov.io/github/Hexworks/hexameter?branch=master
@@ -193,7 +192,7 @@ Pull requests are also welcome!*
 [amitlink]:http://www.redblobgames.com/grids/hexagons/
 [cubecoords]:http://www.redblobgames.com/grids/hexagons/#coordinates
 [herokurestlink]:http://hexameter-rest-example.herokuapp.com/
-[exampleprojectslink]:https://github.com/Hexworks/hexameter/tree/master/hexameter-examples
+[exampleprojectslink]:https://github.com/Hexworks/hexameter.example.swt
 
 [hexgridlayout]:https://github.com/Hexworks/hexameter/blob/master/hexameter-core/src/main/java/org/codetome/hexameter/core/api/HexagonalGridLayout.java
 [hexgridbuilder]:https://github.com/Hexworks/hexameter/blob/master/hexameter-core/src/main/java/org/codetome/hexameter/core/api/HexagonalGridBuilder.java

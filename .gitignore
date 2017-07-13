@@ -1,8 +1,26 @@
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+out/
+
+### STS ###
+.apt_generated
 .classpath
+.factorypath
 .project
-.settings/
-target/
-test-output/
-*.iml
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
 .idea
-hexameter-examples/hexameter-swt-example/dependency-reduced-pom.xml
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
