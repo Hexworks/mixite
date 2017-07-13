@@ -29,22 +29,24 @@ public interface Hexagon<T extends SatelliteData> {
     List<Point> getPointList();
     
     /**
-     * Returns an array containing the {@link Point}s of this {@link Hexagon}
+     * Returns an array containing the {@link Point}s of this {@link Hexagon}.
      */
     Point[] getPointArray();
     
     /**
-     * Returns an array of the vertices of this {@link Hexagon}
+     * Returns an array of the vertices of this {@link Hexagon}.
      */
-    float[] getVertices();
+    double[] getVertices();
     
     /**
-     * Returns a rectangle defining the <b>external</b> boundary box of this {@link Hexagon} (a rectangle that hits the 2 pointy corners and the 2 flat sides)
+     * Returns a rectangle defining the <strong>external</strong> boundary box of this {@link Hexagon}
+     * (a rectangle that hits the 2 pointy corners and the 2 flat sides).
      */
     Rectangle getExternalBoundingBox();
     
     /**
-     * Returns a rectangle defining the <b>internal</b> boundary box of this {@link Hexagon} (the biggest rectangle that hits the outline of the {@link Hexagon} exactly 4 times)
+     * Returns a rectangle defining the <strong>internal</strong> boundary box of this {@link Hexagon}
+     * (the biggest rectangle that hits the outline of the {@link Hexagon} exactly 4 times).
      */
     Rectangle getInternalBoundingBox();
 

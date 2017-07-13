@@ -6,7 +6,7 @@ public abstract class EnumTest {
 
     private static final String TEST_POSTFIX = "Test";
 
-    //@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     @Test
     public void testEnum() throws ClassNotFoundException {
         String testClassName = getClass().getSimpleName();

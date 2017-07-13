@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.codetome.hexameter.core.api.CubeCoordinate;
 import org.codetome.hexameter.core.api.Hexagon;
 import org.codetome.hexameter.core.api.HexagonOrientation;
@@ -20,49 +21,54 @@ import org.codetome.hexameter.core.internal.GridData;
 /**
  * Default implementation of the {@link Hexagon} interface.
  */
-public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
+@SuppressFBWarnings("EI_EXPOSE_REP")
+public final class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
     private final CubeCoordinate coordinate;
-    private final transient Point[] points;
-    private final transient float[] vertices;
+    private final transient Point[] pointArray;
+    private final transient double[] vertices;
     private final transient List<Point> pointList;
     private final transient GridData sharedData;
     private final transient HexagonDataStorage<T> hexagonDataStorage;
-    private final transient Rectangle extBound, intBound;
+    private final transient Rectangle extBound;
+    private final transient Rectangle intBound;
 
     /**
      * Creates a new {@link Hexagon} object from shared data and a coordinate.
      *
-     * @param gridData grid data
-     * @param coordinate coordinate
+     * @param gridData           grid data
+     * @param coordinate         coordinate
      * @param hexagonDataStorage data map
      **/
-    public HexagonImpl(final GridData gridData, final CubeCoordinate coordinate, final HexagonDataStorage<T> hexagonDataStorage) {
+    HexagonImpl(final GridData gridData, final CubeCoordinate coordinate, final HexagonDataStorage<T> hexagonDataStorage) {
         this.sharedData = gridData;
         this.coordinate = coordinate;
         this.hexagonDataStorage = hexagonDataStorage;
-        
-        this.pointList = calcPoints();
-        this.points = getPoints().toArray(new Point[0]);
-        int		x1 = (int) points[3].getCoordinateX(),
-				y1 = (int) points[2].getCoordinateY(),
-				x2 = (int) points[0].getCoordinateX(),
-				y2 = (int) points[5].getCoordinateY();
-		
-		extBound = new Rectangle(x1, y1, x2-x1, y2-y1);
-		intBound = new Rectangle((int)(getCenterX()-(1.25*sharedData.getRadius() / 2)), (int)(getCenterY()-(1.25*sharedData.getRadius() / 2)), (int)(1.25f*sharedData.getRadius()), (int)(1.25f*sharedData.getRadius()));
-		
-		this.vertices = new float[] {
-			(float) points[0].getCoordinateX(), (float) points[0].getCoordinateY(),
-			(float) points[1].getCoordinateX(), (float) points[1].getCoordinateY(),
-			(float) points[2].getCoordinateX(), (float) points[2].getCoordinateY(),
-			(float) points[3].getCoordinateX(), (float) points[3].getCoordinateY(),
-			(float) points[4].getCoordinateX(), (float) points[4].getCoordinateY(),
-			(float) points[5].getCoordinateX(), (float) points[5].getCoordinateY(),
-		};
+
+        this.pointList = calculatePoints();
+        this.pointArray = getPoints().toArray(new Point[0]);
+        final int x1 = (int) pointArray[3].getCoordinateX();
+        final int y1 = (int) pointArray[2].getCoordinateY();
+        final int x2 = (int) pointArray[0].getCoordinateX();
+        final int y2 = (int) pointArray[5].getCoordinateY();
+
+        extBound = new Rectangle(x1, y1, x2 - x1, y2 - y1);
+        intBound = new Rectangle((int) (getCenterX() - (1.25 * sharedData.getRadius() / 2)),
+                (int) (getCenterY() - (1.25 * sharedData.getRadius() / 2)),
+                (int) (1.25f * sharedData.getRadius()),
+                (int) (1.25f * sharedData.getRadius()));
+
+        this.vertices = new double[]{
+                pointArray[0].getCoordinateX(), pointArray[0].getCoordinateY(),
+                pointArray[1].getCoordinateX(), pointArray[1].getCoordinateY(),
+                pointArray[2].getCoordinateX(), pointArray[2].getCoordinateY(),
+                pointArray[3].getCoordinateX(), pointArray[3].getCoordinateY(),
+                pointArray[4].getCoordinateX(), pointArray[4].getCoordinateY(),
+                pointArray[5].getCoordinateX(), pointArray[5].getCoordinateY(),
+        };
     }
-    
-    private List<Point> calcPoints() {
-    	final List<Point> points = new ArrayList<>();
+
+    private List<Point> calculatePoints() {
+        final List<Point> points = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             final double angle = 2 * Math.PI / 6 * (i + sharedData.getOrientation().getCoordinateOffset());
             final double x = getCenterX() + sharedData.getRadius() * cos(angle);
@@ -73,47 +79,62 @@ public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
     }
 
     @Override
-    public final String getId() {
+    public String getId() {
         return coordinate.toAxialKey();
     }
 
     @Override
-    public final List<Point> getPoints() {
-    	return pointList;
-    }
-    
-    @Override
-    public ArrayList<Point> getPointList() {
-    	return (ArrayList<Point>)getPoints();
-    }
-    
-    @Override
-    public Point[] getPointArray() {
-    	return points;
+    public List<Point> getPoints() {
+        return pointList;
     }
 
     @Override
-    public final CubeCoordinate getCubeCoordinate() {
+    public List<Point> getPointList() {
+        return getPoints();
+    }
+
+    @Override
+    public Point[] getPointArray() {
+        return pointArray;
+    }
+
+    @Override
+    public double[] getVertices() {
+        return vertices;
+    }
+
+    @Override
+    public Rectangle getExternalBoundingBox() {
+        return extBound;
+    }
+
+    @Override
+    public Rectangle getInternalBoundingBox() {
+        return intBound;
+    }
+
+    @Override
+    public CubeCoordinate getCubeCoordinate() {
         return coordinate;
     }
 
     @Override
-    public final int getGridX() {
+    public int getGridX() {
         return coordinate.getGridX();
     }
 
     @Override
-    public final int getGridY() {
+    public int getGridY() {
         return coordinate.getGridY();
     }
 
     @Override
-    public final int getGridZ() {
+    public int getGridZ() {
         return coordinate.getGridZ();
     }
 
     @Override
-    public final double getCenterX() {
+    public double getCenterX() {
         if (HexagonOrientation.FLAT_TOP.equals(sharedData.getOrientation())) {
             return coordinate.getGridX() * sharedData.getHexagonWidth() + sharedData.getRadius();
         } else {
@@ -123,7 +144,7 @@ public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
     }
 
     @Override
-    public final double getCenterY() {
+    public double getCenterY() {
         if (HexagonOrientation.FLAT_TOP.equals(sharedData.getOrientation())) {
             return coordinate.getGridZ() * sharedData.getHexagonHeight() + coordinate.getGridX()
                     * sharedData.getHexagonHeight() / 2 + sharedData.getHexagonHeight() / 2;
@@ -133,28 +154,27 @@ public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
     }
 
     @Override
-    //@SuppressWarnings("unchecked")
-    public final Optional<T> getSatelliteData() {
+    public Optional<T> getSatelliteData() {
         return hexagonDataStorage.getSatelliteDataBy(getCubeCoordinate());
     }
 
     @Override
-    public final void setSatelliteData(final T satelliteData) {
+    public void setSatelliteData(final T satelliteData) {
         this.hexagonDataStorage.addCoordinate(getCubeCoordinate(), satelliteData);
     }
 
     @Override
-    public final void clearSatelliteData() {
+    public void clearSatelliteData() {
         this.hexagonDataStorage.clearDataFor(getCubeCoordinate());
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return Objects.hash(coordinate);
     }
 
     @Override
-    public final boolean equals(final Object object) {
+    public boolean equals(final Object object) {
         if (this == object) {
             return true;
         }
@@ -164,19 +184,4 @@ public class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
         final HexagonImpl hexagon = (HexagonImpl) object;
         return Objects.equals(coordinate, hexagon.coordinate);
     }
-
-	@Override
-	public Rectangle getExternalBoundingBox() {
-		return extBound;
-	}
-
-	@Override
-	public Rectangle getInternalBoundingBox() {
-		return intBound;
-	}
-
-	@Override
-	public float[] getVertices() {
-		return vertices;
-	}
 }
