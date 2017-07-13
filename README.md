@@ -194,14 +194,14 @@ Pull requests are also welcome!*
 [herokurestlink]:http://hexameter-rest-example.herokuapp.com/
 [exampleprojectslink]:https://github.com/Hexworks/hexameter.example.swt
 
-[hexgridlayout]:https://github.com/Hexworks/hexameter/blob/master/hexameter-core/src/main/java/org/codetome/hexameter/core/api/HexagonalGridLayout.java
-[hexgridbuilder]:https://github.com/Hexworks/hexameter/blob/master/hexameter-core/src/main/java/org/codetome/hexameter/core/api/HexagonalGridBuilder.java
-[api]:https://github.com/Hexworks/hexameter/tree/master/hexameter-core/src/main/java/org/codetome/hexameter/core/api
-[hexgrid]:https://github.com/Hexworks/hexameter/blob/master/hexameter-core/src/main/java/org/codetome/hexameter/core/api/HexagonalGrid.java
-[hexgridcalc]:https://github.com/Hexworks/hexameter/blob/master/hexameter-core/src/main/java/org/codetome/hexameter/core/api/HexagonalGridCalculator.java
-[hex]:https://github.com/Hexworks/hexameter/blob/master/hexameter-core/src/main/java/org/codetome/hexameter/core/api/Hexagon.java
+[hexgridlayout]:https://github.com/Hexworks/hexameter/blob/master/src/main/java/org/codetome/hexameter/core/api/HexagonalGridLayout.java
+[hexgridbuilder]:https://github.com/Hexworks/hexameter/blob/master/src/main/java/org/codetome/hexameter/core/api/HexagonalGridBuilder.java
+[api]:https://github.com/Hexworks/hexameter/tree/master/src/main/java/org/codetome/hexameter/core/api
+[hexgrid]:https://github.com/Hexworks/hexameter/blob/master/src/main/java/org/codetome/hexameter/core/api/HexagonalGrid.java
+[hexgridcalc]:https://github.com/Hexworks/hexameter/blob/master/src/main/java/org/codetome/hexameter/core/api/HexagonalGridCalculator.java
+[hex]:https://github.com/Hexworks/hexameter/blob/master/src/main/java/org/codetome/hexameter/core/api/Hexagon.java
 [rxlink]:https://github.com/ReactiveX/RxJava/wiki/How-To-Use-RxJava
-[satdatlink]:https://github.com/Hexworks/hexameter/blob/master/hexameter-core/src/main/java/org/codetome/hexameter/core/api/contract/SatelliteData.java
-[defsatdatlink]:https://github.com/Hexworks/hexameter/blob/master/hexameter-core/src/main/java/org/codetome/hexameter/core/api/defaults/DefaultSatelliteData.java
-[hexdatstorlink]:https://github.com/Hexworks/hexameter/blob/master/hexameter-core/src/main/java/org/codetome/hexameter/core/api/contract/HexagonDataStorage.java
-[defhexdatstorlink]:https://github.com/Hexworks/hexameter/blob/master/hexameter-core/src/main/java/org/codetome/hexameter/core/api/defaults/DefaultHexagonDataStorage.java
+[satdatlink]:https://github.com/Hexworks/hexameter/blob/master/src/main/java/org/codetome/hexameter/core/api/contract/SatelliteData.java
+[defsatdatlink]:https://github.com/Hexworks/hexameter/blob/master/src/main/java/org/codetome/hexameter/core/api/defaults/DefaultSatelliteData.java
+[hexdatstorlink]:https://github.com/Hexworks/hexameter/blob/master/src/main/java/org/codetome/hexameter/core/api/contract/HexagonDataStorage.java
+[defhexdatstorlink]:https://github.com/Hexworks/hexameter/blob/master/src/main/java/org/codetome/hexameter/core/api/defaults/DefaultHexagonDataStorage.java
