@@ -27,10 +27,10 @@ public final class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
     private final transient Point[] pointArray;
     private final transient double[] vertices;
     private final transient List<Point> pointList;
+    private final transient Rectangle externalBoundingBox;
+    private final transient Rectangle internalBoundingBox;
     private final transient GridData sharedData;
     private final transient HexagonDataStorage<T> hexagonDataStorage;
-    private final transient Rectangle extBound;
-    private final transient Rectangle intBound;
 
     /**
      * Creates a new {@link Hexagon} object from shared data and a coordinate.
@@ -51,8 +51,8 @@ public final class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
         final int x2 = (int) pointArray[0].getCoordinateX();
         final int y2 = (int) pointArray[5].getCoordinateY();
 
-        extBound = new Rectangle(x1, y1, x2 - x1, y2 - y1);
-        intBound = new Rectangle((int) (getCenterX() - (1.25 * sharedData.getRadius() / 2)),
+        externalBoundingBox = new Rectangle(x1, y1, x2 - x1, y2 - y1);
+        internalBoundingBox = new Rectangle((int) (getCenterX() - (1.25 * sharedData.getRadius() / 2)),
                 (int) (getCenterY() - (1.25 * sharedData.getRadius() / 2)),
                 (int) (1.25f * sharedData.getRadius()),
                 (int) (1.25f * sharedData.getRadius()));
@@ -105,12 +105,12 @@ public final class HexagonImpl<T extends SatelliteData> implements Hexagon<T> {
 
     @Override
     public Rectangle getExternalBoundingBox() {
-        return extBound;
+        return externalBoundingBox;
     }
 
     @Override
     public Rectangle getInternalBoundingBox() {
-        return intBound;
+        return internalBoundingBox;
     }
 
     @Override
