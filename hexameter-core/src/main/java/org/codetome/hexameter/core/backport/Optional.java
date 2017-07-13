@@ -83,7 +83,7 @@ public final class Optional<T> {
      * Instead, use {@link #isPresent()}.
      */
     public static <T> Optional<T> empty() {
-        @SuppressWarnings("unchecked")
+        //@SuppressWarnings("unchecked")
         Optional<T> t = (Optional<T>) EMPTY;
         return t;
     }
@@ -211,7 +211,7 @@ public final class Optional<T> {
         if (!isPresent())
             return empty();
         else {
-            return Optional.ofNullable(mapper.apply(value));
+            return (Optional<U>) Optional.ofNullable(mapper.apply(value));
         }
     }
 

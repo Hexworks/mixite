@@ -32,7 +32,8 @@ public class HexagonalGridCalculatorImplTest {
     private Hexagon originalHex;
     @Mock
     private Hexagon targetHex;
-    private RotationDirection rotationDirection;
+    @SuppressWarnings("unused")
+	private RotationDirection rotationDirection;
 
     @Before
     public void setUp() throws Exception {
@@ -61,7 +62,7 @@ public class HexagonalGridCalculatorImplTest {
         expected.add(grid.getByCubeCoordinate(fromCoordinates(3, 8)).get());
         expected.add(grid.getByCubeCoordinate(fromCoordinates(2, 8)).get());
         expected.add(grid.getByCubeCoordinate(fromCoordinates(2, 7)).get());
-        final Set<Hexagon> actual = target.calculateMovementRangeFrom(hex, 1);
+        final Set<Hexagon<DefaultSatelliteData>> actual = target.calculateMovementRangeFrom(hex, 1);
         assertEquals(expected, actual);
     }
 
@@ -90,7 +91,7 @@ public class HexagonalGridCalculatorImplTest {
         expected.add(grid.getByCubeCoordinate(fromCoordinates(3, 9)).get());
         expected.add(grid.getByCubeCoordinate(fromCoordinates(2, 9)).get());
 
-        final Set<Hexagon> actual = target.calculateMovementRangeFrom(hex, 2);
+        final Set<Hexagon<DefaultSatelliteData>> actual = target.calculateMovementRangeFrom(hex, 2);
         assertEquals(expected, actual);
     }
 
@@ -143,7 +144,7 @@ public class HexagonalGridCalculatorImplTest {
         when(targetHex.getGridY()).thenReturn(-4);
         when(targetHex.getGridZ()).thenReturn(-1);
 
-        final Optional<Hexagon> resultOpt = target.rotateHexagon(originalHex, targetHex, RIGHT);
+        final Optional<Hexagon<DefaultSatelliteData>> resultOpt = target.rotateHexagon(originalHex, targetHex, RIGHT);
 
         Hexagon result = resultOpt.get();
 
@@ -162,7 +163,7 @@ public class HexagonalGridCalculatorImplTest {
         when(originalHex.getGridY()).thenReturn(-4);
         when(originalHex.getGridZ()).thenReturn(-1);
 
-        final Optional<Hexagon> resultOpt = target.rotateHexagon(originalHex, targetHex, LEFT);
+        final Optional<Hexagon<DefaultSatelliteData>> resultOpt = target.rotateHexagon(originalHex, targetHex, LEFT);
 
         Hexagon result = resultOpt.get();
 
@@ -171,11 +172,12 @@ public class HexagonalGridCalculatorImplTest {
         assertThat(result.getGridZ()).isEqualTo(1);
     }
 
-    @Test
+    @SuppressWarnings("unused")
+	@Test
     public void shouldProperlyCalculateRingWhenGivenValidParameters() {
         when(targetHex.getGridX()).thenReturn(0);
         when(targetHex.getGridZ()).thenReturn(0);
-        final Set<Hexagon> result = target.calculateRingFrom(targetHex, 3);
+        final Set<Hexagon<DefaultSatelliteData>> result = target.calculateRingFrom(targetHex, 3);
     }
 
 
