@@ -182,14 +182,14 @@ Pull requests are also welcome!*
 [travis]:https://travis-ci.org/Hexworks/hexameter
 [travis img]:https://api.travis-ci.org/Hexworks/hexameter.svg?branch=master
 
-[maven]:http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.codetome.hexameter%22%20AND%20a%3A%22hexameter%22
-[maven img]:https://maven-badges.herokuapp.com/maven-central/org.codetome.hexameter/hexameter/badge.svg
+[maven]:http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.codetome.hexameter%22%20AND%20a%3A%22hexameter.core%22
+[maven img]:https://maven-badges.herokuapp.com/maven-central/org.codetome.hexameter/hexameter.core/badge.svg
 
 [codecov img]:https://codecov.io/github/Hexworks/hexameter/coverage.svg?branch=master
 [codecov]:https://codecov.io/github/Hexworks/hexameter?branch=master
 
 [license]:https://github.com/Hexworks/hexameter/blob/master/LICENSE
-[license img]:https://img.shields.io/badge/License-MIT-blue.svg
+[license img]:https://img.shields.io/badge/License-MIT-green.svg
 
 [amitlink]:http://www.redblobgames.com/grids/hexagons/
 [cubecoords]:http://www.redblobgames.com/grids/hexagons/#coordinates
