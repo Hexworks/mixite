@@ -37,13 +37,38 @@ configurations {
 }
 
 shadowJar {
-    baseName = 'hexameter_universal'
+    baseName = 'hexameter'
     classifier = null
 }
 
+
+//task javadocJar(type: Jar) {
+//    classifier = 'javadoc'
+//    from javadoc
+//}
+//
+//task sourcesJar(type: Jar) {
+//    classifier = 'sources'
+//    from sourceSets.main.allSource
+//}
+
 artifacts {
+//    archives javadocJar
+//    archives sourcesJar
     archives shadowJar
 }
+
+//signing {
+//    sign configurations.archives
+//}
+
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            from components.java
+//        }
+//    }
+//}
 
 repositories {
     mavenCentral()
@@ -57,3 +82,48 @@ dependencies {
     testCompile("org.assertj:assertj-core:$assertjVersion")
 }
 
+
+
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+//
+//            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+//                authentication(userName: ossrhUsername, password: ossrhPassword)
+//            }
+//
+//            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+//                authentication(userName: ossrhUsername, password: ossrhPassword)
+//            }
+//
+//            pom.project {
+//                name 'Hexameter'
+//                packaging 'jar'
+//                artifactId 'hexameter.core'
+//                description 'Hexagon grid library which is GUI agnostic. Supports a multitude of grid layouts including hexagonal, triangular, rectangular and more.'
+//                url 'https://github.com/Hexworks/hexameter'
+//                scm {
+//                    connection 'scm:git:https://github.com/Hexworks/hexameter.git'
+//                    developerConnection 'scm:git:https://github.com/Hexworks/hexameter.git'
+//                    url 'scm:git:https://github.com/Hexworks/hexameter.git'
+//                }
+//
+//                licenses {
+//                    license {
+//                        name 'MIT License'
+//                        url 'https://opensource.org/licenses/MIT'
+//                    }
+//                }
+//
+//                developers {
+//                    developer {
+//                        id 'adam-arold'
+//                        name 'Adam Arold'
+//                        email 'arold.adam@gmail.com'
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
