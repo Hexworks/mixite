@@ -1,7 +1,5 @@
 package org.codetome.hexameter.core.api;
 
-import java.awt.Rectangle;
-import java.util.Collection;
 import java.util.List;
 
 import org.codetome.hexameter.core.api.contract.SatelliteData;
