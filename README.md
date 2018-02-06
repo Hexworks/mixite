@@ -21,6 +21,8 @@ diving into the details.
 [![][maven img]][maven]
 [![][codecov img]][codecov]
 [![][license img]][license]
+[![][ocbackers img]][ocbackers]
+[![][ocsponsors img]][ocsponsors]
 
 ## Getting started
 
@@ -170,6 +172,36 @@ Check these interfaces for more details:
  - Movement range with obstacles and movement cost calculation
  - Android example
 
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="graphs/contributors"><img src="https://opencollective.com/Hexworks/contributors.svg?width=890" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/Hexworks#backer)]
+
+<a href="https://opencollective.com/Hexworks#backers" target="_blank"><img src="https://opencollective.com/Hexworks/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/Hexworks#sponsor)]
+
+<a href="https://opencollective.com/Hexworks/sponsor/0/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/Hexworks/sponsor/1/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/Hexworks/sponsor/2/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/Hexworks/sponsor/3/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/Hexworks/sponsor/4/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/Hexworks/sponsor/5/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/Hexworks/sponsor/6/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/Hexworks/sponsor/7/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/Hexworks/sponsor/8/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/Hexworks/sponsor/9/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/9/avatar.svg"></a>
+
+
+
 ## License
 Hexameter is made available under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
 
@@ -178,6 +210,12 @@ Hexameter is created and maintained by Adam Arold
 
 *I'm open to suggestions, feel free to comment or to send me a message.
 Pull requests are also welcome!*
+
+
+[ocbackers]: #backers
+[ocbackers img]:https://opencollective.com/Hexworks/backers/badge.svg
+[ocsponsors]: #sponsors
+[ocsponsors img]:https://opencollective.com/Hexworks/sponsors/badge.svg
 
 [travis]:https://travis-ci.org/Hexworks/hexameter
 [travis img]:https://api.travis-ci.org/Hexworks/hexameter.svg?branch=master
