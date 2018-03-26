@@ -1,3 +1,39 @@
+ext.hexameterVersion = '2017.1.0'
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+
+jar {
+    baseName = 'hexameter.example.swt'
+    manifest {
+        attributes 'Implementation-Title': 'Hexameter SWT Example',
+                'Implementation-Version': version,
+                'Main-Class': 'org.codetome.hexameter.swtexample.Main'
+    }
+}
+
+sourceCompatibility = 1.7
+
+configurations {
+    shadow
+    compile.extendsFrom provided
+    provided.extendsFrom shadow
+}
+
+shadowJar {
+    baseName = 'hexameter.example.swt'
+    classifier = null
+    version = null
+}
+
+artifacts {
+    archives shadowJar
+}
+
+dependencies {
+    compile("org.codetome.hexameter:hexameter.core:$hexameterVersion")
+    compile("org.eclipse.swt:org.eclipse.swt.win32.win32.x86_64:4.3")
+}
 //
 //uploadArchives {
 //    repositories {
@@ -15,7 +51,7 @@
 //            pom.project {
 //                name 'Hexameter'
 //                packaging 'jar'
-//                artifactId 'hexameter.core'
+//                artifactId 'hexameter.example.swt'
 //                description 'Hexagon grid library which is GUI agnostic. Supports a multitude of grid layouts including hexagonal, triangular, rectangular and more.'
 //                url 'https://github.com/Hexworks/hexameter'
 //                scm {
