@@ -48,12 +48,12 @@ Let's start by adding Hexameter as a Maven dependency to your project:
     <dependency>
 	    <groupId>org.codetome.hexameter</groupId>
 	    <artifactId>hexameter.core</artifactId>
-	    <version>2017.1.0</version>
+	    <version>2018.1.0</version>
     </dependency>
 
 You can also use Gradle:
 
-    'org.codetome.hexameter:hexameter.core:2017.1.0'
+    'org.codetome.hexameter:hexameter.core:2018.1.0'
 
 
 ### Creating a grid
