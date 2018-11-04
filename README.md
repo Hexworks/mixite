@@ -12,8 +12,27 @@ You can also check out the mixite.example.swt project [here][exampleprojectslink
 Mixite currently supports a maximum grid size of 1000 * 1000 (1.000.000 cells) with the default implementation but
 you can provide your own storage implementation to alleviate this limitation.
 
+---
+
+Need info? [Ask us on Discord][discord]
+ | or [Create an issue](https://github.com/Hexworks/mixite/issues/new)
+ | Support us on [Patreon](https://www.patreon.com/hexworks)
+
+[![][circleci img]][circleci]
 [![][maven img]][maven]
+[![](https://jitpack.io/v/Hexworks/Mixite.svg)](https://jitpack.io/#Hexworks/Mixite)
 [![][license img]][license]
+
+[circleci]:https://circleci.com/gh/Hexworks/mixite
+[circleci img]:https://circleci.com/gh/Hexworks/mixite/tree/master.svg?style=shield
+
+[license]:https://github.com/Hexworks/mixite/blob/master/LICENSE
+[license img]:https://img.shields.io/badge/License-Apache2.0-blue.svg
+
+[maven]:https://search.maven.org/search?q=g:org.hexworks.mixite
+[maven img]:https://maven-badges.herokuapp.com/maven-central/org.hexworks.mixite/mixite.core/badge.svg
+
+---
 
 ## Getting started
 
@@ -175,16 +194,10 @@ Mixite is created and maintained by Adam Arold
 Pull requests are also welcome!*
 
 
-[maven]:http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.hexworks.mixite%22%20AND%20a%3A%22mixite.core%22
-[maven img]:https://maven-badges.herokuapp.com/maven-central/org.hexworks.mixite/mixite.core/badge.svg
-
-[license]:https://github.com/Hexworks/mixite/blob/master/LICENSE
-[license img]:https://img.shields.io/badge/License-Apache-blue.svg
-
 [amitlink]:http://www.redblobgames.com/grids/hexagons/
 [cubecoords]:http://www.redblobgames.com/grids/hexagons/#coordinates
 [herokurestlink]:http://hexameter-rest-example.herokuapp.com/
-[exampleprojectslink]:https://github.com/Hexworks/mixite/tree/master/mixite.example.swt
+[exampleprojectslink]:https://github.com/Hexworks/mixite.example/tree/master/mixite.example.swt
 
 [hexgridlayout]:https://github.com/Hexworks/mixite/blob/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGridLayout.kt
 [hexgridbuilder]:https://github.com/Hexworks/mixite/blob/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGridBuilder.kt
