@@ -166,7 +166,7 @@ Check these interfaces for more details:
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 
 ## License
-Mixite is made available under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
+Mixite is made available under the [Apache2 License](http://www.opensource.org/licenses/mit-license.php).
 
 ## Credits
 Mixite is created and maintained by Adam Arold
@@ -183,12 +183,12 @@ Pull requests are also welcome!*
 
 [amitlink]:http://www.redblobgames.com/grids/hexagons/
 [cubecoords]:http://www.redblobgames.com/grids/hexagons/#coordinates
-[herokurestlink]:http://mixite-rest-example.herokuapp.com/
-[exampleprojectslink]:https://github.com/Hexworks/mixite.example.swt
+[herokurestlink]:http://hexameter-rest-example.herokuapp.com/
+[exampleprojectslink]:https://github.com/Hexworks/mixite/tree/master/mixite.example.swt
 
 [hexgridlayout]:https://github.com/Hexworks/mixite/blob/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGridLayout.kt
 [hexgridbuilder]:https://github.com/Hexworks/mixite/blob/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGridBuilder.kt
-[api]:https://github.com/Hexworks/mixite/tree/master/src/main/kotlin/org/hexworks/mixite/core/api
+[api]:https://github.com/Hexworks/mixite/tree/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api
 [hexgrid]:https://github.com/Hexworks/mixite/blob/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGrid.kt
 [hexgridcalc]:https://github.com/Hexworks/mixite/blob/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGridCalculator.kt
 [hex]:https://github.com/Hexworks/mixite/blob/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/Hexagon.kt
