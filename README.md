@@ -23,6 +23,8 @@ Need info? [Ask us on Discord][discord]
 [![](https://jitpack.io/v/Hexworks/Mixite.svg)](https://jitpack.io/#Hexworks/Mixite)
 [![][license img]][license]
 
+[discord]:https://discord.gg/hbzytQJ
+
 [circleci]:https://circleci.com/gh/Hexworks/mixite
 [circleci img]:https://circleci.com/gh/Hexworks/mixite/tree/master.svg?style=shield
 
