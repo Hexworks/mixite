@@ -166,7 +166,7 @@ Check these interfaces for more details:
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 
 ## License
-Mixite is made available under the [Apache2 License](http://www.opensource.org/licenses/mit-license.php).
+Mixite is made available under the [Apache2 License](https://opensource.org/licenses/Apache-2.0).
 
 ## Credits
 Mixite is created and maintained by Adam Arold
