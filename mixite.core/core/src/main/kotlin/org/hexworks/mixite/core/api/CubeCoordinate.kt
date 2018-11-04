@@ -1,5 +1,7 @@
 package org.hexworks.mixite.core.api
 
+import kotlin.jvm.JvmStatic
+
 /**
  * Represents a cube coordinate pair.
  * See http://www.redblobgames.com/grids/hexagons/#coordinates to learn more.
@@ -34,6 +36,7 @@ data class CubeCoordinate private constructor(val gridX: Int, val gridZ: Int) {
          *
          * @return coord
          */
+        @JvmStatic
         fun fromAxialKey(axialKey: String): CubeCoordinate {
             val result: CubeCoordinate
             try {
@@ -54,6 +57,7 @@ data class CubeCoordinate private constructor(val gridX: Int, val gridZ: Int) {
          *
          * @return coord
          */
+        @JvmStatic
         fun fromCoordinates(gridX: Int, gridZ: Int): CubeCoordinate {
             return CubeCoordinate(gridX, gridZ)
         }

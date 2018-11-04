@@ -1,5 +1,6 @@
 package org.hexworks.mixite.core.api
 
+import kotlin.jvm.JvmStatic
 import kotlin.math.sqrt
 
 /**
@@ -31,6 +32,7 @@ data class Point private constructor(val coordinateX: Double,
          *
          * @return point
          */
+        @JvmStatic
         fun fromPosition(coordinateX: Double, coordinateY: Double): Point {
             return Point(coordinateX, coordinateY)
         }

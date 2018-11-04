@@ -1,5 +1,7 @@
 package org.hexworks.mixite.core.api
 
+import kotlin.jvm.JvmStatic
+
 /**
  * Utility class for converting coordinated from the offset system to
  * the cube one (the library uses the latter).
@@ -20,6 +22,7 @@ class CoordinateConverter {
          *
          * @return cube x
          */
+        @JvmStatic
         fun convertOffsetCoordinatesToCubeX(offsetX: Int, offsetY: Int, orientation: HexagonOrientation): Int {
             return if (HexagonOrientation.FLAT_TOP.equals(orientation)) offsetX else offsetX - offsetY / 2
         }
@@ -33,6 +36,7 @@ class CoordinateConverter {
          *
          * @return cube z
          */
+        @JvmStatic
         fun convertOffsetCoordinatesToCubeZ(offsetX: Int, offsetY: Int, orientation: HexagonOrientation): Int {
             return if (HexagonOrientation.FLAT_TOP.equals(orientation)) offsetY - offsetX / 2 else offsetY
         }
