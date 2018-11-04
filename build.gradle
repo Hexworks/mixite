@@ -12,13 +12,14 @@ buildscript {
 
 allprojects {
     group "org.hexworks.mixite"
-    version "2018.0.1-PREVIEW"
+    version "2018.0.2-PREVIEW"
 
     repositories {
         mavenCentral()
         mavenLocal()
         jcenter()
         maven { url "https://dl.bintray.com/kotlin/kotlinx" }
+        maven { url 'https://jitpack.io' }
     }
 }
 

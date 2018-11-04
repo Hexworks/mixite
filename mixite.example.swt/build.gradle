@@ -29,6 +29,6 @@ artifacts {
 }
 
 dependencies {
-    compile "org.hexworks.mixite:mixite.core:2018.1.0-RELEASE"
+    compile "org.hexworks.mixite:mixite.core:2018.0.2-PREVIEW"
     compile "org.eclipse.swt:org.eclipse.swt.win32.win32.x86_64:4.3"
 }
