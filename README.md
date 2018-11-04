@@ -12,6 +12,12 @@ You can also check out the mixite.example.swt project [here][exampleprojectslink
 Mixite currently supports a maximum grid size of 1000 * 1000 (1.000.000 cells) with the default implementation but
 you can provide your own storage implementation to alleviate this limitation.
 
+> **Disclaimer for Java users**:
+> There is no need to worry, Mixite works in exactly the same way as Hexameter worked before.
+> Java interop is seamless, you only have to change the imports / project dependency.
+>
+> As always with Maven Central artifacts: previous versions of Hexameter also work, they
+> are not affected.
 ---
 
 Need info? [Ask us on Discord][discord]
