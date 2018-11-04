@@ -62,17 +62,26 @@ abstract concept possible.
 ## Basic usage
 
 ### Maven dependency
-Let's start by adding Mixite as a Maven dependency to your project:
+Let's start by adding Mixite as a Maven dependency to your project.
+
+For JVM users:
 
     <dependency>
 	    <groupId>org.hexworks.mixite</groupId>
-	    <artifactId>mixite.core</artifactId>
+	    <artifactId>mixite.core-jvm</artifactId>
 	    <version>2018.1.0</version>
     </dependency>
 
 You can also use Gradle:
 
-    'org.hexworks.mixite:mixite.core:2018.1.0'
+    'org.hexworks.mixite:mixite.core-jvm:2018.1.0'
+    
+> Note that if you are using Javascript you need to postfix `mixite.core` with `-js`:
+> `'org.hexworks.mixite:mixite.core-js:2018.1.0'`
+    
+You can always use the latest preview version by using Jitpack. More info [here](https://jitpack.io/#Hexworks/Mixite).
+
+
 
 
 ### Creating a grid
