@@ -1,28 +1,20 @@
-# Hexameter
+# Mixite
 
-Hexameter is a hexagonal grid library. The motivation behind it is to have
+Mixite is a hexagonal grid library. The motivation behind it is to have
 an optimized, simple and usable library for drawing hexagonal grids without
 being tied to any GUI framework.
 
-This means that you can use Hexameter on Android, your backend or your desktop app.
+This means that you can use Mixite on Android, your backend or your desktop app.
 
 There is a REST-based web example which you can tinker with [here][herokurestlink]. *(not recommended, this is under rewrite)*
 
 You can also check out the hexameter.example.swt project [here][exampleprojectslink].
 
-Hexameter currently supports a maximum grid size of 1000 * 1000 (1.000.000 cells) with the default implementation but
+Mixite currently supports a maximum grid size of 1000 * 1000 (1.000.000 cells) with the default implementation but
 you can provide your own storage implementation to alleviate this limitation.
 
-Note that this library uses [RxJava][rxlink]. You should familiarize yourself with the basics (nothing more needed) in order
-to use it effectively. If you don't want to learn [RxJava][rxlink] don't worry the code examples below can be used without
-diving into the details.
-
-[![][travis img]][travis]
 [![][maven img]][maven]
-[![][codecov img]][codecov]
 [![][license img]][license]
-[![][ocbackers img]][ocbackers]
-[![][ocsponsors img]][ocsponsors]
 
 ## Getting started
 
@@ -43,30 +35,30 @@ This library is not tied to any GUI implementation. All operations provided by t
 ## Basic usage
 
 ### Maven dependency
-Let's start by adding Hexameter as a Maven dependency to your project:
+Let's start by adding Mixite as a Maven dependency to your project:
 
     <dependency>
-	    <groupId>org.codetome.hexameter</groupId>
+	    <groupId>org.hexworks.mixite</groupId>
 	    <artifactId>hexameter.core</artifactId>
 	    <version>2018.1.0</version>
     </dependency>
 
 You can also use Gradle:
 
-    'org.codetome.hexameter:hexameter.core:2018.1.0'
+    'org.hexworks.mixite:mixite.core:2018.1.0'
 
 
 ### Creating a grid
 
 You can use the [HexagonalGridBuilder][hexgridbuilder] from the API package to create a [HexagonalGrid][hexgrid]:
 
-    import org.codetome.hexameter.core.api.HexagonalGridLayout;
-    import org.codetome.hexameter.core.api.HexagonOrientation;
-    import org.codetome.hexameter.core.api.HexagonalGrid;
-    import org.codetome.hexameter.core.api.HexagonalGridBuilder;
+    import org.hexworks.mixite.core.api.HexagonalGridLayout;
+    import org.hexworks.mixite.core.api.HexagonOrientation;
+    import org.hexworks.mixite.core.api.HexagonalGrid;
+    import org.hexworks.mixite.core.api.HexagonalGridBuilder;
 
-    import static org.codetome.hexameter.core.api.HexagonalGridLayout.RECTANGULAR;
-    import static org.codetome.hexameter.core.api.HexagonOrientation.FLAT_TOP;
+    import static org.hexworks.mixite.core.api.HexagonalGridLayout.RECTANGULAR;
+    import static org.hexworks.mixite.core.api.HexagonOrientation.FLAT_TOP;
     // ...
     private static final int GRID_HEIGHT = 9;
     private static final int GRID_WIDTH = 9;
@@ -87,7 +79,7 @@ You can use the [HexagonalGridBuilder][hexgridbuilder] from the API package to c
 You can also use the [HexagonalGridBuilder][hexgridbuilder] to create a [HexagonalGridCalculator][hexgridcalc] for you which supports advanced operations
 on [HexagonalGrid][hexgrid]s:
 
-    import org.codetome.hexameter.core.api.HexagonalGridCalculator;
+    import org.hexworks.mixite.core.api.HexagonalGridCalculator;
     // ...
     HexagonalGridCalculator calculator = builder.buildCalculatorFor(grid);
 
@@ -162,9 +154,9 @@ Check these interfaces for more details:
 
 ### Usage tips
  - You can add satellite data (any arbitrary data you have) to a `Hexagon`. By implementing the [`SatelliteData`][satdatlink] interface you gain operations like visibility checking
- - Hexameter comes with a sensible default implementation of [`SatelliteData`][satdatlink] so if you don't want to add extra data you can use [`DefaultSatelliteData`][defsatdatlink].
+ - Mixite comes with a sensible default implementation of [`SatelliteData`][satdatlink] so if you don't want to add extra data you can use [`DefaultSatelliteData`][defsatdatlink].
  - You can use your own implementation of [`HexagonDataStorage`][hexdatstorlink] for storing your `Hexagon`s
- - Hexameter comes with a sensible [`DefaultHexagonDataStorage`][defhexdatstorlink] implementation which stores all data in memory
+ - Mixite comes with a sensible [`DefaultHexagonDataStorage`][defhexdatstorlink] implementation which stores all data in memory
  - You don't have to fetch all `Hexagon` objects by using the `getHexagons` method. You can query `Hexagon`s by a range using offset or cube coordinates
 
 ## Road map:
@@ -177,54 +169,18 @@ Check these interfaces for more details:
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 <a href="https://github.com/Hexworks/hexameter/graphs/contributors"><img src="https://opencollective.com/Hexworks/contributors.svg?width=890" /></a>
 
-
-## Backers
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/Hexworks#backer)]
-
-<a href="https://opencollective.com/Hexworks#backers" target="_blank"><img src="https://opencollective.com/Hexworks/backers.svg?width=890"></a>
-
-
-## Sponsors
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/Hexworks#sponsor)]
-
-<a href="https://opencollective.com/Hexworks/sponsor/0/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/Hexworks/sponsor/1/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/Hexworks/sponsor/2/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/Hexworks/sponsor/3/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/Hexworks/sponsor/4/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/Hexworks/sponsor/5/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/Hexworks/sponsor/6/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/Hexworks/sponsor/7/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/Hexworks/sponsor/8/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/Hexworks/sponsor/9/website" target="_blank"><img src="https://opencollective.com/Hexworks/sponsor/9/avatar.svg"></a>
-
-
-
 ## License
-Hexameter is made available under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
+Mixite is made available under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
 
 ## Credits
-Hexameter is created and maintained by Adam Arold
+Mixite is created and maintained by Adam Arold
 
 *I'm open to suggestions, feel free to comment or to send me a message.
 Pull requests are also welcome!*
 
 
-[ocbackers]: #backers
-[ocbackers img]:https://opencollective.com/Hexworks/backers/badge.svg
-[ocsponsors]: #sponsors
-[ocsponsors img]:https://opencollective.com/Hexworks/sponsors/badge.svg
-
-[travis]:https://travis-ci.org/Hexworks/hexameter
-[travis img]:https://api.travis-ci.org/Hexworks/hexameter.svg?branch=master
-
-[maven]:http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.codetome.hexameter%22%20AND%20a%3A%22hexameter.core%22
-[maven img]:https://maven-badges.herokuapp.com/maven-central/org.codetome.hexameter/hexameter.core/badge.svg
-
-[codecov img]:https://codecov.io/github/Hexworks/hexameter/coverage.svg?branch=master
-[codecov]:https://codecov.io/github/Hexworks/hexameter?branch=master
+[maven]:http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.hexworks.mixite%22%20AND%20a%3A%22hexameter.core%22
+[maven img]:https://maven-badges.herokuapp.com/maven-central/org.hexworks.mixite/hexameter.core/badge.svg
 
 [license]:https://github.com/Hexworks/hexameter/blob/master/LICENSE
 [license img]:https://img.shields.io/badge/License-MIT-green.svg

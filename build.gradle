@@ -1,74 +1,27 @@
 buildscript {
-    ext {
-        shadowVersion = '2.0.2'
-        junitVersion = '4.12'
-        mockitoVersion = '1.10.19'
-        assertjVersion = '3.6.2'
-    }
     repositories {
-        jcenter()
         mavenCentral()
         mavenLocal()
+        jcenter()
     }
     dependencies {
-        classpath("com.github.jengelman.gradle.plugins:shadow:$shadowVersion")
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.0"
+        classpath "com.github.jengelman.gradle.plugins:shadow:4.0.2"
+    }
+}
+
+allprojects {
+    group "org.hexworks.mixite"
+    version "2018.1.0-RELEASE"
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        jcenter()
+        maven { url "https://dl.bintray.com/kotlin/kotlinx" }
     }
 }
 
 subprojects {
-    apply plugin: 'java'
-    apply plugin: 'maven'
-    apply plugin: 'maven-publish'
-
-    version = "2018.1.0"
-    group = "org.codetome.hexameter"
-
-    sourceCompatibility = 1.7
-
-    repositories {
-        mavenCentral()
-        mavenLocal()
-        maven { url "http://repo1.maven.org/maven2/" }
-    }
-
-    dependencies {
-        testCompile("junit:junit:$junitVersion")
-        testCompile("org.mockito:mockito-core:$mockitoVersion")
-        testCompile("org.assertj:assertj-core:$assertjVersion")
-    }
-
-//    task sourcesJar(type: Jar, dependsOn: classes) {
-//        classifier = 'sources'
-//        from sourceSets.main.allSource
-//    }
-//
-//    task javadocJar(type: Jar, dependsOn: javadoc) {
-//        classifier = 'javadoc'
-//        from javadoc.destinationDir
-//    }
-//
-//    artifacts {
-//        archives sourcesJar
-//        archives javadocJar
-//    }
-//
-//    publishing {
-//        publications {
-//            mavenJava(MavenPublication) {
-//                from components.java
-//            }
-//        }
-//    }
-//
-//    apply plugin: 'signing'
-//
-//    signing {
-//        sign configurations.archives
-//    }
-}
-
-project(":hexameter.example.swt") {
-    dependencies {
-        compile project(":hexameter.core")
-    }
+    apply plugin: "maven-publish"
 }

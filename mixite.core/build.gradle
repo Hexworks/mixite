@@ -1,0 +1,77 @@
+apply plugin: "kotlin-multiplatform"
+
+kotlin {
+    targets {
+        fromPreset(presets.jvm, 'jvm')
+        fromPreset(presets.js, 'web')
+
+        configure([jvm]) {
+            tasks.getByName(compilations.main.compileKotlinTaskName).kotlinOptions {
+                jvmTarget = '1.8'
+            }
+            tasks.getByName(compilations.test.compileKotlinTaskName).kotlinOptions {
+                jvmTarget = '1.8'
+            }
+        }
+
+        configure([web]) {
+            tasks.getByName(compilations.main.compileKotlinTaskName).kotlinOptions {
+                sourceMap = true
+            }
+        }
+    }
+
+    sourceSets {
+        commonMain {
+            kotlin.srcDirs = ["core/src/main/kotlin"]
+            resources.srcDirs = ["core/src/main/resources"]
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+            }
+        }
+        commonTest {
+            kotlin.srcDirs = ["core/src/test/kotlin"]
+            resources.srcDirs = ["core/src/test/resources"]
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test-common'
+                implementation 'org.jetbrains.kotlin:kotlin-test-annotations-common'
+                dependsOn commonMain
+            }
+        }
+
+        jvmMain {
+            kotlin.srcDirs = ["jvm/src/main/kotlin"]
+            resources.srcDirs = ["jvm/src/main/resources"]
+            dependencies {
+                api 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+            }
+        }
+
+        jvmTest {
+            kotlin.srcDirs = ["jvm/src/test/kotlin"]
+            resources.srcDirs = ["jvm/src/test/resources"]
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test'
+                implementation 'org.jetbrains.kotlin:kotlin-test-junit'
+                dependsOn jvmMain
+            }
+        }
+
+        webMain {
+            kotlin.srcDirs = ["web/src/main/kotlin"]
+            resources.srcDirs = ["web/src/main/resources"]
+            dependencies {
+                api 'org.jetbrains.kotlin:kotlin-stdlib-js'
+            }
+        }
+
+        webTest {
+            kotlin.srcDirs = ["web/src/test/kotlin"]
+            resources.srcDirs = ["web/src/test/resources"]
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test-js'
+                dependsOn webMain
+            }
+        }
+    }
+}
