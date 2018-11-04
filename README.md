@@ -182,10 +182,6 @@ Check these interfaces for more details:
  - Movement range with obstacles and movement cost calculation
  - Android example
 
-## Contributors
-
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-
 ## License
 Mixite is made available under the [Apache2 License](https://opensource.org/licenses/Apache-2.0).
 
