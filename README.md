@@ -62,26 +62,49 @@ abstract concept possible.
 ## Basic usage
 
 ### Maven dependency
-Let's start by adding Mixite as a Maven dependency to your project.
+Let's start by adding Mixite as a Maven dependency to your project. Mixite uses Jitpack
+to deploy artifacts, so first you have to add the Jitpack repository to your project configuration:
+
+Maven:
+
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+	
+Gradle:
+
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+	
+Now to add the dependency itself:	
 
 For JVM users:
 
-    <dependency>
-	    <groupId>org.hexworks.mixite</groupId>
+	<dependency>
+	    <groupId>com.github.Hexworks.mixite</groupId>
 	    <artifactId>mixite.core-jvm</artifactId>
-	    <version>2018.1.0</version>
-    </dependency>
+	    <version>2018.2.0-RELEASE</version>
+	</dependency>
 
 You can also use Gradle:
 
-    'org.hexworks.mixite:mixite.core-jvm:2018.1.0'
+	dependencies {
+	    implementation 'com.github.Hexworks.mixite:mixite.core-jvm:2018.2.0-RELEASE'
+	}
     
 > Note that if you are using Javascript you need to postfix `mixite.core` with `-js`:
-> `'org.hexworks.mixite:mixite.core-js:2018.1.0'`
-    
-You can always use the latest preview version by using Jitpack. More info [here](https://jitpack.io/#Hexworks/Mixite).
+> `'org.hexworks.mixite:mixite.core-js:2018.2.0-RELEASE'`
+  
+You can also use the latest preview versions, more info [here](https://jitpack.io/#Hexworks/Mixite).
 
-
+> Maven Central releases will also be available in the near future.
 
 
 ### Creating a grid
