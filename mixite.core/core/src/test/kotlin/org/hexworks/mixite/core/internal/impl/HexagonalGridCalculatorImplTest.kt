@@ -173,7 +173,7 @@ class HexagonalGridCalculatorImplTest {
                 gridY = 0,
                 gridZ = 0)
 
-        val result = target.calculateRingFrom(targetHex, 3)
+        target.calculateRingFrom(targetHex, 3)
     }
 
 

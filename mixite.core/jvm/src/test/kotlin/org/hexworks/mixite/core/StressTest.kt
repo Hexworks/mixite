@@ -23,7 +23,7 @@ class StressTest {
     @Test
     fun shouldBeAbleToCreateBigGrid() {
         val start = System.nanoTime()
-        hexagonalGridBuilder!!.build()
+        hexagonalGridBuilder.build()
         val end = System.nanoTime()
         assertTrue {
             nanoToMs(end - start) < EXPECTED_MAXIMUM_GENERATION_TIME
@@ -32,7 +32,7 @@ class StressTest {
 
     @Test
     fun shouldBeAbleToFetchHexesFromBigGrids() {
-        val grid = hexagonalGridBuilder!!.build()
+        val grid = hexagonalGridBuilder.build()
 
         val start = System.nanoTime()
         val ai = AtomicInteger()
