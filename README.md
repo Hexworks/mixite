@@ -26,7 +26,7 @@ Need info? [Ask us on Discord][discord]
 
 [![][circleci img]][circleci]
 [![][maven img]][maven]
-[![](https://jitpack.io/v/Hexworks/Mixite.svg)](https://jitpack.io/#Hexworks/Mixite)
+[![](https://jitpack.io/v/Hexworks/mixite.svg)](https://jitpack.io/#Hexworks/mixite)
 [![][license img]][license]
 
 [discord]:https://discord.gg/hbzytQJ
