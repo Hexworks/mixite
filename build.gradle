@@ -6,13 +6,12 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.0"
-        classpath "com.github.jengelman.gradle.plugins:shadow:4.0.2"
     }
 }
 
 allprojects {
     group "org.hexworks.mixite"
-    version "2018.0.4-PREVIEW"
+    version "2018.1.1-PREVIEW"
 
     repositories {
         mavenCentral()
