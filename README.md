@@ -82,8 +82,6 @@ You can also use Gradle:
 You can always use the latest preview version by using Jitpack. More info [here](https://jitpack.io/#Hexworks/Mixite).
 
 
-
-
 ### Creating a grid
 
 You can use the [HexagonalGridBuilder][hexgridbuilder] from the API package to create a [HexagonalGrid][hexgrid]:

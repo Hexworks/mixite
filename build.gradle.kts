@@ -12,13 +12,12 @@ buildscript {
 
 plugins {
     `maven-publish`
-    id("org.jetbrains.dokka") version "0.9.16"
     id("org.jetbrains.kotlin.multiplatform") version "1.3.0"
 }
 
 allprojects {
     group = "org.hexworks.mixite"
-    version = "2018.0.4-PREVIEW"
+    version = "2018.1.0-RELEASE"
 
     apply(plugin = "org.jetbrains.kotlin.multiplatform")
 

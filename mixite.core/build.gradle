@@ -7,9 +7,6 @@ kotlin {
             tasks.getByName(compilations.test.compileKotlinTaskName).kotlinOptions {
                 jvmTarget = '1.8'
             }
-            mavenPublication {
-                artifact(jvmJavadocJar)
-            }
         }
         fromPreset(presets.js, 'web') {
             tasks.getByName(compilations.main.compileKotlinTaskName).kotlinOptions {
