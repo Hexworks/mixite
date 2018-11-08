@@ -29,7 +29,7 @@ Need info? [Ask us on Discord][discord]
 [![](https://jitpack.io/v/Hexworks/mixite.svg)](https://jitpack.io/#Hexworks/mixite)
 [![][license img]][license]
 
-[discord]:https://discord.gg/hbzytQJ
+[discord]:https://discord.gg/PE3qFmF
 
 [circleci]:https://circleci.com/gh/Hexworks/mixite
 [circleci img]:https://circleci.com/gh/Hexworks/mixite/tree/master.svg?style=shield
