@@ -1,77 +1,69 @@
-apply plugin: "kotlin-multiplatform"
-
 kotlin {
     targets {
-        fromPreset(presets.jvm, 'jvm')
-        fromPreset(presets.js, 'web')
-
-        configure([jvm]) {
-            tasks.getByName(compilations.main.compileKotlinTaskName).kotlinOptions {
-                jvmTarget = '1.8'
-            }
-            tasks.getByName(compilations.test.compileKotlinTaskName).kotlinOptions {
-                jvmTarget = '1.8'
+        fromPreset(presets.jvm, 'jvm') {
+            configure([compilations.main, compilations.test]) {
+                tasks.getByName(compileKotlinTaskName).kotlinOptions {
+                    jvmTarget = '1.8'
+                }
             }
         }
 
-        configure([web]) {
-            tasks.getByName(compilations.main.compileKotlinTaskName).kotlinOptions {
-                sourceMap = true
+        fromPreset(presets.js, 'js') {
+            configure([compilations.main, compilations.test]) {
+                tasks.getByName(compileKotlinTaskName).kotlinOptions {
+                    sourceMap = true
+                    moduleKind = "umd"
+                    metaInfo = true
+                }
             }
         }
+
+        // For ARM, preset should be changed to presets.iosArm32 or presets.iosArm64
+        // For Linux, preset should be changed to e.g. presets.linuxX64
+        // For MacOS, preset should be changed to e.g. presets.macosX64
+        fromPreset(presets.macosX64, 'native')
     }
 
     sourceSets {
         commonMain {
-            kotlin.srcDirs = ["core/src/main/kotlin"]
-            resources.srcDirs = ["core/src/main/resources"]
             dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
             }
         }
         commonTest {
-            kotlin.srcDirs = ["core/src/test/kotlin"]
-            resources.srcDirs = ["core/src/test/resources"]
             dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-test-common'
                 implementation 'org.jetbrains.kotlin:kotlin-test-annotations-common'
-                dependsOn commonMain
             }
         }
-
         jvmMain {
-            kotlin.srcDirs = ["jvm/src/main/kotlin"]
-            resources.srcDirs = ["jvm/src/main/resources"]
             dependencies {
-                api 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
             }
         }
-
         jvmTest {
-            kotlin.srcDirs = ["jvm/src/test/kotlin"]
-            resources.srcDirs = ["jvm/src/test/resources"]
             dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-test'
                 implementation 'org.jetbrains.kotlin:kotlin-test-junit'
-                dependsOn jvmMain
             }
         }
-
-        webMain {
-            kotlin.srcDirs = ["web/src/main/kotlin"]
-            resources.srcDirs = ["web/src/main/resources"]
+        jsMain {
             dependencies {
-                api 'org.jetbrains.kotlin:kotlin-stdlib-js'
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib-js'
             }
         }
-
-        webTest {
-            kotlin.srcDirs = ["web/src/test/kotlin"]
-            resources.srcDirs = ["web/src/test/resources"]
+        jsTest {
             dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-test-js'
-                dependsOn webMain
             }
+        }
+        nativeMain {
+        }
+        nativeTest {
         }
     }
 }
+
+apply from: rootProject.file("gradle/publish.gradle")
+apply from: rootProject.file('gradle/node-js.gradle')
+apply from: rootProject.file('gradle/test-mocha-js.gradle')

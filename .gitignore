@@ -24,3 +24,5 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+local.properties
