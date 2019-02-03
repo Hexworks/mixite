@@ -1,5 +1,6 @@
 package org.hexworks.mixite.core.internal.impl
 
+import org.hexworks.cobalt.datatypes.Maybe
 import org.hexworks.mixite.core.api.*
 import org.hexworks.mixite.core.api.contract.SatelliteData
 import kotlin.math.abs
