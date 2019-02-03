@@ -1,8 +1,8 @@
 package org.hexworks.mixite.core.api
 
+import org.hexworks.cobalt.datatypes.Maybe
 import org.hexworks.mixite.core.api.contract.SatelliteData
 import org.hexworks.mixite.core.internal.GridData
-import org.hexworks.mixite.core.vendor.Maybe
 
 /**
  *

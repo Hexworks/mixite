@@ -1,6 +1,6 @@
 package org.hexworks.mixite.core.internal.impl.layoutstrategy
 
-import org.hexworks.mixite.core.GridLayouStrategyTestUtil
+import org.hexworks.mixite.core.GridLayoutStrategyTestUtil
 import org.hexworks.mixite.core.api.CubeCoordinate
 import org.hexworks.mixite.core.api.CubeCoordinate.Companion.fromCoordinates
 import org.hexworks.mixite.core.api.HexagonOrientation.FLAT_TOP
@@ -18,7 +18,7 @@ class RectangularGridLayoutStrategyTest {
 
     @BeforeTest
     fun setUp() {
-        builder = GridLayouStrategyTestUtil.fetchDefaultBuilder()
+        builder = GridLayoutStrategyTestUtil.fetchDefaultBuilder()
         target = RectangularGridLayoutStrategy()
     }
 

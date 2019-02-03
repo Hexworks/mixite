@@ -26,7 +26,8 @@ kotlin {
             kotlin.srcDirs = ["core/src/main/kotlin"]
             resources.srcDirs = ["core/src/main/resources"]
             dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+                api "org.jetbrains.kotlin:kotlin-stdlib"
+                api "org.hexworks.cobalt:cobalt.datatypes:2018.1.1-PREVIEW"
             }
         }
         commonTest {
