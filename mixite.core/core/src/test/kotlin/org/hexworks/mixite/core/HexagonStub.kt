@@ -5,7 +5,6 @@ import org.hexworks.mixite.core.api.Hexagon
 import org.hexworks.mixite.core.api.Point
 import org.hexworks.mixite.core.api.Rectangle
 import org.hexworks.mixite.core.api.contract.SatelliteData
-import org.hexworks.mixite.core.vendor.Maybe
 
 class HexagonStub<T: SatelliteData>(override val id: String = "",
                                     override val points: List<Point> = listOf(),

@@ -1,9 +1,9 @@
 package org.hexworks.mixite.core.api.defaults
 
+import org.hexworks.cobalt.datatypes.Maybe
 import org.hexworks.mixite.core.api.CubeCoordinate
 import org.hexworks.mixite.core.api.contract.HexagonDataStorage
 import org.hexworks.mixite.core.api.contract.SatelliteData
-import org.hexworks.mixite.core.vendor.Maybe
 
 class DefaultHexagonDataStorage<T : SatelliteData> : HexagonDataStorage<T> {
 

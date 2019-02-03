@@ -2,7 +2,6 @@ package org.hexworks.mixite.core.internal.impl
 
 import org.hexworks.mixite.core.api.*
 import org.hexworks.mixite.core.api.contract.SatelliteData
-import org.hexworks.mixite.core.vendor.Maybe
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
