@@ -4,7 +4,7 @@ import org.hexworks.mixite.core.api.HexagonOrientation
 import org.hexworks.mixite.core.api.HexagonalGridBuilder
 import org.hexworks.mixite.core.api.contract.SatelliteData
 
-object GridLayouStrategyTestUtil {
+object GridLayoutStrategyTestUtil {
 
     private const val RADIUS = 30.0
     private const val GRID_WIDTH = 3

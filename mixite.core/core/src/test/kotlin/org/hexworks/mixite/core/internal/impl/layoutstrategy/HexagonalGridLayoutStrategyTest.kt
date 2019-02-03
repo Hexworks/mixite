@@ -1,6 +1,6 @@
 package org.hexworks.mixite.core.internal.impl.layoutstrategy
 
-import org.hexworks.mixite.core.GridLayouStrategyTestUtil.fetchDefaultBuilder
+import org.hexworks.mixite.core.GridLayoutStrategyTestUtil.fetchDefaultBuilder
 import org.hexworks.mixite.core.api.CubeCoordinate
 import org.hexworks.mixite.core.api.CubeCoordinate.Companion.fromCoordinates
 import org.hexworks.mixite.core.api.HexagonOrientation.FLAT_TOP

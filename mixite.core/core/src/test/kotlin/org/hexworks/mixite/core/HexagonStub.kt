@@ -1,5 +1,6 @@
 package org.hexworks.mixite.core
 
+import org.hexworks.cobalt.datatypes.Maybe
 import org.hexworks.mixite.core.api.CubeCoordinate
 import org.hexworks.mixite.core.api.Hexagon
 import org.hexworks.mixite.core.api.Point
