@@ -41,15 +41,10 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
 
         for (gridZ in from.gridZ..to.gridZ) {
             for (gridX in from.gridX..to.gridX) {
-                coordinates.add(CubeCoordinate.fromCoordinates(gridX, gridZ))
-            }
-        }
-
-        val iter = coordinates.iterator()
-        while (iter.hasNext()) {
-            val next = iter.next()
-            if (!containsCubeCoordinate(next)) {
-                iter.remove()
+                val coord = CubeCoordinate.fromCoordinates(gridX, gridZ)
+                if (containsCubeCoordinate(coord)) {
+                    coordinates.add(coord)
+                }
             }
         }
 
