@@ -80,7 +80,7 @@ class HexagonalGridCalculatorImpl<T : SatelliteData>(private val hexagonalGrid: 
             if (pathHexagon.equals(from) || pathHexagon.equals(to)) {
                 continue
             }
-            if (pathHexagon.satelliteData.isPresent && pathHexagon.satelliteData.get().opaque) {
+            if (pathHexagon.satelliteData.isPresent && pathHexagon.satelliteData.get().isOpaque) {
                 return false
             }
         }
