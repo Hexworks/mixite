@@ -23,7 +23,7 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
                         }
 
                         override fun next(): Hexagon<T> {
-                            return HexagonImpl(gridData, coordIter.next(), hexagonDataStorage)
+                            return hexagon(coordIter.next())
                         }
                     }
                 }
@@ -34,6 +34,10 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
         for (cubeCoordinate in builder.gridLayoutStrategy.fetchGridCoordinates(builder)) {
             this@HexagonalGridImpl.hexagonDataStorage.addCoordinate(cubeCoordinate)
         }
+    }
+
+    private fun hexagon(coordinate: CubeCoordinate): HexagonImpl<T> {
+        return HexagonImpl(gridData, coordinate, hexagonDataStorage)
     }
 
     override fun getHexagonsByCubeRange(from: CubeCoordinate, to: CubeCoordinate): Iterable<Hexagon<T>> {
@@ -58,7 +62,7 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
                     }
 
                     override fun next(): Hexagon<T> {
-                        return getByCubeCoordinate(coordIter.next()).get()
+                        return hexagon(coordIter.next())
                     }
                 }
             }
@@ -89,7 +93,7 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
                     }
 
                     override fun next(): Hexagon<T> {
-                        return getByCubeCoordinate(coordIter.next()).get()
+                        return hexagon(coordIter.next())
                     }
                 }
             }
@@ -102,7 +106,7 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
 
     override fun getByCubeCoordinate(coordinate: CubeCoordinate): Maybe<Hexagon<T>> {
         return if (containsCubeCoordinate(coordinate))
-            Maybe.of(HexagonImpl(gridData, coordinate, hexagonDataStorage))
+            Maybe.of(hexagon(coordinate))
         else
             Maybe.empty()
     }
