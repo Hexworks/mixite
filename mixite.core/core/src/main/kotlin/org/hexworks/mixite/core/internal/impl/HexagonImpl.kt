@@ -17,7 +17,7 @@ class HexagonImpl<T : SatelliteData> internal constructor(
         override val cubeCoordinate: CubeCoordinate,
         private val hexagonDataStorage: HexagonDataStorage<T>) : Hexagon<T> {
 
-    override val vertices: MutableList<Double>
+    override val vertices: List<Double>
     override val points: List<Point>
     override val externalBoundingBox: Rectangle
     override val internalBoundingBox: Rectangle
@@ -65,7 +65,7 @@ class HexagonImpl<T : SatelliteData> internal constructor(
                 (1.25f * sharedData.radius),
                 (1.25f * sharedData.radius))
 
-        this.vertices = ArrayList()
+        this.vertices = ArrayList(12)
         for (point in points) {
             vertices.add(point.coordinateX)
             vertices.add(point.coordinateY)
@@ -73,7 +73,7 @@ class HexagonImpl<T : SatelliteData> internal constructor(
     }
 
     private fun calculatePoints(): List<Point> {
-        val points = ArrayList<Point>()
+        val points = ArrayList<Point>(6)
         for (i in 0..5) {
             val angle = 2 * PI / 6 * (i + sharedData.orientation.coordinateOffset)
             val x = centerX + sharedData.radius * cos(angle)

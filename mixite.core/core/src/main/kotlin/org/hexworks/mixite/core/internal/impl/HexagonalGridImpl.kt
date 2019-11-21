@@ -5,6 +5,7 @@ import org.hexworks.mixite.core.api.*
 import org.hexworks.mixite.core.api.contract.HexagonDataStorage
 import org.hexworks.mixite.core.api.contract.SatelliteData
 import org.hexworks.mixite.core.internal.GridData
+import kotlin.math.abs
 
 class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : HexagonalGrid<T> {
 
@@ -41,7 +42,7 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
     }
 
     override fun getHexagonsByCubeRange(from: CubeCoordinate, to: CubeCoordinate): Iterable<Hexagon<T>> {
-        val coordinates = ArrayList<CubeCoordinate>()
+        val coordinates = ArrayList<CubeCoordinate>(abs(from.gridZ-to.gridZ) + abs(from.gridX-to.gridX))
 
         for (gridZ in from.gridZ..to.gridZ) {
             for (gridX in from.gridX..to.gridX) {
