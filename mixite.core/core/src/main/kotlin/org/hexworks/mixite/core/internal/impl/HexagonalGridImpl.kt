@@ -78,7 +78,7 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
                 val cubeX = CoordinateConverter.convertOffsetCoordinatesToCubeX(gridX, gridY, gridData.orientation)
                 val cubeZ = CoordinateConverter.convertOffsetCoordinatesToCubeZ(gridX, gridY, gridData.orientation)
                 val coord = CubeCoordinate.fromCoordinates(cubeX, cubeZ)
-                if (getByCubeCoordinate(coord).isPresent) {
+                if (containsCubeCoordinate(coord)) {
                     coords.add(coord)
                 }
             }
