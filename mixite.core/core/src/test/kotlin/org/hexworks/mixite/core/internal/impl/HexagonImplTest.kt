@@ -74,24 +74,24 @@ class HexagonImplTest {
 
     @Test
     fun shouldReturnProperCenterXCoordinateWhenGetCenterXIsCalledWithPointyHexagons() {
-        assertEquals(EXPECTED_POINTY_CENTER_X, round(target.centerX).toInt())
+        assertEquals(EXPECTED_POINTY_CENTER_X, round(target.center.coordinateX).toInt())
     }
 
     @Test
     fun shouldReturnProperCenterXCoordinateWhenGetCenterXIsCalledWithFlatHexagons() {
         target = HexagonImpl(TEST_FLAT_DATA, TEST_COORDINATE, TEST_SATELLITE_DATA_MAP)
-        assertEquals(EXPECTED_FLAT_CENTER_X, round(target.centerX).toInt())
+        assertEquals(EXPECTED_FLAT_CENTER_X, round(target.center.coordinateX).toInt())
     }
 
     @Test
     fun shouldReturnProperCenterYCoordinateWhenGetCenterYIsCalledWithPointyHexagons() {
-        assertEquals(EXPECTED_POINTY_CENTER_Y, round(target.centerY).toInt())
+        assertEquals(EXPECTED_POINTY_CENTER_Y, round(target.center.coordinateY).toInt())
     }
 
     @Test
     fun shouldReturnProperCenterYCoordinateWhenGetCenterYIsCalledWithFlatHexagons() {
         target = HexagonImpl(TEST_FLAT_DATA, TEST_COORDINATE, TEST_SATELLITE_DATA_MAP)
-        assertEquals(EXPECTED_FLAT_CENTER_Y, round(target.centerY).toInt())
+        assertEquals(EXPECTED_FLAT_CENTER_Y, round(target.center.coordinateY).toInt())
     }
 
     @Test

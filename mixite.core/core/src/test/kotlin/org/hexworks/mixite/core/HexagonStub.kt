@@ -16,8 +16,9 @@ class HexagonStub<T: SatelliteData>(override val id: String = "",
                                     override val gridX: Int = 0,
                                     override val gridY: Int = 0,
                                     override val gridZ: Int = 0,
-                                    override val centerX: Double = 0.0,
-                                    override val centerY: Double = 0.0,
+                                    override val center: Point = Point.fromPosition(0.0, 0.0),
+                                    override val centerX: Double = center.coordinateY,
+                                    override val centerY: Double = center.coordinateY,
                                     override val satelliteData: Maybe<T> = Maybe.empty()) : Hexagon<T> {
 
     override fun setSatelliteData(data: T) {

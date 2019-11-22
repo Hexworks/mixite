@@ -153,9 +153,9 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
 
     private fun refineHexagonByPixel(hexagon: Hexagon<T>, clickedPoint: Point): Hexagon<T> {
         var refined: Hexagon<T> = hexagon
-        var smallestDistance = clickedPoint.distanceFrom(Point.fromPosition(refined.centerX, refined.centerY))
+        var smallestDistance = clickedPoint.distanceFrom(Point.fromPosition(refined.center.coordinateX, refined.center.coordinateY))
         for (neighbor in getNeighborsOf(hexagon)) {
-            val currentDistance = clickedPoint.distanceFrom(Point.fromPosition(neighbor.centerX, neighbor.centerY))
+            val currentDistance = clickedPoint.distanceFrom(Point.fromPosition(neighbor.center.coordinateX, neighbor.center.coordinateY))
             if (currentDistance < smallestDistance) {
                 refined = neighbor
                 smallestDistance = currentDistance
