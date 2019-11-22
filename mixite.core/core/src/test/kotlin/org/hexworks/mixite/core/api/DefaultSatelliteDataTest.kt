@@ -19,14 +19,14 @@ class DefaultSatelliteDataTest {
 
     @Test
     fun shouldProperlySetAndGetIsPassable() {
-        target.passable = EXPECTED_IS_PASSABLE
-        assertEquals(EXPECTED_IS_PASSABLE, target.passable)
+        target.isPassable = EXPECTED_IS_PASSABLE
+        assertEquals(EXPECTED_IS_PASSABLE, target.isPassable)
     }
 
     @Test
     fun shouldProperlySetAndGetIsBlocksView() {
-        target.opaque = EXPECTED_IS_BLOCKS_VIEW
-        assertEquals(EXPECTED_IS_BLOCKS_VIEW, target.opaque)
+        target.isOpaque = EXPECTED_IS_BLOCKS_VIEW
+        assertEquals(EXPECTED_IS_BLOCKS_VIEW, target.isOpaque)
     }
 
     @Test

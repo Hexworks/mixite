@@ -105,7 +105,7 @@ class HexagonalGridCalculatorImplTest {
 
         val hexagon = grid.getByCubeCoordinate(fromCoordinates(2, 5))
         val data = DefaultSatelliteData()
-        data.opaque = true
+        data.isOpaque = true
         hexagon.get().setSatelliteData(data)
 
         assertFalse {

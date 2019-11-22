@@ -17,7 +17,7 @@ interface SatelliteData {
      *
      * @param passable passable?
      */
-    var passable: Boolean
+    var isPassable: Boolean
 
     /**
      * @return true if the [Hexagon] can bee seen through, false otherwise.
@@ -27,7 +27,7 @@ interface SatelliteData {
      *
      * @param opaque is opaque?
      */
-    var opaque: Boolean
+    var isOpaque: Boolean
 
     /**
      * Returns the movement cost when moving over the Hexagon.
