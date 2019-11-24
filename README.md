@@ -21,7 +21,7 @@ you can provide your own storage implementation to alleviate this limitation.
 ---
 
 Need info? [Ask us on Discord][discord]
- | or [Create an issue](https://github.com/Hexworks/mixite/issues/new)
+ | or [Create an issue](issues/new)
  | Support us on [Patreon](https://www.patreon.com/hexworks)
 
 [![][circleci img]][circleci]
@@ -34,7 +34,7 @@ Need info? [Ask us on Discord][discord]
 [circleci]:https://circleci.com/gh/Hexworks/mixite
 [circleci img]:https://circleci.com/gh/Hexworks/mixite/tree/master.svg?style=shield
 
-[license]:https://github.com/Hexworks/mixite/blob/master/LICENSE
+[license]:LICENSE
 [license img]:https://img.shields.io/badge/License-Apache2.0-blue.svg
 
 [maven]:https://search.maven.org/search?q=g:org.hexworks.mixite
@@ -53,107 +53,87 @@ Hexagonal grids come in **flat topped** and **pointy topped** shapes. The grid c
  - Rectangular: no special rules
  - Trapezoid: no special rules
 
-All layouts have *with* and *height* values of at least **1**.
+All layouts have *width* and *height* values of at least **1**.
 You can consult [HexagonalGridLayout][hexgridlayout] if you need further details.
 
-This library is not tied to any GUI implementation. All operations provided by the [API][api] are working using the most
+This library is not tied to any GUI implementation. All operations provided by the [API][api] work using the most
 abstract concept possible.
 
 ## Basic usage
 
-### Maven dependency
-Let's start by adding Mixite as a Maven dependency to your project. Mixite uses Jitpack
-to deploy artifacts, so first you have to add the Jitpack repository to your project configuration:
+### Importing Mixite
+Let's start by adding Mixite as a dependency.
 
-Maven:
+#### Maven
 
-    <repositories>
-	<repository>
-	    <id>jitpack.io</id>
-	    <url>https://jitpack.io</url>
-	</repository>
-    </repositories>
-	
-Gradle:
+```xml
+<repositories>
+  <repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url> <!-- Mixite uses Jitpack repository -->
+  </repository>
+</repositories>
+...
+<dependency>
+  <groupId>com.github.Hexworks.mixite</groupId>
+  <artifactId>mixite.core-jvm</artifactId>
+  <version>2018.2.0-RELEASE</version>
+</dependency>
+```
 
-    allprojects {
-        repositories {
-            maven { url 'https://jitpack.io' }
-        }
-    }
-	
-Now to add the dependency itself:	
+#### Gradle
 
-For JVM users:
-
-	<dependency>
-	    <groupId>com.github.Hexworks.mixite</groupId>
-	    <artifactId>mixite.core-jvm</artifactId>
-	    <version>2018.2.0-RELEASE</version>
-	</dependency>
-
-You can also use Gradle:
-
-	dependencies {
-	    implementation 'com.github.Hexworks.mixite:mixite.core-jvm:2018.2.0-RELEASE'
-	}
-    
-> Note that if you are using Javascript you need to postfix `mixite.core` with `-js`:
-> `'org.hexworks.mixite:mixite.core-js:2018.2.0-RELEASE'`
+```groovy
+allprojects {
+  repositories {
+    maven { url 'https://jitpack.io' } // Mixite uses Jitpack repository
+  }
+}
+...
+dependencies {
+  implementation 'com.github.Hexworks.mixite:mixite.core-jvm:2018.2.0-RELEASE'
+}
+```
+   
+> Note that if you are using Javascript you need `mixite.core-web`:
+> `'org.hexworks.mixite:mixite.core-web:2018.2.0-RELEASE'`
   
 You can also use the latest preview versions, more info [here](https://jitpack.io/#Hexworks/Mixite).
 
-> Maven Central releases will also be available in the near future.
-
-
 ### Creating a grid
 
-You can use the [HexagonalGridBuilder][hexgridbuilder] from the API package to create a [HexagonalGrid][hexgrid]:
+You can use the [HexagonalGridBuilder][hexgridbuilder] to create a [HexagonalGrid][hexgrid]:
 
-    import org.hexworks.mixite.core.api.HexagonOrientation;
-    import org.hexworks.mixite.core.api.HexagonalGrid;
-    import org.hexworks.mixite.core.api.HexagonalGridBuilder;
-    import org.hexworks.mixite.core.api.HexagonalGridLayout;
-    import org.hexworks.mixite.core.api.contract.SatelliteData;
-    
-    // ...
-    private static final int GRID_HEIGHT = 9;
-    private static final int GRID_WIDTH = 9;
-    private static final HexagonalGridLayout GRID_LAYOUT = HexagonalGridLayout.RECTANGULAR;
-    private static final HexagonOrientation ORIENTATION = HexagonOrientation.FLAT_TOP;
-    private static final double RADIUS = 30;
+```java
+HexagonalGridBuilder builder = new HexagonalGridBuilder()
+  .setGridHeight(9)
+  .setGridWidth(9)
+  .setGridLayout(HexagonalGridLayout.RECTANGULAR)
+  .setOrientation(HexagonOrientation.FLAT_TOP)
+  .setRadius(30.0);
+HexagonalGrid grid = builder.build();
+```
 
-    // ...
-    HexagonalGridBuilder<SatelliteData> builder = new HexagonalGridBuilder<>()
-            .setGridHeight(GRID_HEIGHT)
-            .setGridWidth(GRID_WIDTH)
-            .setGridLayout(GRID_LAYOUT)
-            .setOrientation(ORIENTATION)
-            .setRadius(RADIUS);
-
-    HexagonalGrid grid = builder.build();
-
-You can also use the [HexagonalGridBuilder][hexgridbuilder] to create a [HexagonalGridCalculator][hexgridcalc] for you which
+You can also use it to create a [HexagonalGridCalculator][hexgridcalc] for you which
 supports advanced operations on [HexagonalGrid][hexgrid]s:
 
-    import org.hexworks.mixite.core.api.HexagonalGridCalculator;
-    // ...
-    HexagonalGridCalculator calculator = builder.buildCalculatorFor(grid);
+```java
+HexagonalGridCalculator calc = builder.buildCalculatorFor(grid);
+calc.calculateDistanceBetween(sourceHex, targetHex)
+```
 
 ### Drawing a grid
 
-You can fetch the `Hexagon`s stored on a grid using the `getHexagons` method:
+Method `Grid.getHexagons` returns an iterable collection of hexagons. Each `Point` represents a coordinate in 2D space that can
+be transformed for rendering.
+```java
+for (Hexagon hexagon : grid.getHexagons()) {
+  for(Point p : hexagon.getPoints()) {
+    // Do you stuff with point.coordinateX, point.coordinateY
+  }
+}
+```
 
-    Iterable hexagons = grid.getHexagons();
-
-After that you can iterate over all the `Point`s of your `Hexagon`s:
-
-    for (Object hexagon : grid.getHexagons()) {
-        // do your stuff
-    }
-
-
-Note that each `Point` represents a coordinate in 2D space. You can use them for drawing.
 
 ### Manipulating your grid
 
@@ -214,7 +194,7 @@ Check these interfaces for more details:
  - You don't have to fetch all `Hexagon` objects by using the `getHexagons` method. You can query `Hexagon`s by a range using
    offset or cube coordinates
 
-## Road map:
+## Road map
  - Path finding with obstacles  (blocking movement)
  - Movement range with obstacles and movement cost calculation
  - Android example
@@ -234,13 +214,13 @@ Pull requests are also welcome!*
 [herokurestlink]:http://hexameter-rest-example.herokuapp.com/
 [exampleprojectslink]:https://github.com/Hexworks/mixite.example/tree/master/mixite.example.swt
 
-[hexgridlayout]:https://github.com/Hexworks/mixite/blob/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGridLayout.kt
-[hexgridbuilder]:https://github.com/Hexworks/mixite/blob/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGridBuilder.kt
-[api]:https://github.com/Hexworks/mixite/tree/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api
-[hexgrid]:https://github.com/Hexworks/mixite/blob/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGrid.kt
-[hexgridcalc]:https://github.com/Hexworks/mixite/blob/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGridCalculator.kt
-[hex]:https://github.com/Hexworks/mixite/blob/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/Hexagon.kt
-[satdatlink]:https://github.com/Hexworks/mixite/blob/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/contract/SatelliteData.kt
-[defsatdatlink]:https://github.com/Hexworks/mixite/blob/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/defaults/DefaultSatelliteData.kt
-[hexdatstorlink]:https://github.com/Hexworks/mixite/blob/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/contract/HexagonDataStorage.kt
-[defhexdatstorlink]:https://github.com/Hexworks/mixite/blob/master/mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/defaults/DefaultHexagonDataStorage.kt
+[hexgridlayout]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGridLayout.kt
+[hexgridbuilder]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGridBuilder.kt
+[api]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api
+[hexgrid]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGrid.kt
+[hexgridcalc]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGridCalculator.kt
+[hex]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/Hexagon.kt
+[satdatlink]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/contract/SatelliteData.kt
+[defsatdatlink]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/defaults/DefaultSatelliteData.kt
+[hexdatstorlink]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/contract/HexagonDataStorage.kt
+[defhexdatstorlink]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/defaults/DefaultHexagonDataStorage.kt
