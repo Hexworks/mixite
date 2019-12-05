@@ -22,13 +22,8 @@ class HexagonalGridCalculatorImpl<T : SatelliteData>(private val hexagonalGrid: 
         for (x in -distance..distance) {
             for (y in max(-distance, -x - distance)..min(distance, -x + distance)) {
                 val z = -x - y
-                val tmpX = hexagon.gridX + x
-                val tmpZ = hexagon.gridZ + z
-                val tempCoordinate = CubeCoordinate.fromCoordinates(tmpX, tmpZ)
-                if (hexagonalGrid.containsCubeCoordinate(tempCoordinate)) {
-                    val hex = hexagonalGrid.getByCubeCoordinate(tempCoordinate).get()
-                    ret.add(hex)
-                }
+                val tempCoordinate = CubeCoordinate.fromCoordinates(hexagon.gridX + x, hexagon.gridZ + z)
+                hexagonalGrid.getByCubeCoordinate(tempCoordinate).ifPresent { ret += it }
             }
         }
         return ret
