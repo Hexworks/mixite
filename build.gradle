@@ -18,10 +18,7 @@ allprojects {
         mavenLocal()
         jcenter()
         maven { url "https://dl.bintray.com/kotlin/kotlinx" }
+        maven { url 'https://kotlin.bintray.com/kotlin-eap' } // Required for incubating kotlinx-benchmark
         maven { url 'https://jitpack.io' }
     }
-}
-
-subprojects {
-    apply plugin: "maven-publish"
 }
