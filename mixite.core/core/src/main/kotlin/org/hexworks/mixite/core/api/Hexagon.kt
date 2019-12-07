@@ -59,8 +59,14 @@ interface Hexagon<T : SatelliteData> {
     val gridZ: Int
 
     /**
+     * Returns the center (pixel) [Point] of this [Hexagon].
+     */
+    val center: Point
+
+    /**
      * Returns the center **x** (pixel) coordinate of this [Hexagon].
      */
+    @Deprecated("use center")
     val centerX: Double
 
     /**
@@ -68,6 +74,7 @@ interface Hexagon<T : SatelliteData> {
      *
      * @return center y
      */
+    @Deprecated("use center")
     val centerY: Double
 
     /**

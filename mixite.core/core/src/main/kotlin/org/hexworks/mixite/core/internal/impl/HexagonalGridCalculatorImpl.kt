@@ -22,13 +22,8 @@ class HexagonalGridCalculatorImpl<T : SatelliteData>(private val hexagonalGrid: 
         for (x in -distance..distance) {
             for (y in max(-distance, -x - distance)..min(distance, -x + distance)) {
                 val z = -x - y
-                val tmpX = hexagon.gridX + x
-                val tmpZ = hexagon.gridZ + z
-                val tempCoordinate = CubeCoordinate.fromCoordinates(tmpX, tmpZ)
-                if (hexagonalGrid.containsCubeCoordinate(tempCoordinate)) {
-                    val hex = hexagonalGrid.getByCubeCoordinate(tempCoordinate).get()
-                    ret.add(hex)
-                }
+                val tempCoordinate = CubeCoordinate.fromCoordinates(hexagon.gridX + x, hexagon.gridZ + z)
+                hexagonalGrid.getByCubeCoordinate(tempCoordinate).ifPresent { ret += it }
             }
         }
         return ret
@@ -62,10 +57,10 @@ class HexagonalGridCalculatorImpl<T : SatelliteData>(private val hexagonalGrid: 
 
     override fun drawLine(from: Hexagon<T>, to: Hexagon<T>): List<Hexagon<T>> {
         val distance = calculateDistanceBetween(from, to)
-        val results = mutableListOf<Hexagon<T>>()
         if (distance == 0) {
-            return results
+            return emptyList()
         }
+        val results = ArrayList<Hexagon<T>>(distance+1)
         for (i in 0..distance) {
             val interpolatedCoordinate = cubeLinearInterpolate(from.cubeCoordinate,
                     to.cubeCoordinate, 1.0 / distance * i)

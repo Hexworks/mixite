@@ -1,5 +1,13 @@
+pluginManagement {
+    repositories {
+        maven { url 'https://kotlin.bintray.com/kotlinx' }
+        gradlePluginPortal()
+    }
+}
+
 enableFeaturePreview('GRADLE_METADATA')
 
 rootProject.name = "mixite"
 
-include "mixite.core"
+include ":mixite.core"
+include ":benchmarks"

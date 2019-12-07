@@ -16,23 +16,22 @@ class GridData(val orientation: HexagonOrientation,
 
     val hexagonHeight: Double
     val hexagonWidth: Double
+    val innerRadius: Double
 
     init {
-        this.hexagonHeight = if (HexagonOrientation.FLAT_TOP == orientation)
-            calculateHeight(radius)
-        else
-            calculateWidth(radius)
-        this.hexagonWidth = if (HexagonOrientation.FLAT_TOP == orientation)
-            calculateWidth(radius)
-        else
-            calculateHeight(radius)
+        if (orientation === HexagonOrientation.FLAT_TOP) {
+            // FIXME These are the wrong way around! flat-top => width > height
+            hexagonHeight = calculateHeight(radius)
+            hexagonWidth = calculateWidth(radius)
+            innerRadius = hexagonWidth / 2
+        } else {
+            hexagonHeight = calculateWidth(radius)
+            hexagonWidth = calculateHeight(radius)
+            innerRadius = hexagonHeight / 2
+        }
     }
 
-    private fun calculateHeight(radius: Double): Double {
-        return sqrt(3.0) * radius
-    }
+    private fun calculateHeight(radius: Double) = sqrt(3.0) * radius
 
-    private fun calculateWidth(radius: Double): Double {
-        return radius * 3 / 2
-    }
+    private fun calculateWidth(radius: Double) = radius * 3 / 2
 }

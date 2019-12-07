@@ -5,6 +5,7 @@ import org.hexworks.mixite.core.api.*
 import org.hexworks.mixite.core.api.contract.HexagonDataStorage
 import org.hexworks.mixite.core.api.contract.SatelliteData
 import org.hexworks.mixite.core.internal.GridData
+import kotlin.math.abs
 
 class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : HexagonalGrid<T> {
 
@@ -23,7 +24,7 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
                         }
 
                         override fun next(): Hexagon<T> {
-                            return HexagonImpl(gridData, coordIter.next(), hexagonDataStorage)
+                            return hexagon(coordIter.next())
                         }
                     }
                 }
@@ -36,20 +37,19 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
         }
     }
 
+    private fun hexagon(coordinate: CubeCoordinate): HexagonImpl<T> {
+        return HexagonImpl(gridData, coordinate, hexagonDataStorage)
+    }
+
     override fun getHexagonsByCubeRange(from: CubeCoordinate, to: CubeCoordinate): Iterable<Hexagon<T>> {
-        val coordinates = ArrayList<CubeCoordinate>()
+        val coordinates = ArrayList<CubeCoordinate>(abs(from.gridZ-to.gridZ) + abs(from.gridX-to.gridX))
 
         for (gridZ in from.gridZ..to.gridZ) {
             for (gridX in from.gridX..to.gridX) {
-                coordinates.add(CubeCoordinate.fromCoordinates(gridX, gridZ))
-            }
-        }
-
-        val iter = coordinates.iterator()
-        while (iter.hasNext()) {
-            val next = iter.next()
-            if (!containsCubeCoordinate(next)) {
-                iter.remove()
+                val coord = CubeCoordinate.fromCoordinates(gridX, gridZ)
+                if (containsCubeCoordinate(coord)) {
+                    coordinates.add(coord)
+                }
             }
         }
 
@@ -63,7 +63,7 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
                     }
 
                     override fun next(): Hexagon<T> {
-                        return getByCubeCoordinate(coordIter.next()).get()
+                        return hexagon(coordIter.next())
                     }
                 }
             }
@@ -78,7 +78,7 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
                 val cubeX = CoordinateConverter.convertOffsetCoordinatesToCubeX(gridX, gridY, gridData.orientation)
                 val cubeZ = CoordinateConverter.convertOffsetCoordinatesToCubeZ(gridX, gridY, gridData.orientation)
                 val coord = CubeCoordinate.fromCoordinates(cubeX, cubeZ)
-                if (getByCubeCoordinate(coord).isPresent) {
+                if (containsCubeCoordinate(coord)) {
                     coords.add(coord)
                 }
             }
@@ -94,7 +94,7 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
                     }
 
                     override fun next(): Hexagon<T> {
-                        return getByCubeCoordinate(coordIter.next()).get()
+                        return hexagon(coordIter.next())
                     }
                 }
             }
@@ -105,36 +105,38 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
         return this.hexagonDataStorage.containsCoordinate(coordinate)
     }
 
-    override fun getByCubeCoordinate(coordinate: CubeCoordinate): Maybe<Hexagon<T>> {
-        return if (containsCubeCoordinate(coordinate))
-            Maybe.of(HexagonImpl(gridData, coordinate, hexagonDataStorage))
-        else
-            Maybe.empty()
-    }
+    private fun _getByCubeCoordinate(coordinate: CubeCoordinate) =
+            if (containsCubeCoordinate(coordinate)) hexagon(coordinate) else null
+
+    override fun getByCubeCoordinate(coordinate: CubeCoordinate): Maybe<Hexagon<T>> =
+            Maybe.ofNullable(_getByCubeCoordinate(coordinate))
 
     override fun getByPixelCoordinate(coordinateX: Double, coordinateY: Double): Maybe<Hexagon<T>> {
         var estimatedGridX = (coordinateX / gridData.hexagonWidth).toInt()
         var estimatedGridZ = (coordinateY / gridData.hexagonHeight).toInt()
         estimatedGridX = CoordinateConverter.convertOffsetCoordinatesToCubeX(estimatedGridX, estimatedGridZ, gridData.orientation)
         estimatedGridZ = CoordinateConverter.convertOffsetCoordinatesToCubeZ(estimatedGridX, estimatedGridZ, gridData.orientation)
-        // it is possible that the estimated coordinates are off the grid so we
+        // it is possible that the estimated coordinates are off-grid so we
         // create a virtual hexagon
         val estimatedCoordinate = CubeCoordinate.fromCoordinates(estimatedGridX, estimatedGridZ)
-        val tempHex = HexagonImpl(gridData, estimatedCoordinate, hexagonDataStorage)
-        val trueHex = refineHexagonByPixel(tempHex, Point.fromPosition(coordinateX, coordinateY))
-        return if (hexagonsAreAtTheSamePosition(tempHex, trueHex)) {
-            getByCubeCoordinate(estimatedCoordinate)
+        val centerHex = hexagon(estimatedCoordinate)
+        val nearestHex = nearestHexagonToPoint(centerHex, Point.fromPosition(coordinateX, coordinateY))
+
+        return if (nearestHex === centerHex) {
+            getByCubeCoordinate(estimatedCoordinate) // centerHex may have been off-grid so look it up again
         } else {
-            if (containsCubeCoordinate(trueHex.cubeCoordinate)) Maybe.of(trueHex) else Maybe.empty()
+            Maybe.of(nearestHex) // Any other result must be a (real) neighbour
         }
     }
 
-    override fun getNeighborByIndex(hexagon: Hexagon<T>, index: Int): Maybe<Hexagon<T>> {
-        val neighborGridX = hexagon.gridX + NEIGHBORS[index][NEIGHBOR_X_INDEX]
-        val neighborGridZ = hexagon.gridZ + NEIGHBORS[index][NEIGHBOR_Z_INDEX]
-        val neighborCoordinate = CubeCoordinate.fromCoordinates(neighborGridX, neighborGridZ)
-        return getByCubeCoordinate(neighborCoordinate)
-    }
+    private fun _getNeighborByIndex(hexagon: Hexagon<T>, index: Int) =
+            CubeCoordinate.fromCoordinates(
+                    hexagon.gridX + NEIGHBORS[index][NEIGHBOR_X_INDEX],
+                    hexagon.gridZ + NEIGHBORS[index][NEIGHBOR_Z_INDEX]
+            )
+
+    override fun getNeighborByIndex(hexagon: Hexagon<T>, index: Int) =
+            getByCubeCoordinate(_getNeighborByIndex(hexagon, index))
 
     override fun getNeighborsOf(hexagon: Hexagon<T>): Collection<Hexagon<T>> {
         val neighbors = HashSet<Hexagon<T>>()
@@ -147,21 +149,34 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
         return neighbors
     }
 
-    private fun hexagonsAreAtTheSamePosition(hex0: Hexagon<T>, hex1: Hexagon<T>): Boolean {
-        return hex0.gridX == hex1.gridX && hex0.gridZ == hex1.gridZ
-    }
+    /*
+     * Returns either the original center hex or the nearest (real) hex around it
+     */
+    private fun nearestHexagonToPoint(centerHex: Hexagon<T>, point: Point): Hexagon<T> {
+        var nearest = centerHex
+        var nearestDistance = Double.MAX_VALUE
+        var current: Hexagon<T>? = nearest // Start with center then check six neighbours
 
-    private fun refineHexagonByPixel(hexagon: Hexagon<T>, clickedPoint: Point): Hexagon<T> {
-        var refined: Hexagon<T> = hexagon
-        var smallestDistance = clickedPoint.distanceFrom(Point.fromPosition(refined.centerX, refined.centerY))
-        for (neighbor in getNeighborsOf(hexagon)) {
-            val currentDistance = clickedPoint.distanceFrom(Point.fromPosition(neighbor.centerX, neighbor.centerY))
-            if (currentDistance < smallestDistance) {
-                refined = neighbor
-                smallestDistance = currentDistance
+        var i = 0;
+        while(true) {
+            current?.let {
+                val currentDistance = point.distanceFrom(it.center)
+                when  {
+                    currentDistance < gridData.innerRadius -> return it // Shortcut if well inside bounds of current hex
+                    currentDistance < nearestDistance -> {
+                        // This covers points right in the corner between three hex's (not within innerRadius of any of them)
+                        // TODO In theory, we can shortcut if we have refined twice!
+                        nearest = it
+                        nearestDistance = currentDistance
+                    }
+                }
             }
+
+            if (i == 6) {
+                return nearest // No direct match, pick the nearest one
+            }
+            current = _getByCubeCoordinate(_getNeighborByIndex(centerHex, i++))
         }
-        return refined
     }
 
     companion object {

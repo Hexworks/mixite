@@ -7,8 +7,8 @@ import org.hexworks.mixite.core.api.contract.SatelliteData
 class TriangularGridLayoutStrategy : GridLayoutStrategy() {
 
     override fun fetchGridCoordinates(builder: HexagonalGridBuilder<out SatelliteData>): Iterable<CubeCoordinate> {
-        val coords = ArrayList<CubeCoordinate>()
         val gridSize = builder.getGridHeight()
+        val coords = ArrayList<CubeCoordinate>(gridSize * (gridSize + 1) / 2)
         for (gridZ in 0 until gridSize) {
             val endX = gridSize - gridZ
             for (gridX in 0 until endX) {
