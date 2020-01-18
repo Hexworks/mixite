@@ -42,16 +42,27 @@ class HexagonalGridCalculatorImpl<T : SatelliteData>(private val hexagonalGrid: 
 
     override fun calculateRingFrom(centerHexagon: Hexagon<T>, radius: Int): Set<Hexagon<T>> {
         val result = HashSet<Hexagon<T>>()
-        val neighborIndex = 0
-        var currentHexagon = centerHexagon
-        for (i in 0 until radius) {
-            val neighbor = hexagonalGrid.getNeighborByIndex(currentHexagon, neighborIndex)
-            if (neighbor.isPresent) {
-                currentHexagon = neighbor.get()
-            } else {
-                return result
+        val startingCoordinate = CubeCoordinate.fromCoordinates(
+                centerHexagon.gridX - radius,
+                centerHexagon.gridZ + radius
+        )
+        val startingHexagon = hexagonalGrid.getByCubeCoordinate(startingCoordinate)
+
+        if (startingHexagon.isPresent) {
+            var currentHexagon = startingHexagon.get()
+            for (i in 0 until 6) {
+                for (j in 0 until radius) {
+                    val neighbor = hexagonalGrid.getNeighborByIndex(currentHexagon, i)
+                    if (neighbor.isPresent) {
+                        currentHexagon = neighbor.get()
+                        result.add(currentHexagon)
+                    } else {
+                        return result
+                    }
+                }
             }
         }
+
         return result
     }
 

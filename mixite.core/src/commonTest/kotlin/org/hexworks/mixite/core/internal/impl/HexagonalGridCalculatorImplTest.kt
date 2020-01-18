@@ -169,12 +169,39 @@ class HexagonalGridCalculatorImplTest {
     @Test
     fun shouldProperlyCalculateRingWhenGivenValidParameters() {
         targetHex = HexagonStub(
-                gridX = 0,
+                gridX = 4,
                 gridY = 0,
-                gridZ = 0)
+                gridZ = 4)
 
-        target.calculateRingFrom(targetHex, 3)
+        val expected = HashSet<Hexagon<DefaultSatelliteData>>()
+
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(2, 7)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(3, 7)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(4, 7)).get())
+
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(5, 6)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(6, 5)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(7, 4)).get())
+
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(7, 3)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(7, 2)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(7, 1)).get())
+
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(6, 1)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(5, 1)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(4, 1)).get())
+
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(3, 2)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(2, 3)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(1, 4)).get())
+
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(1, 5)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(1, 6)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(1, 7)).get())
+
+        val actual = target.calculateRingFrom(targetHex, 3)
+
+        assertEquals(expected, actual)
     }
-
 
 }
