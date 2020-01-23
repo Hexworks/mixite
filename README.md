@@ -214,13 +214,13 @@ Pull requests are also welcome!*
 [herokurestlink]:http://hexameter-rest-example.herokuapp.com/
 [exampleprojectslink]:https://github.com/Hexworks/mixite.example/tree/master/mixite.example.swt
 
-[hexgridlayout]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGridLayout.kt
-[hexgridbuilder]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGridBuilder.kt
-[api]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api
-[hexgrid]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGrid.kt
-[hexgridcalc]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/HexagonalGridCalculator.kt
-[hex]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/Hexagon.kt
-[satdatlink]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/contract/SatelliteData.kt
-[defsatdatlink]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/defaults/DefaultSatelliteData.kt
-[hexdatstorlink]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/contract/HexagonDataStorage.kt
-[defhexdatstorlink]:mixite.core/core/src/main/kotlin/org/hexworks/mixite/core/api/defaults/DefaultHexagonDataStorage.kt
+[hexgridlayout]:mixite.core/src/commonMain/kotlin/org/hexworks/mixite/core/api/HexagonalGridLayout.kt
+[hexgridbuilder]:mixite.core/src/commonMain/kotlin/org/hexworks/mixite/core/api/HexagonalGridBuilder.kt
+[api]:mixite.core/src/commonMain/kotlin/org/hexworks/mixite/core/api
+[hexgrid]:mixite.core/src/commonMain/kotlin/org/hexworks/mixite/core/api/HexagonalGrid.kt
+[hexgridcalc]:mixite.core/src/commonMain/kotlin/org/hexworks/mixite/core/api/HexagonalGridCalculator.kt
+[hex]:mixite.core/src/commonMain/kotlin/org/hexworks/mixite/core/api/Hexagon.kt
+[satdatlink]:mixite.core/src/commonMain/kotlin/org/hexworks/mixite/core/api/contract/SatelliteData.kt
+[defsatdatlink]:mixite.core/src/commonMain/kotlin/org/hexworks/mixite/core/api/defaults/DefaultSatelliteData.kt
+[hexdatstorlink]:mixite.core/src/commonMain/kotlin/org/hexworks/mixite/core/api/contract/HexagonDataStorage.kt
+[defhexdatstorlink]:mixite.core/src/commonMain/kotlin/org/hexworks/mixite/core/api/defaults/DefaultHexagonDataStorage.kt
