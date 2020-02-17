@@ -40,6 +40,40 @@ class CoordinateConverter {
         fun convertOffsetCoordinatesToCubeZ(offsetX: Int, offsetY: Int, orientation: HexagonOrientation): Int {
             return if (HexagonOrientation.FLAT_TOP.equals(orientation)) offsetY - offsetX / 2 else offsetY
         }
+
+        /**
+         * Calculates the offset row based on a CubeCoordinate.
+         *
+         * @Param cubeCoordinate a cube coordinate
+         * @param orientation orientation
+         *
+         * @return offset row or y-value
+         */
+        @JvmStatic
+        fun convertCubeCoordinateToOffsetRow(coordinate: CubeCoordinate, orientation: HexagonOrientation): Int {
+            return if(HexagonOrientation.FLAT_TOP.equals(orientation)) {
+                coordinate.gridZ + (coordinate.gridX - (coordinate.gridX and 1)) / 2
+            } else {
+                coordinate.gridZ
+            }
+        }
+
+        /**
+         * Calculates the offset column based on a CubeCoordinate.
+         *
+         * @Param cubeCoordinate a cube coordinate
+         * @param orientation orientation
+         *
+         * @return offset column or x-value
+         */
+        @JvmStatic
+        fun convertCubeCoordinateToOffsetColumn(coordinate: CubeCoordinate, orientation: HexagonOrientation): Int {
+            return if(HexagonOrientation.FLAT_TOP.equals(orientation)) {
+                coordinate.gridX
+            } else {
+                coordinate.gridX + (coordinate.gridZ - (coordinate.gridZ and 1)) / 2
+            }
+        }
     }
 
 }
