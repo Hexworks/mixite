@@ -204,4 +204,67 @@ class HexagonalGridCalculatorImplTest {
         assertEquals(expected, actual)
     }
 
+    @Test
+    fun shouldProperlyCalculateRingWhenNearAnEdge() {
+        targetHex = HexagonStub(
+                gridX = 9,
+                gridY = -9,
+                gridZ = 0)
+
+        val expected = HashSet<Hexagon<DefaultSatelliteData>>()
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(8, 0)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(8, 1)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(9, 1)).get())
+
+        val actual = target.calculateRingFrom(targetHex, 1)
+        assertEquals(expected, actual)
+
+
+
+        targetHex = HexagonStub(
+                gridX = 0,
+                gridY = 0,
+                gridZ = 0)
+
+        expected.clear()
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(1, 0)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(0, 1)).get())
+
+        val newActual = target.calculateRingFrom(targetHex, 1)
+        assertEquals(expected, newActual)
+    }
+
+    @Test
+    fun shouldProperlyCalculateRingWhenCenterOffEdge() {
+        targetHex = HexagonStub(
+                gridX = 0,
+                gridY = 1,
+                gridZ = -1
+        )
+
+        val expected = HashSet<Hexagon<DefaultSatelliteData>>()
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(2, 0)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(1, 1)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(0, 2)).get())
+        expected.add(grid.getByCubeCoordinate(fromCoordinates(-1, 2)).get())
+
+        val actual =  target.calculateRingFrom(targetHex, 3)
+
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun shouldProperlyCalculateRingAtRadiusOne() {
+        targetHex = HexagonStub(
+                gridX = 4,
+                gridY = 4,
+                gridZ = 4)
+
+        val expected = 6
+
+        val actual = target.calculateRingFrom(targetHex, 1).size
+
+        assertEquals(expected, actual)
+    }
+
 }

@@ -90,6 +90,13 @@ interface HexagonalGrid<T : SatelliteData> {
     fun getByPixelCoordinate(coordinateX: Double, coordinateY: Double): Maybe<Hexagon<T>>
 
     /**
+     * Returns the coordinate of a neighbor of a Hexagon by its neighbor index.
+     *
+     * @return CubeCoordinate
+     */
+    fun getNeighborCoordinateByIndex(coordinate: CubeCoordinate, index: Int): CubeCoordinate
+
+    /**
      * Returns a neighbor of a Hexagon by its neighbor index.
      *
      * @return neighbor or empty Maybe if not applicable

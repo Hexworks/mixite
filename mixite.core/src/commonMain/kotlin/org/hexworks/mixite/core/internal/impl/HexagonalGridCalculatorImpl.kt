@@ -8,7 +8,7 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.round
 
-class HexagonalGridCalculatorImpl<T : SatelliteData>(private val hexagonalGrid: HexagonalGrid<T>) : HexagonalGridCalculator<T> {
+class HexagonalGridCalculatorImpl<T : SatelliteData>(override val hexagonalGrid: HexagonalGrid<T>) : HexagonalGridCalculator<T> {
 
     override fun calculateDistanceBetween(hex0: Hexagon<T>, hex1: Hexagon<T>): Int {
         val absX = abs(hex0.gridX - hex1.gridX)
@@ -42,23 +42,18 @@ class HexagonalGridCalculatorImpl<T : SatelliteData>(private val hexagonalGrid: 
 
     override fun calculateRingFrom(centerHexagon: Hexagon<T>, radius: Int): Set<Hexagon<T>> {
         val result = HashSet<Hexagon<T>>()
-        val startingCoordinate = CubeCoordinate.fromCoordinates(
+
+        var currentCoordinate = CubeCoordinate.fromCoordinates(
                 centerHexagon.gridX - radius,
                 centerHexagon.gridZ + radius
         )
-        val startingHexagon = hexagonalGrid.getByCubeCoordinate(startingCoordinate)
 
-        if (startingHexagon.isPresent) {
-            var currentHexagon = startingHexagon.get()
-            for (i in 0 until 6) {
-                for (j in 0 until radius) {
-                    val neighbor = hexagonalGrid.getNeighborByIndex(currentHexagon, i)
-                    if (neighbor.isPresent) {
-                        currentHexagon = neighbor.get()
-                        result.add(currentHexagon)
-                    } else {
-                        return result
-                    }
+        for (i in 0 until 6) {
+            for (j in 0 until radius) {
+                currentCoordinate = hexagonalGrid.getNeighborCoordinateByIndex(currentCoordinate, i)
+                val hexagon = hexagonalGrid.getByCubeCoordinate(currentCoordinate)
+                if (hexagon.isPresent) {
+                    result.add(hexagon.get())
                 }
             }
         }

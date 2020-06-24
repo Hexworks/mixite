@@ -20,6 +20,11 @@ import org.hexworks.mixite.core.api.contract.SatelliteData
 interface HexagonalGridCalculator<T : SatelliteData> {
 
     /**
+     * The hexagonal grid used for the calculations
+     */
+    val hexagonalGrid: HexagonalGrid<T>
+
+    /**
      * Calculates the distance (in hexagons) between two [Hexagon] objects on the grid.
      *
      * @param hex0 hex 0
