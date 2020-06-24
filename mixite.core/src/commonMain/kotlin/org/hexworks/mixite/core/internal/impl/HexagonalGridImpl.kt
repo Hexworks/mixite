@@ -135,6 +135,12 @@ class HexagonalGridImpl<T : SatelliteData>(builder: HexagonalGridBuilder<T>) : H
                     hexagon.gridZ + NEIGHBORS[index][NEIGHBOR_Z_INDEX]
             )
 
+    override fun getNeighborCoordinateByIndex(coordinate: CubeCoordinate, index: Int) =
+            CubeCoordinate.fromCoordinates(
+                    coordinate.gridX + NEIGHBORS[index][NEIGHBOR_X_INDEX],
+                    coordinate.gridZ + NEIGHBORS[index][NEIGHBOR_Z_INDEX]
+            )
+
     override fun getNeighborByIndex(hexagon: Hexagon<T>, index: Int) =
             getByCubeCoordinate(_getNeighborByIndex(hexagon, index))
 
