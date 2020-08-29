@@ -23,4 +23,8 @@ class TriangularGridLayoutStrategy : GridLayoutStrategy() {
         val result = gridHeight == gridWidth
         return superResult && result
     }
+
+    override fun getName(): String {
+        return "TRIANGULAR"
+    }
 }

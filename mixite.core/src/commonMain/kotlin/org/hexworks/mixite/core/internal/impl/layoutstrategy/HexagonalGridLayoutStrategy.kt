@@ -36,4 +36,8 @@ class HexagonalGridLayoutStrategy : GridLayoutStrategy() {
         return result && superResult
     }
 
+    override fun getName(): String {
+        return "HEXAGONAL"
+    }
+
 }

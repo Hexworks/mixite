@@ -52,6 +52,7 @@ Hexagonal grids come in **flat topped** and **pointy topped** shapes. The grid c
  - Triangular: the width and height of a this layout has to be equal.
  - Rectangular: no special rules
  - Trapezoid: no special rules
+ - Custom: your own implementation of [`GridLayoutStrategy`][gridlayoutstrategylink]
 
 All layouts have *width* and *height* values of at least **1**.
 You can consult [HexagonalGridLayout][hexgridlayout] if you need further details.
@@ -224,3 +225,4 @@ Pull requests are also welcome!*
 [defsatdatlink]:mixite.core/src/commonMain/kotlin/org/hexworks/mixite/core/api/defaults/DefaultSatelliteData.kt
 [hexdatstorlink]:mixite.core/src/commonMain/kotlin/org/hexworks/mixite/core/api/contract/HexagonDataStorage.kt
 [defhexdatstorlink]:mixite.core/src/commonMain/kotlin/org/hexworks/mixite/core/api/defaults/DefaultHexagonDataStorage.kt
+[gridlayoutstrategylink]:mixite.core/src/commonMain/kotlin/org/hexworks/mixite/core/api/GridLayoutStrategy.kt

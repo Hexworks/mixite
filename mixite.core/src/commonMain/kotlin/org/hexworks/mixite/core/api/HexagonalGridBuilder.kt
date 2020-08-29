@@ -1,7 +1,6 @@
 package org.hexworks.mixite.core.api
 
 import org.hexworks.mixite.core.api.HexagonOrientation.POINTY_TOP
-import org.hexworks.mixite.core.api.HexagonalGridLayout.RECTANGULAR
 import org.hexworks.mixite.core.api.contract.HexagonDataStorage
 import org.hexworks.mixite.core.api.contract.SatelliteData
 import org.hexworks.mixite.core.api.defaults.DefaultHexagonDataStorage
@@ -9,6 +8,7 @@ import org.hexworks.mixite.core.internal.GridData
 import org.hexworks.mixite.core.internal.impl.HexagonalGridCalculatorImpl
 import org.hexworks.mixite.core.internal.impl.HexagonalGridImpl
 import org.hexworks.mixite.core.internal.impl.layoutstrategy.GridLayoutStrategy
+import org.hexworks.mixite.core.internal.impl.layoutstrategy.RectangularGridLayoutStrategy
 
 /**
  *
@@ -28,10 +28,10 @@ class HexagonalGridBuilder<T : SatelliteData> {
     private var radius: Double = 0.toDouble()
     private val hexagonDataStorage: HexagonDataStorage<T> = DefaultHexagonDataStorage()
     private var orientation = POINTY_TOP
-    private var gridLayout = RECTANGULAR
+    private var gridLayout : GridLayoutStrategy = RectangularGridLayoutStrategy()
 
     val gridLayoutStrategy: GridLayoutStrategy
-        get() = gridLayout.gridLayoutStrategy
+        get() = gridLayout
 
     /**
      * Returns the GridData.
@@ -136,15 +136,27 @@ class HexagonalGridBuilder<T : SatelliteData> {
     }
 
     /**
-     * Sets the [HexagonalGridLayout] which will be used when creating the [HexagonalGrid].
+     * Sets the [GridLayoutStrategy] which will be used when creating the [HexagonalGrid].
      * If it is not set <pre>RECTANGULAR</pre> will be assumed.
      *
      * @param gridLayout layout
      *
      * @return this [HexagonalGridBuilder].
      */
-    fun setGridLayout(gridLayout: HexagonalGridLayout): HexagonalGridBuilder<T> = also {
+    fun setGridLayout(gridLayout: GridLayoutStrategy): HexagonalGridBuilder<T> = also {
         this.gridLayout = gridLayout
+    }
+
+    /**
+     * Sets the [GridLayoutStrategy] which will be used when creating the [HexagonalGrid], based on an existing
+     * [HexagonalGridLayout]. If it is not set <pre>RECTANGULAR</pre> will be assumed.
+     *
+     * @param gridLayout layout
+     *
+     * @return this [HexagonalGridBuilder].
+     */
+    fun setGridLayout(gridLayout: HexagonalGridLayout): HexagonalGridBuilder<T> = also {
+        this.gridLayout = gridLayout.gridLayoutStrategy
     }
 
     private fun checkParameters() {
@@ -152,7 +164,7 @@ class HexagonalGridBuilder<T : SatelliteData> {
             throw IllegalStateException("Radius must be greater than 0.")
         }
         if (!gridLayout.checkParameters(gridHeight, gridWidth)) {
-            throw IllegalStateException("Width: " + gridWidth + " and height: " + gridHeight + " is not valid for: " + gridLayout.name + " layout.")
+            throw IllegalStateException("Width: " + gridWidth + " and height: " + gridHeight + " is not valid for: " + gridLayout.getName() + " layout.")
         }
     }
 }

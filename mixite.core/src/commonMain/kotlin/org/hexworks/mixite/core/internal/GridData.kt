@@ -2,6 +2,7 @@ package org.hexworks.mixite.core.internal
 
 import org.hexworks.mixite.core.api.HexagonOrientation
 import org.hexworks.mixite.core.api.HexagonalGridLayout
+import org.hexworks.mixite.core.internal.impl.layoutstrategy.GridLayoutStrategy
 import kotlin.math.sqrt
 
 /**
@@ -9,7 +10,7 @@ import kotlin.math.sqrt
  * [org.hexworks.mixite.core.api.HexagonalGrid] and the HexagonalGrid's own immutable properties.
  */
 class GridData(val orientation: HexagonOrientation,
-                    val gridLayout: HexagonalGridLayout,
+                    val gridLayout: GridLayoutStrategy,
                     val radius: Double,
                     val gridWidth: Int,
                     val gridHeight: Int) {

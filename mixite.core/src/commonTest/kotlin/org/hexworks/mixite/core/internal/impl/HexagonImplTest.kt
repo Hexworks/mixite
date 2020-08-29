@@ -113,8 +113,8 @@ class HexagonImplTest {
         private const val EXPECTED_FLAT_CENTER_X = 40
         private const val EXPECTED_POINTY_CENTER_Y = 55
         private const val EXPECTED_FLAT_CENTER_Y = 78
-        private val TEST_POINTY_DATA = GridData(POINTY_TOP, RECTANGULAR, TEST_RADIUS, 1, 1)
-        private val TEST_FLAT_DATA = GridData(FLAT_TOP, RECTANGULAR, TEST_RADIUS, 1, 1)
+        private val TEST_POINTY_DATA = GridData(POINTY_TOP, RECTANGULAR.gridLayoutStrategy, TEST_RADIUS, 1, 1)
+        private val TEST_FLAT_DATA = GridData(FLAT_TOP, RECTANGULAR.gridLayoutStrategy, TEST_RADIUS, 1, 1)
         private val TEST_COORDINATE = fromCoordinates(TEST_GRID_X, TEST_GRID_Z)
         private val TEST_SATELLITE_DATA = DefaultSatelliteData()
         private val TEST_SATELLITE_DATA_MAP = DefaultHexagonDataStorage<DefaultSatelliteData>()

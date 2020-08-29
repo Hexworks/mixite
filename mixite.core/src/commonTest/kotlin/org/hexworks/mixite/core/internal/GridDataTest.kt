@@ -75,6 +75,6 @@ class GridDataTest {
         private const val GRID_WIDTH = 30
         private const val GRID_HEIGHT = 30
         private val ORIENTATION = FLAT_TOP
-        private val GRID_LAYOUT = RECTANGULAR
+        private val GRID_LAYOUT = RECTANGULAR.gridLayoutStrategy
     }
 }
