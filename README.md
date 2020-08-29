@@ -105,20 +105,20 @@ You can also use the latest preview versions, more info [here](https://jitpack.i
 You can use the [HexagonalGridBuilder][hexgridbuilder] to create a [HexagonalGrid][hexgrid]:
 
 ```java
-HexagonalGridBuilder builder = new HexagonalGridBuilder()
+HexagonalGridBuilder<DefaultSatelliteData> builder = new HexagonalGridBuilder<>()
   .setGridHeight(9)
   .setGridWidth(9)
   .setGridLayout(HexagonalGridLayout.RECTANGULAR)
   .setOrientation(HexagonOrientation.FLAT_TOP)
   .setRadius(30.0);
-HexagonalGrid grid = builder.build();
+HexagonalGrid<DefaultSatelliteData> grid = builder.build();
 ```
 
 You can also use it to create a [HexagonalGridCalculator][hexgridcalc] for you which
 supports advanced operations on [HexagonalGrid][hexgrid]s:
 
 ```java
-HexagonalGridCalculator calc = builder.buildCalculatorFor(grid);
+HexagonalGridCalculator<DefaultSatelliteData> calc = builder.buildCalculatorFor(grid);
 calc.calculateDistanceBetween(sourceHex, targetHex)
 ```
 
@@ -127,7 +127,7 @@ calc.calculateDistanceBetween(sourceHex, targetHex)
 Method `Grid.getHexagons` returns an iterable collection of hexagons. Each `Point` represents a coordinate in 2D space that can
 be transformed for rendering.
 ```java
-for (Hexagon hexagon : grid.getHexagons()) {
+for (Hexagon<DefaultSatelliteData> hexagon : grid.getHexagons()) {
   for(Point p : hexagon.getPoints()) {
     // Do you stuff with point.coordinateX, point.coordinateY
   }
