@@ -4,20 +4,19 @@ import org.hexworks.mixite.core.api.*
 import org.hexworks.mixite.core.api.CubeCoordinate.Companion.fromCoordinates
 import org.hexworks.mixite.core.api.HexagonalGridLayout.RECTANGULAR
 import org.hexworks.mixite.core.api.defaults.DefaultSatelliteData
+import org.hexworks.mixite.core.internal.impl.layoutstrategy.RectangularGridLayoutStrategy
 import kotlin.test.*
 
-class HexagonalGridImplTest {
+abstract class HexagonalGridImplTest {
 
-    private lateinit var target: HexagonalGrid<DefaultSatelliteData>
+    internal lateinit var target: HexagonalGrid<DefaultSatelliteData>
     private lateinit var builder: HexagonalGridBuilder<DefaultSatelliteData>
+
+    abstract fun getBuilder() : HexagonalGridBuilder<DefaultSatelliteData>
 
     @BeforeTest
     fun setUp() {
-        builder = HexagonalGridBuilder<DefaultSatelliteData>()
-                .setGridHeight(GRID_HEIGHT)
-                .setGridWidth(GRID_WIDTH)
-                .setRadius(RADIUS.toDouble())
-                .setOrientation(ORIENTATION)
+        builder = getBuilder()
         target = builder.build()
     }
 
@@ -37,24 +36,7 @@ class HexagonalGridImplTest {
     }
 
     @Test
-    fun shouldReturnProperHexagonsWhenEachHexagonIsTestedInAGivenGrid() {
-        val hexagons = target.hexagons
-        val expectedCoordinates = HashSet<String>()
-        for (x in 0 until GRID_WIDTH) {
-            for (y in 0 until GRID_HEIGHT) {
-                val gridX = CoordinateConverter.convertOffsetCoordinatesToCubeX(x, y, ORIENTATION)
-                val gridZ = CoordinateConverter.convertOffsetCoordinatesToCubeZ(x, y, ORIENTATION)
-                expectedCoordinates.add("$gridX,$gridZ")
-            }
-        }
-        var count = 0
-        for (hexagon in hexagons) {
-            expectedCoordinates.remove("${hexagon.gridX},${hexagon.gridZ}")
-            count++
-        }
-        assertEquals(100, count)
-        assertTrue(expectedCoordinates.isEmpty())
-    }
+    abstract fun shouldReturnProperHexagonsWhenEachHexagonIsTestedInAGivenGrid()
 
     @Test
     fun shouldReturnProperHexagonsWhenGetHexagonsByAxialRangeIsCalled() {
@@ -182,19 +164,10 @@ class HexagonalGridImplTest {
     }
 
     @Test
-    fun shouldReturnProperNeighborsOfHexagonWhenHexIsOnTheEdge() {
-        val hex = target.getByCubeCoordinate(fromCoordinates(5, 9)).get()
-        val expected = HashSet<Hexagon<DefaultSatelliteData>>()
-        expected.add(target.getByCubeCoordinate(fromCoordinates(5, 8)).get())
-        expected.add(target.getByCubeCoordinate(fromCoordinates(4, 9)).get())
-        val actual = target.getNeighborsOf(hex)
-        assertEquals(expected, actual)
-    }
+    abstract fun shouldReturnProperNeighborsOfHexagonWhenHexIsOnTheEdge()
 
     @Test
-    fun shouldProperlyReturnGridLayoutWhenGetGridLayoutIsCalled() {
-        assertEquals(RECTANGULAR, target.gridData.gridLayout)
-    }
+    abstract fun shouldProperlyReturnGridLayoutWhenGetGridLayoutIsCalled()
 
     @Test
     fun shouldProperlyReturnSharedHexagonDataWhenGetSharedHexagonDataIsCalled() {
@@ -216,13 +189,13 @@ class HexagonalGridImplTest {
 
     companion object {
 
-        private const val RADIUS = 30
-        private const val GRID_WIDTH = 10
-        private const val GRID_HEIGHT = 10
+        internal const val RADIUS = 30
+        internal const val GRID_WIDTH = 10
+        internal const val GRID_HEIGHT = 10
         private const val GRID_X_FROM = 2
         private const val GRID_X_TO = 4
         private const val GRID_Z_FROM = 3
         private const val GRID_Z_TO = 5
-        private val ORIENTATION = HexagonOrientation.POINTY_TOP
+        internal val ORIENTATION = HexagonOrientation.POINTY_TOP
     }
 }

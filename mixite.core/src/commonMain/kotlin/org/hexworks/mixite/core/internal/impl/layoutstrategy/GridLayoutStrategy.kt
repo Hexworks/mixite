@@ -34,4 +34,11 @@ abstract class GridLayoutStrategy {
         return gridHeight > 0 && gridWidth > 0
     }
 
+    /**
+     * Returns the name of this strategy.
+     *
+     * @return name
+     */
+    abstract fun getName() : String
+
 }

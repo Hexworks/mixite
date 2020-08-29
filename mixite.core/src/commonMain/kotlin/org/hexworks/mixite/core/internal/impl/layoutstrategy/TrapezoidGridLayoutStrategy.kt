@@ -19,4 +19,8 @@ class TrapezoidGridLayoutStrategy : GridLayoutStrategy() {
     override fun checkParameters(gridHeight: Int, gridWidth: Int): Boolean {
         return checkCommonCase(gridHeight, gridWidth)
     }
+
+    override fun getName(): String {
+        return "TRAPEZOID"
+    }
 }
