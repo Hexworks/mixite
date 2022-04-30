@@ -100,6 +100,35 @@ class HexagonalGridCalculatorImplTest {
         }
     }
 
+    /**
+     * This test specifically targets a bug that was found in the
+     * Python port.
+     */
+    @Test
+    fun shouldProperlyCalculateLineWithFlatTop() {
+
+        val localBuilder = HexagonalGridBuilder<DefaultSatelliteData>()
+            .setGridHeight(10)
+            .setGridWidth(10)
+            .setGridLayout(HexagonalGridLayout.RECTANGULAR)
+            .setOrientation(HexagonOrientation.FLAT_TOP)
+            .setRadius(35.0)
+        val localGrid = localBuilder.build()
+        val localTarget = localBuilder.buildCalculatorFor(localGrid)
+
+        val actual = localTarget.drawLine(localGrid.getByCubeCoordinate(fromCoordinates(6, 4)).get(),
+            localGrid.getByCubeCoordinate(fromCoordinates(7, -2)).get())
+        assertEquals(expected = listOf(
+            localGrid.getByCubeCoordinate(fromCoordinates(6, 4)).get(),
+            localGrid.getByCubeCoordinate(fromCoordinates(6, 3)).get(),
+            localGrid.getByCubeCoordinate(fromCoordinates(6, 2)).get(),
+            localGrid.getByCubeCoordinate(fromCoordinates(6, 1)).get(),
+            localGrid.getByCubeCoordinate(fromCoordinates(7, 0)).get(),
+            localGrid.getByCubeCoordinate(fromCoordinates(7, -1)).get(),
+            localGrid.getByCubeCoordinate(fromCoordinates(7, -2)).get()),
+            actual = actual)
+    }
+
     @Test
     fun shouldCheckForVisibilityCorrectly() {
 
