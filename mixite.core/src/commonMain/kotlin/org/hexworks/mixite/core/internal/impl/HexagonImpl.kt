@@ -35,10 +35,6 @@ class HexagonImpl<T : SatelliteData> internal constructor(
     override val gridZ: Int
         get() = cubeCoordinate.gridZ
 
-    override val centerX = center.coordinateX
-
-    override val centerY = center.coordinateY
-
     override val satelliteData: Maybe<T>
         get() = hexagonDataStorage.getSatelliteDataBy(cubeCoordinate)
 

@@ -64,20 +64,6 @@ interface Hexagon<T : SatelliteData> {
     val center: Point
 
     /**
-     * Returns the center **x** (pixel) coordinate of this [Hexagon].
-     */
-    @Deprecated("use center")
-    val centerX: Double
-
-    /**
-     * Returns the center **y** (pixel) coordinate of this [Hexagon].
-     *
-     * @return center y
-     */
-    @Deprecated("use center")
-    val centerY: Double
-
-    /**
      * Returns this [Hexagon]'s satellite data.
      */
     val satelliteData: Maybe<T>
