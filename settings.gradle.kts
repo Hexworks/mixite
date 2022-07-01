@@ -1,4 +1,4 @@
-rootProject.name = "mixite"
+rootProject.name = "mixite2"
 
 pluginManagement {
     repositories {
@@ -6,5 +6,5 @@ pluginManagement {
     }
 }
 
-include(":mixite.core")
+include(":mixite2.core")
 //include(":mixite.benchmarks")
