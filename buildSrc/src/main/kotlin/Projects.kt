@@ -3,6 +3,6 @@ import org.gradle.kotlin.dsl.project
 
 object Projects {
 
-    inline val DependencyHandlerScope.mixiteCore get() = project(":mixite.core")
+    inline val DependencyHandlerScope.mixiteCore get() = project(":mixite2.core")
 
 }
