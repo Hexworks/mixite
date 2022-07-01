@@ -2,11 +2,17 @@ package org.hexworks.mixite.core.internal.impl
 
 import org.hexworks.mixite.core.api.*
 import org.hexworks.mixite.core.api.CubeCoordinate.Companion.fromCoordinates
-import org.hexworks.mixite.core.api.HexagonalGridLayout.RECTANGULAR
 import org.hexworks.mixite.core.api.defaults.DefaultSatelliteData
-import org.hexworks.mixite.core.internal.impl.layoutstrategy.RectangularGridLayoutStrategy
-import kotlin.test.*
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+import kotlin.test.assertFalse
 
+/**
+ * This class does not actually run its own tests! This is a base class,
+ * and the subclasses each run the inherited tests.
+ */
 abstract class HexagonalGridImplTest {
 
     internal lateinit var target: HexagonalGrid<DefaultSatelliteData>
