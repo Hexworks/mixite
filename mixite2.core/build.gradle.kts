@@ -43,3 +43,15 @@ kotlin {
         }
     }
 }
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.hexworks.mixite2"
+            artifactId = "mixite2.core-jvm"
+            version = "1.0.1"
+
+            from(components["kotlin"])
+        }
+    }
+}
