@@ -9,3 +9,8 @@ allprojects {
 subprojects {
     apply<MavenPublishPlugin>()
 }
+
+buildscript {
+    dependencies {
+    }
+}
