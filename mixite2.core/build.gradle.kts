@@ -2,6 +2,7 @@ import Libs.cobaltDatatypes
 
 plugins {
     kotlinMultiplatform
+    "maven-publish"
 }
 
 group = "org.hexworks.mixite2"
