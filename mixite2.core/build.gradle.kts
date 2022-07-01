@@ -4,7 +4,7 @@ plugins {
     kotlinMultiplatform
 }
 
-group = "org.hexworks.mixite"
+group = "org.hexworks.mixite2"
 
 kotlin {
     sourceSets {
